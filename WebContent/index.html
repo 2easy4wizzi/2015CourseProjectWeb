@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body>
+
+<div ng-controller="loginCtrl">
+
+welocme! <br>
+<form action="/" id="myLogin">
+
+username :<input type="text" id="username" ng-model="username"> <br>
+password :<input type="password" id="password" ng-model="password"><br>
+<button type="button" ng-click="submit()">Login</button>
+</form>
+<br>
+</div>
+ 
+<script>
+.controller('loginCtrl',function($scope,$http){
+	&scope.submit = function(){
+		var uname = $scope.username;
+		var password = $scope.password;
+	};
+});
+	</script> 
+	
+</body>
+</html>
