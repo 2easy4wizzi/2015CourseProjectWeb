@@ -6,8 +6,8 @@ public interface DBConstants {
 	//public final Type CUSTOMER_COLLECTION = new TypeToken<Collection<Customer>>() {}.getType();
 	//derby constants
 	//test for github
-	public final String DB_NAME = "ExampleDB";
-	public final String DB_DATASOURCE = "java:comp/env/jdbc/ExampleDatasource";
+	public final String DB_NAME = "webGiladDB";
+	public final String DB_DATASOURCE = "java:comp/env/jdbc/webGiladDatasource";
 	public final String PROTOCOL = "jdbc:derby:"; 
 	//sql statements
 	public final String CREATE_USERS_TABLE = "CREATE TABLE CUSTOMER(Name varchar(100) NOT NULL,"

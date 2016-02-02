@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("hii");
+		System.out.println("kabab1");
 		
 		
 		try{
@@ -64,6 +64,7 @@ public class LoginServlet extends HttpServlet {
 		//commit update
 		conn.commit();
 		//close statements
+		System.out.println("kabab2");
 		pstmt.close();
 		//close connection
 		conn.close();
@@ -73,45 +74,6 @@ public class LoginServlet extends HttpServlet {
 		response.sendError(500);//internal server error
 	}
 
-	try {
-			Context context = new InitialContext();
-			BasicDataSource ds = (BasicDataSource)context.lookup(DBConstants.DB_DATASOURCE);
-			Connection conn = ds.getConnection();
-			Statement stmt =  conn.createStatement();
-			ResultSet rs = (ResultSet) stmt.executeQuery(DBConstants.SELECT_ALL_USERS_STMT);
-			int i = 0;
-			while(rs.next()){
-				
-				String name = rs.getString("Name");
-				String pass = rs.getString("Password");
-				System.out.println(++i + " user name:" + name + " password:" + pass);
-			}
-			
-			
-			PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_USER_BY_NAME_STMT);
-			ps.setString(1,"klober");
-			rs = ps.executeQuery();
-			
-	
-			//psFindIfExists.setString(1,request.getParameter("usernameA"));
-			System.out.println("findinding ::::");
-			i = 0;
-			while(rs.next()){
-				
-				String name = rs.getString("Name");
-				String pass = rs.getString("Password");
-				System.out.println(++i + " user name:" + name + " password:" + pass);
-			}
-			/*if (!resultSet.next() ) {
-			    System.out.println("no data");
-			}*/
-			rs.close();
-			stmt.close();
-			conn.close();
-	} catch (SQLException | NamingException e) {
-		getServletContext().log("Error while closing connection", e);
-		response.sendError(500);//internal server error
-	}
 	response.sendRedirect("index.html");
 	response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
