@@ -3,25 +3,44 @@
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <body>
 
-<div ng-controller="loginCtrl">
-
-welocme! <br>
-<form action="/" id="myLogin">
-
-username :<input type="text" id="username" ng-model="username"> <br>
-password :<input type="password" id="password" ng-model="password"><br>
-<button type="button" ng-click="submit()">Login</button>
-</form>
-<br>
+<div ng-app="angApp">
+  <div class="admin-login" ng-controller="AdminCtrl" >
+     <h2>Welcome</h2>
+    <input type="text" id="txtUserAng" placeholder="User Name" ng-model="U_Name" /><br>
+    <input type="password" id="txtPWDAng" placeholder="Password" ng-model="U_PWD"  /><br>
+    <input type="button" id="login" value="login" ng-click="Login()" />
+  </div>
 </div>
  
 <script>
-.controller('loginCtrl',function($scope,$http){
-	&scope.submit = function(){
-		var uname = $scope.username;
-		var password = $scope.password;
-	};
-});
+var adminModule = angular.module('angApp', []);
+//Defining a Angular Controller
+adminModule.controller('AdminCtrl', ['$scope', '$http',
+function ($scope, $http) {
+
+        $scope.Login=function (U_Name, U_PWD) {
+     debugger;
+     //Defining the $http service for login the admin user
+     $http({
+         method: 'POST',
+         //url: '/Admin/IsAuthenticate',
+         data: { User_Name: U_Name, User_PWD: U_PWD }
+     }).success(function (result) {
+
+         if (result == true) {
+             alert('user is valid');
+         }
+         else {
+             alert('unauthorised access!');
+         }
+     })
+         .error(function (error) {
+             //Showing error message 
+             $scope.status = 'Unable to connect' + error.message;
+         });
+ }
+    $scope.Login();
+    }]);
 	</script> 
 	
 </body>

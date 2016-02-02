@@ -15,9 +15,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 
 import constants.DBConstants;
+
 
 /**
  * Servlet implementation class LoginServlet
@@ -46,7 +48,30 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		try {
+		
+		try{
+		Context context = new InitialContext();
+		BasicDataSource ds = (BasicDataSource)context.lookup(DBConstants.DB_DATASOURCE);
+		Connection conn = ds.getConnection();
+		PreparedStatement pstmt = conn.prepareStatement(DBConstants.INSERT_USER_STMT);
+		
+		pstmt.setString(1,request.getParameter("usernameA"));
+		pstmt.setString(2,request.getParameter("passwordA"));
+		pstmt.executeUpdate();
+		
+		//commit update
+		conn.commit();
+		//close statements
+		pstmt.close();
+		//close connection
+		conn.close();
+		
+	} catch (SQLException | NamingException e) {
+		getServletContext().log("Error while closing connection", e);
+		response.sendError(500);//internal server error
+	}
+
+	try {
 			Context context = new InitialContext();
 			BasicDataSource ds = (BasicDataSource)context.lookup(DBConstants.DB_DATASOURCE);
 			Connection conn = ds.getConnection();
@@ -86,9 +111,7 @@ public class LoginServlet extends HttpServlet {
 		response.sendError(500);//internal server error
 	}
 	response.sendRedirect("index.html");
-		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		//doGet(request, response);
+	response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 }
