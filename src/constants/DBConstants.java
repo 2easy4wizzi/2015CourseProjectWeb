@@ -11,12 +11,11 @@ public interface DBConstants {
 	public final String PROTOCOL = "jdbc:derby:"; 
 	//sql statements
 	public final String CREATE_USERS_TABLE = "CREATE TABLE CUSTOMER(Name varchar(10) NOT NULL,"
-			+ "Password varchar(8) NOT NULL),"
-			+ "Nickname varchar(20) NOT NULL),"
-			+ "Description varchar(50)),"
-			+ "Photo varchar(200))";
+																		+ "Password varchar(8) NOT NULL,"
+																		+ "Nickname varchar(20) NOT NULL,"
+																		+ "Description varchar(50),"
+																		+ "Photo varchar(200))";
 	public final String INSERT_USER_STMT = "INSERT INTO CUSTOMER VALUES(?,?,?,?,?)";
 	public final String SELECT_ALL_USERS_STMT = "SELECT * FROM USER";
-	public final String SELECT_USER_BY_NAME_STMT = "SELECT * FROM USER "
-			+ "WHERE Name=?";
+	public final String SELECT_USER_BY_NAME_STMT = "SELECT * FROM USER " + "WHERE Name=?";
 }
