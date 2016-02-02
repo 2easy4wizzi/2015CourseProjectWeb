@@ -1,49 +1,56 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+<head>
+
+
+</head>	
+
+
+
 <body>
-
-<div ng-app="angApp">
-  <div class="admin-login" ng-controller="AdminCtrl" >
-     <h2>Welcome</h2>
-    <input type="text" id="txtUserAng" placeholder="User Name" ng-model="U_Name" /><br>
-    <input type="password" id="txtPWDAng" placeholder="Password" ng-model="U_PWD"  /><br>
-    <input type="button" id="login" value="login" ng-click="Login()" />
-  </div>
-</div>
- 
-<script>
-var adminModule = angular.module('angApp', []);
-//Defining a Angular Controller
-adminModule.controller('AdminCtrl', ['$scope', '$http',
-function ($scope, $http) {
-
-        $scope.Login=function () {
-     debugger;
-     //Defining the $http service for login the admin user
-     $http({
-         method: 'POST',
-         url: 'http://localhost:8080/webGilad/LoginServlet',
-         params: { username: $scope.U_Name, password: $scope.U_PWD },
-		headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-
-     }).success(function (result) {
-
-         if (result == true) {
-             alert('user is valid');
-         }
-         else {
-             alert('unauthorised access!');
-         }
-     })
-         .error(function (error) {
-             //Showing error message 
-             $scope.status = 'Unable to connect' + error.message;
-         });
- }
-   // $scope.Login();
-    }]);
-	</script> 
+	<div ng-app="angApp">
+	  <div class="admin-login" ng-controller="AdminCtrl" >
+	    <h2>Welcome</h2>
+	    <input type="text"     id="txtUserAng" placeholder="User Name" ng-model="U_Name"    /><br>
+	    <input type="password" id="txtPWDAng"  placeholder="Password"  ng-model="U_PWD"     /><br>
+	    <input type="button"   id="login"      value="login"           ng-click="Login()"   /><br>
+	    <input type="button"   id="Register"   value="Register"        ng-click="Register()"/><br>
+	  </div>
+	</div>
+	 
+	<script>
+	var adminModule = angular.module('angApp', []);
+	//Defining a Angular Controller
+	adminModule.controller('AdminCtrl', ['$scope', '$http',
+	function ($scope, $http) {
 	
+	        $scope.Login=function () {
+	     debugger;
+	     //Defining the $http service for login the admin user
+	     $http({
+	         method: 'POST',
+	         url: 'http://localhost:8080/webGilad/LoginServlet',
+	         params: { username: $scope.U_Name, password: $scope.U_PWD },
+			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	
+	     }).success(function (result) {
+	
+	         if (result == true) {
+	             alert('user is valid');
+	         }
+	         else {
+	             alert('unauthorised access!');
+	         }
+	     })
+	         .error(function (error) {
+	             //Showing error message 
+	             $scope.status = 'Unable to connect' + error.message;
+	         });
+	 }
+	   // $scope.Login();
+	    }]);
+		</script> 
 </body>
 </html>
