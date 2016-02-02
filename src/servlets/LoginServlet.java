@@ -57,8 +57,8 @@ public class LoginServlet extends HttpServlet {
 		Connection conn = ds.getConnection();
 		PreparedStatement pstmt = conn.prepareStatement(DBConstants.INSERT_USER_STMT);
 		
-		pstmt.setString(1,request.getParameter("usernameA"));
-		pstmt.setString(2,request.getParameter("passwordA"));
+		pstmt.setString(1,request.getParameter("username"));
+		pstmt.setString(2,request.getParameter("password"));
 		pstmt.executeUpdate();
 		
 		//commit update
