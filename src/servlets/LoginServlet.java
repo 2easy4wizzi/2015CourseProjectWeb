@@ -48,9 +48,9 @@ public class LoginServlet extends HttpServlet
 			
 			pstmt.setString(1,request.getParameter("username"));
 			pstmt.setString(2,request.getParameter("password"));
-			pstmt.setString(2,request.getParameter("nickName"));
-			pstmt.setString(2,request.getParameter("description"));
-			pstmt.setString(2,request.getParameter("photo"));
+			pstmt.setString(3,request.getParameter("nickName"));
+			pstmt.setString(4,request.getParameter("description"));
+			pstmt.setString(5,request.getParameter("photo"));
 			pstmt.executeUpdate();
 			
 			conn.commit();

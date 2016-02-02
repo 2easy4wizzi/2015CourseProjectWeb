@@ -34,7 +34,9 @@ angular.module('loginAndRegister', [])
 			 {
 		         method: 'POST',
 		         url: 'http://localhost:8080/webGilad/LoginServlet',
-		         params: { username: $scope.U_Name, password: $scope.U_PWD, nickName: &scope.U_NickMane, description: $scope.U_Description, photo: $scope.U_Photo },
+		         params: { username: $scope.U_Name, password: $scope.U_PWD, 
+		                   nickName: $scope.U_NickMane, description: $scope.U_Description,
+		                   photo: $scope.U_Photo },
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		     })
 		     .success(function (result) 
