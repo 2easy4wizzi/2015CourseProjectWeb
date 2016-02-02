@@ -5,6 +5,7 @@ public interface DBConstants {
 	public final String USERS = "users";
 	//public final Type CUSTOMER_COLLECTION = new TypeToken<Collection<Customer>>() {}.getType();
 	//derby constants
+	//test for github
 	public final String DB_NAME = "ExampleDB";
 	public final String DB_DATASOURCE = "java:comp/env/jdbc/ExampleDatasource";
 	public final String PROTOCOL = "jdbc:derby:"; 
