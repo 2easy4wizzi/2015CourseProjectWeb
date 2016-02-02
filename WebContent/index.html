@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en-US">
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
 <head>
-
-
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="loginAndRegister.js"></script> 
 </head>	
 
 
 
 <body>
-	<div ng-app="angApp">
+
+
+	<div ng-app="loginAndRegister">
 	  <div class="admin-login" ng-controller="AdminCtrl" >
 	    <h2>Welcome</h2>
 	    <input type="text"     id="txtUserAng" placeholder="User Name" ng-model="U_Name"    /><br>
@@ -20,37 +21,6 @@
 	  </div>
 	</div>
 	 
-	<script>
-	var adminModule = angular.module('angApp', []);
-	//Defining a Angular Controller
-	adminModule.controller('AdminCtrl', ['$scope', '$http',
-	function ($scope, $http) {
 	
-	        $scope.Login=function () {
-	     debugger;
-	     //Defining the $http service for login the admin user
-	     $http({
-	         method: 'POST',
-	         url: 'http://localhost:8080/webGilad/LoginServlet',
-	         params: { username: $scope.U_Name, password: $scope.U_PWD },
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-	
-	     }).success(function (result) {
-	
-	         if (result == true) {
-	             alert('user is valid');
-	         }
-	         else {
-	             alert('unauthorised access!');
-	         }
-	     })
-	         .error(function (error) {
-	             //Showing error message 
-	             $scope.status = 'Unable to connect' + error.message;
-	         });
-	 }
-	   // $scope.Login();
-	    }]);
-		</script> 
 </body>
 </html>
