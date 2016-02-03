@@ -18,15 +18,16 @@ angular.module('loginAndRegister', [])
 		     {
 		         if (result == true) 
 		         {
-		             alert('user is valid');
+		             alert('login success');
 		         }
 		         else 
 		         {
-		             alert('unauthorised access!');
+		             alert('login failed');
 		         }
 		     })
 		     .error(function (error) 
 		     {
+		    	 alert('login error');
 		             $scope.status = 'Unable to connect' + error.message;
 		     });     
 	     }
@@ -46,19 +47,19 @@ angular.module('loginAndRegister', [])
 		     })
 		     .success(function (result) 
 		     {
-		         if (result == true) 
+		         if (result == 1) 
 		         {
-		             alert('user is valid');
+		             alert('register success');
 		         }
 		         else 
 		         {
-		             alert('unauthorised access!');
+		             alert('register failed');
 		         }
 		     })
 		     .error(function (error) 
 		     {
-		    	 alert('error!');
-		             $scope.status = 'Unable to connect' + error.message;
+		    	 alert('register error');
+	             $scope.status = 'Unable to connect' + error.message;
 		     });     
 	     }
 	 

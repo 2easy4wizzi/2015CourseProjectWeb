@@ -107,11 +107,12 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException 
 	{
-		Enumeration params = request.getParameterNames(); 
+		response.getWriter().write("0");
+		/*Enumeration params = request.getParameterNames(); 
 		while(params.hasMoreElements()){
 		 String paramName = (String)params.nextElement();
 		 System.out.println("Attribute Name - "+paramName+", Value - "+request.getParameter(paramName));
-		}
+		}*/
 		if(request.getParameter("action").equals("register")) //register button pressed
 		{
 			if(isOnDBReg("Name", request.getParameter("username"))== 0)
@@ -124,6 +125,7 @@ public class LoginServlet extends HttpServlet {
 			}
 			else
 			{
+				
 				System.out.println("called from register method");
 				try 
 				{
@@ -142,6 +144,7 @@ public class LoginServlet extends HttpServlet {
 					conn.commit();
 					pstmt.close();
 					conn.close();
+					response.getWriter().write("1");
 				} 
 				catch (SQLException | NamingException e) 
 				{
@@ -150,7 +153,7 @@ public class LoginServlet extends HttpServlet {
 				}
 			}
 			response.sendRedirect("index.html");
-			response.getWriter().append("Served at: ").append(request.getContextPath());	
+			//response.getWriter().append("Served at: ").append(request.getContextPath());	
 		}
 		else if(request.getParameter("action").equals("login"))//login button pressed
 		{
@@ -163,9 +166,11 @@ public class LoginServlet extends HttpServlet {
 			if(isOnDBlogin(request.getParameter("username"),request.getParameter("password")) == 0)
 			{
 				System.out.println("cant log in");
+				
 			}
 			else
 			{
+				response.getWriter().write("1");
 				System.out.println("welcome back " + request.getParameter("username"));
 			}
 			
