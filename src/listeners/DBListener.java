@@ -1,12 +1,12 @@
 package listeners;
 
-import java.io.File;
-import java.io.IOException;
+//import java.io.File;
+//import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+//import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Collection;
+//import java.util.Collection;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -58,7 +58,6 @@ public class DBListener implements ServletContextListener, ServletContextAttribu
     			stmt.executeUpdate(DBConstants.CREATE_USERS_TABLE);
     			//commit update
         		conn.commit();
-        		System.out.println("we here");
         		stmt.close();
     		}catch (SQLException e){
     			//check if exception thrown since table was already created (so we created the database already 
