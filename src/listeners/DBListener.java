@@ -46,14 +46,14 @@ public class DBListener implements ServletContextListener, ServletContextAttribu
     	
     	try{
     		
-    		//obtain CustomerDB data source from Tomcat's context
+    		//obtain TBL_USERS data source from Tomcat's context
     		Context context = new InitialContext();
     		BasicDataSource ds = (BasicDataSource)context.lookup(DBConstants.DB_DATASOURCE);
     		Connection conn = ds.getConnection();
     		
     		boolean created = false;
     		try{
-    			//create Customers table
+    			//create TBL_USERS table
     			Statement stmt = conn.createStatement();
     			stmt.executeUpdate(DBConstants.CREATE_USERS_TABLE);
     			//commit update

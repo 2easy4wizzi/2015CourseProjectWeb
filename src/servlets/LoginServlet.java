@@ -15,10 +15,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.derby.tools.sysinfo;
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 
 import constants.DBConstants;
-import login.testAppConstants;
+
 
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -28,7 +29,7 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void isOnDB(String column, String var)
+	/*public void isOnDB(String column, String var)
 	{
 		Context context = new InitialContext();
 		BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
@@ -47,14 +48,14 @@ public class LoginServlet extends HttpServlet {
 			String pass = rs.getString("Password");
 			System.out.println(++i + " user name:" + name + " password:" + pass);
 		}
-		/*if (!resultSet.next() ) {
+		if (!resultSet.next() ) {
 		    System.out.println("no data");
-		}*/
+		}
 		rs.close();
 		stmt.close();
 		conn.close();
 	}
-
+*/
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -80,8 +81,14 @@ public class LoginServlet extends HttpServlet {
 			pstmt.setString(3, request.getParameter("nickName"));
 			pstmt.setString(4, request.getParameter("description"));
 			pstmt.setString(5, request.getParameter("photo"));
-			pstmt.executeUpdate();
-
+			System.out.println(request.getParameter("username"));
+			System.out.println(request.getParameter("password"));
+			System.out.println(request.getParameter("nickName"));
+			System.out.println(request.getParameter("description"));
+			System.out.println(request.getParameter("photo"));
+			
+			int x = pstmt.executeUpdate();
+System.out.println(x);
 			conn.commit();
 			pstmt.close();
 			conn.close();
