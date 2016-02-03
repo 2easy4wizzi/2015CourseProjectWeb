@@ -28,31 +28,32 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 	
-public void test(){
-	
-	
-	
-	PreparedStatement ps = conn.prepareStatement(testAppConstants.SELECT_CUSTOMER_BY_NAME_STMT);
-	ps.setString(1,"klober");
-	rs = ps.executeQuery();
-	
-
-	//psFindIfExists.setString(1,request.getParameter("usernameA"));
-	System.out.println("findinding ::::");
-	i = 0;
-	while(rs.next()){
+	public void isOnDB(String column, String var)
+	{
+		Context context = new InitialContext();
+		BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
+		Connection conn = ds.getConnection();
+		PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_USER_BY_NAME_STMT);
+		ps.setString(1,"klober");
+		rs = ps.executeQuery();
 		
-		String name = rs.getString("Name");
-		String pass = rs.getString("Password");
-		System.out.println(++i + " user name:" + name + " password:" + pass);
+	
+		//psFindIfExists.setString(1,request.getParameter("usernameA"));
+		System.out.println("findinding ::::");
+		i = 0;
+		while(rs.next()){
+			
+			String name = rs.getString("Name");
+			String pass = rs.getString("Password");
+			System.out.println(++i + " user name:" + name + " password:" + pass);
+		}
+		/*if (!resultSet.next() ) {
+		    System.out.println("no data");
+		}*/
+		rs.close();
+		stmt.close();
+		conn.close();
 	}
-	/*if (!resultSet.next() ) {
-	    System.out.println("no data");
-	}*/
-	rs.close();
-	stmt.close();
-	conn.close();
-}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
