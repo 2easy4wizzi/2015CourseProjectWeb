@@ -34,7 +34,10 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println(request.getRequestURI());
 
+
+		
 		if(request.getParameter("action").equals("register")){
 			System.out.println("called from register method");
 		

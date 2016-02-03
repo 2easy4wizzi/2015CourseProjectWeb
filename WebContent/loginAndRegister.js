@@ -8,7 +8,7 @@ angular.module('loginAndRegister', [])
 		     $http(
 			 {
 		         method: 'POST',
-		         url: 'http://localhost:8080/webGilad/LoginServlet',
+		         url: 'http://localhost:8080/webGilad/LoginServlet/Login',
 		         params: { username: $scope.U_Name, password: $scope.U_PWD, action: "login" },
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		     })
@@ -33,7 +33,7 @@ angular.module('loginAndRegister', [])
 		     $http(
 			 {
 		         method: 'POST',
-		         url: 'http://localhost:8080/webGilad/LoginServlet',
+		         url: 'http://localhost:8080/webGilad/LoginServlet/Register',
 		         params: { username: $scope.U_Name, password: $scope.U_PWD, 
 		                   nickName: $scope.U_Nickname, description: $scope.U_Description,
 		                   photo: $scope.U_Photo, action: "register"},
