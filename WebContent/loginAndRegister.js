@@ -9,7 +9,7 @@ angular.module('loginAndRegister', [])
 			 {
 		         method: 'POST',
 		         url: 'http://localhost:8080/webGilad/LoginServlet',
-		         params: { username: $scope.U_Name, password: $scope.U_PWD },
+		         params: { username: $scope.U_Name, password: $scope.U_PWD, action: "login" },
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		     })
 		     .success(function (result) 
@@ -36,7 +36,7 @@ angular.module('loginAndRegister', [])
 		         url: 'http://localhost:8080/webGilad/LoginServlet',
 		         params: { username: $scope.U_Name, password: $scope.U_PWD, 
 		                   nickName: $scope.U_Nickname, description: $scope.U_Description,
-		                   photo: $scope.U_Photo },
+		                   photo: $scope.U_Photo, action: "register"},
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		     })
 		     .success(function (result) 

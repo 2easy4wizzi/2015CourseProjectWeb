@@ -34,7 +34,10 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("inside LoginServlet doPost");
+
+		if(request.getParameter("action").equals("register")){
+			System.out.println("called from register method");
+		
 		try {
 			Context context = new InitialContext();
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
@@ -57,5 +60,9 @@ public class LoginServlet extends HttpServlet {
 		}
 		response.sendRedirect("index.html");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		}else{
+			System.out.println("called from login function");
+		}
 	}
 }
