@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 			}
 			else// if (column.equals("Nickname"))
 			{
-				ps = conn.prepareStatement(DBConstants.SELECT_NICKNAME_BY_NAME_STMT);
+				ps = conn.prepareStatement(DBConstants.SELECT_USER_BY_NICKNAME_STMT);
 			}
 			ps.setString(1, var);
 			ResultSet rs = (ResultSet) ps.executeQuery();
