@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 			Context context = new InitialContext();
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
 			Connection conn = ds.getConnection();
-			//final String st = "SELECT * FROM TBL_USERS WHERE " + column+ "=?";
+			final String st = DBConstants.SELECT_USER_BY + column+ "=?";
 			PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_USER_BY_NAME_STMT);
 			ps.setString(1, var);
 			ResultSet rs = (ResultSet) ps.executeQuery();
