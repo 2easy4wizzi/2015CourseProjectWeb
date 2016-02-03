@@ -160,13 +160,13 @@ public class LoginServlet extends HttpServlet {
 			
 			
 			
-			if(isOnDBlogin(request.getParameter("login_username"),request.getParameter("password")) == 0)
+			if(isOnDBlogin(request.getParameter("username"),request.getParameter("password")) == 0)
 			{
 				System.out.println("cant log in");
 			}
 			else
 			{
-				System.out.println("welcome back " + request.getParameter("login_username"));
+				System.out.println("welcome back " + request.getParameter("username"));
 			}
 			
 		}
