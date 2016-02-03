@@ -9,7 +9,9 @@ angular.module('loginAndRegister', [])
 			 {
 		         method: 'POST',
 		         url: 'http://localhost:8080/webGilad/LoginServlet/Login',
-		         params: { username: $scope.U_Name, password: $scope.U_PWD, action: "login" },
+		         params: { login_username: $scope.login_username
+		        	 	 , password: $scope.U_PWDLogin
+		        	 	 , action: "login" },
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		     })
 		     .success(function (result) 

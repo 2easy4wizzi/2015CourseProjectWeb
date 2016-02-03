@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 //import java.sql.Statement;
+import java.util.Enumeration;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -30,13 +31,14 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public int isOnDB(String column, String var)
+	public int isOnDBReg(String column, String var)
 	{
 		try {
 			Context context = new InitialContext();
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
 			Connection conn = ds.getConnection();
 			PreparedStatement ps;
+			int retValue = 0;
 			if(column.equals("Name"))
 			{
 				ps = conn.prepareStatement(DBConstants.SELECT_USER_BY_NAME_STMT);
@@ -47,27 +49,52 @@ public class LoginServlet extends HttpServlet {
 			}
 			ps.setString(1, var);
 			ResultSet rs = (ResultSet) ps.executeQuery();
-			
-	
-			/*while(rs.next())
-			{
-				String name = rs.getString("Name");
-				String pass = rs.getString("Password");
-				String nic = rs.getString("Nickname");
-				System.out.println(" user name:" + name + " password:" + pass + " Nickname:" +nic );
-			}*/
 			if (!rs.next() ) {
 			    System.out.println(var+  "is available");
-			    return 1;
+			    retValue = 1;
 			}
 			rs.close();
 			ps.close();
 			conn.close();
-			return 0;
+			return retValue;
 		}
 		catch (SQLException | NamingException e) 
 		{
-			getServletContext().log("isOnDB : Error while closing connection", e);
+			getServletContext().log("isOnDBReg : Error while closing connection", e);
+			return -1;
+		}
+	}
+	
+	public int isOnDBlogin(String username, String password)
+	{
+		try 
+		{
+			Context context = new InitialContext();
+			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
+			Connection conn = ds.getConnection();
+			PreparedStatement ps;
+			ps = conn.prepareStatement(DBConstants.SELECT_USER_BY_NAME_STMT);
+			ps.setString(1, username);
+			ResultSet rs = (ResultSet) ps.executeQuery();
+			int retValue = 1;
+			if (!rs.next()) 
+			{
+			    System.out.println(username +" is not in the system");
+			    retValue = 0;
+			}
+			else if(!rs.getString("Password").equals(password))
+			{
+				System.out.println("password is not correct");
+				retValue = 0;
+			}
+			rs.close();
+			ps.close();
+			conn.close();
+			return retValue;
+		}
+		catch (SQLException | NamingException e) 
+		{
+			getServletContext().log("isOnDBlogin : Error while closing connection", e);
 			return -1;
 		}
 	}
@@ -80,13 +107,18 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException 
 	{
+		Enumeration params = request.getParameterNames(); 
+		while(params.hasMoreElements()){
+		 String paramName = (String)params.nextElement();
+		 System.out.println("Attribute Name - "+paramName+", Value - "+request.getParameter(paramName));
+		}
 		if(request.getParameter("action").equals("register")) //register button pressed
 		{
-			if(isOnDB("Name", request.getParameter("username"))== 0)
+			if(isOnDBReg("Name", request.getParameter("username"))== 0)
 			{
 				System.out.println("user name taken");
 			}
-			else if(isOnDB("Nickname", request.getParameter("nickName"))== 0) 
+			else if(isOnDBReg("Nickname", request.getParameter("nickName"))== 0) 
 			{
 				System.out.println("nickname taken");
 			}
@@ -120,9 +152,26 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect("index.html");
 			response.getWriter().append("Served at: ").append(request.getContextPath());	
 		}
-		else //login button pressed
+		else if(request.getParameter("action").equals("login"))//login button pressed
 		{
 			System.out.println("called from login function");
+
+			 params = request.getParameterNames(); 
+			while(params.hasMoreElements()){
+			 String paramName = (String)params.nextElement();
+			 System.out.println("Attribute Name - "+paramName+", Value - "+request.getParameter(paramName));
+			}
+			
+			
+			if(isOnDBlogin(request.getParameter("login_username"),request.getParameter("password")) == 0)
+			{
+				System.out.println("cant log in");
+			}
+			else
+			{
+				System.out.println("welcome back " + request.getParameter("login_username"));
+			}
+			
 		}
 	}
 	}
