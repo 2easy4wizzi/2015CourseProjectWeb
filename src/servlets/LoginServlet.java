@@ -36,21 +36,30 @@ public class LoginServlet extends HttpServlet {
 			Context context = new InitialContext();
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
 			Connection conn = ds.getConnection();
-			final String st = DBConstants.SELECT_USER_BY + column+ "=?";
-			PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_USER_BY_NAME_STMT);
+			PreparedStatement ps;
+			if(column.equals("Name"))
+			{
+				ps = conn.prepareStatement(DBConstants.SELECT_USER_BY_NAME_STMT);
+			}
+			else// if (column.equals("Nickname"))
+			{
+				ps = conn.prepareStatement(DBConstants.SELECT_NICKNAME_BY_NAME_STMT);
+			}
 			ps.setString(1, var);
 			ResultSet rs = (ResultSet) ps.executeQuery();
 			
 	
-			while(rs.next())
+			/*while(rs.next())
 			{
 				String name = rs.getString("Name");
 				String pass = rs.getString("Password");
-				System.out.println(" user name:" + name + " password:" + pass);
-			}
-			/*if (!rs.next() ) {
-			    System.out.println("no data");
+				String nic = rs.getString("Nickname");
+				System.out.println(" user name:" + name + " password:" + pass + " Nickname:" +nic );
 			}*/
+			if (!rs.next() ) {
+			    System.out.println(var+  "is available");
+			    return 1;
+			}
 			rs.close();
 			ps.close();
 			conn.close();
@@ -69,44 +78,52 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		System.out.println(isOnDB("Name", "asd"));
+			throws ServletException, IOException 
+	{
+		if(request.getParameter("action").equals("register")) //register button pressed
+		{
+			if(isOnDB("Name", request.getParameter("username"))== 0)
+			{
+				System.out.println("user name taken");
+			}
+			else if(isOnDB("Nickname", request.getParameter("nickName"))== 0) 
+			{
+				System.out.println("nickname taken");
+			}
+			else
+			{
+				System.out.println("called from register method");
+				try 
+				{
+					Context context = new InitialContext();
+					BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
+					Connection conn = ds.getConnection();
+					PreparedStatement pstmt = conn.prepareStatement(DBConstants.INSERT_USER_STMT);
 		
-		if(request.getParameter("action").equals("register")){
-			System.out.println("called from register method");
-		
-		try {
-			Context context = new InitialContext();
-			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
-			Connection conn = ds.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(DBConstants.INSERT_USER_STMT);
-
-			pstmt.setString(1, request.getParameter("username"));
-			pstmt.setString(2, request.getParameter("password"));
-			pstmt.setString(3, request.getParameter("nickName"));
-			pstmt.setString(4, request.getParameter("description"));
-			pstmt.setString(5, request.getParameter("photo"));
-			/*System.out.println(request.getParameter("username"));
-			System.out.println(request.getParameter("password"));
-			System.out.println(request.getParameter("nickName"));
-			System.out.println(request.getParameter("description"));
-			System.out.println(request.getParameter("photo"));*/
-			
-			pstmt.executeUpdate();
-			
-			conn.commit();
-			pstmt.close();
-			conn.close();
-		} catch (SQLException | NamingException e) {
-			getServletContext().log("Error while closing connection", e);
-			response.sendError(500);// internal server error
+					pstmt.setString(1, request.getParameter("username"));
+					pstmt.setString(2, request.getParameter("password"));
+					pstmt.setString(3, request.getParameter("nickName"));
+					pstmt.setString(4, request.getParameter("description"));
+					pstmt.setString(5, request.getParameter("photo"));
+					pstmt.executeUpdate();
+					
+					conn.commit();
+					pstmt.close();
+					conn.close();
+				} 
+				catch (SQLException | NamingException e) 
+				{
+					getServletContext().log("Error while closing connection", e);
+					response.sendError(500);// internal server error
+				}
+			}
+			response.sendRedirect("index.html");
+			response.getWriter().append("Served at: ").append(request.getContextPath());	
 		}
-		response.sendRedirect("index.html");
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-
-		}else{
+		else //login button pressed
+		{
 			System.out.println("called from login function");
 		}
 	}
-}
+	}
+
