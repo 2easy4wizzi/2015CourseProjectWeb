@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 
 import constants.DBConstants;
+import login.testAppConstants;
 
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,6 +27,32 @@ public class LoginServlet extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+public void test(){
+	
+	
+	
+	PreparedStatement ps = conn.prepareStatement(testAppConstants.SELECT_CUSTOMER_BY_NAME_STMT);
+	ps.setString(1,"klober");
+	rs = ps.executeQuery();
+	
+
+	//psFindIfExists.setString(1,request.getParameter("usernameA"));
+	System.out.println("findinding ::::");
+	i = 0;
+	while(rs.next()){
+		
+		String name = rs.getString("Name");
+		String pass = rs.getString("Password");
+		System.out.println(++i + " user name:" + name + " password:" + pass);
+	}
+	/*if (!resultSet.next() ) {
+	    System.out.println("no data");
+	}*/
+	rs.close();
+	stmt.close();
+	conn.close();
+}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
