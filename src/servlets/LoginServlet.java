@@ -156,11 +156,8 @@ public class LoginServlet extends HttpServlet {
 		{
 			System.out.println("called from login function");
 
-			 params = request.getParameterNames(); 
-			while(params.hasMoreElements()){
-			 String paramName = (String)params.nextElement();
-			 System.out.println("Attribute Name - "+paramName+", Value - "+request.getParameter(paramName));
-			}
+			 
+			
 			
 			
 			if(isOnDBlogin(request.getParameter("login_username"),request.getParameter("password")) == 0)
