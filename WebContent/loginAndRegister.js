@@ -13,8 +13,18 @@ angular.module('loginAndRegister', [])
 		        	 	 , password: $scope.loginPass },
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		     })
-		     .success(function (result) 
+		     .success(function (response) 
 		     {
+		    	 $scope.regError = response;
+		    	 if ($scope.regError == "")
+	    		 {
+		    		 alert('all went well');
+		    		 //send do home page
+	    		 }
+		    	 else
+	    		 {
+		    		 
+	    		 }
 		         /*if (result == true) 
 		         {
 		             alert('login success');
@@ -43,8 +53,18 @@ angular.module('loginAndRegister', [])
 		                    photo: $scope.photo , },
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		     })
-		     .success(function (result) 
+		     .success(function (response) 
 		     {
+		    	 $scope.regError = response;
+		    	 if ($scope.regError == "")
+	    		 {
+		    		 alert('all went well');
+		    		 //send do home page
+	    		 }
+		    	 else
+	    		 {
+		    		 
+	    		 }
 		    	 /*if (result == 1) 
 		         {
 		             alert('register success');

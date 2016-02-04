@@ -87,20 +87,18 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException 
 	{
-		/*Enumeration params = request.getParameterNames(); 
+		Enumeration params = request.getParameterNames(); 
 		while(params.hasMoreElements())
 		{
 		 String paramName = (String)params.nextElement();
 		 System.out.println("Attribute: "+paramName+", Value: "+request.getParameter(paramName));
-		}*/
+		}
 		try
 		{
 			PrintWriter out = response.getWriter();
 			Context context = new InitialContext();
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
 			Connection conn = ds.getConnection();
-			PreparedStatement ps = null;
-			//ResultSet rs = null;
 			
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("LoginServlet") + "LoginServlet".length() + 1);
@@ -110,19 +108,21 @@ public class LoginServlet extends HttpServlet {
 			{
 				try
 				{
-					out.print("Success");
+					//out.print("Success");
 					if(isOnDBReg("Name", request.getParameter("username"), conn)== 0)
 					{
+						out.println("user name exist");
 						System.out.println("user name taken");
 					}
 					else if(isOnDBReg("Nickname", request.getParameter("nickName"), conn)== 0) 
 					{
+						out.println("nicekname exist");
 						System.out.println("nickname taken");
 					}
 					else
 					{
 						
-						ps = conn.prepareStatement(DBConstants.INSERT_USER_STMT);
+						PreparedStatement ps = conn.prepareStatement(DBConstants.INSERT_USER_STMT);
 						
 						ps.setString(1, request.getParameter("username"));
 						ps.setString(2, request.getParameter("password"));
@@ -132,6 +132,7 @@ public class LoginServlet extends HttpServlet {
 						ps.executeUpdate();
 						
 						conn.commit();
+						ps.close();
 					}
 				}
 				catch (SQLException | NamingException e) 
@@ -141,9 +142,9 @@ public class LoginServlet extends HttpServlet {
 				}
 				finally{
 					System.out.println("reg :: inside inner finally");
-					out.close();
-					ps.close();
 					conn.close();
+					out.close();
+					
 				}
 			}
 			else if(uri.equals("Login"))
@@ -169,7 +170,6 @@ public class LoginServlet extends HttpServlet {
 				finally{
 					System.out.println("login :: inside inner finally");
 					out.close();
-					//ps.close();
 					conn.close();
 				}
 			}	
@@ -180,7 +180,6 @@ public class LoginServlet extends HttpServlet {
 		}
 		finally
 		{
-			System.out.println("inside outside finally");
 		}
 			//response.sendRedirect("index.html");
 			//response.getWriter().append("Served at: ").append(request.getContextPath());	
