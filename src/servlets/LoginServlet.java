@@ -72,7 +72,7 @@ public class LoginServlet extends HttpServlet {
 			else if(!rs.getString("Password").equals(password))
 			{
 				System.out.println("password is not correct");
-				retValue = 0;
+				retValue = -1;
 			}
 			rs.close();
 			ps.close();
@@ -153,12 +153,12 @@ public class LoginServlet extends HttpServlet {
 				{
 					if(isOnDBlogin(request.getParameter("username"),request.getParameter("password"), conn) == 0)
 					{
-						System.out.println("cant log in");
-						
+						System.out.println("user name or password are not correct");
+						out.print("cant log in");
 					}
 					else
 					{
-						out.print("Success");
+						
 						System.out.println("welcome back " + request.getParameter("username"));
 					}
 				}

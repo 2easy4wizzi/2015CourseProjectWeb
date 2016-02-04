@@ -15,24 +15,17 @@ angular.module('loginAndRegister', [])
 		     })
 		     .success(function (response) 
 		     {
-		    	 $scope.regError = response;
-		    	 if ($scope.regError == "")
+		    	 $scope.logErr = response;
+		    	 if ($scope.logErr == "")
 	    		 {
 		    		 alert('all went well');
+		    		 
 		    		 //send do home page
 	    		 }
 		    	 else
 	    		 {
 		    		 
 	    		 }
-		         /*if (result == true) 
-		         {
-		             alert('login success');
-		         }
-		         else 
-		         {
-		             alert('login failed');
-		         }*/
 		     })
 		     .error(function (error) 
 		     {
@@ -58,21 +51,14 @@ angular.module('loginAndRegister', [])
 		    	 $scope.regError = response;
 		    	 if ($scope.regError == "")
 	    		 {
-		    		 alert('all went well');
+		    		 //alert('all went well');
+		    		 window.location = "\homePage.html";
 		    		 //send do home page
 	    		 }
 		    	 else
 	    		 {
 		    		 
 	    		 }
-		    	 /*if (result == 1) 
-		         {
-		             alert('register success');
-		         }
-		         else 
-		         {
-		             alert('register failed');
-		         }*/
 		     })
 		     .error(function (error) 
 		     {
