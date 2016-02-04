@@ -15,14 +15,14 @@ angular.module('loginAndRegister', [])
 		     })
 		     .success(function (result) 
 		     {
-		         if (result == true) 
+		         /*if (result == true) 
 		         {
 		             alert('login success');
 		         }
 		         else 
 		         {
 		             alert('login failed');
-		         }
+		         }*/
 		     })
 		     .error(function (error) 
 		     {
@@ -45,14 +45,14 @@ angular.module('loginAndRegister', [])
 		     })
 		     .success(function (result) 
 		     {
-		         if (result == 1) 
+		    	 /*if (result == 1) 
 		         {
 		             alert('register success');
 		         }
 		         else 
 		         {
 		             alert('register failed');
-		         }
+		         }*/
 		     })
 		     .error(function (error) 
 		     {

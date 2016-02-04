@@ -53,7 +53,6 @@ public class LoginServlet extends HttpServlet {
 			}
 			rs.close();
 			ps.close();
-			conn.close();
 			return retValue;
 		
 	}
@@ -77,7 +76,6 @@ public class LoginServlet extends HttpServlet {
 			}
 			rs.close();
 			ps.close();
-			conn.close();
 			return retValue;
 	}
 
@@ -184,7 +182,7 @@ public class LoginServlet extends HttpServlet {
 		{
 			System.out.println("inside outside finally");
 		}
-			response.sendRedirect("index.html");
+			//response.sendRedirect("index.html");
 			//response.getWriter().append("Served at: ").append(request.getContextPath());	
 	}
 }
