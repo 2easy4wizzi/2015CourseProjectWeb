@@ -15,6 +15,7 @@ angular.module('loginAndRegister', [])
 		     })
 		     .success(function (response) 
 		     {
+		    	
 		    	 $scope.logErr = response;
 		    	 if ($scope.logErr == "")
 	    		 {
@@ -48,22 +49,28 @@ angular.module('loginAndRegister', [])
 		     })
 		     .success(function (response) 
 		     {
-		    	 $scope.regNNError = response;
-		    	 $scope.regError = response;
-		    	 if ($scope.regError == "user name exist")
+
+		    	if (response == 0)
 	    		 {
-		    		 $scope.regUNError = response;
+		    		 $scope.regUNError = "User name exist";
 		    		 $scope.regUsername = "";
 	    		 }
-		    	 if ($scope.regError == "nicekname exist")
+		    	 if (response == 2)
 	    		 {
-		    		 $scope.regNNError = response;
+		    		 $scope.regNNError = "Nick name exist";
+		    		 $scope.nickname = "";
+	    		 }
+		    	 if (response == 3)
+	    		 {
+		    		 $scope.regUNError = "User name exist"
+		    		 $scope.regNNError = "Nick name exist";
+		    		 $scope.regUsername = "";
 		    		 $scope.nickname = "";
 	    		 }
 		    	 
-		    	 if ($scope.regError == "")
+		    	 if (response == "")
 	    		 {
-		    		 //alert('all went well');
+		    		// alert('all went well');
 		    		 window.location = "\homePage.html";
 		    		 //send do home page
 	    		 }

@@ -111,12 +111,17 @@ public class LoginServlet extends HttpServlet {
 					//out.print("Success");
 					if(isOnDBReg("Name", request.getParameter("username"), conn)== 0)
 					{
-						out.println("user name exist");
-						
+						if(isOnDBReg("Nickname", request.getParameter("nickName"), conn)== 0){
+						out.println("3");
+						}
+						else 
+						{
+							out.println("0");
+						}
 					}
 					else if(isOnDBReg("Nickname", request.getParameter("nickName"), conn)== 0) 
 					{
-						out.println("nicekname exist");
+						out.println("2");
 			
 					}
 					else
@@ -133,6 +138,7 @@ public class LoginServlet extends HttpServlet {
 						
 						conn.commit();
 						ps.close();
+						
 					}
 				}
 				catch (SQLException | NamingException e) 
