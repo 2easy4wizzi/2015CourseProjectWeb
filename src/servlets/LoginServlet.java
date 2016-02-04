@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,12 +33,8 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public int isOnDBReg(String column, String var)
+	public int isOnDBReg(String column, String var, Connection conn) throws SQLException , NamingException
 	{
-		try {
-			Context context = new InitialContext();
-			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
-			Connection conn = ds.getConnection();
 			PreparedStatement ps;
 			int retValue = 0;
 			if(column.equals("Name"))
@@ -58,21 +55,11 @@ public class LoginServlet extends HttpServlet {
 			ps.close();
 			conn.close();
 			return retValue;
-		}
-		catch (SQLException | NamingException e) 
-		{
-			getServletContext().log("isOnDBReg : Error while closing connection", e);
-			return -1;
-		}
+		
 	}
 	
-	public int isOnDBlogin(String username, String password)
+	public int isOnDBlogin(String username, String password, Connection conn) throws SQLException , NamingException
 	{
-		try 
-		{
-			Context context = new InitialContext();
-			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
-			Connection conn = ds.getConnection();
 			PreparedStatement ps;
 			ps = conn.prepareStatement(DBConstants.SELECT_USER_BY_NAME_STMT);
 			ps.setString(1, username);
@@ -92,12 +79,6 @@ public class LoginServlet extends HttpServlet {
 			ps.close();
 			conn.close();
 			return retValue;
-		}
-		catch (SQLException | NamingException e) 
-		{
-			getServletContext().log("isOnDBlogin : Error while closing connection", e);
-			return -1;
-		}
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -109,77 +90,102 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException 
 	{
 		Enumeration params = request.getParameterNames(); 
-		while(params.hasMoreElements()){
-		 String paramName = (String)params.nextElement();
-		 System.out.println("Attribute Name - "+paramName+", Value - "+request.getParameter(paramName));
-		}
-		
-		String uri = request.getRequestURI();
-		uri = uri.substring(uri.indexOf("LoginServlet") + "LoginServlet".length() + 1);
-		System.out.println(uri);
-		
-		if(uri.equals("Register")) //register button pressed
+		while(params.hasMoreElements())
 		{
-			if(isOnDBReg("Name", request.getParameter("username"))== 0)
+		 String paramName = (String)params.nextElement();
+		 System.out.println("Attribute: "+paramName+", Value: "+request.getParameter(paramName));
+		}
+		try
+		{
+			PrintWriter out = response.getWriter();
+			Context context = new InitialContext();
+			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
+			Connection conn = ds.getConnection();
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			
+			String uri = request.getRequestURI();
+			uri = uri.substring(uri.indexOf("LoginServlet") + "LoginServlet".length() + 1);
+			System.out.println(uri);
+			
+			if(uri.equals("Register"))
 			{
-				System.out.println("user name taken");
-			}
-			else if(isOnDBReg("Nickname", request.getParameter("nickName"))== 0) 
-			{
-				System.out.println("nickname taken");
-			}
-			else
-			{
-				
-				System.out.println("called from register method");
-				try 
+				try
 				{
-					Context context = new InitialContext();
-					BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
-					Connection conn = ds.getConnection();
-					PreparedStatement pstmt = conn.prepareStatement(DBConstants.INSERT_USER_STMT);
-		
-					pstmt.setString(1, request.getParameter("username"));
-					pstmt.setString(2, request.getParameter("password"));
-					pstmt.setString(3, request.getParameter("nickName"));
-					pstmt.setString(4, request.getParameter("description"));
-					pstmt.setString(5, request.getParameter("photo"));
-					pstmt.executeUpdate();
-					
-					conn.commit();
-					pstmt.close();
-					conn.close();
-					response.getWriter().write("1");
-				} 
+					out.print("Success");
+					if(isOnDBReg("Name", request.getParameter("username"), conn)== 0)
+					{
+						System.out.println("user name taken");
+					}
+					else if(isOnDBReg("Nickname", request.getParameter("nickName"), conn)== 0) 
+					{
+						System.out.println("nickname taken");
+					}
+					else
+					{
+						
+						ps = conn.prepareStatement(DBConstants.INSERT_USER_STMT);
+						
+						ps.setString(1, request.getParameter("username"));
+						ps.setString(2, request.getParameter("password"));
+						ps.setString(3, request.getParameter("nickName"));
+						ps.setString(4, request.getParameter("description"));
+						ps.setString(5, request.getParameter("photo"));
+						ps.executeUpdate();
+						
+						conn.commit();
+					}
+				}
 				catch (SQLException | NamingException e) 
 				{
 					getServletContext().log("Error while closing connection", e);
 					response.sendError(500);// internal server error
 				}
+				finally{
+					System.out.println("reg :: inside inner finally");
+					out.close();
+					ps.close();
+					conn.close();
+				}
 			}
+			else if(uri.equals("Login"))
+			{
+				try
+				{
+					if(isOnDBlogin(request.getParameter("username"),request.getParameter("password"), conn) == 0)
+					{
+						System.out.println("cant log in");
+						
+					}
+					else
+					{
+						out.print("Success");
+						System.out.println("welcome back " + request.getParameter("username"));
+					}
+				}
+				catch (SQLException | NamingException e) 
+				{
+					getServletContext().log("Error while closing connection", e);
+					response.sendError(500);// internal server error
+				}
+				finally{
+					System.out.println("inside inner finally");
+					out.close();
+					ps.close();
+					conn.close();
+				}
+			}	
+		}
+		catch (SQLException | NamingException e) 
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			System.out.println("inside outside finally");
+		}
 			response.sendRedirect("index.html");
 			//response.getWriter().append("Served at: ").append(request.getContextPath());	
-		}
-		else if(uri.equals("Login"))//login button pressed
-		{
-			System.out.println("called from login function");
-
-			 
-			
-			
-			
-			if(isOnDBlogin(request.getParameter("username"),request.getParameter("password")) == 0)
-			{
-				System.out.println("cant log in");
-				
-			}
-			else
-			{
-				response.getWriter().write("1");
-				System.out.println("welcome back " + request.getParameter("username"));
-			}
-			
-		}
 	}
-	}
+}
 
