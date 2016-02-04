@@ -112,12 +112,12 @@ public class LoginServlet extends HttpServlet {
 					if(isOnDBReg("Name", request.getParameter("username"), conn)== 0)
 					{
 						out.println("user name exist");
-						System.out.println("user name taken");
+						
 					}
 					else if(isOnDBReg("Nickname", request.getParameter("nickName"), conn)== 0) 
 					{
 						out.println("nicekname exist");
-						System.out.println("nickname taken");
+			
 					}
 					else
 					{
@@ -151,10 +151,10 @@ public class LoginServlet extends HttpServlet {
 			{
 				try
 				{
-					if(isOnDBlogin(request.getParameter("username"),request.getParameter("password"), conn) == 0)
+					if(isOnDBlogin(request.getParameter("username"),request.getParameter("password"), conn) != 1)
 					{
 						System.out.println("user name or password are not correct");
-						out.print("cant log in");
+						out.print("user name or password are not correct");
 					}
 					else
 					{

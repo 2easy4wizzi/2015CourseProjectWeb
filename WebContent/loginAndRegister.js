@@ -18,19 +18,19 @@ angular.module('loginAndRegister', [])
 		    	 $scope.logErr = response;
 		    	 if ($scope.logErr == "")
 	    		 {
-		    		 alert('all went well');
-		    		 
+		    		 window.location = "\homePage.html";
 		    		 //send do home page
 	    		 }
 		    	 else
 	    		 {
-		    		 
+		    		 $scope.loginUsername = "";
+		    		 $scope.loginPass = "";
 	    		 }
 		     })
 		     .error(function (error) 
 		     {
 		    	 alert('login error');
-		             $scope.status = 'Unable to connect' + error.message;
+	             $scope.status = 'Unable to connect' + error.message;
 		     });     
 	     }
 	     $scope.Register=function () 
@@ -48,7 +48,19 @@ angular.module('loginAndRegister', [])
 		     })
 		     .success(function (response) 
 		     {
+		    	 $scope.regNNError = response;
 		    	 $scope.regError = response;
+		    	 if ($scope.regError == "user name exist")
+	    		 {
+		    		 $scope.regUNError = response;
+		    		 $scope.regUsername = "";
+	    		 }
+		    	 if ($scope.regError == "nicekname exist")
+	    		 {
+		    		 $scope.regNNError = response;
+		    		 $scope.nickname = "";
+	    		 }
+		    	 
 		    	 if ($scope.regError == "")
 	    		 {
 		    		 //alert('all went well');
