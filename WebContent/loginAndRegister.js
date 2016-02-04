@@ -10,8 +10,7 @@ angular.module('loginAndRegister', [])
 		         method: 'POST',
 		         url: 'http://localhost:8080/webGilad/LoginServlet/Login',
 		         params: { username: $scope.loginUsername
-		        	 	 , password: $scope.loginPass
-		        	 	 , action: "login" },
+		        	 	 , password: $scope.loginPass },
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		     })
 		     .success(function (result) 
@@ -41,8 +40,7 @@ angular.module('loginAndRegister', [])
 		        	 		password: $scope.regPass , 
 		                    nickName: $scope.nickname , 
 		                    description: $scope.description ,
-		                    photo: $scope.photo , 
-		                    action: "register"},
+		                    photo: $scope.photo , },
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		     })
 		     .success(function (result) 

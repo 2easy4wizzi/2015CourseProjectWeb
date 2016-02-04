@@ -118,7 +118,7 @@ public class LoginServlet extends HttpServlet {
 		uri = uri.substring(uri.indexOf("LoginServlet") + "LoginServlet".length() + 1);
 		System.out.println(uri);
 		
-		if(request.getParameter("action").equals("register")) //register button pressed
+		if(uri.equals("Register")) //register button pressed
 		{
 			if(isOnDBReg("Name", request.getParameter("username"))== 0)
 			{
@@ -160,7 +160,7 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect("index.html");
 			//response.getWriter().append("Served at: ").append(request.getContextPath());	
 		}
-		else if(request.getParameter("action").equals("login"))//login button pressed
+		else if(uri.equals("Login"))//login button pressed
 		{
 			System.out.println("called from login function");
 
