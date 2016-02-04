@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.derby.tools.sysinfo;
 //import org.apache.derby.iapi.sql.ResultSet;
 //import org.apache.derby.tools.sysinfo;
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
@@ -108,11 +109,16 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException 
 	{
 		response.getWriter().write("0");
-		/*Enumeration params = request.getParameterNames(); 
+		Enumeration params = request.getParameterNames(); 
 		while(params.hasMoreElements()){
 		 String paramName = (String)params.nextElement();
 		 System.out.println("Attribute Name - "+paramName+", Value - "+request.getParameter(paramName));
-		}*/
+		}
+		
+		String uri = request.getRequestURI();
+		uri = uri.substring(uri.indexOf("LoginServlet") + "LoginServlet".length() + 1);
+		System.out.println(uri);
+		
 		if(request.getParameter("action").equals("register")) //register button pressed
 		{
 			if(isOnDBReg("Name", request.getParameter("username"))== 0)

@@ -1,6 +1,6 @@
 
 angular.module('loginAndRegister', [])
-	.controller('AdminCtrl', ['$scope', '$http',
+	.controller('loginAndRegController', ['$scope', '$http',
 	function ($scope, $http) 
 	{
 	     $scope.Login=function () 
@@ -9,8 +9,8 @@ angular.module('loginAndRegister', [])
 			 {
 		         method: 'POST',
 		         url: 'http://localhost:8080/webGilad/LoginServlet/Login',
-		         params: { username: $scope.U_NameLogin
-		        	 	 , password: $scope.U_PWDLogin
+		         params: { username: $scope.loginUsername
+		        	 	 , password: $scope.loginPass
 		        	 	 , action: "login" },
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		     })
@@ -37,11 +37,11 @@ angular.module('loginAndRegister', [])
 			 {
 		         method: 'POST',
 		         url: 'http://localhost:8080/webGilad/LoginServlet/Register',
-		         params: {  username: $scope.U_Name,
-		        	 		password: $scope.U_PWD, 
-		                    nickName: $scope.U_Nickname, 
-		                    description: $scope.U_Description,
-		                    photo: $scope.U_Photo, 
+		         params: { username: $scope.regUsername ,
+		        	 		password: $scope.regPass , 
+		                    nickName: $scope.nickname , 
+		                    description: $scope.description ,
+		                    photo: $scope.photo , 
 		                    action: "register"},
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		     })
