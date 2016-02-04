@@ -89,12 +89,12 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException 
 	{
-		Enumeration params = request.getParameterNames(); 
+		/*Enumeration params = request.getParameterNames(); 
 		while(params.hasMoreElements())
 		{
 		 String paramName = (String)params.nextElement();
 		 System.out.println("Attribute: "+paramName+", Value: "+request.getParameter(paramName));
-		}
+		}*/
 		try
 		{
 			PrintWriter out = response.getWriter();
@@ -102,7 +102,7 @@ public class LoginServlet extends HttpServlet {
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
 			Connection conn = ds.getConnection();
 			PreparedStatement ps = null;
-			ResultSet rs = null;
+			//ResultSet rs = null;
 			
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("LoginServlet") + "LoginServlet".length() + 1);
@@ -169,9 +169,9 @@ public class LoginServlet extends HttpServlet {
 					response.sendError(500);// internal server error
 				}
 				finally{
-					System.out.println("inside inner finally");
+					System.out.println("login :: inside inner finally");
 					out.close();
-					ps.close();
+					//ps.close();
 					conn.close();
 				}
 			}	
