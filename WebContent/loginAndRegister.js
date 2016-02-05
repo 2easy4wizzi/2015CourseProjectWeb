@@ -4,11 +4,40 @@ angular.module('loginAndRegister', [])
 	function ($scope, $http) 
 	{
 		 $scope.logErr="";
+		 $scope.logUNError="";
+		 $scope.logPWError="";
+		 $scope.loginUsername = null;
+		 $scope.loginPass = null;
+		 
 		 $scope.regUNError = "";
 		 $scope.regNNError = "";
+		 $scope.regPWError="";		 
+		 $scope.regUsername = null;
+		 $scope.regPass = null;
+		 $scope.nickname = null;
+		 $scope.description = null;
+		 $scope.photo = null;
+		 
+		 
+		 
 	     $scope.Login=function () 
 	     {
 	    	 $scope.logErr="";
+	    	 $scope.logUNError = "";
+	    	 $scope.logPWError = "";
+	    	 if($scope.loginUsername == null || $scope.loginPass == null || $scope.loginUsername == "" || $scope.loginPass == "")
+			 {
+				 alert('login proccess didnt go to servlet');
+				 if($scope.loginUsername == null || $scope.loginUsername == "")
+				 {
+					 $scope.logUNError = "must enter user name!";
+				 }
+				 if($scope.loginPass == null || $scope.loginPass == "")
+				 {
+					 $scope.logPWError = "must enter password!";
+				 }
+				 return;
+			 }	
 		     $http(
 			 {
 		         method: 'POST',
@@ -42,6 +71,26 @@ angular.module('loginAndRegister', [])
 	     {
 	    	 $scope.regUNError = "";
 			 $scope.regNNError = "";
+			 $scope.regPWError="";	
+			 
+			 if($scope.regUsername == null || $scope.regUsername =="" || $scope.regPass == null || $scope.regPass =="" || $scope.nickname == null || $scope.nickname =="")
+			 {
+				 alert('register proccess didnt go to servlet');
+				 if($scope.regUsername == null || $scope.regUsername == "")
+				 {
+					 $scope.regUNError = "must enter user name!";
+				 }
+				 if($scope.regPass == null || $scope.regPass == "")
+				 {
+					 $scope.regPWError = "must enter password!";
+				 }
+				 if($scope.nickname == null || $scope.nickname == "")
+				 {
+					 $scope.regNNError = "must enter nickname!";
+				 }
+				 return;
+			 }	 
+			
 		     $http(
 			 {
 		         method: 'POST',
