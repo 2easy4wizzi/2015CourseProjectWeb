@@ -3,8 +3,12 @@ angular.module('loginAndRegister', [])
 	.controller('loginAndRegController', ['$scope', '$http',
 	function ($scope, $http) 
 	{
+		 $scope.logErr="";
+		 $scope.regUNError = "";
+		 $scope.regNNError = "";
 	     $scope.Login=function () 
 	     {
+	    	 $scope.logErr="";
 		     $http(
 			 {
 		         method: 'POST',
@@ -36,6 +40,8 @@ angular.module('loginAndRegister', [])
 	     }
 	     $scope.Register=function () 
 	     {
+	    	 $scope.regUNError = "";
+			 $scope.regNNError = "";
 		     $http(
 			 {
 		         method: 'POST',

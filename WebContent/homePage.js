@@ -3,6 +3,7 @@ angular.module('homePage', [])
 	.controller('homePageController', ['$scope', '$http',
     function($scope, $http){
 	$scope.test = 0;
+	$scope.name = "Guest";
 	$scope.username = function()
 	{
 		  if ($scope.test == 0) {
