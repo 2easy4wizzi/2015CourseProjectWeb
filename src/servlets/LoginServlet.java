@@ -57,27 +57,7 @@ public class LoginServlet extends HttpServlet {
 		
 	}
 	
-	public int isOnDBlogin(String username, String password, Connection conn) throws SQLException , NamingException
-	{
-			PreparedStatement ps;
-			ps = conn.prepareStatement(DBConstants.SELECT_USER_BY_NAME_STMT);
-			ps.setString(1, username);
-			ResultSet rs = (ResultSet) ps.executeQuery();
-			int retValue = 1;
-			if (!rs.next()) 
-			{
-			    System.out.println(username +" is not in the system");
-			    retValue = 0;
-			}
-			else if(!rs.getString("Password").equals(password))
-			{
-				System.out.println("password is not correct");
-				retValue = -1;
-			}
-			rs.close();
-			ps.close();
-			return retValue;
-	}
+
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -108,7 +88,6 @@ public class LoginServlet extends HttpServlet {
 			{
 				try
 				{
-					//out.print("Success");
 					if(isOnDBReg("Name", request.getParameter("username"), conn)== 0)
 					{
 						if(isOnDBReg("Nickname", request.getParameter("nickName"), conn)== 0){
@@ -122,11 +101,9 @@ public class LoginServlet extends HttpServlet {
 					else if(isOnDBReg("Nickname", request.getParameter("nickName"), conn)== 0) 
 					{
 						out.println("2");
-			
 					}
 					else
 					{
-						
 						PreparedStatement ps = conn.prepareStatement(DBConstants.INSERT_USER_STMT);
 						
 						ps.setString(1, request.getParameter("username"));
@@ -147,34 +124,38 @@ public class LoginServlet extends HttpServlet {
 					response.sendError(500);// internal server error
 				}
 				finally{
-					System.out.println("reg :: inside inner finally");
 					conn.close();
 					out.close();
-					
 				}
 			}
 			else if(uri.equals("Login"))
 			{
 				try
 				{
-					if(isOnDBlogin(request.getParameter("username"),request.getParameter("password"), conn) != 1)
+					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_USER_BY_NAME_AND_PASSWORD_STMT);
+					ps.setString(1, request.getParameter("username"));
+					ps.setString(2, request.getParameter("password"));
+					ResultSet rs = (ResultSet) ps.executeQuery();
+					if (!rs.next()) 
 					{
-						System.out.println("user name or password are not correct");
 						out.print("user name or password are not correct");
+					    System.out.println("login failed");
 					}
 					else
 					{
-						
 						System.out.println("welcome back " + request.getParameter("username"));
 					}
+					rs.close();
+					ps.close();
+					
+					
 				}
-				catch (SQLException | NamingException e) 
+				catch (SQLException e) 
 				{
 					getServletContext().log("Error while closing connection", e);
 					response.sendError(500);// internal server error
 				}
 				finally{
-					System.out.println("login :: inside inner finally");
 					out.close();
 					conn.close();
 				}

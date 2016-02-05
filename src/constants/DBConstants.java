@@ -15,6 +15,7 @@ public interface DBConstants
 	public final String SELECT_ALL_USERS_STMT = "SELECT * FROM TBL_USERS";
 	public final String SELECT_USER_BY_NAME_STMT = "SELECT * FROM TBL_USERS WHERE Name=?";
 	public final String SELECT_USER_BY_NICKNAME_STMT = "SELECT * FROM TBL_USERS WHERE Nickname=?";
+	public final String SELECT_USER_BY_NAME_AND_PASSWORD_STMT = "SELECT * FROM TBL_USERS WHERE Name=? AND Password=?";
 
 
 }
