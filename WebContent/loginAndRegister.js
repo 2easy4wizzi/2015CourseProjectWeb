@@ -19,7 +19,7 @@ angular.module('loginAndRegister', [])
 		    	 $scope.logErr = response;
 		    	 if ($scope.logErr == "")
 	    		 {
-		    		 //window.location = "\homePage.html";
+		    		 window.location = "\homePage.html";
 		    		 //send do home page
 	    		 }
 		    	 else

@@ -19,4 +19,14 @@
   <listener>
     <listener-class>listeners.DBListener</listener-class>
   </listener>
+  <servlet>
+    <description></description>
+    <display-name>GetSessionUserNameServlet</display-name>
+    <servlet-name>GetSessionUserNameServlet</servlet-name>
+    <servlet-class>servlets.GetSessionUserNameServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetSessionUserNameServlet</servlet-name>
+    <url-pattern>/GetSessionUserNameServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
