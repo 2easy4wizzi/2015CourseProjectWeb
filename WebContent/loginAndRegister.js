@@ -19,7 +19,7 @@ angular.module('loginAndRegister', [])
 		    	 $scope.logErr = response;
 		    	 if ($scope.logErr == "")
 	    		 {
-		    		 window.location = "\homePage.html";
+		    		 //window.location = "\homePage.html";
 		    		 //send do home page
 	    		 }
 		    	 else
@@ -49,18 +49,19 @@ angular.module('loginAndRegister', [])
 		     })
 		     .success(function (response) 
 		     {
-
-		    	if (response == 0)
+		    	
+		    	if (response == 2)
 	    		 {
+
 		    		 $scope.regUNError = "User name exist";
 		    		 $scope.regUsername = "";
 	    		 }
-		    	 if (response == 2)
+		    	 if (response == 3)
 	    		 {
 		    		 $scope.regNNError = "Nick name exist";
 		    		 $scope.nickname = "";
 	    		 }
-		    	 if (response == 3)
+		    	 if (response == 4)
 	    		 {
 		    		 $scope.regUNError = "User name exist"
 		    		 $scope.regNNError = "Nick name exist";

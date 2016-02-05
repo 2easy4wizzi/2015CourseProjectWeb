@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 			ps.setString(1, var);
 			ResultSet rs = (ResultSet) ps.executeQuery();
 			if (!rs.next() ) {
-			    System.out.println(var+  "is available");
+			    System.out.println(var+  " is available");
 			    retValue = 1;
 			}
 			rs.close();
@@ -67,12 +67,12 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException 
 	{
-		Enumeration params = request.getParameterNames(); 
+		/*Enumeration params = request.getParameterNames(); 
 		while(params.hasMoreElements())
 		{
 		 String paramName = (String)params.nextElement();
 		 System.out.println("Attribute: "+paramName+", Value: "+request.getParameter(paramName));
-		}
+		}*/
 		try
 		{
 			PrintWriter out = response.getWriter();
@@ -82,7 +82,6 @@ public class LoginServlet extends HttpServlet {
 			
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("LoginServlet") + "LoginServlet".length() + 1);
-			System.out.println(uri);
 			
 			if(uri.equals("Register"))
 			{
@@ -91,19 +90,19 @@ public class LoginServlet extends HttpServlet {
 					if(isOnDBReg("Name", request.getParameter("username"), conn)== 0)
 					{
 						if(isOnDBReg("Nickname", request.getParameter("nickName"), conn)== 0){
-						out.println("3");
+						out.println("4");
 						}
 						else 
 						{
-							out.println("0");
+							out.println("2");
 						}
 					}
 					else if(isOnDBReg("Nickname", request.getParameter("nickName"), conn)== 0) 
 					{
-						out.println("2");
+						out.println("3");
 					}
 					else
-					{
+					{	
 						PreparedStatement ps = conn.prepareStatement(DBConstants.INSERT_USER_STMT);
 						
 						ps.setString(1, request.getParameter("username"));
@@ -115,6 +114,8 @@ public class LoginServlet extends HttpServlet {
 						
 						conn.commit();
 						ps.close();
+						
+						request.getSession().setAttribute("username", request.getParameter("username"));
 						
 					}
 				}
@@ -143,6 +144,7 @@ public class LoginServlet extends HttpServlet {
 					}
 					else
 					{
+						request.getSession().setAttribute("username", request.getParameter("username"));
 						System.out.println("welcome back " + request.getParameter("username"));
 					}
 					rs.close();
