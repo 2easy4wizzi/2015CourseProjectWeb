@@ -1,7 +1,7 @@
 
 angular.module('homePage', [])
 	.controller('homePageController', ['$scope', '$http',
-	                                   function($scope, $http){
+    function($scope, $http){
 	$scope.test = 0;
 	$scope.username = function()
 	{
@@ -14,16 +14,16 @@ angular.module('homePage', [])
 							'Content-Type' : 'application/x-www-form-urlencoded'
 						}
 					}).success(function(response) {
-				//alert(response);
-				$scope.name = response;
 				if (response == "") {
 					window.location = "\loginAndRegister.html";
 					//send do home page
-				} else {
-
+				} 
+				else 
+				{
+					$scope.name = response;
 				}
 			}).error(function(error) {
-				alert('login error');
+				alert('somthing happend');
 				// $scope.status = 'Unable to connect' + error.message;
 			});
 		}

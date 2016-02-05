@@ -11,12 +11,7 @@
 
 	<div ng-app="homePage" ng-controller="homePageController" >
 		<form novalidat name="HomePageForm" action="">
-			<div>
-				<!-- login input and button -->
-			    Welcome:{{name}}<br>
-			    <un type="text" value="username" ng-model="username()"/><br>
-			</div>
-			
+			<div ng-init=username()>  Welcome:{{name}}  </div>	
 		 </form>
 	 </div>
 	 
