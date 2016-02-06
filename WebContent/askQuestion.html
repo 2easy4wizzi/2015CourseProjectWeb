@@ -14,9 +14,26 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>	
 <body>
-<div ng-controller="homePageController">
-<navBar-directive></navBar-directive>
-</div>
+
+
+	<div ng-app="askQuestion" ng-controller="askQController" >
+		<form novalidat name="AskQuestionForm">
+        <div id="page content">
+
+			<div class="row">
+				<div class="col-lg-12">
+				 <textarea rows="3" cols="20" placeholder="Here type your question" maxlength="300" ng-model="question" ></textarea><br>   
+			    <input type="button"  value="Ask" ng-click="Ask()"/><br>
+				
+				</div>
+			</div>
+
+	</div>
+		</form>
+	 </div>
+<!-- page -->
+	
+	 
 	
 </body>
 </html>

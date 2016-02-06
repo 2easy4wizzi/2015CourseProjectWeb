@@ -1,6 +1,6 @@
 
 
-angular.module('loginAndRegister', [])
+angular.module('myApp', [])
 	.controller('loginAndRegController', ['$scope', '$http',
 	function ($scope, $http) 
 	{

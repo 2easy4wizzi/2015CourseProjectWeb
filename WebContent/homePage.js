@@ -1,5 +1,7 @@
 
-angular.module('homePage', [])
+
+angular.module('myApp', [])
+
 	.controller('homePageController', ['$scope', '$http',
     function($scope, $http){
 	$scope.test = 0;
@@ -56,4 +58,11 @@ angular.module('homePage', [])
 		});
 	}
     
-	}]);
+	}])
+	.directive("navBar", function(){
+	return{
+		templateUrl: "/navBar.html"
+		
+	}	
+	})
+	;
