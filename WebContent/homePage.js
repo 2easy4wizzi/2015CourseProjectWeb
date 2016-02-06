@@ -15,12 +15,14 @@ angular.module('homePage', [])
 							'Content-Type' : 'application/x-www-form-urlencoded'
 						}
 					}).success(function(response) {
+						
 				if (response == "") {
 					window.location = "\loginAndRegister.html";
 					//send do home page
 				} 
 				else 
 				{
+					alert("response")
 					$scope.name = response;
 				}
 			}).error(function(error) {

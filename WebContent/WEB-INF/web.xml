@@ -3,7 +3,6 @@
   <display-name>webGilad</display-name>
   <welcome-file-list>
     <welcome-file>loginAndRegister.html</welcome-file>
-    <welcome-file>test.html</welcome-file>
   </welcome-file-list>
   <servlet>
     <description></description>

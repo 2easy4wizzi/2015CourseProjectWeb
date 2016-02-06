@@ -1,4 +1,5 @@
 
+
 angular.module('loginAndRegister', [])
 	.controller('loginAndRegController', ['$scope', '$http',
 	function ($scope, $http) 
@@ -27,7 +28,7 @@ angular.module('loginAndRegister', [])
 	    	 $scope.logPWError = "";
 	    	 if($scope.loginUsername == null || $scope.loginPass == null || $scope.loginUsername == "" || $scope.loginPass == "")
 			 {
-				 alert('login proccess didnt go to servlet');
+				// alert('login proccess didnt go to servlet');
 				 if($scope.loginUsername == null || $scope.loginUsername == "")
 				 {
 					 $scope.logUNError = "must enter user name!";
@@ -75,7 +76,7 @@ angular.module('loginAndRegister', [])
 			 
 			 if($scope.regUsername == null || $scope.regUsername =="" || $scope.regPass == null || $scope.regPass =="" || $scope.nickname == null || $scope.nickname =="")
 			 {
-				 alert('register proccess didnt go to servlet');
+				 //alert('register proccess didnt go to servlet');
 				 if($scope.regUsername == null || $scope.regUsername == "")
 				 {
 					 $scope.regUNError = "must enter user name!";
