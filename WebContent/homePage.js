@@ -2,7 +2,7 @@ var app = angular.module("myApp", []);
 
 //app.module('myApp', [])
 
-	app.controller('homePageController', ['$scope', '$http',
+app.controller('homePageController', ['$scope', '$http',
     function($scope, $http){
 	$scope.test = 0;
 	$scope.name = "Guest";
@@ -61,8 +61,8 @@ var app = angular.module("myApp", []);
 	}]);
 	
 	
-	var app = angular.module("myApp", []);
-	app.directive("navDirective", function() {
+
+app.directive("navDirective", function() {
 	    return {
 	        templateUrl : "navBar.html"
 	    };

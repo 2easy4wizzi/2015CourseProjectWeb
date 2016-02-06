@@ -1,7 +1,6 @@
+var app = angular.module("myApp", []);
 
-
-angular.module('myApp', [])
-	.controller('loginAndRegController', ['$scope', '$http',
+app.controller('loginAndRegController', ['$scope', '$http',
 	function ($scope, $http) 
 	{
 		 $scope.logErr="";
@@ -140,5 +139,4 @@ angular.module('myApp', [])
 		     });     
 	     }
 	 
-	   // $scope.Login();
 	    }]);
