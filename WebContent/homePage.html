@@ -5,7 +5,6 @@
 	<title>Home</title>
 	<meta charset="UTF-8">
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-	<script type="text/javascript" src="homePage.js"></script> 
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<!-- Optional theme -->
@@ -13,10 +12,22 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>	
-<body>
-<div ng-controller="homePageController">
-<navBar-directive></navBar-directive>
-</div>
+<body >
+
+<nav-directive></nav-directive>
+
+<script>
+var app = angular.module("myApp", []);
+app.directive("navDirective", function() {
+    return {
+        templateUrl : "navBar.html"
+    };
+});
+</script>
+
+
+<h3>home page</h3>
+
 	
 </body>
 </html>

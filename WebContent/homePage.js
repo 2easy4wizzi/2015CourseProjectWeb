@@ -1,8 +1,8 @@
+var app = angular.module("myApp", []);
 
+//app.module('myApp', [])
 
-angular.module('myApp', [])
-
-	.controller('homePageController', ['$scope', '$http',
+	app.controller('homePageController', ['$scope', '$http',
     function($scope, $http){
 	$scope.test = 0;
 	$scope.name = "Guest";
@@ -58,11 +58,4 @@ angular.module('myApp', [])
 		});
 	}
     
-	}])
-	.directive("navBar", function(){
-	return{
-		templateUrl: "/navBar.html"
-		
-	}	
-	})
-	;
+	}]);
