@@ -37,12 +37,11 @@ public class GetSessionUserNameServlet extends HttpServlet {
 
 		String uri = request.getRequestURI();
 		uri = uri.substring(uri.indexOf("GetSessionUserNameServlet") + "GetSessionUserNameServlet".length() + 1);
-		System.out.println("uri is :" + uri);
+		//System.out.println("uri is :" + uri);
 		
 		String username = (String)request.getSession().getAttribute("username");
 		if(uri.equals("GetUsername"))
 		{
-			System.out.println("in get username:" + username);	
 			if(username != null){
 				response.getWriter().write(username);
 			}
@@ -53,7 +52,7 @@ public class GetSessionUserNameServlet extends HttpServlet {
 			System.out.println("in remove att:" + username);
 			if(username != null) {
 				 request.getSession().removeAttribute("username");
-				 response.getWriter().write(username);
+				 response.getWriter().write(username);				 
 			   }
 		}
 

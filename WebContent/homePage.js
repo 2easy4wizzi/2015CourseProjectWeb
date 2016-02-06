@@ -17,18 +17,16 @@ angular.module('homePage', [])
 					}).success(function(response) {
 						
 				if (response == "") {
-					alert('user name is empty');
 					window.location = "\loginAndRegister.html";
 					//send do home page
 				} 
 				else 
 				{
-					alert(response);
 					$scope.name = response;
 				}
 			}).error(function(error) {
 				alert('somthing happend');
-				// $scope.status = 'Unable to connect' + error.message;
+				
 			});
 		}
 		$scope.test = 1;
@@ -44,14 +42,12 @@ angular.module('homePage', [])
 				}).success(function(response) {
 					
 			if (response == "") {
-				alert('response is empty');
 				window.location = "\loginAndRegister.html";
 				//send do home page
 			} 
 			else 
 			{
-				alert('in else');
-				alert(response);
+				alert('goodbye '+ response);
 				$scope.name = response;
 			}
 		}).error(function(error) {

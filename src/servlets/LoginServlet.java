@@ -48,7 +48,6 @@ public class LoginServlet extends HttpServlet {
 			ps.setString(1, var);
 			ResultSet rs = (ResultSet) ps.executeQuery();
 			if (!rs.next() ) {
-			    System.out.println(var+  " is available");
 			    retValue = 1;
 			}
 			rs.close();
@@ -140,12 +139,10 @@ public class LoginServlet extends HttpServlet {
 					if (!rs.next()) 
 					{
 						out.print("user name or password are not correct");
-					    System.out.println("login failed");
 					}
 					else
 					{
 						request.getSession().setAttribute("username", request.getParameter("username"));
-						System.out.println("welcome back " + request.getParameter("username"));
 					}
 					rs.close();
 					ps.close();
