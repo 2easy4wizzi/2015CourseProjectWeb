@@ -2,10 +2,11 @@
 <html ng-app="myApp" lang="en-US">
 
 <head>
-	<title>Home</title>
+	<title>Ask Q</title>
 	<meta charset="UTF-8">
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-	<script type="text/javascript" src="homePage.js"></script>
+	 <script type="text/javascript" src="homePage.js"></script> 
+	<!--  <script type="text/javascript" src="askedQuestion.js"></script>-->
 	<!-- Bootstrap imports -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
@@ -15,25 +16,24 @@
 <body >
 
 <div nav-directive></div>
-<!--  
+
 <div ng-controller="askQController" >
-		<form novalidat name="AskQuestionForm">
-        <div id="page content">
+	<form novalidat name="AskQuestionForm">
+       	<div id="page content">
 			<div class="row">
 				<div class="col-lg-12">
-				 <textarea rows="7" cols="60" placeholder="Here type your question" maxlength="300" ng-model="question" ></textarea><br>   
-			    <input type="button"  value="Ask" ng-click="Ask()"/>
-			    <input type="button"  value="Clear" ng-click="Clear()"/><br>		
+					<textarea rows="7" cols="60" placeholder="Here type your question" maxlength="300" ng-model="question" required></textarea><br>   
+				    <input type="button"  value="Post Question" ng-click="Ask()" />
+				    <input type="button"  value="Clear" ng-click="Clear()" /><br>		
 				</div>
 			</div>
 		</div>
-		</form>
-	 </div>
+	</form>
+</div>
 
 
 <h3>gilad ask Q</h3>
--->
-<h3>todo 20 recent Q's</h3>
+
 	
 </body>
 </html>

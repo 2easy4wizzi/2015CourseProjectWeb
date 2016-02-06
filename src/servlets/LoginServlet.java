@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 //import java.sql.Statement;
-import java.util.Enumeration;
+//import java.util.Enumeration;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.derby.tools.sysinfo;
+//import org.apache.derby.tools.sysinfo;
 //import org.apache.derby.iapi.sql.ResultSet;
 //import org.apache.derby.tools.sysinfo;
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
