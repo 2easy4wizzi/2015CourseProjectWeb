@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,11 +35,28 @@ public class GetSessionUserNameServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	
-		String username = (String) request.getSession().getAttribute("username");
-		if(username != null){
-			response.getWriter().write(username);
+		String uri = request.getRequestURI();
+		uri = uri.substring(uri.indexOf("GetSessionUserNameServlet") + "GetSessionUserNameServlet".length() + 1);
+		System.out.println("uri is :" + uri);
+		
+		String username = (String)request.getSession().getAttribute("username");
+		if(uri.equals("GetUsername"))
+		{
+			System.out.println("in get username:" + username);	
+			if(username != null){
+				response.getWriter().write(username);
+			}
 		}
+		else if(uri.equals("RemoveAtt"))
+		{	
+			
+			System.out.println("in remove att:" + username);
+			if(username != null) {
+				 request.getSession().removeAttribute("username");
+				 response.getWriter().write(username);
+			   }
+		}
+
 		
 	}
 

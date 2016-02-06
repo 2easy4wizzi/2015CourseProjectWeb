@@ -28,5 +28,7 @@
   <servlet-mapping>
     <servlet-name>GetSessionUserNameServlet</servlet-name>
     <url-pattern>/GetSessionUserNameServlet</url-pattern>
+    <url-pattern>/GetSessionUserNameServlet/GetUsername</url-pattern>
+    <url-pattern>/GetSessionUserNameServlet/RemoveAtt</url-pattern>
   </servlet-mapping>
 </web-app>

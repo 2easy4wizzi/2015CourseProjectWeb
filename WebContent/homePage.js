@@ -10,13 +10,14 @@ angular.module('homePage', [])
 			$http(
 					{
 						method : 'POST',
-						url : 'http://localhost:8080/webGilad/GetSessionUserNameServlet',
+						url : 'http://localhost:8080/webGilad/GetSessionUserNameServlet/GetUsername',
 						headers : {
 							'Content-Type' : 'application/x-www-form-urlencoded'
 						}
 					}).success(function(response) {
 						
 				if (response == "") {
+					alert('user name is empty');
 					window.location = "\loginAndRegister.html";
 					//send do home page
 				} 
@@ -31,7 +32,32 @@ angular.module('homePage', [])
 			});
 		}
 		$scope.test = 1;
-		
+	}
+	$scope.removeAtt = function(){
+		$http(
+				{
+					method : 'POST',
+					url : 'http://localhost:8080/webGilad/GetSessionUserNameServlet/RemoveAtt',
+					headers : {
+						'Content-Type' : 'application/x-www-form-urlencoded'
+					}
+				}).success(function(response) {
+					
+			if (response == "") {
+				alert('response is empty');
+				window.location = "\loginAndRegister.html";
+				//send do home page
+			} 
+			else 
+			{
+				alert('in else');
+				alert(response);
+				$scope.name = response;
+			}
+		}).error(function(error) {
+			alert('remove att somthing happend');
+			// $scope.status = 'Unable to connect' + error.message;
+		});
 	}
     
 	}]);
