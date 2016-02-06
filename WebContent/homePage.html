@@ -6,46 +6,50 @@
 	<meta charset="UTF-8">
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 	<script type="text/javascript" src="homePage.js"></script> 
-	
+	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>	
 <body>
 
-
-<nav class ="navbar navbar-inverse">
-
-<div class="container-fluid"></div>
-<form novalidat name="HomePageForm" action="">
-					<div ng-init=username()> </div>	
-
-	<div ng-app="homePage" ng-controller="homePageController" >
-		
-<!-- Logo -->
-<div class = "navbar-header">
-	<div class="navbar-brand"> Welcome, {{name}}  </div>
-</div>
-<!-- Menu items -->
-<div>
-	<ul class="nav navbar-nav">
-		<li class="active"><a href="#"> Home</a></li>
-		<li><a href="#"> Tab 1</a></li>
-		<li><a href="#"> Tab 2</a></li>
-		<li><a href="#"> Tab 3</a></li>	
-	</ul>
-	
-	<ul class="nav navbar-nav navbar-right">
-	<li> <a href="http://localhost:8080/webGilad/loginAndRegister.html">Logout</a></li>	
-	</ul>
-</div>
-
-
+<!-- nav bar-->
+	<nav class="navbar navbar-inverse">
+	<div ng-app="homePage" ng-controller="homePageController" ng-init=username() >
+		<form novalidat name="HomePageForm">
+		<div class="container-fluid">
+			<div class="navbar-header"><a class="navbar-brand" href="#">HOME</a></div>	
+			<div>
+				<ul class="nav navbar-nav">
+					<li class=active><a href="#">1 page</a></li>
+					<li><a href="#">2 page</a></li>
+					<li><a href="#">3 page</a></li>
+					<li><a href="#">4 page</a></li>
+					<li><a href="#">5 page</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#">Welcome, {{name}}</a></li>
+					<li><a href="loginAndRegister.html" ng-click="removeAtt()">logout</a></li>
+				</ul>
+			</div>
+			
+		</div>
+		</form>
 	 </div>
- </form>
-</nav>
+	</nav>
+<!-- page -->
+	<div id="page content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					page content
+				</div>
+			</div>
+		</div>
+	</div>
+	 
 	
 </body>
 </html>

@@ -22,7 +22,7 @@ angular.module('homePage', [])
 				} 
 				else 
 				{
-					alert("response")
+					alert(response);
 					$scope.name = response;
 				}
 			}).error(function(error) {
