@@ -59,3 +59,11 @@ var app = angular.module("myApp", []);
 	}
     
 	}]);
+	
+	
+	var app = angular.module("myApp", []);
+	app.directive("navDirective", function() {
+	    return {
+	        templateUrl : "navBar.html"
+	    };
+	});
