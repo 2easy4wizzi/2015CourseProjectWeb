@@ -6,8 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-//import java.sql.Statement;
-//import java.util.Enumeration;
+import java.util.Enumeration;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -16,14 +15,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-//import org.apache.derby.tools.sysinfo;
-//import org.apache.derby.iapi.sql.ResultSet;
-//import org.apache.derby.tools.sysinfo;
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
-
 import constants.DBConstants;
-
+import models.User;
 
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -37,7 +31,7 @@ public class LoginServlet extends HttpServlet {
 	{
 			PreparedStatement ps;
 			int retValue = 0;
-			if(column.equals("Name"))
+			if(column.equals("Username"))
 			{
 				ps = conn.prepareStatement(DBConstants.SELECT_USER_BY_NAME_STMT);
 			}
@@ -82,13 +76,20 @@ public class LoginServlet extends HttpServlet {
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("LoginServlet") + "LoginServlet".length() + 1);
 			
+			
 			if(uri.equals("Register"))
 			{
+				User user = new User(request.getParameter("username"),
+						request.getParameter("password"),
+						request.getParameter("nickname"),
+						request.getParameter("description"),
+						request.getParameter("urlPhoto")
+						);
 				try
 				{
-					if(isOnDBReg("Name", request.getParameter("username"), conn)== 0)
+					if(isOnDBReg("Username", user.getUserName(), conn)== 0)
 					{
-						if(isOnDBReg("Nickname", request.getParameter("nickName"), conn)== 0){
+						if(isOnDBReg("Nickname", user.getNickname(), conn)== 0){
 						out.println("4");
 						}
 						else 
@@ -96,25 +97,26 @@ public class LoginServlet extends HttpServlet {
 							out.println("2");
 						}
 					}
-					else if(isOnDBReg("Nickname", request.getParameter("nickName"), conn)== 0) 
+					else if(isOnDBReg("Nickname", user.getNickname(), conn)== 0) 
 					{
 						out.println("3");
 					}
 					else
 					{	
 						PreparedStatement ps = conn.prepareStatement(DBConstants.INSERT_USER_STMT);
-						
-						ps.setString(1, request.getParameter("username"));
-						ps.setString(2, request.getParameter("password"));
-						ps.setString(3, request.getParameter("nickName"));
-						ps.setString(4, request.getParameter("description"));
-						ps.setString(5, request.getParameter("photo"));
+						user.print();
+						ps.setString(1, user.getUserName());
+						ps.setString(2, user.getPassword());
+						ps.setString(3, user.getNickname());
+						ps.setString(4, user.getDescription());
+						ps.setString(5, user.getPhotoUrl());
 						ps.executeUpdate();
 						
 						conn.commit();
 						ps.close();
 						
-						request.getSession().setAttribute("username", request.getParameter("username"));
+						//request.getSession().setAttribute("username", request.getParameter("username"));
+						request.getSession().setAttribute("user", user);
 						
 					}
 				}
@@ -142,7 +144,8 @@ public class LoginServlet extends HttpServlet {
 					}
 					else
 					{
-						request.getSession().setAttribute("username", request.getParameter("username"));
+						User user = new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5));
+						request.getSession().setAttribute("user", user);
 					}
 					rs.close();
 					ps.close();

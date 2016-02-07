@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 
 import constants.DBConstants;
+import models.User;
 
 /**
  * Servlet implementation class Questions
@@ -63,7 +64,7 @@ public class Questions extends HttpServlet {
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
 			Connection conn = ds.getConnection();
 			
-			
+			User user = (User)(request.getSession().getAttribute("user"));
 			
 			if(uri.equals("PostQuestion"))
 			{
@@ -74,9 +75,9 @@ public class Questions extends HttpServlet {
 					int  n = rand.nextInt(1150) + 1;
 					
 					ps.setInt(1, n);
-					ps.setString(2, request.getParameter("question"));
+					ps.setString(2, request.getParameter("questionText"));
 					ps.setString(3, request.getParameter("topics"));
-					ps.setString(4, request.getParameter("nickname"));
+					ps.setString(4, user.getNickname());
 					/*ps.setString(4, request.getParameter(fkQuery));*/
 					ps.executeUpdate();
 					

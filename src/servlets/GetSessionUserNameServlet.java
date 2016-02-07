@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.User;
 
 /**
  * Servlet implementation class GetSessionUserNameServlet
@@ -39,20 +40,20 @@ public class GetSessionUserNameServlet extends HttpServlet {
 		uri = uri.substring(uri.indexOf("GetSessionUserNameServlet") + "GetSessionUserNameServlet".length() + 1);
 		//System.out.println("uri is :" + uri);
 		
-		String username = (String)request.getSession().getAttribute("username");
+		User user = (User)(request.getSession().getAttribute("user"));
 		if(uri.equals("GetUsername"))
 		{
-			if(username != null){
-				response.getWriter().write(username);
+			if(user != null){
+				response.getWriter().write(user.getNickname());
 			}
 		}
 		else if(uri.equals("RemoveAtt"))
 		{	
 			
-			System.out.println("in remove att:" + username);
-			if(username != null) {
-				 request.getSession().removeAttribute("username");
-				 response.getWriter().write(username);				 
+			System.out.println("in remove att:" + user.getUserName() + " " + user.getNickname());
+			if(user != null) {
+				 request.getSession().removeAttribute("user");
+				 response.getWriter().write(user.getNickname());				 
 			   }
 		}
 

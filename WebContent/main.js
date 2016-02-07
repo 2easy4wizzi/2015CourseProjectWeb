@@ -84,43 +84,39 @@ app.directive("navDirective", function() {
 
 app.controller('askQuesC', ['$scope', '$http',
       function($scope, $http){
-      	$scope.question = null;
+      	$scope.questionText = null;
       	$scope.AskClear = function()
       	{
-      		$scope.question="";  
+      		$scope.questionText="";  
       	} 
       	$scope.AskPost = function(){
-      		if($scope.question == null || $scope.question == "")
+      		if($scope.questionText == null || $scope.questionText == "")
   			{
-      			$scope.question="you must write some text...";  
+      			$scope.questionText="you must write some text...";  
       			return;
   			}
       		$http(
-					{
-						method : 'POST',
-						url : 'http://localhost:8080/webGilad/Questions/PostQuestion',
-						params: { id: '3',
-								  question: $scope.question,
-								  topics: 'nothingYet',
-								  nickname: 'wizzi',
-								  rating: '3'
-			        	 	    },
-						headers : {
-							'Content-Type' : 'application/x-www-form-urlencoded'
-						}
-					}).success(function(response) {
-						
-				if (response == "") {
-					
-					//send do home page
-				} 
-				else 
-				{
-					
+			{
+				method : 'POST',
+				url : 'http://localhost:8080/webGilad/Questions/PostQuestion',
+				params : { questionText: $scope.questionText , topics: 'nothingYet'},
+				headers : {
+					'Content-Type' : 'application/x-www-form-urlencoded'
 				}
-			}).error(function(error) {
-				alert('somthing happend');
-				
-			});
-      	}
+				}).success(function(response) 
+				{
+					$scope.questionText="any more questions"; //goto homepage to see the new question
+					if (response == "") {
+						
+						//send do home page
+					} 
+					else 
+					{
+						
+					}
+				}).error(function(error) {
+					alert('somthing happend');
+					
+				});
+      		}
 }]);

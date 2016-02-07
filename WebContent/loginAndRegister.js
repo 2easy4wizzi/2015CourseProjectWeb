@@ -95,9 +95,9 @@ app.controller('logAndRegC', ['$scope', '$http',
 		         url: 'http://localhost:8080/webGilad/LoginServlet/Register',
 		         params: { username: $scope.regUsername ,
 		        	 		password: $scope.regPass , 
-		                    nickName: $scope.nickname , 
+		        	 		nickname: $scope.nickname , 
 		                    description: $scope.description ,
-		                    photo: $scope.photo , },
+		                    urlPhoto: $scope.urlPhoto , },
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		     })
 		     .success(function (response) 

@@ -1,13 +1,9 @@
 package listeners;
 
-//import java.io.File;
-//import java.io.IOException;
+
 import java.sql.Connection;
-//import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-//import java.util.Collection;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -19,11 +15,9 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
-
 import constants.DBConstants;
-//import example.model.Customer;
+
 
 /**
  * Application Lifecycle Listener implementation class DBListener
@@ -31,12 +25,8 @@ import constants.DBConstants;
  */
 public class DBListener implements ServletContextListener, ServletContextAttributeListener {
 
-    /**
-     * Default constructor. 
-     */
-    public DBListener() {
-        // TODO Auto-generated constructor stub
-    }
+ 
+    public DBListener() {}
 
 	/**
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
@@ -46,7 +36,7 @@ public class DBListener implements ServletContextListener, ServletContextAttribu
     	
     	try{
     		
-    		//obtain TBL_USERS data source from Tomcat's context
+    		//obtain ProjectDB data source from Tomcat's context
     		Context context = new InitialContext();
     		BasicDataSource ds = (BasicDataSource)context.lookup(DBConstants.DB_DATASOURCE);
     		Connection conn = ds.getConnection();
@@ -70,7 +60,7 @@ public class DBListener implements ServletContextListener, ServletContextAttribu
     		}
     		boolean questions_created = false;
     		try{
-    			//create TBL_USERS table
+    			//create TBL_QUESTIONS table
     			Statement stmt = conn.createStatement();
     			stmt.executeUpdate(DBConstants.CREATE_QUESTIONS_TABLE);
     			//commit update
