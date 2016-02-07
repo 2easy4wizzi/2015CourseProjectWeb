@@ -2,8 +2,22 @@ var app = angular.module("main", []);
 
 //app.module('myApp', [])
 
-app.controller('mainC', ['$scope', '$http',
-    function($scope, $http){
+app.controller('mainC', ['$scope', '$http','$location',                         
+    function($scope, $http, $location){
+	
+	$scope.isActive = function (viewLocation) 
+	{			
+         var s = location.href;			
+         var fields = s.split("/");			
+         var name = "/" + fields[4];			
+	
+         if(viewLocation == name){  return true;}			
+         if(viewLocation == name) { return true;}						
+	};
+	
+	
+	
+	
 	$scope.test = 0;
 	$scope.name = "Guest";
 	$scope.username = function()
