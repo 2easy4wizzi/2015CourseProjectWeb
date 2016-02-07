@@ -138,5 +138,23 @@ app.controller('logAndRegC', ['$scope', '$http',
 	             $scope.status = 'Unable to connect' + error.message;
 		     });     
 	     }
+	     $scope.regClear=function () {
+	    	 $scope.regUNError = "";
+			 $scope.regNNError = "";
+			 $scope.regPWError="";		 
+			 $scope.regUsername = "";
+			 $scope.regPass = "";
+			 $scope.nickname = "";
+			 $scope.description = "";
+			 $scope.photo = ""; 
+	     }
+	     $scope.logClear=function () {
+	    	 $scope.logErr="";
+			 $scope.logUNError="";
+			 $scope.logPWError="";
+			 $scope.loginUsername = "";
+			 $scope.loginPass = "";
+	     }
+	     
 	 
 	    }]);
