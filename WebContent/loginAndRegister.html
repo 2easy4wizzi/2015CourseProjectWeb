@@ -1,52 +1,53 @@
 <!DOCTYPE html>
-<html ng-app="myApp" lang="en-US">
+<html lang="en-US">
 
 <head>
 	<title>login/register</title>
 	<meta charset="UTF-8">
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-	<script type="text/javascript" src="loginAndRegister.js"></script> 
 
 		<!-- Bootstrap imports -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript" src="loginAndRegister.js"></script> 
+	
 	<style>
-body {
-    background-image: url("Images/BackGround.jpg");
-    background-attachment: fixed;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-opacity: 0.4;
-
-}
-#divElement{
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    margin-top: -50px;
-    margin-left: -50px;
-    width: 100px;
-    height: 100px;
-}
-​
-</style>
+	body {
+	    background-image: url("Images/BackGround.jpg");
+	    background-attachment: fixed;
+	    background-size: 100%;
+	    background-repeat: no-repeat;
+	    background-opacity: 0.4;
+	
+	}
+	#divElement{
+	    position: absolute;
+	    top: 30%;
+	    left: 50%;
+	    margin-top: -50px;
+	    margin-left: -50px;
+	    width: 100px;
+	    height: 100px;
+	}
+	</style>
 </head>	
 <body>
 
-
+<!-- 
 	<div id='divElement' ng-controller="loginAndRegController" >
 		<form novalidat name="loginAndRegForm" action="">
 			<div>
-				<!-- login input and button -->
+				login input and button
 			    Login {{logErr}}<br>
 			    <input type="text" 	   placeholder="User Name" maxlength="10" ng-model="loginUsername" required/>{{logUNError}}<br>
 			    <input type="password" placeholder="Password"  maxlength="8"  ng-model="loginPass" required/>{{logPWError}}<br>   
 			    <input type="button" value="login" ng-click="Login()"/><br>
            </div>
 			<div>	   
-		    	<!-- registration input and button -->
+		    	registration input and button
 			    Registration<br>
 			    <input type="text" placeholder="User Name" maxlength="10" ng-model="regUsername" required   />{{regUNError}}<br>
 			    <input type="password" placeholder="Password"       maxlength="8"    ng-model="regPass"  required   />{{regPWError}}  <span>   <img src="Images/infoIcon.jpg" alt="alternative text" height="23" width="23" title="The password should be 8 characters"/></span><br>
@@ -58,7 +59,45 @@ body {
 		 </form>
 	 </div>
    <img id='image' src="Images/infoIcon.jpg" alt="alternative text" height="23" width="23" title="The password should be 8 characters"/>
-	 
+	  -->
+	  <div class="container-fluid">
+	<div ng-app="logAndReg" ng-controller="logAndRegC" >
+		<form novalidat name="loginAndRegForm" >
+			<div class="row">
+				<div class="col-md-2"><h3>Do it Yourself</h3></div>
+				<div class="col-md-7"></div>
+				<div class="col-md-3">
+					<!-- login input and button -->
+					login:<br>
+				    <input type="text" 	   placeholder="User Name" maxlength="10" ng-model="loginUsername" required/><span class="text-danger">{{logErr}}{{logUNError}} </span><br>
+				    <input type="password" placeholder="Password"  maxlength="8"  ng-model="loginPass" required/><span class="text-danger">{{logPWError}}</span><br>
+				    <input type="button" value="login" ng-click="Login()"/>
+				    <input type="button" value="clear" ng-click="logClear()"/>
+			    </div>
+			</div>
+			<hr/>
+			<!-- page -->
+			<div id="page content">		
+				<div class="row">
+					<div class="col-md-9">
+						backgroung pic here
+					</div>
+					<div class="col-md-3"> 
+				    	<!-- registration input and button -->
+					    registration:<br>
+					    <input type="text" placeholder="User Name" maxlength="10" ng-model="regUsername" required   /><span class="text-danger">{{regUNError}}</span><br>
+					    <input type="password" placeholder="Password"       maxlength="8"    ng-model="regPass"  required   /><span class="text-danger">{{regPWError}}</span><br>
+					    <input type="text" placeholder="User nickname"  maxlength="20"    ng-model="nickname" required    /><span class="text-danger">{{regNNError}}</span><br>
+					    <textarea rows="3" cols="20" placeholder="Short description" maxlength="50" ng-model="description" ></textarea><br>   
+					    <input type="text"     id="txtPhoto"     placeholder="Upload photo"  ng-model="photo"     /><br>
+					    <input type="button"  value="Register" ng-click="Register()"/>
+					    <input type="button" value="clear" ng-click="regClear()"/>
+			 		</div>
+				</div>
+			</div>		
+		 </form>
+	 </div>
+</div>
 	
 </body>
 </html>

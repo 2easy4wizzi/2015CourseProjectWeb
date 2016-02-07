@@ -1,6 +1,6 @@
-var app = angular.module("myApp", []);
+var app = angular.module("logAndReg", []);
 
-app.controller('loginAndRegController', ['$scope', '$http',
+app.controller('logAndRegC', ['$scope', '$http',
 	function ($scope, $http) 
 	{
 		 $scope.logErr="";

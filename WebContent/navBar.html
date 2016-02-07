@@ -1,24 +1,27 @@
 <!DOCTYPE html>
-<html ng-app="myApp" lang="en-US">
+<html lang="en-US">
 
 <head>
 	<title>Home</title>
 	<meta charset="UTF-8">
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-	<script type="text/javascript" src="homePage.js"></script> 
+ 
 
-<!-- Bootstrap imports -->
+	<!-- Bootstrap imports -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="main.js"></script>
+
 	
 </head>	
 <body>
-
+<div ng-app="main">
 <!-- nav bar-->
 	<nav class="navbar navbar-inverse">
-	<div ng-controller="homePageController" ng-init=username() >
+	<div ng-controller="mainC" ng-init=username() >
 		<form novalidat name="HomePageForm">
 		<div class="container-fluid">
 			<div class="navbar-header"><a class="navbar-brand" href="#">HOME</a></div>	
@@ -50,5 +53,6 @@
 	 </div>
 	</nav>
 
+</div>
 </body>
 </html>
