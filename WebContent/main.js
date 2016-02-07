@@ -90,6 +90,11 @@ app.controller('askQuesC', ['$scope', '$http',
       		$scope.question="";  
       	} 
       	$scope.AskPost = function(){
+      		if($scope.question == null || $scope.question == "")
+  			{
+      			$scope.question="you must write some text...";  
+      			return;
+  			}
       		$http(
 					{
 						method : 'POST',
@@ -111,7 +116,7 @@ app.controller('askQuesC', ['$scope', '$http',
 				} 
 				else 
 				{
-					$scope.name = response;
+					
 				}
 			}).error(function(error) {
 				alert('somthing happend');
