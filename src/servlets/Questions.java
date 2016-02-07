@@ -69,25 +69,15 @@ public class Questions extends HttpServlet {
 			{
 				try
 				{
-					PreparedStatement ps = conn.prepareStatement(DBConstants.INSERT_QUESTION_STMT);
-					String fkQuery =  "SELECT * FROM TBL_USERS WHERE Nickname='" + request.getParameter("nickname") + "'";
-					PreparedStatement ps2 = conn.prepareStatement(fkQuery);
-					ResultSet rs = (ResultSet) ps2.executeQuery();
-					while (rs.next()) {
-				        for (int i = 1; i <= 6; i++) {
-				            if (i > 1) System.out.print(" | ");
-				            System.out.print(rs.getString(i));
-				        }
-				        System.out.println("");
-				    }
-					
+					PreparedStatement ps = conn.prepareStatement(DBConstants.INSERT_QUESTION_STMT);			
 					Random rand = new Random();
 					int  n = rand.nextInt(1150) + 1;
 					
 					ps.setInt(1, n);
 					ps.setString(2, request.getParameter("question"));
 					ps.setString(3, request.getParameter("topics"));
-					ps.setString(4, request.getParameter(fkQuery));
+					ps.setString(4, request.getParameter("nickname"));
+					/*ps.setString(4, request.getParameter(fkQuery));*/
 					ps.executeUpdate();
 					
 					conn.commit();
