@@ -51,7 +51,7 @@ public class DBListener implements ServletContextListener, ServletContextAttribu
     		BasicDataSource ds = (BasicDataSource)context.lookup(DBConstants.DB_DATASOURCE);
     		Connection conn = ds.getConnection();
     		
-    		boolean created = false;
+    		boolean users_created = false;
     		try{
     			//create TBL_USERS table
     			Statement stmt = conn.createStatement();
@@ -62,8 +62,25 @@ public class DBListener implements ServletContextListener, ServletContextAttribu
     		}catch (SQLException e){
     			//check if exception thrown since table was already created (so we created the database already 
     			//in the past
-    			created = tableAlreadyExists(e);
-    			if (!created){
+    			users_created = tableAlreadyExists(e);
+    			if (!users_created){
+    				throw e;//re-throw the exception so it will be caught in the
+    				//external try..catch and recorded as error in the log
+    			}
+    		}
+    		boolean questions_created = false;
+    		try{
+    			//create TBL_USERS table
+    			Statement stmt = conn.createStatement();
+    			stmt.executeUpdate(DBConstants.CREATE_QUESTIONS_TABLE);
+    			//commit update
+    			conn.commit();
+    			stmt.close();
+    		}catch (SQLException e){
+    			//check if exception thrown since table was already created (so we created the database already 
+    			//in the past
+    			questions_created = tableAlreadyExists(e);
+    			if (!questions_created){
     				throw e;//re-throw the exception so it will be caught in the
     				//external try..catch and recorded as error in the log
     			}

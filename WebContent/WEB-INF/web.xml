@@ -31,4 +31,15 @@
     <url-pattern>/GetSessionUserNameServlet/GetUsername</url-pattern>
     <url-pattern>/GetSessionUserNameServlet/RemoveAtt</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Questions</display-name>
+    <servlet-name>Questions</servlet-name>
+    <servlet-class>servlets.Questions</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Questions</servlet-name>
+    <url-pattern>/Questions</url-pattern>
+    <url-pattern>/Questions/PostQuestion</url-pattern>
+  </servlet-mapping>
 </web-app>

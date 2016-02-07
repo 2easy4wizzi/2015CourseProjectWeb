@@ -66,7 +66,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException 
 	{
-		/*Enumeration params = request.getParameterNames(); 
+		/*Enumeration<String> params = request.getParameterNames(); 
 		while(params.hasMoreElements())
 		{
 		 String paramName = (String)params.nextElement();

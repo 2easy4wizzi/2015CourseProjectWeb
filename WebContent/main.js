@@ -69,10 +69,39 @@ app.directive("navDirective", function() {
 	});
 
 app.controller('askQuesC', ['$scope', '$http',
-                                  function($scope, $http){
-                    	          	$scope.question = null;
-                    	          	$scope.Clear = function()
-                    	          	{
-                    	          		$scope.question="";  
-                    	          	} 
-                    }]);
+      function($scope, $http){
+      	$scope.question = null;
+      	$scope.AskClear = function()
+      	{
+      		$scope.question="";  
+      	} 
+      	$scope.AskPost = function(){
+      		$http(
+					{
+						method : 'POST',
+						url : 'http://localhost:8080/webGilad/Questions/PostQuestion',
+						params: { id: '2',
+								  question: $scope.question,
+								  topics: 'nothingYet',
+								  nickname: 'gilad',
+								  rating: '3'
+			        	 	    },
+						headers : {
+							'Content-Type' : 'application/x-www-form-urlencoded'
+						}
+					}).success(function(response) {
+						
+				if (response == "") {
+					
+					//send do home page
+				} 
+				else 
+				{
+					$scope.name = response;
+				}
+			}).error(function(error) {
+				alert('somthing happend');
+				
+			});
+      	}
+}]);
