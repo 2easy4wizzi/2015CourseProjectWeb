@@ -80,10 +80,10 @@ app.controller('askQuesC', ['$scope', '$http',
 					{
 						method : 'POST',
 						url : 'http://localhost:8080/webGilad/Questions/PostQuestion',
-						params: { id: '2',
+						params: { id: '3',
 								  question: $scope.question,
 								  topics: 'nothingYet',
-								  nickname: 'gilad',
+								  nickname: 'wizzi',
 								  rating: '3'
 			        	 	    },
 						headers : {
