@@ -2,36 +2,53 @@
 <html lang="en-US">
 
 <head>
-	<title>Home</title>
-	<meta charset="UTF-8">
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-	<!-- Bootstrap imports -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	
-	<script type="text/javascript" src="main.js"></script>
-	
-	
-</head>	
-<body >
+<title>Home</title>
+<meta charset="UTF-8">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<!-- Bootstrap imports -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="main.js"></script>
+
+<style>
+a {
+	height:100%;width:100%;
+  }
+</style>
+
+</head>
+
+<body>
 <div ng-app="main">
-	<div nav-directive></div>
-	
-	<div ng-controller="newQuestionsC" ng-init="getNewTop20()">
-		
-			<div ng-repeat="question in questions">
-				{{question.QuestionText}}
-			</div>
-			
+	<div nav-directive></div>	
+		<div class="container">   
+			<div ng-controller="newQuestionsC" ng-init="getNewTop20()">
+		 		 <table class="table table-hover">
+				    <thead>
+				      <tr>
+				        <th style="width:80%">Question</th>
+				        <th style="width:10%">who ask</th>
+				        <th>Vote</th>
+				      </tr>
+				    </thead>
+		   			 <tbody>		   
+						<tr ng-repeat="question in questions">
+							<td><a href="#" >{{question.QuestionText}} </a></td>
+						    <td> {{question.OwnerNickname}} </td>
+						    <td> {{question.Qvotes}} </td>
+					     </tr>
+		   			 </tbody>		    
+		 		 </table>
+		  	</div>
+		</div>
 	</div>
-
-
-<h3>to do 20 recent Q's</h3>
-
-
-
-</div>
 </body>
 </html>
