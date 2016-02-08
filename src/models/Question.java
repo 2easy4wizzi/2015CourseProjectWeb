@@ -6,15 +6,15 @@ public class Question
 	private int Qid ,Qvotes ;
 	private String QuestionText, QTopics, OwnerNickname, Created;
 	private double QRating ;
-	public Question(int qid,int qvotes, String questionText, String qTopics,String ownerNickname, String created) 
+	public Question(int qid, String questionText, String qTopics,String ownerNickname,double qrating,int qvotes ,String created) 
 	{
 		Qid = qid;
-		Qvotes = qvotes;
 		QuestionText = questionText;
 		QTopics = qTopics;
 		OwnerNickname = ownerNickname;
+		QRating = qrating;
+		Qvotes = qvotes;
 		Created = created;
-		QRating = 0;
 	}
 	
 

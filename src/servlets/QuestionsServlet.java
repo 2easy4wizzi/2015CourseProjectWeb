@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
-import java.util.Random;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -52,12 +51,12 @@ public class QuestionsServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Enumeration<String> params = request.getParameterNames(); 
+		/*Enumeration<String> params = request.getParameterNames(); 
 		while(params.hasMoreElements())
 		{
 		 String paramName = (String)params.nextElement();
 		 System.out.println("Attribute: "+paramName+", Value: "+request.getParameter(paramName));
-		}
+		}*/
 		try
 		{
 			String uri = request.getRequestURI();
@@ -106,8 +105,9 @@ public class QuestionsServlet extends HttpServlet {
 					
 					
 					while (rs.next()){
-						top20new.add(new Question(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6)));
-    				}
+						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),rs.getString(7)));
+						
+					}
 					
 					//conn.commit();
 					rs.close();
@@ -120,13 +120,12 @@ public class QuestionsServlet extends HttpServlet {
 				}
 				finally{
 					conn.close();
-					out.close();
 				}
 				Gson gson = new Gson();
 				String top20newJson = gson.toJson(top20new, DBConstants.NEW_QUESTION_COLLECTION);
-				PrintWriter writer = response.getWriter();
-	        	writer.println(top20newJson);
-	        	writer.close();
+				System.out.println(top20newJson);
+				out.println(top20newJson);
+	        	out.close();
 			}
 			
 		}
