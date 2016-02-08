@@ -95,6 +95,7 @@ public class QuestionsServlet extends HttpServlet {
 			}
 			else if(uri.equals("GetNewTop20"))
 			{
+				Collection<Question> top20new = new ArrayList<Question>(); 
 				try
 				{
 					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_QUESTION_BY_NICKNAME_STMT);			
@@ -103,7 +104,6 @@ public class QuestionsServlet extends HttpServlet {
 					ps.setString(1, user.getNickname());
 					ResultSet rs = (ResultSet) ps.executeQuery();
 					
-					Collection<Question> top20new = new ArrayList<Question>(); 
 					
 					while (rs.next()){
 						top20new.add(new Question(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6)));
@@ -123,7 +123,10 @@ public class QuestionsServlet extends HttpServlet {
 					out.close();
 				}
 				Gson gson = new Gson();
-				
+				String top20newJson = gson.toJson(top20new, DBConstants.NEW_QUESTION_COLLECTION);
+				PrintWriter writer = response.getWriter();
+	        	writer.println(top20newJson);
+	        	writer.close();
 			}
 			
 		}

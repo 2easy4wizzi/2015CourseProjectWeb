@@ -36,7 +36,7 @@ app.controller('navC', ['$scope', '$http','$location',
 					$scope.name = response;
 				}
 			}).error(function(error) {
-				alert('somthing happend');
+				alert('somthing happend at get user name ');
 				
 			});
 		}
@@ -110,7 +110,7 @@ app.controller('askQuesC', ['$scope', '$http',
 						
 					}
 				}).error(function(error) {
-					alert('somthing happend');
+					alert('somthing happend at post question');
 					
 				});
       		}
@@ -122,7 +122,7 @@ app.controller('newQuestionsC', ['$scope', '$http',
 		{
 			method : 'POST',
 			url : 'http://localhost:8080/webGilad/QuestionsServlet/GetNewTop20',
-			params : { top20from: 0},
+			params : { top20from: '0'},
 			headers : {
 				'Content-Type' : 'application/x-www-form-urlencoded'
 			}
@@ -131,14 +131,14 @@ app.controller('newQuestionsC', ['$scope', '$http',
 				$scope.questions = response;
 				if (response == "") {
 					
-					//send do home page
+					//send do home pages
 				} 
 				else 
 				{
 					
 				}
 			}).error(function(error) {
-				alert('somthing happend');
+				alert('somthing happend at ctor top20new');
 				
 			});
 		  		
