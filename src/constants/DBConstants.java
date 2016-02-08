@@ -21,14 +21,14 @@ public interface DBConstants
 	public final String SELECT_USER_BY_NAME_AND_PASSWORD_STMT = "SELECT * FROM TBL_USERS WHERE Username=? AND Password=?";
 
 	public final String CREATE_QUESTIONS_TABLE =  "CREATE TABLE TBL_QUESTIONS("
-											+ "Id Integer PRIMARY KEY,"
-											+ "Question varchar(300) NOT NULL,"
-											+ "Topics varchar(1000),"
-											+ "Nickname varchar(20),"
-											+ "Rating real DEFAULT 0,"
+											+ "QId INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,"
+											+ "QuestionText varchar(300) NOT NULL,"
+											+ "QTopics varchar(1000),"
+											+ "OwnerNickname varchar(20),"
+											+ "QRating real DEFAULT 0,"
 											+ "Created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
-											+ "FOREIGN KEY (Nickname) REFERENCES TBL_USERS(Nickname)"
+											+ "FOREIGN KEY (OwnerNickname) REFERENCES TBL_USERS(Nickname)"
 											+ ")";
-	public final String INSERT_QUESTION_STMT = "INSERT INTO TBL_QUESTIONS VALUES(?,?,?,?,DEFAULT,DEFAULT)";
+	public final String INSERT_QUESTION_STMT = "INSERT INTO TBL_QUESTIONS (QuestionText, QTopics, OwnerNickname, QRating, Created) VALUES(?,?,?,DEFAULT,DEFAULT)";
 
 }

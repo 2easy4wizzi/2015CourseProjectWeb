@@ -71,13 +71,13 @@ public class Questions extends HttpServlet {
 				try
 				{
 					PreparedStatement ps = conn.prepareStatement(DBConstants.INSERT_QUESTION_STMT);			
-					Random rand = new Random();
+					/*Random rand = new Random();
 					int  n = rand.nextInt(1150) + 1;
 					
-					ps.setInt(1, n);
-					ps.setString(2, request.getParameter("questionText"));
-					ps.setString(3, request.getParameter("topics"));
-					ps.setString(4, user.getNickname());
+					ps.setInt(1, n);*/
+					ps.setString(1, request.getParameter("questionText"));
+					ps.setString(2, request.getParameter("topics"));
+					ps.setString(3, user.getNickname());
 					/*ps.setString(4, request.getParameter(fkQuery));*/
 					ps.executeUpdate();
 					

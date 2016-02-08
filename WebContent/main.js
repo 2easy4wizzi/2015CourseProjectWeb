@@ -11,7 +11,6 @@ app.controller('mainC', ['$scope', '$http','$location',
          var fields = s.split("/");			
          var name = "/" + fields[4];			
 	
-         if(viewLocation == name){  return true;}			
          if(viewLocation == name) { return true;}						
 	};
 	
