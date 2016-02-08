@@ -16,10 +16,22 @@
 	
 </head>	
 <body >
-<div ng-app="main" ng-controller="mainC" >
-<div nav-directive></div>
+<div ng-app="main">
+	<div nav-directive></div>
+	
+	<div ng-controller="newQuestionsC" ng-init="getNewTop20()">
+		
+			<div ng-repeat="question in questions">
+				{{question}}
+			</div>
+			
+	</div>
+
 
 <h3>to do 20 recent Q's</h3>
-	</div>
+
+
+
+</div>
 </body>
 </html>

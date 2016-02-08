@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 //import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Random;
 
@@ -16,22 +19,23 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import com.google.gson.Gson;
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 
 import constants.DBConstants;
+import models.Question;
 import models.User;
 
 /**
- * Servlet implementation class Questions
+ * Servlet implementation class QuestionsServlet
  */
-public class Questions extends HttpServlet {
+public class QuestionsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Questions() {
+    public QuestionsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -57,7 +61,7 @@ public class Questions extends HttpServlet {
 		try
 		{
 			String uri = request.getRequestURI();
-			uri = uri.substring(uri.indexOf("Questions") + "Questions".length() + 1);
+			uri = uri.substring(uri.indexOf("QuestionsServlet") + "QuestionsServlet".length() + 1);
 			System.out.println(uri);
 			PrintWriter out = response.getWriter();
 			Context context = new InitialContext();
@@ -71,14 +75,9 @@ public class Questions extends HttpServlet {
 				try
 				{
 					PreparedStatement ps = conn.prepareStatement(DBConstants.INSERT_QUESTION_STMT);			
-					/*Random rand = new Random();
-					int  n = rand.nextInt(1150) + 1;
-					
-					ps.setInt(1, n);*/
 					ps.setString(1, request.getParameter("questionText"));
 					ps.setString(2, request.getParameter("topics"));
 					ps.setString(3, user.getNickname());
-					/*ps.setString(4, request.getParameter(fkQuery));*/
 					ps.executeUpdate();
 					
 					conn.commit();
@@ -93,6 +92,38 @@ public class Questions extends HttpServlet {
 					conn.close();
 					out.close();
 				}
+			}
+			else if(uri.equals("GetNewTop20"))
+			{
+				try
+				{
+					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_QUESTION_BY_NICKNAME_STMT);			
+					
+	
+					ps.setString(1, user.getNickname());
+					ResultSet rs = (ResultSet) ps.executeQuery();
+					
+					Collection<Question> top20new = new ArrayList<Question>(); 
+					
+					while (rs.next()){
+						top20new.add(new Question(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6)));
+    				}
+					
+					//conn.commit();
+					rs.close();
+					ps.close();
+				}
+				catch (SQLException  e) 
+				{
+					getServletContext().log("Error while closing connection", e);
+					response.sendError(500);// internal server error
+				}
+				finally{
+					conn.close();
+					out.close();
+				}
+				Gson gson = new Gson();
+				
 			}
 			
 		}

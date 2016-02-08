@@ -30,5 +30,6 @@ public interface DBConstants
 											+ "FOREIGN KEY (OwnerNickname) REFERENCES TBL_USERS(Nickname)"
 											+ ")";
 	public final String INSERT_QUESTION_STMT = "INSERT INTO TBL_QUESTIONS (QuestionText, QTopics, OwnerNickname, QRating, Created) VALUES(?,?,?,DEFAULT,DEFAULT)";
+	public final String SELECT_QUESTION_BY_NICKNAME_STMT = "SELECT * FROM TBL_QUESTIONS WHERE Nickname=?";
 
 }

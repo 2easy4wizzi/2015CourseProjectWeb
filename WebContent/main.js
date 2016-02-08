@@ -2,7 +2,7 @@ var app = angular.module("main", []);
 
 //app.module('myApp', [])
 
-app.controller('mainC', ['$scope', '$http','$location',                         
+app.controller('navC', ['$scope', '$http','$location',                         
     function($scope, $http, $location){
 	
 	$scope.isActive = function (viewLocation) 
@@ -13,10 +13,6 @@ app.controller('mainC', ['$scope', '$http','$location',
 	
          if(viewLocation == name) { return true;}						
 	};
-	
-	
-	
-	
 	$scope.test = 0;
 	$scope.name = "Guest";
 	$scope.username = function()
@@ -97,14 +93,14 @@ app.controller('askQuesC', ['$scope', '$http',
       		$http(
 			{
 				method : 'POST',
-				url : 'http://localhost:8080/webGilad/Questions/PostQuestion',
+				url : 'http://localhost:8080/webGilad/QuestionsServlet/PostQuestion',
 				params : { questionText: $scope.questionText , topics: 'nothingYet'},
 				headers : {
 					'Content-Type' : 'application/x-www-form-urlencoded'
 				}
 				}).success(function(response) 
 				{
-					$scope.questionText="any more questions"; //goto homepage to see the new question
+					window.location = "\homePage.html";
 					if (response == "") {
 						
 						//send do home page
@@ -118,4 +114,36 @@ app.controller('askQuesC', ['$scope', '$http',
 					
 				});
       		}
+}]);
+
+app.controller('newQuestionsC', ['$scope', '$http',
+                            function($scope, $http){
+		$http(
+		{
+			method : 'POST',
+			url : 'http://localhost:8080/webGilad/QuestionsServlet/GetNewTop20',
+			params : { top20from: 0},
+			headers : {
+				'Content-Type' : 'application/x-www-form-urlencoded'
+			}
+			}).success(function(response) 
+			{
+				$scope.questions = response;
+				if (response == "") {
+					
+					//send do home page
+				} 
+				else 
+				{
+					
+				}
+			}).error(function(error) {
+				alert('somthing happend');
+				
+			});
+		  		
+	
+	
+					
+	
 }]);
