@@ -42,5 +42,16 @@ public interface DBConstants
 
 
 
+	public final String CREATE_ANSWERS_TABLE =  "CREATE TABLE TBL_ANSWERS("
+			+ "AId INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,"
+			+ "QId INT,"
+			+ "AnswerText varchar(300) NOT NULL,"
+			+ "OwnerNickname varchar(20),"
+			+ "ARating real DEFAULT 0,"
+			+ "AVotes INT DEFAULT 0,"
+			+ "Created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
+			+ "FOREIGN KEY (QId) REFERENCES TBL_QUESTIONS(QId)"
+			+ "FOREIGN KEY (OwnerNickname) REFERENCES TBL_USERS(Nickname)"
+			+ ")";
 
 }

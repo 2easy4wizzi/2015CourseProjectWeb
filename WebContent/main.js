@@ -144,7 +144,7 @@ app.controller('newQuestionsC', ['$scope', '$http',
 						$scope.questions = response;					
 					}
 					}).error(function(error) {
-						alert('somthing happend at ctor top20new');
+						alert('somthing happend at getNewTop20 top20new');
 						
 					});
 			}
