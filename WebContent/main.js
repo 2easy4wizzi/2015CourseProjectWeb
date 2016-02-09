@@ -81,9 +81,11 @@ app.directive("navDirective", function() {
 app.controller('askQuesC', ['$scope', '$http',
       function($scope, $http){
       	$scope.questionText = null;
+      	$scope.topic = null;
       	$scope.AskClear = function()
       	{
       		$scope.questionText="";  
+      		$scope.topic="";  
       	} 
       	$scope.AskPost = function(){
       		if($scope.questionText == null || $scope.questionText == "")
@@ -95,7 +97,7 @@ app.controller('askQuesC', ['$scope', '$http',
 			{
 				method : 'POST',
 				url : 'http://localhost:8080/webGilad/QuestionsServlet/PostQuestion',
-				params : { questionText: $scope.questionText , topics: 'nothingYet'},
+				params : { questionText: $scope.questionText , topics: $scope.topic},
 				headers : {
 					'Content-Type' : 'application/x-www-form-urlencoded'
 				}
@@ -148,4 +150,67 @@ app.controller('newQuestionsC', ['$scope', '$http',
 						
 					});
 			}
+		
+
+$scope.answerAquestion = function(qid,answerText)
+{
+	if(answerText == null || answerText == "")
+	{  
+		return;
+	}
+	$http(
+			{
+				method : 'POST',
+				url : 'http://localhost:8080/webGilad/QuestionsServlet/PostAnswer',
+				params : { answerText: answerText , qid: qid},
+				headers : { 'Content-Type' : 'application/x-www-form-urlencoded' }
+			}).success(function(response) 
+				{
+					alert('returned from servelet with respons = ' + response);
+					if (response == 0) 
+					{
+						
+					} 
+					else 
+					{
+						$scope.questions = response;					
+					}
+				}).error(function(error) {
+					alert('somthing happend at getNewTop20 top20new');
+					
+				});
+}
 }]);
+
+
+app.controller('answerC', ['$scope', '$http',
+                            function($scope, $http)
+{
+            alert('in ansC');                	
+    	$scope.getAnswers = function(qid){
+    		alert('in ansC'); 
+    		$http(
+			{
+			method : 'POST',
+			url : 'http://localhost:8080/webGilad/QuestionsServlet/GetAnswers',
+			params : { qid: qid },
+			headers : {
+				'Content-Type' : 'application/x-www-form-urlencoded'
+			}
+			}).success(function(response) 
+			{
+				alert('returned from servelet with respons = ' + response);
+				if (response == "") {
+					
+					//send do home page
+				} 
+				else 
+				{
+					
+				}
+			}).error(function(error) {
+				alert('somthing happend at post question');
+  					
+  				});
+        		}
+  }]);

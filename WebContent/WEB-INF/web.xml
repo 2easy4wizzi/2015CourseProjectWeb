@@ -41,6 +41,8 @@
     <servlet-name>QuestionsServlet</servlet-name>
     <url-pattern>/QuestionsServlet</url-pattern>
     <url-pattern>/QuestionsServlet/PostQuestion</url-pattern>
+    <url-pattern>/QuestionsServlet/PostAnswer</url-pattern>
     <url-pattern>/QuestionsServlet/GetNewTop20</url-pattern>
+    <url-pattern>/QuestionsServlet/GetAnswers</url-pattern>
   </servlet-mapping>
 </web-app>

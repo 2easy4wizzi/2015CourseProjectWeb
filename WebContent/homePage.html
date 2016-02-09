@@ -80,7 +80,7 @@ td.comment {
         					<td class="question_info">
 					            his question:<br>
 					            {{question.QuestionText}}<br>
-					            topics:bannaa , fruit...<br>
+					            topics:{{question.QTopics}}<br>
 					            <input type="button"  value="like" ng-click="like()" />
 					            <input type="button"  value="dis like" ng-click="disLike()" />
 					        </td>  
@@ -98,14 +98,57 @@ td.comment {
 					          		Answers:{{question.Answers}}<br>
 					          </td>
 					          <td class="comment">
-					          <textarea rows="7" cols="60" placeholder="Answer the question" maxlength="300" ng-model="questionText" required></textarea><br>
-					          <input type="button"  value="post Answer" ng-click="postNewAnw" />
+					          <textarea rows="7" cols="60" placeholder="Answer the question" maxlength="300" ng-model="answerText" required></textarea><br>
+					          <input type="button"  value="post Answer" ng-click="answerAquestion(question.Qid,answerText)" />
 					          </td>
       
       					</tr>
-					     
+					    
 		   			</tbody>		    
 		 		 </table>
+		 		 <div ng-controller="answerC" ng-init="getAnswers(question.Qid)" ng-repeat="answer in answers" >
+		 		 	<table class="answer_widget">
+				    <thead>
+				      
+				    </thead>
+		   			<tbody>	
+						<tr>
+							<td class="owner_info"> 
+		   				   
+            					<img alt="uesr pic" src=https://jamfnation.jamfsoftware.com/img/default-avatars/generic-user.png><br>
+					            nickname   :{{answer.OwnerNickname}}<br>
+					            time asked :{{answer.Created}}<br>
+					            
+        					</td>
+        					
+        					<td class="question_info">
+					            his answer:<br>
+					            {{answer.answerText}}<br>
+					            <input type="button"  value="like" ng-click="like()" />
+					            <input type="button"  value="dis like" ng-click="disLike()" />
+					        </td>  
+					     </tr>
+					     
+					     <tr>
+					     
+					          <td class="question_details">
+					          		Aid:{{answer.Aid}}<br>
+					          		Qid:{{answer.Qid}}<br>
+					          		OwnerNickname:{{answer.OwnerNickname}}<br>
+					          		ARating:{{answer.ARating}}<br>
+					          		AVotes:{{answer.AVotes}}<br>
+					          		Created:{{answer.Created}}<br>
+					          </td>
+					          <td class="comment">
+					          
+					          </td>
+      
+      					</tr>
+					    
+		   			</tbody>		    
+		 		 </table>
+		 		 
+		 		 </div>
 	 		</div>	 
 		 		 <input type="button"  value="prev20" ng-click="prev()" />
 	             <input type="button"  value="next20" ng-click="next()" />

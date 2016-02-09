@@ -43,15 +43,17 @@ public interface DBConstants
 
 
 	public final String CREATE_ANSWERS_TABLE =  "CREATE TABLE TBL_ANSWERS("
-			+ "AId INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,"
-			+ "QId INT,"
-			+ "AnswerText varchar(300) NOT NULL,"
-			+ "OwnerNickname varchar(20),"
-			+ "ARating real DEFAULT 0,"
-			+ "AVotes INT DEFAULT 0,"
-			+ "Created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
-			+ "FOREIGN KEY (QId) REFERENCES TBL_QUESTIONS(QId)"
-			+ "FOREIGN KEY (OwnerNickname) REFERENCES TBL_USERS(Nickname)"
-			+ ")";
+											+ "AId INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,"
+											+ "QId INT,"
+											+ "AnswerText varchar(300) NOT NULL,"
+											+ "OwnerNickname varchar(20),"
+											+ "ARating real DEFAULT 0,"
+											+ "AVotes INT DEFAULT 0,"
+											+ "Created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
+											+ "FOREIGN KEY (QId) REFERENCES TBL_QUESTIONS(QId),"
+											+ "FOREIGN KEY (OwnerNickname) REFERENCES TBL_USERS(Nickname)"
+											+ ")";
+	public final String INSERT_ANSWER_STMT = "INSERT INTO TBL_ANSWERS (QId, AnswerText, OwnerNickname, ARating, AVotes, Created) VALUES(?,?,?,DEFAULT,DEFAULT,DEFAULT)";
+	public final String SELECT_ANSWERS_BY_QID_STMT = "SELECT * FROM TBL_ANSWERS WHERE Qid=?";
 
 }

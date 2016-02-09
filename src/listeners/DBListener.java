@@ -58,23 +58,6 @@ public class DBListener implements ServletContextListener, ServletContextAttribu
     				//external try..catch and recorded as error in the log
     			}
     		}
-    		boolean answers_created = false;
-    		try{
-    			//create ANSWERS_USERS table
-    			Statement stmt = conn.createStatement();
-    			stmt.executeUpdate(DBConstants.CREATE_ANSWERS_TABLE);
-    			//commit update
-    			conn.commit();
-    			stmt.close();
-    		}catch (SQLException e){
-    			//check if exception thrown since table was already created (so we created the database already 
-    			//in the past
-    			answers_created = tableAlreadyExists(e);
-    			if (!answers_created){
-    				throw e;//re-throw the exception so it will be caught in the
-    				//external try..catch and recorded as error in the log
-    			}
-    		}
     		boolean questions_created = false;
     		try{
     			//create TBL_QUESTIONS table
@@ -92,6 +75,27 @@ public class DBListener implements ServletContextListener, ServletContextAttribu
     				//external try..catch and recorded as error in the log
     			}
     		}
+    		boolean answers_created = false;
+    		try{
+    			//create ANSWERS_USERS table
+    			Statement stmt = conn.createStatement();
+    			stmt.executeUpdate(DBConstants.CREATE_ANSWERS_TABLE);
+    			//commit update
+    			conn.commit();
+    			stmt.close();
+    		}catch (SQLException e){
+    			//check if exception thrown since table was already created (so we created the database already 
+    			//in the past
+    			answers_created = tableAlreadyExists(e);
+    			if (!answers_created){
+    				throw e;//re-throw the exception so it will be caught in the
+    				//external try..catch and recorded as error in the log
+    			}
+    		}
+    		
+    		
+    		
+    		
    		//close connection
     		conn.close();
 

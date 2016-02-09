@@ -23,6 +23,7 @@ import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 
 import constants.DBConstants;
 import models.Question;
+import models.Answer;
 import models.User;
 
 /**
@@ -51,20 +52,20 @@ public class QuestionsServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*Enumeration<String> params = request.getParameterNames(); 
+		Enumeration<String> params = request.getParameterNames(); 
 		while(params.hasMoreElements())
 		{
 		 String paramName = (String)params.nextElement();
 		 System.out.println("Attribute: "+paramName+", Value: "+request.getParameter(paramName));
-		}*/
+		}
 		try
 		{
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("QuestionsServlet") + "QuestionsServlet".length() + 1);
 			System.out.println(uri);
 			PrintWriter out = response.getWriter();
-			//User user = (User)(request.getSession().getAttribute("user"));
-User user = new User("gilad","123","wizzi",null,null);
+			User user = (User)(request.getSession().getAttribute("user"));
+//User user = new User("gilad","123","wizzi",null,null);
 
 			if(user == null)
 			{
@@ -84,6 +85,31 @@ User user = new User("gilad","123","wizzi",null,null);
 					PreparedStatement ps = conn.prepareStatement(DBConstants.INSERT_QUESTION_STMT);			
 					ps.setString(1, request.getParameter("questionText"));
 					ps.setString(2, request.getParameter("topics"));
+					ps.setString(3, user.getNickname());
+					ps.executeUpdate();
+					
+					conn.commit();
+					ps.close();
+				}
+				catch (SQLException  e) 
+				{
+					getServletContext().log("Error while closing connection", e);
+					response.sendError(500);// internal server error
+				}
+				finally{
+					conn.close();
+					out.close();
+				}
+			}
+			if(uri.equals("PostAnswer"))
+			{
+				try
+				{
+					PreparedStatement ps = conn.prepareStatement(DBConstants.INSERT_ANSWER_STMT);			
+					String temp = request.getParameter("qid");
+					int qid = Integer.parseInt(temp);
+					ps.setInt(1, qid);
+					ps.setString(2, request.getParameter("answerText"));
 					ps.setString(3, user.getNickname());
 					ps.executeUpdate();
 					
@@ -129,6 +155,47 @@ User user = new User("gilad","123","wizzi",null,null);
 				System.out.println("JSON: " +top20newJson);
 				out.println(top20newJson);
 	        	out.close();
+			}
+			else if(uri.equals("GetAnswers"))
+			{
+				Collection<Answer> answers = new ArrayList<Answer>(); 
+				try
+				{
+					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_ANSWERS_BY_QID_STMT);
+					String temp = request.getParameter("qid");
+					int qid = Integer.parseInt(temp);
+					ps.setInt(1, qid);
+					ResultSet rs = (ResultSet) ps.executeQuery();
+					
+					while (rs.next()) {
+					    for (int i = 1; i <= 6; i++) {
+					        if (i > 1) System.out.print(" | ");
+					        System.out.print(rs.getString(i));
+					    }
+					    System.out.println("");
+					}
+					
+					while (rs.next()){
+						answers.add(new Answer(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),rs.getString(7)));
+					}
+					
+					//conn.commit();
+					rs.close();
+					ps.close();
+				}
+				catch (SQLException  e) 
+				{
+					getServletContext().log("Error while closing connection", e);
+					response.sendError(500);// internal server error
+				}
+				finally{
+					conn.close();
+				}
+				Gson gson = new Gson();
+				String answersJson = gson.toJson(answers, DBConstants.NEW_QUESTION_COLLECTION);
+				System.out.println("JSON: " +answersJson);
+				out.println(answersJson);
+				out.close();
 			}
 			
 		}
