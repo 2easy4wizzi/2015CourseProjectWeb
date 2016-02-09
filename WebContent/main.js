@@ -28,8 +28,9 @@ app.controller('navC', ['$scope', '$http','$location',
 					}).success(function(response) {
 						
 				if (response == "") {
-					window.location = "\loginAndRegister.html";
+					//window.location = "\loginAndRegister.html";
 					//send do home page
+					//alert('no one is logged in')
 				} 
 				else 
 				{
@@ -118,32 +119,33 @@ app.controller('askQuesC', ['$scope', '$http',
 
 app.controller('newQuestionsC', ['$scope', '$http',
                             function($scope, $http){
-		$http(
+		$scope.from = 0;
+		$scope.questions = "";
+		$scope.getNewTop20 = function(from)
 		{
-			method : 'POST',
-			url : 'http://localhost:8080/webGilad/QuestionsServlet/GetNewTop20',
-			params : { top20from: '0'},
-			headers : {
-				'Content-Type' : 'application/x-www-form-urlencoded'
-			}
-			}).success(function(response) 
+			
+			$http(
 			{
-				$scope.questions = response;
-				if (response == "") {
-					
-					//send do home pages
-				} 
-				else 
-				{
-					
+				method : 'POST',
+				url : 'http://localhost:8080/webGilad/QuestionsServlet/GetNewTop20',
+				params : { top20from: '0'},
+				headers : {
+					'Content-Type' : 'application/x-www-form-urlencoded'
 				}
-			}).error(function(error) {
-				alert('somthing happend at ctor top20new');
-				
-			});
-		  		
-	
-	
-					
-	
+			}).success(function(response) 
+				{
+					if (response == 0) //0 for no questions found
+					{
+						alert('in if');
+						//$scope.questions = {"Qid":1,"Qvotes":0,"QuestionText":"a","QTopics":"nothingYet","OwnerNickname":"wizzi","Created":"2016-02-08 20:27:39.335","QRating":0.0}
+					} 
+					else 
+					{
+						$scope.questions = response;					
+					}
+					}).error(function(error) {
+						alert('somthing happend at ctor top20new');
+						
+					});
+			}
 }]);

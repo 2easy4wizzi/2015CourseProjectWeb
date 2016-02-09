@@ -50,8 +50,8 @@ public class GetSessionUserNameServlet extends HttpServlet {
 		else if(uri.equals("RemoveAtt"))
 		{	
 			
-			System.out.println("in remove att:" + user.getUserName() + " " + user.getNickname());
 			if(user != null) {
+				System.out.println("in remove att:" + user.getUserName() + " " + user.getNickname());
 				 request.getSession().removeAttribute("user");
 				 response.getWriter().write(user.getNickname());				 
 			   }

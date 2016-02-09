@@ -17,11 +17,40 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="main.js"></script>
-
 <style>
-a {
-	height:100%;width:100%;
-  }
+table.question_widget
+{
+  border: solid 3px black;
+  background-color: grey;
+}
+
+td, tr{
+ border: solid 1px black;
+}
+
+td.owner_info {
+
+  width: 25%;
+  height: 100%;
+}
+
+td.owner_info img{
+  width: 100px;
+}
+
+td.question_info {
+  vertical-align: top;
+  
+  width: 75%;
+  height: 100%;
+
+}
+
+td.comment {
+  vertical-align: top;
+  
+  height: 100%;
+}
 </style>
 
 </head>
@@ -29,26 +58,59 @@ a {
 <body>
 <div ng-app="main">
 	<div nav-directive></div>	
-		<div class="container">   
-			<div ng-controller="newQuestionsC" ng-init="getNewTop20()">
-		 		 <table class="table table-hover">
+	
+	<div class="container">   
+		<div ng-controller="newQuestionsC" ng-init="getNewTop20(from)">
+	 		<div ng-repeat="question in questions">
+	 		<br>
+		 		 <table class="question_widget">
 				    <thead>
-				      <tr>
-				        <th style="width:80%">Question</th>
-				        <th style="width:10%">who ask</th>
-				        <th>Vote</th>
-				      </tr>
+				      
 				    </thead>
-		   			 <tbody>		   
-						<tr ng-repeat="question in questions">
-							<td><a href="#" >{{question.QuestionText}} </a></td>
-						    <td> {{question.OwnerNickname}} </td>
-						    <td> {{question.Qvotes}} </td>
+		   			<tbody>	
+						<tr>
+							<td class="owner_info"> 
+		   				   
+            					<img alt="uesr pic" src=https://jamfnation.jamfsoftware.com/img/default-avatars/generic-user.png><br>
+					            nickname   :{{question.OwnerNickname}}<br>
+					            time asked :{{question.Created}}<br>
+					            
+        					</td>
+        					
+        					<td class="question_info">
+					            his question:<br>
+					            {{question.QuestionText}}<br>
+					            topics:bannaa , fruit...<br>
+					            <input type="button"  value="like" ng-click="like()" />
+					            <input type="button"  value="dis like" ng-click="disLike()" />
+					        </td>  
 					     </tr>
-		   			 </tbody>		    
+					     
+					     <tr>
+					     
+					          <td class="question_details">
+					          		Qid:{{question.Qid}}<br>
+					          		Qvotes:{{question.Qvotes}}<br>
+					          		QTopics:{{question.QTopics}}<br>
+					          		OwnerNickname:{{question.OwnerNickname}}<br>
+					          		Created:{{question.Created}}<br>
+					          		QRating:{{question.QRating}}<br>
+					          </td>
+					          <td class="comment">
+					          <textarea rows="7" cols="60" placeholder="Answer the question" maxlength="300" ng-model="questionText" required></textarea><br>
+					          <input type="button"  value="post Answer" ng-click="postNewAnw" />
+					          </td>
+      
+      					</tr>
+					     
+		   			</tbody>		    
 		 		 </table>
-		  	</div>
-		</div>
+	 		</div>	 
+		 		 <input type="button"  value="prev20" ng-click="prev()" />
+	             <input type="button"  value="next20" ng-click="next()" />
+	 		
+	  	</div>
+	</div>
 	</div>
 </body>
 </html>

@@ -63,11 +63,19 @@ public class QuestionsServlet extends HttpServlet {
 			uri = uri.substring(uri.indexOf("QuestionsServlet") + "QuestionsServlet".length() + 1);
 			System.out.println(uri);
 			PrintWriter out = response.getWriter();
+			//User user = (User)(request.getSession().getAttribute("user"));
+User user = new User("gilad","123","wizzi",null,null);
+
+			if(user == null)
+			{
+				out.println("0");
+				out.close();
+				return;
+			}
 			Context context = new InitialContext();
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
 			Connection conn = ds.getConnection();
 			
-			User user = (User)(request.getSession().getAttribute("user"));
 			
 			if(uri.equals("PostQuestion"))
 			{
@@ -97,16 +105,11 @@ public class QuestionsServlet extends HttpServlet {
 				Collection<Question> top20new = new ArrayList<Question>(); 
 				try
 				{
-					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_QUESTION_BY_NICKNAME_STMT);			
-					
-	
-					ps.setString(1, user.getNickname());
+					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_QUESTION_BY_TIMESTAMP_STMT);			
 					ResultSet rs = (ResultSet) ps.executeQuery();
-					
-					
+							
 					while (rs.next()){
 						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),rs.getString(7)));
-						
 					}
 					
 					//conn.commit();
@@ -123,7 +126,7 @@ public class QuestionsServlet extends HttpServlet {
 				}
 				Gson gson = new Gson();
 				String top20newJson = gson.toJson(top20new, DBConstants.NEW_QUESTION_COLLECTION);
-				System.out.println(top20newJson);
+				System.out.println("JSON: " +top20newJson);
 				out.println(top20newJson);
 	        	out.close();
 			}
