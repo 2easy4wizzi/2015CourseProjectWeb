@@ -34,11 +34,11 @@ public interface DBConstants
 											+ "QRating real DEFAULT 0,"
 											+ "QVotes INT DEFAULT 0,"
 											+ "Created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
+											+ "Answers INT DEFAULT 0,"
 											+ "FOREIGN KEY (OwnerNickname) REFERENCES TBL_USERS(Nickname)"
 											+ ")";
 	public final String INSERT_QUESTION_STMT = "INSERT INTO TBL_QUESTIONS (QuestionText, QTopics, OwnerNickname, QRating, QVotes, Created) VALUES(?,?,?,DEFAULT,DEFAULT,DEFAULT)";
-	public final String SELECT_QUESTION_BY_NICKNAME_STMT = "SELECT * FROM TBL_QUESTIONS WHERE OwnerNickname=?";
-	public final String SELECT_TOP_20_QUESTION_BY_TIMESTAMP_STMT = "SELECT * FROM TBL_QUESTIONS FETCH FIRST 20 ROWS ONLY";
+	public final String SELECT_TOP_20_QUESTION_BY_TIMESTAMP_STMT = "SELECT * FROM TBL_QUESTIONS WHERE Answers=0 FETCH FIRST 20 ROWS ONLY";
 
 
 

@@ -3,10 +3,10 @@ package models;
 public class Question
 {
 	
-	private int Qid ,Qvotes ;
+	private int Qid ,Qvotes, Answers;
 	private String QuestionText, QTopics, OwnerNickname, Created;
 	private double QRating ;
-	public Question(int qid, String questionText, String qTopics,String ownerNickname,double qrating,int qvotes ,String created) 
+	public Question(int qid, String questionText, String qTopics,String ownerNickname,double qrating,int qvotes ,String created, int answers) 
 	{
 		Qid = qid;
 		QuestionText = questionText;
@@ -15,6 +15,7 @@ public class Question
 		QRating = qrating;
 		Qvotes = qvotes;
 		Created = created;
+		Answers = answers;
 	}
 	
 
@@ -22,6 +23,10 @@ public class Question
 	
 	public int getQid() {
 		return Qid;
+	}
+	
+	public int getAnswers() {
+		return Answers;
 	}
 	
 
@@ -72,7 +77,7 @@ public class Question
 
 	public void print() 
 	{
-		System.out.println("Qid: " +Qid +  " Qvotes: " + Qvotes + " QuestionText: " + QuestionText + " QTopics: " + QTopics + " OwnerNickname: " + OwnerNickname + " Created: " + Created + " QRating: " + QRating);
+		System.out.println("Qid: " +Qid +  " Qvotes: " + Qvotes + " QuestionText: " + QuestionText + " QTopics: " + QTopics + " OwnerNickname: " + OwnerNickname + " Created: " + Created + " QRating: " + QRating +" Answers: " + Answers );
 	}
 	
 	

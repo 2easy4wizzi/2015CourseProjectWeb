@@ -109,7 +109,7 @@ User user = new User("gilad","123","wizzi",null,null);
 					ResultSet rs = (ResultSet) ps.executeQuery();
 							
 					while (rs.next()){
-						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),rs.getString(7)));
+						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),rs.getString(7),rs.getInt(8)));
 					}
 					
 					//conn.commit();
