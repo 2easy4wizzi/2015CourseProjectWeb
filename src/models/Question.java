@@ -4,10 +4,14 @@ public class Question
 {
 	
 	private int Qid ,Qvotes, Answers;
-	private String QuestionText, QTopics, OwnerNickname;
+	private String QuestionText, QTopics, OwnerNickname,CreatedHuman;
 	private long Created;
 	private double QRating ;
-	public Question(int qid, String questionText, String qTopics,String ownerNickname,double qrating,int qvotes ,long created, int answers) 
+
+
+
+
+	public Question(int qid, String questionText, String qTopics,String ownerNickname,double qrating,int qvotes ,String createdHuman,long created, int answers) 
 	{
 		Qid = qid;
 		QuestionText = questionText;
@@ -15,12 +19,16 @@ public class Question
 		OwnerNickname = ownerNickname;
 		QRating = qrating;
 		Qvotes = qvotes;
+		CreatedHuman = createdHuman;
 		Created = created;
 		Answers = answers;
 	}
 	
 
 	
+	public String getCreatedHuman() {
+		return CreatedHuman;
+	}
 	
 	public int getQid() {
 		return Qid;

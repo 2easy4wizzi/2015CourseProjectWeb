@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 //import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -141,9 +143,10 @@ public class QuestionsServlet extends HttpServlet {
 					while (rs.next()){
 						java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(7));
 						long tsTime = ts.getTime();
+						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 						java.sql.Date startDate = new java.sql.Date(ts.getTime());
-						System.out.println(startDate + " " + tsTime);
-						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),tsTime,rs.getInt(8)));
+						String createdHuman = df.format(startDate);
+						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),createdHuman ,tsTime,rs.getInt(8)));
 					}
 					
 					//conn.commit();

@@ -62,15 +62,17 @@ td.comment {
 		<div ng-controller="newQuestionsC" ng-init="getTop20NewQuestions(from);showAnswerTextArea=false">
 	 		<div ng-repeat="question in questions">
           		<hr>
-	 			Qid:{{question.Qid}}<br>
-          		Qvotes:{{question.Qvotes}}<br>
-          		QTopics:{{question.QTopics}}<br>
-          		OwnerNickname:{{question.OwnerNickname}}<br>
-          		Created:{{getTimeStamp(question.Created)}}<br>
-          		QRating:{{question.QRating}}<br>
-          		topics:{{question.QTopics}}<br>
-          		Answers:{{question.Answers}}<br>
-          		<button value="{{$index}}"  ng-click="showAnswerTextArea = !showAnswerTextArea ; getAnswerButton(answer_button,$index)" > {{value}} </button><br>
+	 			1.Qid:{{question.Qid}}<br>
+	 			2.Qtext:{{question.QuestionText}}<br>
+          		3.Qvotes:{{question.Qvotes}}<br>
+          		4.QTopics:{{question.QTopics}}<br>
+          		5.OwnerNickname:{{question.OwnerNickname}}<br>
+          		6.Createdlong:{{question.Created}}<br>
+          		7.CreatedHuman:{{question.CreatedHuman}}<br>
+          		8.QRating:{{question.QRating}}<br>
+          		9.Answers:{{question.Answers}}<br>
+          		<button id="answer_button-{{$index}}" ng-click="showAnswerTextArea = !showAnswerTextArea ; getAnswerButton($index)" >
+          		 {{answer_button}} </button><br>
           		<div data-ng-if="showAnswerTextArea">
 	          		<textarea rows="7"   cols="60" placeholder="your Answer?" maxlength="300" ng-model="answerText" required></textarea><br>
 	          		<button ng-click="postAnswer(question.Qid,answerText) ; answerText=''">submit Answer</button>

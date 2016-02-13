@@ -104,8 +104,9 @@ app.controller('newQuestionsC', ['$scope', '$http',
                             function($scope, $http){
 		$scope.from = 0;
 		$scope.questions = "";
-		$scope.answer_button = "click to Answer";
-
+		$scope.answer_button = "show";
+		
+		
 		$scope.getTop20NewQuestions = function(from)
 		{
 			
@@ -141,27 +142,16 @@ app.controller('newQuestionsC', ['$scope', '$http',
 			$scope.from++;
 			$scope.getTop20NewQuestions($scope.from);
 		}
-		$scope.getAnswerButton = function(answer_button,index)
+		$scope.getAnswerButton = function(index)
 		{
-			if(answer_button == "click to Answer")
-				{alert(index);
-				$scope[index].answer_button = 'asd';}
+			var str = "answer_button-" + index;
+			var current = document.getElementById(str);
+			var inner = current.innerHTML.toString();
+			if(inner == "hide")
+			{current.innerHTML = "show";}
 			else
-				{answer_button = "click to Answer";}
-		}
-		$scope.getTimeStamp = function(tsSQL)
-		{
-			/*date = new Date(tsSQL * 1000);
-			datevalues  = [
-			              date.getFullYear(),
-			              date.getMonth()+1,
-			              date.getDate(),
-			              date.getHours(),
-			              date.getMinutes(),
-			              date.getSeconds(),
-			           ];
-			var date2 = new Date();*/
-			return tsSQL;
+			{current.innerHTML = "hide";}
+			
 		}
 
 		$scope.incQuestionAnswers = function(qid)
