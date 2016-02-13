@@ -137,7 +137,42 @@ public class QuestionsServlet extends HttpServlet {
 				Collection<Question> top20new = new ArrayList<Question>(); 
 				try
 				{
-					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_QUESTION_BY_TIMESTAMP_STMT);			
+					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_NEW_QUESTIONS_BY_TIMESTAMP_STMT);			
+					ResultSet rs = (ResultSet) ps.executeQuery();
+					
+					while (rs.next()){
+						java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(7));
+						long tsTime = ts.getTime();
+						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+						java.sql.Date startDate = new java.sql.Date(ts.getTime());
+						String createdHuman = df.format(startDate);
+						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),createdHuman ,tsTime,rs.getInt(8)));
+					}
+					
+					//conn.commit();
+					rs.close();
+					ps.close();
+				}
+				catch (SQLException  e) 
+				{
+					getServletContext().log("Error while closing connection", e);
+					response.sendError(500);// internal server error
+				}
+				finally{
+					conn.close();
+				}
+				Gson gson = new Gson();
+				String top20newJson = gson.toJson(top20new, DBConstants.NEW_QUESTION_COLLECTION);
+				System.out.println("JSON: " +top20newJson);
+				out.println(top20newJson);
+				out.close();
+			}
+			else if(uri.equals("GetTop20"))
+			{
+				Collection<Question> top20new = new ArrayList<Question>(); 
+				try
+				{
+					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_QUESTIONS_BY_TIMESTAMP_STMT);			
 					ResultSet rs = (ResultSet) ps.executeQuery();
 					
 					while (rs.next()){

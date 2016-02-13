@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<title>Home</title>
+<meta charset="UTF-8">
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<!-- Bootstrap imports -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="main.js"></script>
+</head>
+
+<body>
+<div ng-app="main">
+	<div nav-directive></div>	
+	<div class="container">   
+		<div ng-controller="allQuestions" ng-init="getTop20Questions(from);showAnswerTextArea=false;showOlderAnswers=false">
+	 		<div ng-repeat="question in questions">
+          		<hr>
+	 			1.Qid:{{question.Qid}}<br>
+	 			2.Qtext:{{question.QuestionText}}<br>
+          		3.Qvotes:{{question.Qvotes}}<br>
+          		4.QTopics:{{question.QTopics}}<br>
+          		5.OwnerNickname:{{question.OwnerNickname}}<br>
+          		6.Createdlong:{{question.Created}}<br>
+          		7.CreatedHuman:{{question.CreatedHuman}}<br>
+          		8.QRating:{{question.QRating}}<br>
+          		9.Answers:{{question.Answers}}<br>
+          		<button id="answer_button-{{$index}}" ng-click="showAnswerTextArea = !showAnswerTextArea ; getAnswerButton($index)" >
+          		 {{answer_button}} </button><br>
+          		<div data-ng-if="showAnswerTextArea">
+	          		<textarea rows="7"   cols="60" placeholder="your Answer?" maxlength="300" ng-model="answerText" required></textarea><br>
+	          		<button ng-click="postAnswer(question.Qid,answerText) ; answerText=''">submit Answer</button>
+	          		<button ng-click="answerText=''">Clear</button>
+          		</div>
+          		<button id="older_answers_button-{{$index}}" ng-click="showOlderAnswers = !showOlderAnswers ; getAnswers(question.Qid) ; getOlderAnswersButton($index)" >
+          		{{older_answers_button}}</button>
+          		<div data-ng-if="showOlderAnswers">
+	          		1.Aid:{{answers.Aid}}<br>
+	          		2.Qid:{{answers.Qid}}<br>
+		 			3.AnswerText:{{answers.AnswerText}}<br>
+	          		4.OwnerNickname:{{answers.OwnerNickname}}<br>
+	          		5.ARating:{{answers.ARating}}<br>
+	          		6.Avotes:{{answers.AVotes}}<br>
+	          		7.Createdlong:{{answers.Created}}<br>
+	          		8.CreatedHuman:{{answers.CreatedHuman}}<br>
+
+          		</div>
+          		<hr>
+          		
+      		</div>  
+	 		<button ng-click="prev()">prev20</button>
+            <button ng-click="next()">next20</button>
+	 		
+	  	</div>
+	</div>
+</div>
+</body>
+</html>

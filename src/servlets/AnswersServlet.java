@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -115,16 +117,13 @@ public class AnswersServlet extends HttpServlet {
 					ps.setInt(1, qid);
 					ResultSet rs = (ResultSet) ps.executeQuery();
 					
-					while (rs.next()) {
-					    for (int i = 1; i <= 6; i++) {
-					        if (i > 1) System.out.print(" | ");
-					        System.out.print(rs.getString(i));
-					    }
-					    System.out.println("");
-					}
-					
 					while (rs.next()){
-						answers.add(new Answer(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),rs.getString(7)));
+						java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(7));
+						long tsTime = ts.getTime();
+						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+						java.sql.Date startDate = new java.sql.Date(ts.getTime());
+						String createdHuman = df.format(startDate);
+						answers.add(new Answer(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),createdHuman,tsTime));
 					}
 					
 					//conn.commit();
@@ -141,7 +140,7 @@ public class AnswersServlet extends HttpServlet {
 				}
 				Gson gson = new Gson();
 				String answersJson = gson.toJson(answers, DBConstants.NEW_QUESTION_COLLECTION);
-				System.out.println("JSON: " +answersJson);
+				System.out.println("answers: " +answersJson);
 				out.println(answersJson);
 				out.close();
 			}

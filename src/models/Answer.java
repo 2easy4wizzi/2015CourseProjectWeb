@@ -4,9 +4,10 @@ public class Answer
 {
 	
 	private int Aid ,Qid ,AVotes;
-	private String AnswerText, OwnerNickname, Created;
+	private String AnswerText, OwnerNickname, CreatedHuman;
+	private long Created;
 	private double ARating ;
-	public Answer(int aid, int qid, String answerText, String ownerNickname,double arating,int avotes ,String created) 
+	public Answer(int aid, int qid, String answerText, String ownerNickname,double arating,int avotes ,String createdhuman, long created) 
 	{
 		Aid = aid;
 		Qid = qid;
@@ -15,6 +16,7 @@ public class Answer
 		ARating = arating;
 		AVotes = avotes;
 		Created = created;
+		CreatedHuman = createdhuman;
 	}
 
 	public int getAid() {
@@ -37,8 +39,12 @@ public class Answer
 		return OwnerNickname;
 	}
 
-	public String getCreated() {
+	public long getCreated() {
 		return Created;
+	}
+	
+	public String getCreatedHuman() {
+		return CreatedHuman;
 	}
 
 	public double getARating() {
