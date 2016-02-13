@@ -111,10 +111,10 @@ public class AnswersServlet extends HttpServlet {
 				Collection<Answer> answers = new ArrayList<Answer>(); 
 				try
 				{
+					Question question = (Question)(request.getSession().getAttribute("question"));
 					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_ANSWERS_BY_QID_STMT);
-					String temp = request.getParameter("qid");
-					int qid = Integer.parseInt(temp);
-					ps.setInt(1, qid);
+					
+					ps.setInt(1, question.getQid());
 					ResultSet rs = (ResultSet) ps.executeQuery();
 					
 					while (rs.next()){

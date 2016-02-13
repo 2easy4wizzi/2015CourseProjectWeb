@@ -25,7 +25,7 @@ import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 
 import constants.DBConstants;
 import models.Question;
-import models.Answer;
+
 import models.User;
 
 /**
@@ -88,6 +88,7 @@ public class QuestionsServlet extends HttpServlet {
 					ps.setString(1, request.getParameter("questionText"));
 					ps.setString(2, request.getParameter("topics"));
 					ps.setString(3, user.getNickname());
+					ps.setString(4, request.getParameter("qtitle"));
 					ps.executeUpdate();
 					
 					conn.commit();
@@ -112,6 +113,14 @@ public class QuestionsServlet extends HttpServlet {
 					ps.setInt(1, Integer.parseInt(strQid));
 					ps.executeUpdate();
 							
+					Question question = (Question)(request.getSession().getAttribute("question"));
+					if(question==null) 
+					{
+						out.println(0);
+						return;
+					}
+					question.setAnswers(question.getAnswers() + 1);
+					request.getSession().setAttribute("question", question);
 					
 					
 					conn.commit();
@@ -132,6 +141,65 @@ public class QuestionsServlet extends HttpServlet {
 				
 	        	out.close();
 			}
+			else if(uri.equals("SetQuestionInSession"))
+			{ 
+				Collection<Question> questions = new ArrayList<Question>();
+				try
+				{
+					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_QUESTION_BY_QID_STMT);
+					String qid = request.getParameter("qid");
+					
+					ps.setInt(1, Integer.parseInt(qid));
+					ResultSet rs = (ResultSet) ps.executeQuery();
+					while (rs.next()){
+						java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(7));
+						long tsTime = ts.getTime();
+						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+						java.sql.Date startDate = new java.sql.Date(ts.getTime());
+						String createdHuman = df.format(startDate);
+						questions.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),createdHuman ,tsTime,rs.getInt(8),rs.getString(9)));
+					}
+					
+					Question question = questions.iterator().next();
+					request.getSession().setAttribute("question", question);
+					out.println("1");
+					conn.commit();
+					rs.close();
+					ps.close();
+				}
+				catch (SQLException  e) 
+				{
+					getServletContext().log("Error while closing connection", e);
+					response.sendError(500);// internal server error
+				}
+				finally{
+					conn.close();
+				}
+				
+				
+				
+				
+				out.close();
+			}
+			else if(uri.equals("GetQuestionFromSession"))
+			{ 
+				
+				Question question = (Question)(request.getSession().getAttribute("question"));
+				if(question==null) 
+				{
+					out.println(0);
+					return;
+				}
+	
+				Collection<Question> questions = new ArrayList<Question>();
+				questions.add(question);
+				Gson gson = new Gson();
+				String questionNewJson = gson.toJson(questions, DBConstants.NEW_QUESTION_COLLECTION);
+				out.println(questionNewJson);
+				System.out.println( questionNewJson);
+				conn.close();
+				out.close();
+			}
 			else if(uri.equals("GetNewTop20"))
 			{
 				Collection<Question> top20new = new ArrayList<Question>(); 
@@ -146,7 +214,7 @@ public class QuestionsServlet extends HttpServlet {
 						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 						java.sql.Date startDate = new java.sql.Date(ts.getTime());
 						String createdHuman = df.format(startDate);
-						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),createdHuman ,tsTime,rs.getInt(8)));
+						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),createdHuman ,tsTime,rs.getInt(8),rs.getString(9)));
 					}
 					
 					//conn.commit();
@@ -181,7 +249,7 @@ public class QuestionsServlet extends HttpServlet {
 						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 						java.sql.Date startDate = new java.sql.Date(ts.getTime());
 						String createdHuman = df.format(startDate);
-						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),createdHuman ,tsTime,rs.getInt(8)));
+						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),createdHuman ,tsTime,rs.getInt(8),rs.getString(9)));
 					}
 					
 					//conn.commit();

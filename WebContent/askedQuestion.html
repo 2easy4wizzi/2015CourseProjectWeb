@@ -14,7 +14,11 @@
 	
 	
 	<script type="text/javascript" src="main.js"></script>
-	
+	<style>
+	#title {
+	    width: 598px;
+		}
+	</style>
 </head>	
 <body >
 <div ng-app="main">
@@ -25,7 +29,9 @@
 	       	<div id="page content">
 				<div class="row">
 					<div class="col-lg-12">
-						<textarea rows="7" cols="60" placeholder="Here type your question" maxlength="300" ng-model="questionText" required></textarea><br>   
+					
+					 	<input id="title" type="text" placeholder="enter a title" maxlength="100" ng-model="title" required/><br><br>
+						<textarea rows="7" cols="82" placeholder="Here type your question" maxlength="300" ng-model="questionText" required></textarea><br>   
 					    <input type="text" 	   placeholder="enter a topic" maxlength="50" ng-model="topic" required/>		<br>		
 					    <input type="button"  value="Post Question" ng-click="postQuestion()" />
 					    <input type="button"  value="Clear" ng-click="clearQuestion()" />

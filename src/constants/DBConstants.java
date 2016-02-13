@@ -35,12 +35,14 @@ public interface DBConstants
 											+ "QVotes INT DEFAULT 0,"
 											+ "Created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
 											+ "Answers INT DEFAULT 0,"
+											+ "Title varchar(100) NOT NULL,"
 											+ "FOREIGN KEY (OwnerNickname) REFERENCES TBL_USERS(Nickname)"
 											+ ")";
-	public final String INSERT_QUESTION_STMT = "INSERT INTO TBL_QUESTIONS (QuestionText, QTopics, OwnerNickname, QRating, QVotes, Created) VALUES(?,?,?,DEFAULT,DEFAULT,DEFAULT)";
+	public final String INSERT_QUESTION_STMT = "INSERT INTO TBL_QUESTIONS (QuestionText, QTopics, OwnerNickname, QRating, QVotes, Created, Title) VALUES(?,?,?,DEFAULT,DEFAULT,DEFAULT,?)";
 	public final String SELECT_TOP_20_NEW_QUESTIONS_BY_TIMESTAMP_STMT = "SELECT * FROM TBL_QUESTIONS WHERE Answers=0 FETCH FIRST 20 ROWS ONLY";
 	public final String SELECT_TOP_20_QUESTIONS_BY_TIMESTAMP_STMT = "SELECT * FROM TBL_QUESTIONS WHERE Answers>0 FETCH FIRST 20 ROWS ONLY";
 	public final String UPDATE_QUESTION_ANSWERS_COLUMN_BY_QID_STMT = "UPDATE TBL_QUESTIONS SET Answers = Answers + 1 WHERE QId=?";
+	public final String SELECT_QUESTION_BY_QID_STMT = "SELECT * FROM TBL_QUESTIONS WHERE Qid=?";
 
 
 

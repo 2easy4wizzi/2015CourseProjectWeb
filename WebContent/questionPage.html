@@ -22,10 +22,10 @@
 <div ng-app="main">
 	<div nav-directive></div>	
 	<div class="container">   
-		<div ng-controller="newQuestionsC" ng-init="getTop20NewQuestions(from);showAnswerTextArea=false">
-	 		<div ng-repeat="question in questions">
+		<div ng-controller="questionPage" ng-init="getQuestionFromSession();getAnswers()">
+	 		
 	 			<hr>
-	 				<a href="questionPage.html" ng-click="setQuestionInSession(question.Qid)">{{question.Title}}</a>
+	 				<h4>{{question.Title}}</h4>
           		<hr>
 	 			1.Qid:{{question.Qid}}<br>
 	 			2.Qtext:{{question.QuestionText}}<br>
@@ -37,10 +37,28 @@
           		8.QRating:{{question.QRating}}<br>
           		9.Answers:{{question.Answers}}<br>
           		<hr>
+      
+          		<!--  <button ng-click="getAnswers(question.Qid)" >get ans</button>-->
+          		<!-- <div ng-model="getAnswers(question.Qid)"></div> -->
           		
-      		</div>  
-	 		<button ng-click="prev()">prev20</button>
-            <button ng-click="next()">next20</button>
+          		<div ng-repeat="answer in answers">
+	          		<hr>
+          			1.Aid:{{answer.Aid}}<br>
+	          		2.Qid:{{answer.Qid}}<br>
+		 			3.AnswerText:{{answer.AnswerText}}<br>
+	          		4.OwnerNickname:{{answer.OwnerNickname}}<br>
+	          		5.ARating:{{answer.ARating}}<br>
+	          		6.Avotes:{{answer.AVotes}}<br>
+	          		7.Createdlong:{{answer.Created}}<br>
+	          		8.CreatedHuman:{{answer.CreatedHuman}}<br>
+          		</div>
+          		<hr>
+          		<textarea rows="7"   cols="60" placeholder="your Answer?" maxlength="300" ng-model="answerText" required></textarea><br>
+          		<button ng-click="postAnswer(question.Qid,answerText) ; answerText=''">submit Answer</button>
+          		<button ng-click="answerText=''">Clear</button><br>
+      	
+          		
+
 	 		
 	  	</div>
 	</div>
