@@ -1,3 +1,5 @@
 
 #1 - remove password from session
 #2 - change in servlets strings to constants
+#3 - put time limit on session
+#4 - problem with the date!

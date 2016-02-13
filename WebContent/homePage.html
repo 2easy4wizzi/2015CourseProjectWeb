@@ -58,6 +58,36 @@ td.comment {
 <body>
 <div ng-app="main">
 	<div nav-directive></div>	
+	<div class="container">   
+		<div ng-controller="newQuestionsC" ng-init="getTop20NewQuestions(from);showAnswerTextArea=false">
+	 		<div ng-repeat="question in questions">
+          		<hr>
+	 			Qid:{{question.Qid}}<br>
+          		Qvotes:{{question.Qvotes}}<br>
+          		QTopics:{{question.QTopics}}<br>
+          		OwnerNickname:{{question.OwnerNickname}}<br>
+          		Created:{{getTimeStamp(question.Created)}}<br>
+          		QRating:{{question.QRating}}<br>
+          		topics:{{question.QTopics}}<br>
+          		Answers:{{question.Answers}}<br>
+          		<button value="{{$index}}"  ng-click="showAnswerTextArea = !showAnswerTextArea ; getAnswerButton(answer_button,$index)" > {{value}} </button><br>
+          		<div data-ng-if="showAnswerTextArea">
+	          		<textarea rows="7"   cols="60" placeholder="your Answer?" maxlength="300" ng-model="answerText" required></textarea><br>
+	          		<button ng-click="postAnswer(question.Qid,answerText) ; answerText=''">submit Answer</button>
+	          		<button ng-click="answerText=''">Clear</button>
+          		</div>
+          		<hr>
+          		
+      		</div>  
+	 		<button ng-click="prev()">prev20</button>
+            <button ng-click="next()">next20</button>
+	 		
+	  	</div>
+	</div>
+</div>
+<!-- 
+<div ng-app="main">
+	<div nav-directive></div>	
 	
 	<div class="container">   
 		<div ng-controller="newQuestionsC" ng-init="getNewTop20(from)">
@@ -156,5 +186,6 @@ td.comment {
 	  	</div>
 	</div>
 	</div>
+ -->
 </body>
 </html>

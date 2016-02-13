@@ -41,8 +41,19 @@
     <servlet-name>QuestionsServlet</servlet-name>
     <url-pattern>/QuestionsServlet</url-pattern>
     <url-pattern>/QuestionsServlet/PostQuestion</url-pattern>
-    <url-pattern>/QuestionsServlet/PostAnswer</url-pattern>
     <url-pattern>/QuestionsServlet/GetNewTop20</url-pattern>
-    <url-pattern>/QuestionsServlet/GetAnswers</url-pattern>
+    <url-pattern>/QuestionsServlet/incQuestionAnswers</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AnswersServlet</display-name>
+    <servlet-name>AnswersServlet</servlet-name>
+    <servlet-class>servlets.AnswersServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AnswersServlet</servlet-name>
+    <url-pattern>/AnswersServlet</url-pattern>
+    <url-pattern>/AnswersServlet/PostAnswer</url-pattern>
+    <url-pattern>/AnswersServlet/GetAnswers</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -4,9 +4,10 @@ public class Question
 {
 	
 	private int Qid ,Qvotes, Answers;
-	private String QuestionText, QTopics, OwnerNickname, Created;
+	private String QuestionText, QTopics, OwnerNickname;
+	private long Created;
 	private double QRating ;
-	public Question(int qid, String questionText, String qTopics,String ownerNickname,double qrating,int qvotes ,String created, int answers) 
+	public Question(int qid, String questionText, String qTopics,String ownerNickname,double qrating,int qvotes ,long created, int answers) 
 	{
 		Qid = qid;
 		QuestionText = questionText;
@@ -61,7 +62,7 @@ public class Question
 
 
 
-	public String getCreated() {
+	public long getCreated() {
 		return Created;
 	}
 

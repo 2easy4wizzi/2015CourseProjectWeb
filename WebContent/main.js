@@ -10,7 +10,6 @@ app.controller('navC', ['$scope', '$http','$location',
          var s = location.href;			
          var fields = s.split("/");			
          var name = "/" + fields[4];			
-	
          if(viewLocation == name) { return true;}						
 	};
 	$scope.test = 0;
@@ -22,15 +21,12 @@ app.controller('navC', ['$scope', '$http','$location',
 					{
 						method : 'POST',
 						url : 'http://localhost:8080/webGilad/GetSessionUserNameServlet/GetUsername',
-						headers : {
-							'Content-Type' : 'application/x-www-form-urlencoded'
-						}
+						headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
 					}).success(function(response) {
 						
 				if (response == "") {
 					//window.location = "\loginAndRegister.html";
 					//send do home page
-					//alert('no one is logged in')
 				} 
 				else 
 				{
@@ -38,7 +34,6 @@ app.controller('navC', ['$scope', '$http','$location',
 				}
 			}).error(function(error) {
 				alert('somthing happend at get user name ');
-				
 			});
 		}
 		$scope.test = 1;
@@ -48,9 +43,7 @@ app.controller('navC', ['$scope', '$http','$location',
 				{
 					method : 'POST',
 					url : 'http://localhost:8080/webGilad/GetSessionUserNameServlet/RemoveAtt',
-					headers : {
-						'Content-Type' : 'application/x-www-form-urlencoded'
-					}
+					headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
 				}).success(function(response) {
 					
 			if (response == "") {
@@ -64,7 +57,6 @@ app.controller('navC', ['$scope', '$http','$location',
 			}
 		}).error(function(error) {
 			alert('remove att somthing happend');
-			// $scope.status = 'Unable to connect' + error.message;
 		});
 	}
     
@@ -78,16 +70,16 @@ app.directive("navDirective", function() {
 	    };
 	});
 
-app.controller('askQuesC', ['$scope', '$http',
+app.controller('askQuestionC', ['$scope', '$http',
       function($scope, $http){
       	$scope.questionText = null;
       	$scope.topic = null;
-      	$scope.AskClear = function()
+      	$scope.clearQuestion = function()
       	{
       		$scope.questionText="";  
       		$scope.topic="";  
       	} 
-      	$scope.AskPost = function(){
+      	$scope.postQuestion = function(){
       		if($scope.questionText == null || $scope.questionText == "")
   			{
       			$scope.questionText="you must write some text...";  
@@ -98,23 +90,12 @@ app.controller('askQuesC', ['$scope', '$http',
 				method : 'POST',
 				url : 'http://localhost:8080/webGilad/QuestionsServlet/PostQuestion',
 				params : { questionText: $scope.questionText , topics: $scope.topic},
-				headers : {
-					'Content-Type' : 'application/x-www-form-urlencoded'
-				}
+				headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
 				}).success(function(response) 
 				{
 					window.location = "\homePage.html";
-					if (response == "") {
-						
-						//send do home page
-					} 
-					else 
-					{
-						
-					}
 				}).error(function(error) {
 					alert('somthing happend at post question');
-					
 				});
       		}
 }]);
@@ -123,27 +104,28 @@ app.controller('newQuestionsC', ['$scope', '$http',
                             function($scope, $http){
 		$scope.from = 0;
 		$scope.questions = "";
-		$scope.getNewTop20 = function(from)
+		$scope.answer_button = "click to Answer";
+
+		$scope.getTop20NewQuestions = function(from)
 		{
 			
 			$http(
 			{
 				method : 'POST',
 				url : 'http://localhost:8080/webGilad/QuestionsServlet/GetNewTop20',
-				params : { top20from: '0'},
-				headers : {
-					'Content-Type' : 'application/x-www-form-urlencoded'
-				}
+				params : { top20from: $scope.from},
+				headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
 			}).success(function(response) 
 				{
 					if (response == 0) //0 for no questions found
 					{
-						alert('in if');
+						alert('no Questions found');
+						$scope.questions = "";
 						//$scope.questions = {"Qid":1,"Qvotes":0,"QuestionText":"a","QTopics":"nothingYet","OwnerNickname":"wizzi","Created":"2016-02-08 20:27:39.335","QRating":0.0}
 					} 
 					else 
 					{
-						$scope.questions = response;					
+						$scope.questions = response;	
 					}
 					}).error(function(error) {
 						alert('somthing happend at getNewTop20 top20new');
@@ -151,35 +133,82 @@ app.controller('newQuestionsC', ['$scope', '$http',
 					});
 			}
 		
+		$scope.prev = function(){
+			$scope.from--;
+			$scope.getTop20NewQuestions($scope.from);
+		}
+		$scope.next = function(){
+			$scope.from++;
+			$scope.getTop20NewQuestions($scope.from);
+		}
+		$scope.getAnswerButton = function(answer_button,index)
+		{
+			if(answer_button == "click to Answer")
+				{alert(index);
+				$scope[index].answer_button = 'asd';}
+			else
+				{answer_button = "click to Answer";}
+		}
+		$scope.getTimeStamp = function(tsSQL)
+		{
+			/*date = new Date(tsSQL * 1000);
+			datevalues  = [
+			              date.getFullYear(),
+			              date.getMonth()+1,
+			              date.getDate(),
+			              date.getHours(),
+			              date.getMinutes(),
+			              date.getSeconds(),
+			           ];
+			var date2 = new Date();*/
+			return tsSQL;
+		}
 
-$scope.answerAquestion = function(qid,answerText)
-{
-	if(answerText == null || answerText == "")
-	{  
-		return;
-	}
-	$http(
+		$scope.incQuestionAnswers = function(qid)
+		{
+      		$http(
 			{
 				method : 'POST',
-				url : 'http://localhost:8080/webGilad/QuestionsServlet/PostAnswer',
-				params : { answerText: answerText , qid: qid},
-				headers : { 'Content-Type' : 'application/x-www-form-urlencoded' }
-			}).success(function(response) 
+				url : 'http://localhost:8080/webGilad/QuestionsServlet/incQuestionAnswers',
+				params : { qid: qid },
+				headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
+				}).success(function(response) 
 				{
-					alert('returned from servelet with respons = ' + response);
-					if (response == 0) 
-					{
-						
-					} 
-					else 
-					{
-						$scope.questions = response;					
-					}
-				}).error(function(error) {
-					alert('somthing happend at getNewTop20 top20new');
 					
+				}).error(function(error) {
+					alert('somthing happend at inc question answers');
 				});
-}
+      		}
+		$scope.postAnswer = function(qid,answerText)
+		{
+			if(answerText == null || answerText == "")
+			{  
+				return;
+			}
+			$http(
+					{
+						method : 'POST',
+						url : 'http://localhost:8080/webGilad/AnswersServlet/PostAnswer',
+						params : { answerText: answerText , qid: qid},
+						headers : { 'Content-Type' : 'application/x-www-form-urlencoded' }
+					}).success(function(response) 
+						{
+							alert('post answer succeeded');
+							$scope.incQuestionAnswers(qid);
+							$scope.getTop20NewQuestions($scope.from);
+							if (response == 0) 
+							{
+								
+							} 
+							else 
+							{
+												
+							}
+						}).error(function(error) {
+							alert('somthing happend at getNewTop20 top20new');
+							
+						});
+		}
 }]);
 
 
@@ -192,7 +221,7 @@ app.controller('answerC', ['$scope', '$http',
     		$http(
 			{
 			method : 'POST',
-			url : 'http://localhost:8080/webGilad/QuestionsServlet/GetAnswers',
+			url : 'http://localhost:8080/webGilad/AnswersServlet/GetAnswers',
 			params : { qid: qid },
 			headers : {
 				'Content-Type' : 'application/x-www-form-urlencoded'

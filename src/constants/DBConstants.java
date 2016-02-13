@@ -39,6 +39,7 @@ public interface DBConstants
 											+ ")";
 	public final String INSERT_QUESTION_STMT = "INSERT INTO TBL_QUESTIONS (QuestionText, QTopics, OwnerNickname, QRating, QVotes, Created) VALUES(?,?,?,DEFAULT,DEFAULT,DEFAULT)";
 	public final String SELECT_TOP_20_QUESTION_BY_TIMESTAMP_STMT = "SELECT * FROM TBL_QUESTIONS WHERE Answers=0 FETCH FIRST 20 ROWS ONLY";
+	public final String UPDATE_QUESTION_ANSWERS_COLUMN_BY_QID_STMT = "UPDATE TBL_QUESTIONS SET Answers = Answers + 1 WHERE QId=?";
 
 
 

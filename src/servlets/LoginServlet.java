@@ -109,7 +109,7 @@ public class LoginServlet extends HttpServlet {
 						conn.commit();
 						ps.close();
 						
-						//request.getSession().setAttribute("username", request.getParameter("username"));
+						
 						request.getSession().setAttribute("user", user);
 						
 					}

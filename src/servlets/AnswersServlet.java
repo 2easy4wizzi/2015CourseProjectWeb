@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-//import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,24 +17,26 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.google.gson.Gson;
+
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 
+import com.google.gson.Gson;
+
 import constants.DBConstants;
-import models.Question;
 import models.Answer;
+import models.Question;
 import models.User;
 
 /**
- * Servlet implementation class QuestionsServlet
+ * Servlet implementation class AnswersServlet
  */
-public class QuestionsServlet extends HttpServlet {
+public class AnswersServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QuestionsServlet() {
+    public AnswersServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -61,7 +62,7 @@ public class QuestionsServlet extends HttpServlet {
 		try
 		{
 			String uri = request.getRequestURI();
-			uri = uri.substring(uri.indexOf("QuestionsServlet") + "QuestionsServlet".length() + 1);
+			uri = uri.substring(uri.indexOf("AnswersServlet") + "AnswersServlet".length() + 1);
 			System.out.println(uri);
 			PrintWriter out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
@@ -78,13 +79,15 @@ public class QuestionsServlet extends HttpServlet {
 			Connection conn = ds.getConnection();
 			
 			
-			if(uri.equals("PostQuestion"))
+			if(uri.equals("PostAnswer"))
 			{
 				try
 				{
-					PreparedStatement ps = conn.prepareStatement(DBConstants.INSERT_QUESTION_STMT);			
-					ps.setString(1, request.getParameter("questionText"));
-					ps.setString(2, request.getParameter("topics"));
+					PreparedStatement ps = conn.prepareStatement(DBConstants.INSERT_ANSWER_STMT);			
+					String temp = request.getParameter("qid");
+					int qid = Integer.parseInt(temp);
+					ps.setInt(1, qid);
+					ps.setString(2, request.getParameter("answerText"));
 					ps.setString(3, user.getNickname());
 					ps.executeUpdate();
 					
@@ -101,49 +104,27 @@ public class QuestionsServlet extends HttpServlet {
 					out.close();
 				}
 			}
-			else if(uri.equals("incQuestionAnswers"))
-			{ 
-				try
-				{
-					PreparedStatement ps = conn.prepareStatement(DBConstants.UPDATE_QUESTION_ANSWERS_COLUMN_BY_QID_STMT);
-					String strQid = request.getParameter("qid");
-					ps.setInt(1, Integer.parseInt(strQid));
-					ps.executeUpdate();
-							
-					
-					
-					conn.commit();
-
-					ps.close();
-				}
-				catch (SQLException  e) 
-				{
-					getServletContext().log("Error while closing connection", e);
-					response.sendError(500);// internal server error
-				}
-				finally{
-					conn.close();
-				}
-	
-				
-				
-				
-	        	out.close();
-			}
-			else if(uri.equals("GetNewTop20"))
+			else if(uri.equals("GetAnswers"))
 			{
-				Collection<Question> top20new = new ArrayList<Question>(); 
+				Collection<Answer> answers = new ArrayList<Answer>(); 
 				try
 				{
-					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_QUESTION_BY_TIMESTAMP_STMT);			
+					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_ANSWERS_BY_QID_STMT);
+					String temp = request.getParameter("qid");
+					int qid = Integer.parseInt(temp);
+					ps.setInt(1, qid);
 					ResultSet rs = (ResultSet) ps.executeQuery();
 					
+					while (rs.next()) {
+					    for (int i = 1; i <= 6; i++) {
+					        if (i > 1) System.out.print(" | ");
+					        System.out.print(rs.getString(i));
+					    }
+					    System.out.println("");
+					}
+					
 					while (rs.next()){
-						java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(7));
-						long tsTime = ts.getTime();
-						java.sql.Date startDate = new java.sql.Date(ts.getTime());
-						System.out.println(startDate + " " + tsTime);
-						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),tsTime,rs.getInt(8)));
+						answers.add(new Answer(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),rs.getString(7)));
 					}
 					
 					//conn.commit();
@@ -159,11 +140,12 @@ public class QuestionsServlet extends HttpServlet {
 					conn.close();
 				}
 				Gson gson = new Gson();
-				String top20newJson = gson.toJson(top20new, DBConstants.NEW_QUESTION_COLLECTION);
-				System.out.println("JSON: " +top20newJson);
-				out.println(top20newJson);
+				String answersJson = gson.toJson(answers, DBConstants.NEW_QUESTION_COLLECTION);
+				System.out.println("JSON: " +answersJson);
+				out.println(answersJson);
 				out.close();
 			}
+			
 		}
 		catch (SQLException | NamingException e) 
 		{
@@ -176,5 +158,6 @@ public class QuestionsServlet extends HttpServlet {
 		
 		
 	}
+	
 
 }
