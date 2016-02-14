@@ -14,7 +14,6 @@ public class Question
 	private String QuestionText, QTopics, OwnerNickname,CreatedHuman;
 	private long Created;
 	private double QRating ;
-	private String Title;
 
 
 
@@ -23,7 +22,7 @@ public class Question
 
 
 	public Question(int qid, String questionText, String qTopics,String ownerNickname,
-			double qrating,int qvotes ,String createdHuman,long created, int answers,String title) 
+			double qrating,int qvotes ,String createdHuman,long created, int answers) 
 	{
 		Qid = qid;
 		QuestionText = questionText;
@@ -34,13 +33,10 @@ public class Question
 		CreatedHuman = createdHuman;
 		Created = created;
 		Answers = answers;
-		Title= title;
 	}
 	
 
-	public String getTitle() {
-		return Title;
-	}
+	
 	
 	public String getCreatedHuman() {
 		return CreatedHuman;

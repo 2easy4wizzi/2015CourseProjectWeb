@@ -88,7 +88,6 @@ public class QuestionsServlet extends HttpServlet {
 					ps.setString(1, request.getParameter("questionText"));
 					ps.setString(2, request.getParameter("topics"));
 					ps.setString(3, user.getNickname());
-					ps.setString(4, request.getParameter("qtitle"));
 					ps.executeUpdate();
 					
 					conn.commit();
@@ -157,7 +156,7 @@ public class QuestionsServlet extends HttpServlet {
 						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 						java.sql.Date startDate = new java.sql.Date(ts.getTime());
 						String createdHuman = df.format(startDate);
-						questions.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),createdHuman ,tsTime,rs.getInt(8),rs.getString(9)));
+						questions.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),createdHuman ,tsTime,rs.getInt(8)));
 					}
 					
 					Question question = questions.iterator().next();
@@ -214,7 +213,7 @@ public class QuestionsServlet extends HttpServlet {
 						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 						java.sql.Date startDate = new java.sql.Date(ts.getTime());
 						String createdHuman = df.format(startDate);
-						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),createdHuman ,tsTime,rs.getInt(8),rs.getString(9)));
+						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),createdHuman ,tsTime,rs.getInt(8)));
 					}
 					
 					//conn.commit();
@@ -249,7 +248,7 @@ public class QuestionsServlet extends HttpServlet {
 						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 						java.sql.Date startDate = new java.sql.Date(ts.getTime());
 						String createdHuman = df.format(startDate);
-						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),createdHuman ,tsTime,rs.getInt(8),rs.getString(9)));
+						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),createdHuman ,tsTime,rs.getInt(8)));
 					}
 					
 					//conn.commit();
