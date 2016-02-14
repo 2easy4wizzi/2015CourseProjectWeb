@@ -27,26 +27,51 @@
 <div ng-app="main">
 	<div nav-directive></div>	
 	<div class="container">   
-		<div ng-controller="newQuestionsC" ng-init="getTop20NewQuestions(from);showAnswerTextArea=false">
+		<div ng-controller="homePageC" ng-init="getQuestions(from);showAnswerTextArea=false">
 			  <div nav-tabs-directive></div>
 			  <br>
+		    <h1>{{question_title}}</h1>
 	 		<div ng-repeat="question in questions">
-	 			
- 				<a href="questionPage.html" ng-click="setQuestionInSession(question.Qid)">here was the title</a><br>
-	 			1.Qid:{{question.Qid}}<br>
-	 			2.Qtext:{{question.QuestionText}}<br>
-          		3.Qvotes:{{question.Qvotes}}<br>
-          		4.QTopics:{{question.QTopics}}<br>
-          		5.OwnerNickname:{{question.OwnerNickname}}<br>
-          		6.Createdlong:{{question.Created}}<br>
-          		7.CreatedHuman:{{question.CreatedHuman}}<br>
-          		8.QRating:{{question.QRating}}<br>
-          		9.Answers:{{question.Answers}}<br>
+	 			<h2>Question:</h2>
+          		* CreatedHuman:{{question.CreatedHuman}}<br>
+	 			* Qtext:{{question.QuestionText}}<br>
+          		* QTopics:{{question.QTopics}}<br>
+          		* OwnerNickname:{{question.OwnerNickname}}<br>
+          		* QRating:{{question.QRating}}<br>
+	 			Qid:{{question.Qid}}<br>
+          		Qvotes:{{question.Qvotes}}<br>
+          		Createdlong:{{question.Created}}<br>
+          		Answers:{{question.Answers}}<br>
+          	 	<button ng-click="addVote(question.Qid,question.OwnerNickname)">Vote up Question!</button>
+          		<button ng-click="addVote(question.Qid,question.OwnerNickname)">Vote down Question!</button><br> 
+          		<div ng-show="is_all_questions"><h2>answers:</h2><br>
+	          		<div ng-init="getAnswers(question.Qid);">
+	          			<div  ng-repeat="answer in answers" >
+			          		* CreatedHuman:{{answer.CreatedHuman}}<br>
+				 			* AnswerText:{{answer.AnswerText}}<br>
+			          		* OwnerNickname:{{answer.OwnerNickname}}<br>
+			          		* ARating:{{answer.ARating}}<br>
+	          				Aid:{{answer.Aid}}<br>
+			          		Qid:{{answer.Qid}}<br>
+			          		Avotes:{{answer.AVotes}}<br>
+			          		Createdlong:{{answer.Created}}<br>
+			          		
+	          			</div>
+	          		</div>
+          		</div>
+          		<button ng-click="addVote(question.Qid,question.OwnerNickname)">Vote up Answer!</button>
+          		<button ng-click="addVote(question.Qid,question.OwnerNickname)">Vote down Answer!</button><br> 	
+          		<button id="answer_button-{{$index}}" ng-click="showAnswerTextArea = !showAnswerTextArea ; getAnswerButtonText($index)">{{answer_button}}</button>
+          		 <br>
+          		<div data-ng-if="showAnswerTextArea">
+	          		<textarea rows="7"   cols="60" placeholder="your Answer?" maxlength="300" ng-model="answerText" required></textarea><br>
+	          		<button ng-click="postAnswer(question.Qid,answerText) ; answerText=''">submit Answer</button>
+	          		<button ng-click="answerText=''">Clear</button>
+          		</div>
           		<hr>
-          		
       		</div>  
-	 		<button ng-click="prev()">prev20</button>
-            <button ng-click="next()">next20</button>
+	 		<button ng-click="prev()" ng-disabled="from==0">prev20</button>
+            <button ng-click="next()" ng-disabled="dontShowNextButton">next20</button>
 	 		
 	  	</div>
 	</div>

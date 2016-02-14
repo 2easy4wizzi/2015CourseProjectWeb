@@ -1,44 +1,4 @@
-//var app = angular.module("main", []);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//var app = angular.module
 /*app.controller('allQuestions', ['$scope', '$http',
                                  function($scope, $http){
 	$scope.from = 0;

@@ -140,71 +140,41 @@ public class QuestionsServlet extends HttpServlet {
 				
 	        	out.close();
 			}
-			else if(uri.equals("SetQuestionInSession"))
-			{ 
-				Collection<Question> questions = new ArrayList<Question>();
-				try
-				{
-					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_QUESTION_BY_QID_STMT);
-					String qid = request.getParameter("qid");
-					
-					ps.setInt(1, Integer.parseInt(qid));
-					ResultSet rs = (ResultSet) ps.executeQuery();
-					while (rs.next()){
-						java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(7));
-						long tsTime = ts.getTime();
-						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-						java.sql.Date startDate = new java.sql.Date(ts.getTime());
-						String createdHuman = df.format(startDate);
-						questions.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),createdHuman ,tsTime,rs.getInt(8)));
-					}
-					
-					Question question = questions.iterator().next();
-					request.getSession().setAttribute("question", question);
-					out.println("1");
-					conn.commit();
-					rs.close();
-					ps.close();
-				}
-				catch (SQLException  e) 
-				{
-					getServletContext().log("Error while closing connection", e);
-					response.sendError(500);// internal server error
-				}
-				finally{
-					conn.close();
-				}
-				
-				
-				
-				
-				out.close();
-			}
-			else if(uri.equals("GetQuestionFromSession"))
-			{ 
-				
-				Question question = (Question)(request.getSession().getAttribute("question"));
-				if(question==null) 
-				{
-					out.println(0);
-					return;
-				}
-	
-				Collection<Question> questions = new ArrayList<Question>();
-				questions.add(question);
-				Gson gson = new Gson();
-				String questionNewJson = gson.toJson(questions, DBConstants.NEW_QUESTION_COLLECTION);
-				out.println(questionNewJson);
-				System.out.println( questionNewJson);
-				conn.close();
-				out.close();
-			}
 			else if(uri.equals("GetNewTop20"))
 			{
-				Collection<Question> top20new = new ArrayList<Question>(); 
+				Collection<Question> top20new = new ArrayList<Question>();
+				int count = 0;
+				int from = 0;
+				Gson gson = new Gson();
 				try
 				{
-					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_NEW_QUESTIONS_BY_TIMESTAMP_STMT);			
+					PreparedStatement psCount = conn.prepareStatement(DBConstants.SELECT_COUNT_NEW_QUESTIONS_STMT);
+					ResultSet rsCount = (ResultSet) psCount.executeQuery();
+					while (rsCount.next()){
+						  count = rsCount.getInt(1);
+					 }
+					
+					
+					rsCount.close();
+					psCount.close();
+					
+					if(count == 0)
+					{
+						boolean dontShowNextButton = true;
+						String boolJson = gson.toJson(dontShowNextButton, boolean.class);
+						String noQstr = "noQuestionsFound";
+						String strJson = gson.toJson(noQstr, String.class);
+						String outRespone = "[" + boolJson + "," + strJson + "]";
+						out.println(outRespone);
+						out.close();
+						return;
+					}
+					
+					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_NEW_QUESTIONS_BY_TIMESTAMP_STMT);
+					
+					String strFrom = request.getParameter("top20from");
+					from = Integer.parseInt(strFrom) * 20;
+					ps.setInt(1, from);
 					ResultSet rs = (ResultSet) ps.executeQuery();
 					
 					while (rs.next()){
@@ -228,18 +198,55 @@ public class QuestionsServlet extends HttpServlet {
 				finally{
 					conn.close();
 				}
-				Gson gson = new Gson();
 				String top20newJson = gson.toJson(top20new, DBConstants.NEW_QUESTION_COLLECTION);
 				System.out.println("JSON: " +top20newJson);
-				out.println(top20newJson);
+				//out.println(top20newJson);
+				boolean dontShowNextButton = false;
+				if(count <= from+20 )
+				{
+					dontShowNextButton = true;
+				}
+				
+				String boolJson = gson.toJson(dontShowNextButton, boolean.class);
+				String outRespone = "[" + boolJson + "," + top20newJson + "]";
+				out.println(outRespone);
 				out.close();
 			}
 			else if(uri.equals("GetTop20"))
 			{
-				Collection<Question> top20new = new ArrayList<Question>(); 
+				Collection<Question> top20new = new ArrayList<Question>();
+				int count = 0;
+				int from = 0;
+				Gson gson = new Gson();
 				try
 				{
-					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_QUESTIONS_BY_TIMESTAMP_STMT);			
+					PreparedStatement psCount = conn.prepareStatement(DBConstants.SELECT_COUNT_QUESTIONS_STMT);
+					ResultSet rsCount = (ResultSet) psCount.executeQuery();
+					while (rsCount.next()){
+						  count = rsCount.getInt(1);
+					 }
+					
+					
+					rsCount.close();
+					psCount.close();
+					
+					if(count == 0)
+					{
+						boolean dontShowNextButton = true;
+						String boolJson = gson.toJson(dontShowNextButton, boolean.class);
+						String noQstr = "noQuestionsFound";
+						String strJson = gson.toJson(noQstr, String.class);
+						String outRespone = "[" + boolJson + "," + strJson + "]";
+						out.println(outRespone);
+						out.close();
+						return;
+					}
+					
+					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_QUESTIONS_BY_TIMESTAMP_STMT);
+					
+					String strFrom = request.getParameter("top20from");
+					from = Integer.parseInt(strFrom) * 20;
+					ps.setInt(1, from);
 					ResultSet rs = (ResultSet) ps.executeQuery();
 					
 					while (rs.next()){
@@ -263,10 +270,18 @@ public class QuestionsServlet extends HttpServlet {
 				finally{
 					conn.close();
 				}
-				Gson gson = new Gson();
 				String top20newJson = gson.toJson(top20new, DBConstants.NEW_QUESTION_COLLECTION);
 				System.out.println("JSON: " +top20newJson);
-				out.println(top20newJson);
+				//out.println(top20newJson);
+				boolean dontShowNextButton = false;
+				if(count <= from+20 )
+				{
+					dontShowNextButton = true;
+				}
+				
+				String boolJson = gson.toJson(dontShowNextButton, boolean.class);
+				String outRespone = "[" + boolJson + "," + top20newJson + "]";
+				out.println(outRespone);
 				out.close();
 			}
 		}
