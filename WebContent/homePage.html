@@ -15,7 +15,12 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/controllers/homePageController.js"></script>
+<script type="text/javascript" src="js/controllers/navBarController.js"></script>
+<script type="text/javascript" src="js/directives/navBarDirective.js"></script>
+<script type="text/javascript" src="js/directives/navTabsDirective.js"></script>
+<script type="text/javascript" src="js/controllers/navTabsController.js"></script>
 </head>
 
 <body>
@@ -23,10 +28,11 @@
 	<div nav-directive></div>	
 	<div class="container">   
 		<div ng-controller="newQuestionsC" ng-init="getTop20NewQuestions(from);showAnswerTextArea=false">
+			  <div nav-tabs-directive></div>
+			  <br>
 	 		<div ng-repeat="question in questions">
-	 			<hr>
-	 				<a href="questionPage.html" ng-click="setQuestionInSession(question.Qid)">{{question.Title}}</a>
-          		<hr>
+	 			
+ 				<a href="questionPage.html" ng-click="setQuestionInSession(question.Qid)">{{question.Title}}</a><br>
 	 			1.Qid:{{question.Qid}}<br>
 	 			2.Qtext:{{question.QuestionText}}<br>
           		3.Qvotes:{{question.Qvotes}}<br>

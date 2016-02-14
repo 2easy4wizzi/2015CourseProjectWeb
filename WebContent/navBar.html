@@ -13,7 +13,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-	<script type="text/javascript" src="main.js"></script>
+	
 
 	
 </head>	
@@ -22,12 +22,11 @@
   <!-- nav bar-->
 	<nav class="navbar navbar-inverse">
 		<div ng-controller="navC" ng-init=username() >
-			<form novalidat name="HomePageForm">
+			<form novalidat name="homePageForm">
 				<div class="container-fluid">
 						<ul class="nav navbar-nav">
 				
 							<li class="navbar-header" ng-class="{ active: isActive('/homePage.html')}"><a class="navbar-brand" href="homePage.html">HOME</a></li>
-							<!-- <li ng-class="{ active: isActive('/homePage.html')}"><a href="homePage.html">Recently Asked Questions</a></li> -->
 							<li ng-class="{ active: isActive('/questionPage.html')}"><a href="questionPage.html">Questions</a></li>
 							<li ng-class="{ active: isActive('/askedQuestion.html')}"><a href="askedQuestion.html">Ask Question</a></li>
 							<li><a href="#">User leaderboard</a></li>
