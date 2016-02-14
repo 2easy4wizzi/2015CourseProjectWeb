@@ -17,6 +17,7 @@
 
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript" src="js/controllers/homePageController.js"></script>
+<script type="text/javascript" src="js/controllers/answerController.js"></script>
 <script type="text/javascript" src="js/controllers/navBarController.js"></script>
 <script type="text/javascript" src="js/directives/navBarDirective.js"></script>
 <script type="text/javascript" src="js/directives/navTabsDirective.js"></script>
@@ -45,8 +46,9 @@
           	 	<button ng-click="addVote(question.Qid,question.OwnerNickname)">Vote up Question!</button>
           		<button ng-click="addVote(question.Qid,question.OwnerNickname)">Vote down Question!</button><br> 
           		<div ng-show="is_all_questions"><h2>answers:</h2><br>
-	          		<div ng-init="getAnswers(question.Qid);">
+	          		<div ng-controller="answerController" ng-init="getAnswers(question.Qid);">
 	          			<div  ng-repeat="answer in answers" >
+	          				
 			          		* CreatedHuman:{{answer.CreatedHuman}}<br>
 				 			* AnswerText:{{answer.AnswerText}}<br>
 			          		* OwnerNickname:{{answer.OwnerNickname}}<br>
@@ -55,12 +57,12 @@
 			          		Qid:{{answer.Qid}}<br>
 			          		Avotes:{{answer.AVotes}}<br>
 			          		Createdlong:{{answer.Created}}<br>
+			          		<button ng-click="addVote(question.Qid,question.OwnerNickname)">Vote up Answer!</button>
+			          		<button ng-click="addVote(question.Qid,question.OwnerNickname)">Vote down Answer!</button><br> 	
 			          		
 	          			</div>
 	          		</div>
           		</div>
-          		<button ng-click="addVote(question.Qid,question.OwnerNickname)">Vote up Answer!</button>
-          		<button ng-click="addVote(question.Qid,question.OwnerNickname)">Vote down Answer!</button><br> 	
           		<button id="answer_button-{{$index}}" ng-click="showAnswerTextArea = !showAnswerTextArea ; getAnswerButtonText($index)">{{answer_button}}</button>
           		 <br>
           		<div data-ng-if="showAnswerTextArea">

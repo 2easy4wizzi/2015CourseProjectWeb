@@ -28,7 +28,7 @@
   <servlet-mapping>
     <servlet-name>GetSessionUserNameServlet</servlet-name>
     <url-pattern>/GetSessionUserNameServlet</url-pattern>
-    <url-pattern>/GetSessionUserNameServlet/GetUsername</url-pattern>
+    <url-pattern>/GetSessionUserNameServlet/GetNickName</url-pattern>
     <url-pattern>/GetSessionUserNameServlet/RemoveAtt</url-pattern>
   </servlet-mapping>
   <servlet>
@@ -46,6 +46,7 @@
     <url-pattern>/QuestionsServlet/incQuestionAnswers</url-pattern>
     <url-pattern>/QuestionsServlet/SetQuestionInSession</url-pattern>
     <url-pattern>/QuestionsServlet/GetQuestionFromSession</url-pattern>
+    <url-pattern>/QuestionsServlet/addVote</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

@@ -19,6 +19,14 @@ public class User
 		return Username;
 	}
 
+	public void setUsername(String username) {
+		Username = username;
+	}
+
+	public void setPassword(String password) {
+		Password = password;
+	}
+
 	public String getPassword() 
 	{
 		return Password;

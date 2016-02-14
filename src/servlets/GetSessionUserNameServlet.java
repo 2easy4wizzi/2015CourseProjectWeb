@@ -41,7 +41,7 @@ public class GetSessionUserNameServlet extends HttpServlet {
 		//System.out.println("uri is :" + uri);
 		
 		User user = (User)(request.getSession().getAttribute("user"));
-		if(uri.equals("GetUsername"))
+		if(uri.equals("GetNickName"))
 		{
 			if(user != null){
 				response.getWriter().write(user.getNickname());
@@ -51,7 +51,7 @@ public class GetSessionUserNameServlet extends HttpServlet {
 		{	
 			
 			if(user != null) {
-				System.out.println("in remove att:" + user.getUserName() + " " + user.getNickname());
+				System.out.println("in remove att:"  + user.getNickname());
 				 request.getSession().removeAttribute("user");
 				 response.getWriter().write(user.getNickname());				 
 			   }

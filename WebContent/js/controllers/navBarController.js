@@ -9,14 +9,14 @@ app.controller('navC', ['$scope', '$http','$location',
          if(viewLocation == name) { return true;}						
 	};
 	$scope.test = 0;
-	$scope.name = "Guest";
-	$scope.username = function()
+	$scope.nickName = "Guest";
+	$scope.getNickname = function()
 	{
 		  if ($scope.test == 0) {
 			$http(
 					{
 						method : 'POST',
-						url : 'http://localhost:8080/webGilad/GetSessionUserNameServlet/GetUsername',
+						url : 'http://localhost:8080/webGilad/GetSessionUserNameServlet/GetNickName',
 						headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
 					}).success(function(response) {
 						

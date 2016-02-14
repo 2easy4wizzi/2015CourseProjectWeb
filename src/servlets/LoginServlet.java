@@ -109,7 +109,8 @@ public class LoginServlet extends HttpServlet {
 						conn.commit();
 						ps.close();
 						
-						
+						user.setUsername(null);
+						user.setPassword(null);
 						request.getSession().setAttribute("user", user);
 						
 					}
@@ -138,7 +139,7 @@ public class LoginServlet extends HttpServlet {
 					}
 					else
 					{
-						User user = new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5));
+						User user = new User(null,null,rs.getString(3),rs.getString(4),rs.getString(5));
 						request.getSession().setAttribute("user", user);
 					}
 					rs.close();

@@ -113,6 +113,7 @@ app.controller('homePageC', ['$scope', '$http','$location',
 				}).success(function(response) 
 						{
 					$scope.incQuestionAnswers(qid);
+					
 					(focus == "all") ?  $scope.get20questions($scope.from) : $scope.get20NewQuestions($scope.from);
 					
 						}).error(function(error) {
@@ -144,33 +145,25 @@ app.controller('homePageC', ['$scope', '$http','$location',
 	$scope.next = function(){
 		$scope.from++;
 		(focus == "all") ?  $scope.get20questions($scope.from) : $scope.get20NewQuestions($scope.from);	}
-	
-	$scope.getAnswers = function(qid){
-		
+	$scope.addVote = function(qid){
 		$http(
-		{
-		method : 'POST',
-		url : 'http://localhost:8080/webGilad/AnswersServlet/GetAnswers',
-		params : { qid: qid },
-		headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
-		}).success(function(response) 
-		{
-			$scope.answers = response;
-			if (response == "") {
-				
-			} 
-			else 
-			{
-				
-			}
-		}).error(function(error) {
-			alert('somthing happend at post question');
+				{
+					method : 'POST',
+					url : 'http://localhost:8080/webGilad/QuestionsServlet/addVote',
+					params : { qid: qid },
+					headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
+				}).success(function(response) 
+						{
 					
-				});
-    		}
+						}).error(function(error) {
+							alert('somthing happend at inc question answers');
+						});
+	}
+	
 	
 	
 }]);
+
 
 /*
 		$scope.setQuestionInSession = function(qid)

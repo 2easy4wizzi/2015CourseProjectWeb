@@ -21,13 +21,13 @@
 <div ng-app="main">
   <!-- nav bar-->
 	<nav class="navbar navbar-inverse">
-		<div ng-controller="navC" ng-init=username() >
+		<div ng-controller="navC" ng-init=getNickname() >
 			<form novalidat name="homePageForm">
 				<div class="container-fluid">
 						<ul class="nav navbar-nav">
 				
 							<li class="navbar-header" ng-class="{ active: isActive('/homePage.html')}"><a class="navbar-brand" href="homePage.html">HOME</a></li>
-							<li ng-class="{ active: isActive('/questionPage.html')}"><a href="questionPage.html">Questions</a></li>
+							
 							<li ng-class="{ active: isActive('/askedQuestion.html')}"><a href="askedQuestion.html">Ask Question</a></li>
 							<li><a href="#">User leaderboard</a></li>
 							
@@ -43,7 +43,7 @@
 -->
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-							<li><a href="#">Welcome, {{name}}</a></li>
+							<li><a href="#">Welcome, {{nickName}}</a></li>
 							<li><a href="loginAndRegister.html" ng-click="removeAtt()">logout</a></li>
 						</ul>		
 				</div>

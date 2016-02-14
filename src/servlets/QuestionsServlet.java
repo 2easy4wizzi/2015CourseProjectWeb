@@ -54,17 +54,17 @@ public class QuestionsServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Enumeration<String> params = request.getParameterNames(); 
-		while(params.hasMoreElements())
-		{
-		 String paramName = (String)params.nextElement();
-		 System.out.println("Attribute: "+paramName+", Value: "+request.getParameter(paramName));
-		}
+Enumeration<String> params = request.getParameterNames(); 
+while(params.hasMoreElements())
+{
+ String paramName = (String)params.nextElement();
+ System.out.println("Attribute: "+paramName+", Value: "+request.getParameter(paramName));
+}
 		try
 		{
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("QuestionsServlet") + "QuestionsServlet".length() + 1);
-			System.out.println(uri);
+System.out.println(uri);
 			PrintWriter out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
             user = new User("gilad","123","wizzi",null,null);
@@ -111,19 +111,7 @@ public class QuestionsServlet extends HttpServlet {
 					String strQid = request.getParameter("qid");
 					ps.setInt(1, Integer.parseInt(strQid));
 					ps.executeUpdate();
-							
-					Question question = (Question)(request.getSession().getAttribute("question"));
-					if(question==null) 
-					{
-						out.println(0);
-						return;
-					}
-					question.setAnswers(question.getAnswers() + 1);
-					request.getSession().setAttribute("question", question);
-					
-					
 					conn.commit();
-
 					ps.close();
 				}
 				catch (SQLException  e) 
@@ -134,11 +122,42 @@ public class QuestionsServlet extends HttpServlet {
 				finally{
 					conn.close();
 				}
-	
-				
-				
-				
 	        	out.close();
+			}
+			else if(uri.equals("addVote"))
+			{ 
+				try
+				{
+					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_QUESTION_BY_QID_STMT);
+					String strQid = request.getParameter("qid");
+					ps.setInt(1, Integer.parseInt(strQid));
+					ResultSet rs = (ResultSet) ps.executeQuery();
+					
+					String questionOwner = rs.getString("OwnerNickname");
+					User userNickName = (User)(request.getSession().getAttribute("user"));
+					if (userNickName.getNickname()==questionOwner){
+						out.println("cant vote to your own question");
+					}
+					
+					//here check if he voted before
+					
+					conn.commit();
+					rs.close();
+					ps.close();
+				}
+				catch (SQLException  e) 
+				{
+					getServletContext().log("Error while closing connection", e);
+					response.sendError(500);// internal server error
+				}
+				finally{
+					conn.close();
+				}
+				
+				
+				
+				
+				out.close();
 			}
 			else if(uri.equals("GetNewTop20"))
 			{

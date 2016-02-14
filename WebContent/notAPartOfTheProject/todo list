@@ -7,3 +7,5 @@
 #6 - change all input that are buttons to buttons(mainly on login page)
 #7 - q not disapearing at first answer
 #8 - bounderies to next and prev buttons
+#9 - use GET func for getting data
+#10- first usage dont refresh
