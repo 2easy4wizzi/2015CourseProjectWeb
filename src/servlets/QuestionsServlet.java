@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 //import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -167,14 +168,15 @@ questionOwner = "bla";
 							while (rs.next()){
 								answersAvgRating = rs.getDouble(1);
 							}
-	System.out.println("XXXXXXXanswersAvgRating:" + answersAvgRating);
 							
 							
 							ps = conn.prepareStatement(DBConstants.UPDATE_QUESTION_QVOTES_AND_QRATING_COLUMNS_BY_QID_STMT);	
 							questoinVotes += voteVal;
 							ps.setInt(1, questoinVotes);
 							questoinRating = (double)questoinVotes * 0.2 + answersAvgRating*0.8;
-							//System.out.println(questoinRating);
+							DecimalFormat df = new DecimalFormat("#.##");
+							String dx=df.format(questoinRating);
+							questoinRating=Double.valueOf(dx);
 							ps.setDouble(2, questoinRating);
 							ps.setInt(3, qid);
 							ps.executeUpdate();

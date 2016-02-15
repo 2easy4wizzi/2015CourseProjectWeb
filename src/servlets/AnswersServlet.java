@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.derby.tools.sysinfo;
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 
 import com.google.gson.Gson;
@@ -88,8 +90,29 @@ User user = (User)(request.getSession().getAttribute("user"));
 					ps.setString(3, user.getNickname());
 					ps.executeUpdate();
 					
+					ps = conn.prepareStatement(DBConstants.GET_AVG_RATING_OF_QUESTION_ANSWERS);
+					ps.setInt(1, qid);
+					ResultSet rs = (ResultSet) ps.executeQuery();	
+					double answersAvgRating = 0;
+					while (rs.next()){
+						answersAvgRating = rs.getDouble(1);
+					}
+					
+					
+					ps = conn.prepareStatement(DBConstants.UPDATE_QRATING_BY_FORMULA_STMT);	
+					
+					ps.setDouble(1, answersAvgRating);
+					ps.setInt(2, qid);
+					ps.executeUpdate();
+
+					
+					
+					
+					
+					
 					conn.commit();
 					ps.close();
+					rs.close();
 				}
 				catch (SQLException  e) 
 				{
@@ -184,6 +207,38 @@ answerOwner = "bla";
 							ps.setInt(1, voteVal);
 							ps.setInt(2, aid);
 							ps.executeUpdate();
+							
+							
+							
+							ps = conn.prepareStatement(DBConstants.GET_AVG_RATING_OF_QUESTION_ANSWERS);
+							ps.setInt(1, qid);
+							rs = (ResultSet) ps.executeQuery();	
+							double answersAvgRating = 0;
+							while (rs.next()){
+								answersAvgRating = rs.getDouble(1);
+							}
+				System.out.println(answersAvgRating);			
+		
+							
+							ps = conn.prepareStatement(DBConstants.UPDATE_QRATING_BY_FORMULA_STMT);	
+							
+							ps.setDouble(1, answersAvgRating);
+							ps.setInt(2, qid);
+							ps.executeUpdate();
+							
+							
+							
+							ps = conn.prepareStatement(DBConstants.SELECT_QUESTION_BY_QID_STMT);	
+							ps.setInt(1, qid);
+							rs = (ResultSet) ps.executeQuery();	
+							double newQRating = 0;
+							while (rs.next()){
+								newQRating = rs.getDouble(5);
+							}
+							
+							
+							out.println(newQRating);
+							
 								
 							conn.commit();
 						}

@@ -45,6 +45,7 @@ public interface DBConstants
 	public final String UPDATE_QUESTION_ANSWERS_COLUMN_BY_QID_STMT = "UPDATE TBL_QUESTIONS SET Answers = Answers + 1 WHERE QId=?";
 	public final String UPDATE_QUESTION_QVOTES_AND_QRATING_COLUMNS_BY_QID_STMT = "UPDATE TBL_QUESTIONS SET QVotes = ?, QRating = ? WHERE QId=?";
 	public final String SELECT_QUESTION_BY_QID_STMT = "SELECT * FROM TBL_QUESTIONS WHERE Qid=?";
+	public final String UPDATE_QRATING_BY_FORMULA_STMT = "UPDATE TBL_QUESTIONS SET QRating = QVotes * 0.2 + ? * 0.8 WHERE QId=?";
 
 
 

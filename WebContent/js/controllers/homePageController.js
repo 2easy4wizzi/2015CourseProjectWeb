@@ -156,7 +156,6 @@ app.controller('homePageC', ['$scope', '$http','$location',
 					headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
 				}).success(function(response) 
 						{
-							alert(response);
 							(focus == "all") ?  $scope.get20questions($scope.from) : $scope.get20NewQuestions($scope.from);
 							
 						}).error(function(error) {

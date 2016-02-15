@@ -36,8 +36,12 @@ $scope.addVote = function(qid,aid,voteValue){
 				headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
 			}).success(function(response) 
 					{
-						alert(response);
+						var res = response;					
 						$scope.getAnswers(qid);
+						if(res != "cant vote to your own answer" && res != "already voted to this answer")
+						{
+							$scope.question.QRating = res;
+						}
 					}).error(function(error) {
 						alert('somthing happend at add vote(answers)');
 					});
