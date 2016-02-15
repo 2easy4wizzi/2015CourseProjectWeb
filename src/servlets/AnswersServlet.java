@@ -55,17 +55,12 @@ public class AnswersServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Enumeration<String> params = request.getParameterNames(); 
-		while(params.hasMoreElements())
-		{
-		 String paramName = (String)params.nextElement();
-		 System.out.println("Attribute: "+paramName+", Value: "+request.getParameter(paramName));
-		}
+		//Enumeration<String> params = request.getParameterNames();while(params.hasMoreElements()){ String paramName = (String)params.nextElement(); System.out.println("Attribute: "+paramName+", Value: "+request.getParameter(paramName));}
 		try
 		{
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("AnswersServlet") + "AnswersServlet".length() + 1);
-			System.out.println(uri);
+//System.out.println(uri);
 			PrintWriter out = response.getWriter();
 User user = (User)(request.getSession().getAttribute("user"));
             user = new User("gilad","123","wizzi",null,null);
@@ -112,19 +107,19 @@ User user = (User)(request.getSession().getAttribute("user"));
 				try
 				{
 					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_ANSWERS_BY_QID_STMT);
-					System.out.println("qid in get answers "+request.getParameter("qid"));
+	//System.out.println("qid in get answers "+request.getParameter("qid"));
 					String temp = request.getParameter("qid");
 					int qid = Integer.parseInt(temp);
 					ps.setInt(1, qid);
 					ResultSet rs = (ResultSet) ps.executeQuery();
 					
 					while (rs.next()){
-						java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(7));
+						java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(6));
 						long tsTime = ts.getTime();
 						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 						java.sql.Date startDate = new java.sql.Date(ts.getTime());
 						String createdHuman = df.format(startDate);
-						answers.add(new Answer(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getInt(6),createdHuman,tsTime));
+						answers.add(new Answer(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getInt(5),createdHuman,tsTime));
 					}
 					
 					//conn.commit();
@@ -141,7 +136,7 @@ User user = (User)(request.getSession().getAttribute("user"));
 				}
 				Gson gson = new Gson();
 				String answersJson = gson.toJson(answers, DBConstants.NEW_QUESTION_COLLECTION);
-				System.out.println("answers: " +answersJson);
+	//System.out.println("answers: " +answersJson);
 				out.println(answersJson);
 				out.close();
 			}
@@ -157,10 +152,10 @@ User user = (User)(request.getSession().getAttribute("user"));
 					
 					User userA = (User)(request.getSession().getAttribute("user"));
 					String answerOwner = null;
-					int auestoinVotes = 0;
+					
 					while (rs.next()){
 						answerOwner = rs.getString("OwnerNickname");
-						auestoinVotes= rs.getInt("AVotes");				
+										
 					}
 answerOwner = "bla";
 					if (userA.getNickname().equals(answerOwner)){

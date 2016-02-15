@@ -56,17 +56,12 @@ public class QuestionsServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-Enumeration<String> params = request.getParameterNames(); 
-while(params.hasMoreElements())
-{
- String paramName = (String)params.nextElement();
- System.out.println("Attribute: "+paramName+", Value: "+request.getParameter(paramName));
-}
+//Enumeration<String> params = request.getParameterNames(); while(params.hasMoreElements()){String paramName = (String)params.nextElement();System.out.println("Attribute: "+paramName+", Value: "+request.getParameter(paramName));}
 		try
 		{
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("QuestionsServlet") + "QuestionsServlet".length() + 1);
-System.out.println(uri);
+//System.out.println(uri);
 			PrintWriter out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
 user = new User("gilad","123","wizzi",null,null);
@@ -166,14 +161,20 @@ questionOwner = "bla";
 							conn.commit();
 							
 							ps = conn.prepareStatement(DBConstants.GET_AVG_RATING_OF_QUESTION_ANSWERS);
-							
+							ps.setInt(1, qid);
+							rs = (ResultSet) ps.executeQuery();	
+							int answersAvgRating = 0;
+							while (rs.next()){
+								answersAvgRating = rs.getInt(1);
+							}
+	System.out.println("XXXXXXXanswersAvgRating:" + answersAvgRating);
 							
 							
 							ps = conn.prepareStatement(DBConstants.UPDATE_QUESTION_QVOTES_AND_QRATING_COLUMNS_BY_QID_STMT);	
 							questoinVotes += voteVal;
 							ps.setInt(1, questoinVotes);
 							questoinRating = (double)questoinVotes * 0.2;
-							System.out.println(questoinRating);
+							//System.out.println(questoinRating);
 							ps.setDouble(2, questoinRating);
 							ps.setInt(3, qid);
 							ps.executeUpdate();
@@ -216,7 +217,7 @@ questionOwner = "bla";
 						  count = rsCount.getInt(1);
 
 					}
-					System.out.println("count is:"+count);
+					//System.out.println("count is:"+count);
 					
 					rsCount.close();
 					psCount.close();
@@ -262,7 +263,7 @@ questionOwner = "bla";
 					conn.close();
 				}
 				String top20newJson = gson.toJson(top20new, DBConstants.NEW_QUESTION_COLLECTION);
-				System.out.println("JSON: " +top20newJson);
+				//System.out.println("JSON: " +top20newJson);
 				//out.println(top20newJson);
 				boolean dontShowNextButton = false;
 				if(count <= from+20 )
@@ -334,8 +335,8 @@ questionOwner = "bla";
 					conn.close();
 				}
 				String top20newJson = gson.toJson(top20new, DBConstants.NEW_QUESTION_COLLECTION);
-				System.out.println("JSON: " +top20newJson);
-				//out.println(top20newJson);
+		//System.out.println("JSON: " +top20newJson);
+				
 				boolean dontShowNextButton = false;
 				if(count <= from+20 )
 				{

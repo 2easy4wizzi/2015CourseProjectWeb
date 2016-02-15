@@ -9,3 +9,4 @@
 #8 - bounderies to next and prev buttons
 #9 - use GET func for getting data
 #10- first usage dont refresh
+#11- move funcs to : doGet(select - get); doPost(create); doDelete(delete); doPUT(update)

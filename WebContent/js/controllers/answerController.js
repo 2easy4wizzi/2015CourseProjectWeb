@@ -22,7 +22,7 @@ $scope.getAnswers = function(qid){
 			}
 			//return response;
 		}).error(function(error) {
-			alert('somthing happend at post question');
+			alert('somthing happend at  get answers');
 					
 				});
     		}
