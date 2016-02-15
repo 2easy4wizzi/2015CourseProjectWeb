@@ -61,6 +61,8 @@ public interface DBConstants
 											+ ")";
 	public final String INSERT_ANSWER_STMT = "INSERT INTO TBL_ANSWERS (QId, AnswerText, OwnerNickname, ARating, AVotes, Created) VALUES(?,?,?,DEFAULT,DEFAULT,DEFAULT)";
 	public final String SELECT_ANSWERS_BY_QID_STMT = "SELECT * FROM TBL_ANSWERS WHERE Qid=?";
+	public final String SELECT_ANSWER_BY_AID_STMT = "SELECT * FROM TBL_ANSWERS WHERE Aid=?";
+	public final String UPDATE_ANSWER_QVOTES_BY_AID_STMT = "UPDATE TBL_ANSWERS SET AVotes = AVotes + ? WHERE AId=?";
 
 	
 	
@@ -78,13 +80,16 @@ public interface DBConstants
 	
 	public final String CREATE_ANSWER_VOTES_TABLE =  "CREATE TABLE TBL_ANSWER_VOTES("
 			+ "AId INT,"
+			+ "QId INT,"
 			+ "OwnerNickname varchar(20),"
 			+ "VoteValue INT NOT NULL,"
+			+ "FOREIGN KEY (QId) REFERENCES TBL_QUESTIONS(QId),"
 			+ "FOREIGN KEY (AId) REFERENCES TBL_ANSWERS(AId),"
 			+ "FOREIGN KEY (OwnerNickname) REFERENCES TBL_USERS(Nickname),"
-			+ "PRIMARY KEY (AId, OwnerNickname)"
+			+ "PRIMARY KEY (AId, QId)"
 			+ ")";
-	public final String INSERT_ANSWER_VOTE_STMT = "INSERT INTO TBL_ANSWER_VOTES VALUES(?,?,?)";
+	public final String INSERT_ANSWER_VOTE_STMT = "INSERT INTO TBL_ANSWER_VOTES VALUES(?,?,?,?)";
+	public final String SELECT_ANSWER_VOTES_STMT = "SELECT * FROM TBL_ANSWER_VOTES WHERE Aid=? AND OwnerNickname=?";
 	
 
 }

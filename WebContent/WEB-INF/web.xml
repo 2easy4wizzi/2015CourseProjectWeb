@@ -59,5 +59,6 @@
     <url-pattern>/AnswersServlet</url-pattern>
     <url-pattern>/AnswersServlet/PostAnswer</url-pattern>
     <url-pattern>/AnswersServlet/GetAnswers</url-pattern>
+    <url-pattern>/AnswersServlet/addVote</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -57,8 +57,8 @@
 			          		Qid:{{answer.Qid}}<br>
 			          		Avotes:{{answer.AVotes}}<br>
 			          		Createdlong:{{answer.Created}}<br>
-			          		<button ng-click="addVote(question.Qid,question.OwnerNickname)">Vote up Answer!</button>
-			          		<button ng-click="addVote(question.Qid,question.OwnerNickname)">Vote down Answer!</button><br> 	
+			          		<button ng-click="addVote(question.Qid,answer.Aid,1)">Vote up Answer!</button>
+			          		<button ng-click="addVote(question.Qid,answer.Aid,-1)">Vote down Answer!</button><br> 	
 			          		
 	          			</div>
 	          		</div>

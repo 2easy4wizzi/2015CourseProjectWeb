@@ -165,8 +165,9 @@ questionOwner = "bla";
 							ps.executeUpdate();
 							conn.commit();
 							
-							ps = conn.prepareStatement(DBConstants.UPDATE_QUESTION_QVOTES_AND_QRATING_COLUMNS_BY_QID_STMT);			
-							ps.setInt(1, ++questoinVotes);
+							ps = conn.prepareStatement(DBConstants.UPDATE_QUESTION_QVOTES_AND_QRATING_COLUMNS_BY_QID_STMT);	
+							questoinVotes += voteVal;
+							ps.setInt(1, questoinVotes);
 							questoinRating = (double)questoinVotes * 0.2;
 							System.out.println(questoinRating);
 							ps.setDouble(2, questoinRating);

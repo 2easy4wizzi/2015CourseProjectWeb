@@ -67,7 +67,7 @@ public class AnswersServlet extends HttpServlet {
 			uri = uri.substring(uri.indexOf("AnswersServlet") + "AnswersServlet".length() + 1);
 			System.out.println(uri);
 			PrintWriter out = response.getWriter();
-			User user = (User)(request.getSession().getAttribute("user"));
+User user = (User)(request.getSession().getAttribute("user"));
             user = new User("gilad","123","wizzi",null,null);
 
 			if(user == null)
@@ -143,6 +143,75 @@ public class AnswersServlet extends HttpServlet {
 				String answersJson = gson.toJson(answers, DBConstants.NEW_QUESTION_COLLECTION);
 				System.out.println("answers: " +answersJson);
 				out.println(answersJson);
+				out.close();
+			}
+			else if(uri.equals("addVote"))
+			{ 
+				try
+				{
+					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_ANSWER_BY_AID_STMT);
+					String strAid = request.getParameter("aid");
+					int aid = Integer.parseInt(strAid);
+					ps.setInt(1, aid);
+					ResultSet rs = (ResultSet) ps.executeQuery();
+					
+					User userA = (User)(request.getSession().getAttribute("user"));
+					String answerOwner = null;
+					int auestoinVotes = 0;
+					while (rs.next()){
+						answerOwner = rs.getString("OwnerNickname");
+						auestoinVotes= rs.getInt("AVotes");				
+					}
+answerOwner = "bla";
+					if (userA.getNickname().equals(answerOwner)){
+						out.println("cant vote to your own answer");
+					}
+					else 
+					{
+						ps = conn.prepareStatement(DBConstants.SELECT_ANSWER_VOTES_STMT);
+						ps.setInt(1, aid);
+						ps.setString(2, user.getNickname());
+						rs = (ResultSet) ps.executeQuery();				
+						if(!rs.next()){
+							ps = conn.prepareStatement(DBConstants.INSERT_ANSWER_VOTE_STMT);
+							ps.setInt(1, aid);
+							String temp = request.getParameter("qid");
+							int qid = Integer.parseInt(temp);
+							ps.setInt(2, qid);
+							ps.setString(3, user.getNickname());
+							String strVoteVal = request.getParameter("voteValue");
+							int voteVal = Integer.parseInt(strVoteVal);
+							ps.setInt(4, voteVal);
+							ps.executeUpdate();
+							conn.commit();
+							
+							ps = conn.prepareStatement(DBConstants.UPDATE_ANSWER_QVOTES_BY_AID_STMT);			
+							ps.setInt(1, voteVal);
+							ps.setInt(2, aid);
+							ps.executeUpdate();
+								
+							conn.commit();
+						}
+						else{
+							out.println("already voted to this answer");
+						}
+					}
+					//recalc rating
+					rs.close();
+					ps.close();
+				}
+				catch (SQLException  e) 
+				{
+					getServletContext().log("Error while closing connection", e);
+					response.sendError(500);// internal server error
+				}
+				finally{
+					conn.close();
+				}
+				
+				
+				
+				
 				out.close();
 			}
 			
