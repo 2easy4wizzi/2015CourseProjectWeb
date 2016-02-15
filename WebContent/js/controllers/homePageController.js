@@ -26,6 +26,7 @@ app.controller('homePageC', ['$scope', '$http','$location',
     	}
         else
     	{
+        	$scope.is_all_questions = false;
         	focus = "new";
         	$scope.get20NewQuestions(from);
     	}

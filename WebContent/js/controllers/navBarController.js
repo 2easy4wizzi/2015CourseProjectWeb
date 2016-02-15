@@ -26,7 +26,7 @@ app.controller('navC', ['$scope', '$http','$location',
 				} 
 				else 
 				{
-					$scope.name = response;
+					$scope.nickName = response;
 				}
 			}).error(function(error) {
 				alert('somthing happend at get user name ');
@@ -49,7 +49,7 @@ app.controller('navC', ['$scope', '$http','$location',
 			else 
 			{
 				alert('goodbye '+ response);
-				$scope.name = response;
+				//$scope.nickName = response;
 			}
 		}).error(function(error) {
 			alert('remove att somthing happend');

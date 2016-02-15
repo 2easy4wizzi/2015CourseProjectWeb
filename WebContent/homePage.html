@@ -28,7 +28,7 @@
 <div ng-app="main">
 	<div nav-directive></div>	
 	<div class="container">   
-		<div ng-controller="homePageC" ng-init="getQuestions(from);showAnswerTextArea=false">
+		<div ng-controller="homePageC" ng-init="getQuestions(from);showAnswerTextArea=false;">
 			  <div nav-tabs-directive></div>
 			  <br>
 		    <h1>{{question_title}}</h1>
@@ -45,7 +45,7 @@
           		Answers:{{question.Answers}}<br>
           	 	<button ng-click="addVote(question.Qid,question.OwnerNickname)">Vote up Question!</button>
           		<button ng-click="addVote(question.Qid,question.OwnerNickname)">Vote down Question!</button><br> 
-          		<div ng-show="is_all_questions"><h2>answers:</h2><br>
+          		<div data-ng-if="is_all_questions"><h2>answers:</h2><br>
 	          		<div ng-controller="answerController" ng-init="getAnswers(question.Qid);">
 	          			<div  ng-repeat="answer in answers" >
 	          				
