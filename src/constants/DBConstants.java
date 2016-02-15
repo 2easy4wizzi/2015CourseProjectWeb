@@ -62,6 +62,7 @@ public interface DBConstants
 	public final String SELECT_ANSWERS_BY_QID_STMT = "SELECT * FROM TBL_ANSWERS WHERE Qid=?";
 	public final String SELECT_ANSWER_BY_AID_STMT = "SELECT * FROM TBL_ANSWERS WHERE Aid=?";
 	public final String UPDATE_ANSWER_QVOTES_BY_AID_STMT = "UPDATE TBL_ANSWERS SET AVotes = AVotes + ? WHERE AId=?";
+	public final String GET_AVG_RATING_OF_QUESTION_ANSWERS = "SELECT AVG(AVotes) FROM TBL_ANSWERS WHERE Qid=?";
 
 	
 	
@@ -75,7 +76,6 @@ public interface DBConstants
 			+ ")";
 	public final String INSERT_QUESTION_VOTE_STMT = "INSERT INTO TBL_QUESTION_VOTES VALUES(?,?,?)";
 	public final String SELECT_QUESTION_VOTES_STMT = "SELECT * FROM TBL_QUESTION_VOTES WHERE Qid=? AND OwnerNickname=?";
-	public final String GET_AVG_RATING_OF_QUESTION_ANSWERS = "SELECT * FROM TBL_QUESTION_VOTES WHERE Qid=? AND OwnerNickname=?";
 	
 	
 	public final String CREATE_ANSWER_VOTES_TABLE =  "CREATE TABLE TBL_ANSWER_VOTES("
