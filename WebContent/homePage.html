@@ -34,7 +34,7 @@
 		    <h1>{{question_title}}</h1>
 	 		<div ng-repeat="question in questions">
 	 			<h2>Question:</h2>
-          		* CreatedHuman:{{question.CreatedHuman}}<br>
+          	<div style="color:red">	* CreatedHuman:{{question.CreatedHuman}}<br>
 	 			* Qtext:{{question.QuestionText}}<br>
           		* QTopics:{{question.QTopics}}<br>
           		* OwnerNickname:{{question.OwnerNickname}}<br>
@@ -42,7 +42,7 @@
 	 			Qid:{{question.Qid}}<br>
           		Qvotes:{{question.Qvotes}}<br>
           		Createdlong:{{question.Created}}<br>
-          		Answers:{{question.Answers}}<br>
+          		Answers:{{question.Answers}}<br> </div>
           	 	<button ng-click="addVote(question.Qid,1)">Vote up Question!</button>
           		<button ng-click="addVote(question.Qid,-1)">Vote down Question!</button><br> 
           		<div data-ng-if="is_all_questions"><h2>answers:</h2><br>
