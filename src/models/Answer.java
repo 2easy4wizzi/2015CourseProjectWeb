@@ -6,14 +6,12 @@ public class Answer
 	private int Aid ,Qid ,AVotes;
 	private String AnswerText, OwnerNickname, CreatedHuman;
 	private long Created;
-	private double ARating ;
-	public Answer(int aid, int qid, String answerText, String ownerNickname,double arating,int avotes ,String createdhuman, long created) 
+	public Answer(int aid, int qid, String answerText, String ownerNickname,int avotes ,String createdhuman, long created) 
 	{
 		Aid = aid;
 		Qid = qid;
 		AnswerText = answerText;
 		OwnerNickname = ownerNickname;
-		ARating = arating;
 		AVotes = avotes;
 		Created = created;
 		CreatedHuman = createdhuman;
@@ -47,13 +45,11 @@ public class Answer
 		return CreatedHuman;
 	}
 
-	public double getARating() {
-		return ARating;
-	}
+	
 
 	public void print() 
 	{
-		System.out.println("Aid: " + Aid + " Qid: " +Qid + " AnswerText: " + AnswerText + " OwnerNickname: " + OwnerNickname + " Created: " + Created + " ARating: " + ARating +" AVotes: " + AVotes );
+		System.out.println("Aid: " + Aid + " Qid: " +Qid + " AnswerText: " + AnswerText + " OwnerNickname: " + OwnerNickname + " Created: " + Created +" AVotes: " + AVotes );
 	}
 	
 	

@@ -165,6 +165,10 @@ questionOwner = "bla";
 							ps.executeUpdate();
 							conn.commit();
 							
+							ps = conn.prepareStatement(DBConstants.GET_AVG_RATING_OF_QUESTION_ANSWERS);
+							
+							
+							
 							ps = conn.prepareStatement(DBConstants.UPDATE_QUESTION_QVOTES_AND_QRATING_COLUMNS_BY_QID_STMT);	
 							questoinVotes += voteVal;
 							ps.setInt(1, questoinVotes);

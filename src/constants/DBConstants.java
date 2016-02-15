@@ -53,13 +53,12 @@ public interface DBConstants
 											+ "QId INT,"
 											+ "AnswerText varchar(300) NOT NULL,"
 											+ "OwnerNickname varchar(20),"
-											+ "ARating double DEFAULT 0,"
 											+ "AVotes INT DEFAULT 0,"
 											+ "Created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
 											+ "FOREIGN KEY (QId) REFERENCES TBL_QUESTIONS(QId),"
 											+ "FOREIGN KEY (OwnerNickname) REFERENCES TBL_USERS(Nickname)"
 											+ ")";
-	public final String INSERT_ANSWER_STMT = "INSERT INTO TBL_ANSWERS (QId, AnswerText, OwnerNickname, ARating, AVotes, Created) VALUES(?,?,?,DEFAULT,DEFAULT,DEFAULT)";
+	public final String INSERT_ANSWER_STMT = "INSERT INTO TBL_ANSWERS (QId, AnswerText, OwnerNickname, AVotes, Created) VALUES(?,?,?,DEFAULT,DEFAULT)";
 	public final String SELECT_ANSWERS_BY_QID_STMT = "SELECT * FROM TBL_ANSWERS WHERE Qid=?";
 	public final String SELECT_ANSWER_BY_AID_STMT = "SELECT * FROM TBL_ANSWERS WHERE Aid=?";
 	public final String UPDATE_ANSWER_QVOTES_BY_AID_STMT = "UPDATE TBL_ANSWERS SET AVotes = AVotes + ? WHERE AId=?";
@@ -76,6 +75,7 @@ public interface DBConstants
 			+ ")";
 	public final String INSERT_QUESTION_VOTE_STMT = "INSERT INTO TBL_QUESTION_VOTES VALUES(?,?,?)";
 	public final String SELECT_QUESTION_VOTES_STMT = "SELECT * FROM TBL_QUESTION_VOTES WHERE Qid=? AND OwnerNickname=?";
+	public final String GET_AVG_RATING_OF_QUESTION_ANSWERS = "SELECT * FROM TBL_QUESTION_VOTES WHERE Qid=? AND OwnerNickname=?";
 	
 	
 	public final String CREATE_ANSWER_VOTES_TABLE =  "CREATE TABLE TBL_ANSWER_VOTES("
