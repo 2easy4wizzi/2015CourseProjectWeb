@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
+
+import org.apache.derby.tools.sysinfo;
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 
 import constants.DBConstants;
@@ -67,8 +69,8 @@ while(params.hasMoreElements())
 System.out.println(uri);
 			PrintWriter out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
-            user = new User("gilad","123","wizzi",null,null);
-
+user = new User("gilad","123","wizzi",null,null);
+request.getSession().setAttribute("user", user);
 			if(user == null)
 			{
 				out.println("0");
@@ -112,6 +114,22 @@ System.out.println(uri);
 					ps.setInt(1, Integer.parseInt(strQid));
 					ps.executeUpdate();
 					conn.commit();
+					
+					ps = conn.prepareStatement(DBConstants.SELECT_QUESTION_BY_QID_STMT);
+					strQid = request.getParameter("qid");
+					ps.setInt(1, Integer.parseInt(strQid));
+					ResultSet rs = (ResultSet) ps.executeQuery();
+					while (rs.next()) {
+					    for (int i = 1; i <= 8; i++) {
+					        if (i > 1) System.out.print(" | ");
+					        System.out.print(rs.getString(i));
+					    }
+					    System.out.println("");
+					}
+					
+					
+					
+					
 					ps.close();
 				}
 				catch (SQLException  e) 
@@ -130,18 +148,54 @@ System.out.println(uri);
 				{
 					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_QUESTION_BY_QID_STMT);
 					String strQid = request.getParameter("qid");
-					ps.setInt(1, Integer.parseInt(strQid));
+					int qid = Integer.parseInt(strQid);
+					ps.setInt(1, qid);
 					ResultSet rs = (ResultSet) ps.executeQuery();
 					
-					String questionOwner = rs.getString("OwnerNickname");
-					User userNickName = (User)(request.getSession().getAttribute("user"));
-					if (userNickName.getNickname()==questionOwner){
+					User userA = (User)(request.getSession().getAttribute("user"));
+					String questionOwner = null;
+					double questoinRating=0;
+					int questoinVotes = 0;
+					while (rs.next()){
+						questionOwner = rs.getString("OwnerNickname");
+						questoinRating= rs.getDouble("QRating");
+						questoinVotes = rs.getInt("QVotes");
+					}
+questionOwner = "bla";
+					if (userA.getNickname().equals(questionOwner)){
 						out.println("cant vote to your own question");
 					}
-					
-					//here check if he voted before
-					
-					conn.commit();
+					else 
+					{
+						ps = conn.prepareStatement(DBConstants.SELECT_QUESTION_VOTES_STMT);
+						ps.setInt(1, qid);
+						ps.setString(2, user.getNickname());
+						rs = (ResultSet) ps.executeQuery();				
+						if(!rs.next()){
+							ps = conn.prepareStatement(DBConstants.INSERT_QUESTION_VOTE_STMT);
+							ps.setInt(1, qid);
+							ps.setString(2, user.getNickname());
+							String strVoteVal = request.getParameter("voteValue");
+							int voteVal = Integer.parseInt(strVoteVal);
+							ps.setInt(3, voteVal);
+							ps.executeUpdate();
+							conn.commit();
+							
+							ps = conn.prepareStatement(DBConstants.UPDATE_QUESTION_QVOTES_AND_QRATING_COLUMNS_BY_QID_STMT);			
+							ps.setInt(1, ++questoinVotes);
+							questoinRating = (double)questoinVotes * 0.2;
+							System.out.println(questoinRating);
+							ps.setDouble(2, questoinRating);
+							ps.setInt(3, qid);
+							ps.executeUpdate();
+								
+							conn.commit();
+						}
+						else{
+							out.println("already voted to this question");
+						}
+					}
+					//recalc rating
 					rs.close();
 					ps.close();
 				}
@@ -171,8 +225,9 @@ System.out.println(uri);
 					ResultSet rsCount = (ResultSet) psCount.executeQuery();
 					while (rsCount.next()){
 						  count = rsCount.getInt(1);
-					 }
-					
+
+					}
+					System.out.println("count is:"+count);
 					
 					rsCount.close();
 					psCount.close();

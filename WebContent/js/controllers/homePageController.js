@@ -115,7 +115,8 @@ app.controller('homePageC', ['$scope', '$http','$location',
 						{
 					$scope.incQuestionAnswers(qid);
 					
-					(focus == "all") ?  $scope.get20questions($scope.from) : $scope.get20NewQuestions($scope.from);
+						
+					
 					
 						}).error(function(error) {
 							alert('somthing happend at postAnswer');
@@ -133,7 +134,7 @@ app.controller('homePageC', ['$scope', '$http','$location',
 					headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
 				}).success(function(response) 
 						{
-					
+					(focus == "all") ?  $scope.get20questions($scope.from) : $scope.get20NewQuestions($scope.from);
 						}).error(function(error) {
 							alert('somthing happend at inc question answers');
 						});
@@ -146,18 +147,20 @@ app.controller('homePageC', ['$scope', '$http','$location',
 	$scope.next = function(){
 		$scope.from++;
 		(focus == "all") ?  $scope.get20questions($scope.from) : $scope.get20NewQuestions($scope.from);	}
-	$scope.addVote = function(qid){
+	$scope.addVote = function(qid,voteValue){
 		$http(
 				{
 					method : 'POST',
 					url : 'http://localhost:8080/webGilad/QuestionsServlet/addVote',
-					params : { qid: qid },
+					params : { qid: qid ,voteValue: voteValue},
 					headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
 				}).success(function(response) 
 						{
-					
+							alert(response);
+							(focus == "all") ?  $scope.get20questions($scope.from) : $scope.get20NewQuestions($scope.from);
+							
 						}).error(function(error) {
-							alert('somthing happend at inc question answers');
+							alert('somthing happend at add vote');
 						});
 	}
 	

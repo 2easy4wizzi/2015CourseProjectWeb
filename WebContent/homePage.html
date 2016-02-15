@@ -43,8 +43,8 @@
           		Qvotes:{{question.Qvotes}}<br>
           		Createdlong:{{question.Created}}<br>
           		Answers:{{question.Answers}}<br>
-          	 	<button ng-click="addVote(question.Qid,question.OwnerNickname)">Vote up Question!</button>
-          		<button ng-click="addVote(question.Qid,question.OwnerNickname)">Vote down Question!</button><br> 
+          	 	<button ng-click="addVote(question.Qid,1)">Vote up Question!</button>
+          		<button ng-click="addVote(question.Qid,-1)">Vote down Question!</button><br> 
           		<div data-ng-if="is_all_questions"><h2>answers:</h2><br>
 	          		<div ng-controller="answerController" ng-init="getAnswers(question.Qid);">
 	          			<div  ng-repeat="answer in answers" >

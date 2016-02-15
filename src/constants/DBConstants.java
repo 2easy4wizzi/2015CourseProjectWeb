@@ -31,7 +31,7 @@ public interface DBConstants
 											+ "QuestionText varchar(300) NOT NULL,"
 											+ "QTopics varchar(1000),"
 											+ "OwnerNickname varchar(20),"
-											+ "QRating real DEFAULT 0,"
+											+ "QRating double DEFAULT 0,"
 											+ "QVotes INT DEFAULT 0,"
 											+ "Created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
 											+ "Answers INT DEFAULT 0,"
@@ -43,6 +43,7 @@ public interface DBConstants
 	public final String SELECT_COUNT_NEW_QUESTIONS_STMT = "SELECT COUNT (*) FROM TBL_QUESTIONS WHERE Answers=0";
 	public final String SELECT_COUNT_QUESTIONS_STMT = "SELECT COUNT (*) FROM TBL_QUESTIONS";
 	public final String UPDATE_QUESTION_ANSWERS_COLUMN_BY_QID_STMT = "UPDATE TBL_QUESTIONS SET Answers = Answers + 1 WHERE QId=?";
+	public final String UPDATE_QUESTION_QVOTES_AND_QRATING_COLUMNS_BY_QID_STMT = "UPDATE TBL_QUESTIONS SET QVotes = ?, QRating = ? WHERE QId=?";
 	public final String SELECT_QUESTION_BY_QID_STMT = "SELECT * FROM TBL_QUESTIONS WHERE Qid=?";
 
 
@@ -52,7 +53,7 @@ public interface DBConstants
 											+ "QId INT,"
 											+ "AnswerText varchar(300) NOT NULL,"
 											+ "OwnerNickname varchar(20),"
-											+ "ARating real DEFAULT 0,"
+											+ "ARating double DEFAULT 0,"
 											+ "AVotes INT DEFAULT 0,"
 											+ "Created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
 											+ "FOREIGN KEY (QId) REFERENCES TBL_QUESTIONS(QId),"
@@ -60,5 +61,30 @@ public interface DBConstants
 											+ ")";
 	public final String INSERT_ANSWER_STMT = "INSERT INTO TBL_ANSWERS (QId, AnswerText, OwnerNickname, ARating, AVotes, Created) VALUES(?,?,?,DEFAULT,DEFAULT,DEFAULT)";
 	public final String SELECT_ANSWERS_BY_QID_STMT = "SELECT * FROM TBL_ANSWERS WHERE Qid=?";
+
+	
+	
+	public final String CREATE_QUESTION_VOTES_TABLE =  "CREATE TABLE TBL_QUESTION_VOTES("
+			+ "QId INT,"
+			+ "OwnerNickname varchar(20),"
+			+ "VoteValue INT NOT NULL,"
+			+ "FOREIGN KEY (QId) REFERENCES TBL_QUESTIONS(QId),"
+			+ "FOREIGN KEY (OwnerNickname) REFERENCES TBL_USERS(Nickname),"
+			+ "PRIMARY KEY (QId, OwnerNickname)"
+			+ ")";
+	public final String INSERT_QUESTION_VOTE_STMT = "INSERT INTO TBL_QUESTION_VOTES VALUES(?,?,?)";
+	public final String SELECT_QUESTION_VOTES_STMT = "SELECT * FROM TBL_QUESTION_VOTES WHERE Qid=? AND OwnerNickname=?";
+	
+	
+	public final String CREATE_ANSWER_VOTES_TABLE =  "CREATE TABLE TBL_ANSWER_VOTES("
+			+ "AId INT,"
+			+ "OwnerNickname varchar(20),"
+			+ "VoteValue INT NOT NULL,"
+			+ "FOREIGN KEY (AId) REFERENCES TBL_ANSWERS(AId),"
+			+ "FOREIGN KEY (OwnerNickname) REFERENCES TBL_USERS(Nickname),"
+			+ "PRIMARY KEY (AId, OwnerNickname)"
+			+ ")";
+	public final String INSERT_ANSWER_VOTE_STMT = "INSERT INTO TBL_ANSWER_VOTES VALUES(?,?,?)";
+	
 
 }
