@@ -114,22 +114,6 @@ request.getSession().setAttribute("user", user);
 					ps.setInt(1, Integer.parseInt(strQid));
 					ps.executeUpdate();
 					conn.commit();
-					
-					ps = conn.prepareStatement(DBConstants.SELECT_QUESTION_BY_QID_STMT);
-					strQid = request.getParameter("qid");
-					ps.setInt(1, Integer.parseInt(strQid));
-					ResultSet rs = (ResultSet) ps.executeQuery();
-					while (rs.next()) {
-					    for (int i = 1; i <= 8; i++) {
-					        if (i > 1) System.out.print(" | ");
-					        System.out.print(rs.getString(i));
-					    }
-					    System.out.println("");
-					}
-					
-					
-					
-					
 					ps.close();
 				}
 				catch (SQLException  e) 
