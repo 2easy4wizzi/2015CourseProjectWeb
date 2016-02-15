@@ -163,9 +163,9 @@ questionOwner = "bla";
 							ps = conn.prepareStatement(DBConstants.GET_AVG_RATING_OF_QUESTION_ANSWERS);
 							ps.setInt(1, qid);
 							rs = (ResultSet) ps.executeQuery();	
-							int answersAvgRating = 0;
+							double answersAvgRating = 0;
 							while (rs.next()){
-								answersAvgRating = rs.getInt(1);
+								answersAvgRating = rs.getDouble(1);
 							}
 	System.out.println("XXXXXXXanswersAvgRating:" + answersAvgRating);
 							
@@ -173,7 +173,7 @@ questionOwner = "bla";
 							ps = conn.prepareStatement(DBConstants.UPDATE_QUESTION_QVOTES_AND_QRATING_COLUMNS_BY_QID_STMT);	
 							questoinVotes += voteVal;
 							ps.setInt(1, questoinVotes);
-							questoinRating = (double)questoinVotes * 0.2;
+							questoinRating = (double)questoinVotes * 0.2 + answersAvgRating*0.8;
 							//System.out.println(questoinRating);
 							ps.setDouble(2, questoinRating);
 							ps.setInt(3, qid);
