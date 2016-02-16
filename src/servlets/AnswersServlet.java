@@ -65,7 +65,7 @@ public class AnswersServlet extends HttpServlet {
 //System.out.println(uri);
 			PrintWriter out = response.getWriter();
 User user = (User)(request.getSession().getAttribute("user"));
-            user = new User("gilad","123","wizzi",null,null);
+//            user = new User("gilad","123","wizzi",null,null);
 
 			if(user == null)
 			{
@@ -129,7 +129,7 @@ User user = (User)(request.getSession().getAttribute("user"));
 				Collection<Answer> answers = new ArrayList<Answer>(); 
 				try
 				{
-					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_ANSWERS_BY_QID_STMT);
+					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_ANSWERS_ORDER_BY_VOTES_AND_TIMESTAMP_BY_QID_STMT);
 	//System.out.println("qid in get answers "+request.getParameter("qid"));
 					String temp = request.getParameter("qid");
 					int qid = Integer.parseInt(temp);
@@ -181,9 +181,9 @@ User user = (User)(request.getSession().getAttribute("user"));
 						answerOwner = rs.getString("OwnerNickname");
 										
 					}
-answerOwner = "bla";
+//answerOwner = "bla";
 					if (userA.getNickname().equals(answerOwner)){
-						out.println("cant vote to your own answer");
+						
 						String strJson = gson.toJson("cant vote to your own answer", String.class);
 						out.println(strJson);
 						//out.println("1");

@@ -44,7 +44,6 @@ $scope.addVote = function(qid,aid,voteValue){
 						$scope.getAnswers(qid);
 						if(res1 != error1 && res2 != error2)
 						{
-							alert(response);
 							$scope.question.QRating = response;
 						}
 					}).error(function(error) {
