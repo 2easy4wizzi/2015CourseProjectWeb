@@ -18,7 +18,7 @@ public interface DBConstants
 											+ "Nickname varchar(20) UNIQUE NOT NULL,"
 											+ "Description varchar(50),"
 											+ "PhotoUrl varchar(300),"
-											+ "UserRating real DEFAULT 0"
+											+ "UserRating double DEFAULT 0"
 											+ ")";
 	public final String INSERT_USER_STMT = "INSERT INTO TBL_USERS VALUES(?,?,?,?,?,DEFAULT)";
 	public final String SELECT_ALL_USERS_STMT = "SELECT * FROM TBL_USERS";
@@ -93,5 +93,9 @@ public interface DBConstants
 	public final String INSERT_ANSWER_VOTE_STMT = "INSERT INTO TBL_ANSWER_VOTES VALUES(?,?,?,?)";
 	public final String SELECT_ANSWER_VOTES_STMT = "SELECT * FROM TBL_ANSWER_VOTES WHERE Aid=? AND OwnerNickname=?";
 	
+	//public final String GET_AVG_RATING_OF_QUESTIONS_BY_USER = "SELECT AVG(CAST (Qrating AS DOUBLE PRECISION)) FROM TBL_QUESTIONS WHERE OwnerNickname=?";
+	//public final String GET_AVG_VOTES_OF_ANSWERS_BY_USER = "SELECT AVG(CAST (AVotes AS DOUBLE PRECISION)) FROM TBL_ANSWERS WHERE OwnerNickname=?";
+	public final String UPDATE_USER_RATING = "UPDATE TBL_USERS SET UserRating=(0.2*(SELECT AVG(CAST (Qrating AS DOUBLE PRECISION)) FROM TBL_QUESTIONS WHERE OwnerNickname=?)+0.8*(SELECT AVG(CAST (AVotes AS DOUBLE PRECISION)) FROM TBL_ANSWERS WHERE OwnerNickname=?)) WHERE Nickname=?";
+	public final String SELECT_OWNER_BY_QID = "SELECT OwnerNickname FROM TBL_QUESTIONS WHERE Qid=?";
 
 }

@@ -65,7 +65,7 @@ public class QuestionsServlet extends HttpServlet {
 //System.out.println(uri);
 			PrintWriter out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
-user = new User("gilad","123","wizzi",null,null);
+//user = new User("gilad","123","wizzi",null,null);
 request.getSession().setAttribute("user", user);
 			if(user == null)
 			{
@@ -87,9 +87,23 @@ request.getSession().setAttribute("user", user);
 					ps.setString(2, request.getParameter("topics"));
 					ps.setString(3, user.getNickname());
 					ps.executeUpdate();
-					
 					conn.commit();
+					
+					/*********************************UPDATE USER'S RATING****************************************/
+					
+					ps = conn.prepareStatement(DBConstants.UPDATE_USER_RATING);
+
+					ps.setString(1, user.getNickname());
+					ps.setString(2, user.getNickname());		
+					ps.setString(3, user.getNickname());
+					ps.executeUpdate();
+					conn.commit();
+					
 					ps.close();
+					
+					
+
+
 				}
 				catch (SQLException  e) 
 				{
@@ -141,7 +155,7 @@ request.getSession().setAttribute("user", user);
 						questoinRating= rs.getDouble("QRating");
 						questoinVotes = rs.getInt("QVotes");
 					}
-questionOwner = "bla";
+//questionOwner = "bla";
 					if (userA.getNickname().equals(questionOwner)){
 						out.println("cant vote to your own question");
 					}
@@ -174,14 +188,32 @@ questionOwner = "bla";
 							questoinVotes += voteVal;
 							ps.setInt(1, questoinVotes);
 							questoinRating = (double)questoinVotes * 0.2 + answersAvgRating*0.8;
-							DecimalFormat df = new DecimalFormat("#.##");
-							String dx=df.format(questoinRating);
-							questoinRating=Double.valueOf(dx);
 							ps.setDouble(2, questoinRating);
 							ps.setInt(3, qid);
 							ps.executeUpdate();
 								
 							conn.commit();
+							/*********************************UPDATE USER'S RATING****************************************/
+							//find who ask the question					
+							ps = conn.prepareStatement(DBConstants.SELECT_OWNER_BY_QID);
+							ps.setInt(1, qid);
+							ResultSet rsOwner = (ResultSet) ps.executeQuery();
+							String ownerNickname = null;
+							while (rsOwner.next()){
+								ownerNickname = rsOwner.getString(1);
+							}
+							
+							//update who ask the question 
+							ps = conn.prepareStatement(DBConstants.UPDATE_USER_RATING);
+							ps.setString(1, ownerNickname);
+							ps.setString(2, ownerNickname);		
+							ps.setString(3, ownerNickname);
+							ps.executeUpdate();
+							conn.commit();
+												
+							/*********************************************************************************************/
+							
+														
 						}
 						else{
 							out.println("already voted to this question");

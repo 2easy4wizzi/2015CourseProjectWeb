@@ -65,7 +65,7 @@ public class AnswersServlet extends HttpServlet {
 //System.out.println(uri);
 			PrintWriter out = response.getWriter();
 User user = (User)(request.getSession().getAttribute("user"));
-            user = new User("gilad","123","wizzi",null,null);
+           // user = new User("gilad","123","wizzi",null,null);
 
 			if(user == null)
 			{
@@ -83,12 +83,24 @@ User user = (User)(request.getSession().getAttribute("user"));
 				try
 				{
 					PreparedStatement ps = conn.prepareStatement(DBConstants.INSERT_ANSWER_STMT);			
-					String temp = request.getParameter("qid");
-					int qid = Integer.parseInt(temp);
+					String questionId = request.getParameter("qid");
+					int qid = Integer.parseInt(questionId);
 					ps.setInt(1, qid);
 					ps.setString(2, request.getParameter("answerText"));
 					ps.setString(3, user.getNickname());
 					ps.executeUpdate();
+					/*********************************UPDATE USER'S RATING****************************************/
+					//update who post answer
+					ps = conn.prepareStatement(DBConstants.UPDATE_USER_RATING);
+
+					ps.setString(1, user.getNickname());
+					ps.setString(2, user.getNickname());		
+					ps.setString(3, user.getNickname());
+					ps.executeUpdate();
+					conn.commit();
+					
+					
+					/*********************************************************************************************/
 					
 					ps = conn.prepareStatement(DBConstants.GET_AVG_RATING_OF_QUESTION_ANSWERS);
 					ps.setInt(1, qid);
@@ -104,13 +116,28 @@ User user = (User)(request.getSession().getAttribute("user"));
 					ps.setDouble(1, answersAvgRating);
 					ps.setInt(2, qid);
 					ps.executeUpdate();
-
-					
-					
-					
-					
-					
 					conn.commit();
+					
+					/*********************************UPDATE USER'S RATING****************************************/
+					//find who ask the question					
+					ps = conn.prepareStatement(DBConstants.SELECT_OWNER_BY_QID);
+					ps.setInt(1, qid);
+					ResultSet rsOwner = (ResultSet) ps.executeQuery();
+					String ownerNickname = null;
+					while (rsOwner.next()){
+						ownerNickname = rsOwner.getString(1);
+					}
+					
+					//update who ask the question 
+					ps = conn.prepareStatement(DBConstants.UPDATE_USER_RATING);
+					ps.setString(1, ownerNickname);
+					ps.setString(2, ownerNickname);		
+					ps.setString(3, ownerNickname);
+					ps.executeUpdate();
+					conn.commit();
+										
+					/*********************************************************************************************/
+					
 					ps.close();
 					rs.close();
 				}
@@ -181,7 +208,7 @@ User user = (User)(request.getSession().getAttribute("user"));
 						answerOwner = rs.getString("OwnerNickname");
 										
 					}
-answerOwner = "bla";
+//answerOwner = "bla";
 					if (userA.getNickname().equals(answerOwner)){
 						
 						String strJson = gson.toJson("cant vote to your own answer", String.class);
@@ -230,8 +257,26 @@ answerOwner = "bla";
 							ps.setInt(2, qid);
 							ps.executeUpdate();
 							
+							/*********************************UPDATE USER'S RATING****************************************/
+							//find who ask the question	that you answered				
+							ps = conn.prepareStatement(DBConstants.SELECT_OWNER_BY_QID);
+							ps.setInt(1, qid);
+							ResultSet rsOwner = (ResultSet) ps.executeQuery();
+							String ownerNickname = null;
+							while (rsOwner.next()){
+								ownerNickname = rsOwner.getString(1);
+							}
 							
-							
+							//update who ask the question 
+							ps = conn.prepareStatement(DBConstants.UPDATE_USER_RATING);
+							ps.setString(1, ownerNickname);
+							ps.setString(2, ownerNickname);		
+							ps.setString(3, ownerNickname);
+							ps.executeUpdate();
+							conn.commit();
+												
+							/*********************************************************************************************/
+														
 							ps = conn.prepareStatement(DBConstants.SELECT_QUESTION_BY_QID_STMT);	
 							ps.setInt(1, qid);
 							rs = (ResultSet) ps.executeQuery();	
@@ -239,11 +284,11 @@ answerOwner = "bla";
 							while (rs.next()){
 								newQRating = rs.getDouble(5);
 							}
-							
+							DecimalFormat df = new DecimalFormat("#.##");
+							String dx=df.format(newQRating);
+							newQRating=Double.valueOf(dx);
 							
 							out.println(newQRating);
-							
-								
 							conn.commit();
 						}
 						else{
