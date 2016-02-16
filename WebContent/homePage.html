@@ -22,6 +22,19 @@
 <script type="text/javascript" src="js/directives/navBarDirective.js"></script>
 <script type="text/javascript" src="js/directives/navTabsDirective.js"></script>
 <script type="text/javascript" src="js/controllers/navTabsController.js"></script>
+
+
+<style>
+#BtnDown{
+background : #3074AE;
+border : #e6f2ff;
+}
+#BtnUp{
+background :  #3074AE;
+border : #e6f2ff;
+}
+
+</style>
 </head>
 
 <body>
@@ -33,46 +46,51 @@
 			  <br>
 		    <h1>{{question_title}}</h1>
 	 		<div ng-repeat="question in questions">
-	 			<h2>Question:</h2>
-          	<div style="color:red">	* CreatedHuman:{{question.CreatedHuman}}<br>
-	 			* Qtext:{{question.QuestionText}}<br>
-          		* QTopics:{{question.QTopics}}<br>
-          		* OwnerNickname:{{question.OwnerNickname}}<br>
-          		* QRating:{{question.QRating}}<br>
-	 			Qid:{{question.Qid}}<br>
-          		Qvotes:{{question.Qvotes}}<br>
-          		Createdlong:{{question.Created}}<br>
-          		Answers:{{question.Answers}}<br> </div>
-          	 	<button ng-click="addVote(question.Qid,1)">Vote up Question!</button>
-          		<button ng-click="addVote(question.Qid,-1)">Vote down Question!</button><br> 
-          		<div data-ng-if="is_all_questions"><h2>answers:</h2><br>
+	 			
+          <!--  <div> <a style="font-weight:bolder;font-size:125%;color:#0059b3">Question: </a> -->     
+                <div style="font-weight:bolder;">{{question.QuestionText}}</div> 			
+	 			{{question.CreatedHuman}}<br>
+          		Topics:{{question.QTopics}}<br>
+          		{{question.OwnerNickname}}<br>
+          		Rating:{{question.QRating}}<br>
+          		<a style="font-weight:bolder;font-size:125%;color:#0059b3">{{question.Qvotes}}</a>
+	 			<!-- Qid:{{question.Qid}}<br>  -->
+          		<!-- Answers:{{question.Answers}}<br>  -->
+          	 	<!-- <button ng-click="addVote(question.Qid,1)">Vote up Question!</button>
+          		<button ng-click="addVote(question.Qid,-1)">Vote down Question!</button><br> -->         		
+	<button ng-click="addVote(question.Qid,1)" type="button" id="BtnUp" class="btn btn-success glyphicon glyphicon-thumbs-up"  data-loading-text=" ... "></button>
+	<button ng-click="addVote(question.Qid,-1)"type="button" id="BtnDown" class="btn btn-success glyphicon glyphicon-thumbs-down" data-loading-text=" ... "></button><br><br>
+       		<div data-ng-if="is_all_questions"><h2>answers:</h2><br>
 	          		<div ng-controller="answerController" ng-init="getAnswers(question.Qid);">
-	          			<div  ng-repeat="answer in answers" >
-	          				
+	          			<div  ng-repeat="answer in answers" >          				
 			          		* CreatedHuman:{{answer.CreatedHuman}}<br>
 				 			* AnswerText:{{answer.AnswerText}}<br>
 			          		* OwnerNickname:{{answer.OwnerNickname}}<br>
 			          		* Avotes:{{answer.AVotes}}<br>
 	          				Aid:{{answer.Aid}}<br>
 			          		Qid:{{answer.Qid}}<br>
-			          		Createdlong:{{answer.Created}}<br>
-			          		<button ng-click="addVote(question.Qid,answer.Aid,1)">Vote up Answer!</button>
-			          		<button ng-click="addVote(question.Qid,answer.Aid,-1)">Vote down Answer!</button><br> 	
-			          		
+			          		Createdlong:{{answer.Created}}<br>		          		      		
+							<button ng-click="addVote(question.Qid,answer.Aid,1)" type="button" id="BtnUp" 
+								class="btn btn-success glyphicon glyphicon-thumbs-up"  data-loading-text=" ... "></button>
+							<button ng-click="addVote(question.Qid,answer.Aid,-1)"type="button" id="BtnDown"
+							 	class="btn btn-success glyphicon glyphicon-thumbs-down" data-loading-text=" ... "></button>          		
+			          	<!-- <button ng-click="addVote(question.Qid,answer.Aid,1)">Vote up Answer!</button>
+			          		<button ng-click="addVote(question.Qid,answer.Aid,-1)">Vote down Answer!</button><br> -->	 		          	       		 
 	          			</div>
 	          		</div>
           		</div>
-          		<button id="answer_button-{{$index}}" ng-click="showAnswerTextArea = !showAnswerTextArea ; getAnswerButtonText($index)">{{answer_button}}</button>
-          		 <br>
+ 
+          		<button type="button" class="btn btn-primary" id="answer_button-{{$index}}" ng-click="showAnswerTextArea = !showAnswerTextArea ; getAnswerButtonText($index)">{{answer_button}}</button><br>
           		<div data-ng-if="showAnswerTextArea">
 	          		<textarea rows="7"   cols="60" placeholder="your Answer?" maxlength="300" ng-model="answerText" required></textarea><br>
-	          		<button ng-click="postAnswer(question.Qid,answerText) ; answerText=''">submit Answer</button>
-	          		<button ng-click="answerText=''">Clear</button>
+	          		<button type="button" class="btn btn-primary" ng-click="postAnswer(question.Qid,answerText) ; answerText=''">submit Answer</button>
+	          		<button type="button" class="btn btn-primary" ng-click="answerText=''">Clear</button>
           		</div>
           		<hr>
       		</div>  
-	 		<button ng-click="prev()" ng-disabled="from==0">prev20</button>
-            <button ng-click="next()" ng-disabled="dontShowNextButton">next20</button>
+
+	 		<button class="btn btn-primary" ng-click="prev()" ng-disabled="from==0">Previous</button>
+            <button class="btn btn-primary" ng-click="next()" ng-disabled="dontShowNextButton">Next</button>
 	 		
 	  	</div>
 	</div>
