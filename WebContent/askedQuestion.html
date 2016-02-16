@@ -29,16 +29,24 @@
 	       	<div id="page content">
 				<div class="row">
 					<div class="col-lg-12">
-						<textarea rows="7" cols="82" placeholder="Here type your question" maxlength="300" ng-model="questionText" required></textarea><br>   
-					    <input type="text" 	   placeholder="enter a topic" maxlength="50" ng-model="topic" required/>		<br>		
+						<textarea rows="7" cols="82" placeholder="{{text_area_place_holder}}"  maxlength="300" ng-model="questionText" required></textarea><br>   
+					    enter topics(50 chars) seperated by comma:<br>
+					    <input type="text" 	 ng-change="getTopic()"  placeholder="topics..." maxlength="50" ng-model="topicBar"  />{{error_msg}}<br>
+					    <span  ng-repeat="topic in topicsArray">
+					    		
+					    	<button id="topic-{{$index}}" ng-click="deleteTopic($index)">{{topic}}</button>
+					    
+					    </span><br>
 					    <input type="button"  value="Post Question" ng-click="postQuestion()" />
 					    <input type="button"  value="Clear" ng-click="clearQuestion()" />
 					</div>
 				</div>
 			</div>
 		</form>
+<br>DEBUG: {{debuger1}}
+<br>DEBUG: {{debuger2}}
+<br>DEBUG: {{debuger3}}
 	</div>
-
 
 
 	
