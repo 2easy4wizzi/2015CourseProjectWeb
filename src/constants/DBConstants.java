@@ -88,7 +88,7 @@ public interface DBConstants
 			+ "FOREIGN KEY (QId) REFERENCES TBL_QUESTIONS(QId),"
 			+ "FOREIGN KEY (AId) REFERENCES TBL_ANSWERS(AId),"
 			+ "FOREIGN KEY (OwnerNickname) REFERENCES TBL_USERS(Nickname),"
-			+ "PRIMARY KEY (AId, QId)"
+			+ "PRIMARY KEY (AId, OwnerNickname)"
 			+ ")";
 	public final String INSERT_ANSWER_VOTE_STMT = "INSERT INTO TBL_ANSWER_VOTES VALUES(?,?,?,?)";
 	public final String SELECT_ANSWER_VOTES_STMT = "SELECT * FROM TBL_ANSWER_VOTES WHERE Aid=? AND OwnerNickname=?";

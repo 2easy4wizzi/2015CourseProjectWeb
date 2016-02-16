@@ -1,6 +1,8 @@
 app.controller('answerController', ['$scope', '$http','$location',
                              function($scope, $http,$location){
-$scope.getAnswers = function(qid){
+
+	//$scope.how_much_to_show = 1;//$scope.question.Answers;
+	$scope.getAnswers = function(qid){
 		
 		$http(
 		{
@@ -12,13 +14,12 @@ $scope.getAnswers = function(qid){
 		{
 			
 			$scope.answers = response;
-			
 			if (response == "") {
 				
 			} 
 			else 
 			{
-				
+			
 			}
 			//return response;
 		}).error(function(error) {
@@ -27,8 +28,8 @@ $scope.getAnswers = function(qid){
 				});
     		}
 
-$scope.addVote = function(qid,aid,voteValue){
-	$http(
+	$scope.addVote = function(qid,aid,voteValue){
+		$http(
 			{
 				method : 'POST',
 				url : 'http://localhost:8080/webGilad/AnswersServlet/addVote',
@@ -50,5 +51,6 @@ $scope.addVote = function(qid,aid,voteValue){
 						alert('somthing happend at add vote(answers)');
 					});
 }
+	
 	
 }]);

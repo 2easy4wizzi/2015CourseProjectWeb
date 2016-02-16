@@ -5,13 +5,21 @@ app.controller('homePageC', ['$scope', '$http','$location',
 	var answerPositive = "Answer the question";
 	var answerNegative = "Collapse Answer";
 	var focus = "";
+	var arrayInizialize = false;
 	$scope.answer_button = answerPositive;
 	$scope.from = 0;
 	$scope.questions = "";
 	$scope.answers = "";
 	$scope.dontShowNextButton = false;
 	$scope.question_title = "Questions";
-	$scope.is_all_questions = false;	
+	$scope.more_answers = "show more answers";
+	$scope.is_all_questions = false;
+	
+
+
+	
+	
+	
 	
 	$scope.getQuestions = function(from)
 	{
@@ -79,6 +87,24 @@ app.controller('homePageC', ['$scope', '$http','$location',
 					else 
 					{
 						$scope.questions = response[1];	
+				
+					if(arrayInizialize == false)
+					{
+						
+						$scope.how_much_to_show = [];
+						for (var i=0;i<$scope.questions.length;i++) 
+						{
+							//$scope.how_much_to_show.push({show:1 ,button:false});//how much to show
+							$scope.how_much_to_show.push({show:1 ,button:false});//how much to show
+								
+						}
+						arrayInizialize = true;
+						
+					}
+					else
+					{
+						
+					}
 					}
 					}).error(function(error) {
 						alert('somthing happend at get Top20 -not NEW');
@@ -99,7 +125,7 @@ app.controller('homePageC', ['$scope', '$http','$location',
 		
 	}
 	
-	$scope.postAnswer = function(qid,answerText)
+	$scope.postAnswer = function(qid,answerText,index)
 	{
 		if(answerText == null || answerText == "")
 		{  
@@ -113,7 +139,14 @@ app.controller('homePageC', ['$scope', '$http','$location',
 					headers : { 'Content-Type' : 'application/x-www-form-urlencoded' }
 				}).success(function(response) 
 						{
-					$scope.incQuestionAnswers(qid);
+							
+		
+							if(focus == "all" && $scope.how_much_to_show[index].button==true)
+							{
+								alert('plus');
+								$scope.how_much_to_show[index].show++;
+							}
+							$scope.incQuestionAnswers(qid);
 					
 						
 					
@@ -162,7 +195,25 @@ app.controller('homePageC', ['$scope', '$http','$location',
 							alert('somthing happend at add vote');
 						});
 	}
-	
+	$scope.presentAllAnswers = function(answers,index){
+		
+		var str = "more_answers-" + index;
+		var current = document.getElementById(str);
+		
+		if($scope.how_much_to_show[index].button == true)
+		{
+			current.innerHTML = "show more answers";
+			$scope.how_much_to_show[index].show = 1;
+		}
+		else 
+		{
+			current.innerHTML = "hide more answers";
+			$scope.how_much_to_show[index].show = answers;	
+		}
+		$scope.how_much_to_show[index].button = !$scope.how_much_to_show[index].button;
+
+
+	}
 	
 	
 }]);

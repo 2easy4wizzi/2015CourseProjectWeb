@@ -60,33 +60,40 @@ border : #e6f2ff;
           		<button ng-click="addVote(question.Qid,-1)">Vote down Question!</button><br> -->         		
 	<button ng-click="addVote(question.Qid,1)" type="button" id="BtnUp" class="btn btn-success glyphicon glyphicon-thumbs-up"  data-loading-text=" ... "></button>
 	<button ng-click="addVote(question.Qid,-1)"type="button" id="BtnDown" class="btn btn-success glyphicon glyphicon-thumbs-down" data-loading-text=" ... "></button><br><br>
-       		<div data-ng-if="is_all_questions"><h2>answers:</h2><br>
+       		<div data-ng-if="is_all_questions">
 	          		<div ng-controller="answerController" ng-init="getAnswers(question.Qid);">
-	          			<div  ng-repeat="answer in answers" >          				
+       		    		<div><h4>there are {{question.Answers}} answers for this Question </h4><br></div>
+	          			 
+	          			<div  ng-repeat="answer in answers|limitTo:how_much_to_show[$index].show" >  
+	          			 				
 			          		* CreatedHuman:{{answer.CreatedHuman}}<br>
 				 			* AnswerText:{{answer.AnswerText}}<br>
 			          		* OwnerNickname:{{answer.OwnerNickname}}<br>
 			          		* Avotes:{{answer.AVotes}}<br>
 	          				Aid:{{answer.Aid}}<br>
 			          		Qid:{{answer.Qid}}<br>
-			          		Createdlong:{{answer.Created}}<br>		          		      		
+			          		Createdlong:{{answer.Created}}<br>	          		      		
 							<button ng-click="addVote(question.Qid,answer.Aid,1)" type="button" id="BtnUp" 
 								class="btn btn-success glyphicon glyphicon-thumbs-up"  data-loading-text=" ... "></button>
 							<button ng-click="addVote(question.Qid,answer.Aid,-1)"type="button" id="BtnDown"
-							 	class="btn btn-success glyphicon glyphicon-thumbs-down" data-loading-text=" ... "></button>          		
+							 	class="btn btn-success glyphicon glyphicon-thumbs-down" data-loading-text=" ... "></button> 
+						 	 <br> 
+						 	 <br> 							 	 
+					 	       		
 			          	<!-- <button ng-click="addVote(question.Qid,answer.Aid,1)">Vote up Answer!</button>
 			          		<button ng-click="addVote(question.Qid,answer.Aid,-1)">Vote down Answer!</button><br> -->	 		          	       		 
 	          			</div>
 	          		</div>
-          		</div>
- 
-          		<button type="button" class="btn btn-primary" id="answer_button-{{$index}}" ng-click="showAnswerTextArea = !showAnswerTextArea ; getAnswerButtonText($index)">{{answer_button}}</button><br>
-          		<div data-ng-if="showAnswerTextArea">
-	          		<textarea rows="7"   cols="60" placeholder="your Answer?" maxlength="300" ng-model="answerText" required></textarea><br>
-	          		<button type="button" class="btn btn-primary" ng-click="postAnswer(question.Qid,answerText) ; answerText=''">submit Answer</button>
-	          		<button type="button" class="btn btn-primary" ng-click="answerText=''">Clear</button>
-          		</div>
-          		<hr>
+       		</div>
+			<div ng-show="is_all_questions&&question.Answers>1"><button id="more_answers-{{$index}}" ng-click="presentAllAnswers(question.Answers,$index);">{{more_answers}}</button> </div>
+				 							 	 
+       		<button type="button" class="btn btn-primary" id="answer_button-{{$index}}" ng-click="showAnswerTextArea = !showAnswerTextArea ; getAnswerButtonText($index)">{{answer_button}}</button><br>
+       		<div data-ng-show="showAnswerTextArea">
+        		<textarea rows="7"   cols="60" placeholder="your Answer?" maxlength="300" ng-model="answerText" required></textarea><br>
+        		<button type="button" class="btn btn-primary" ng-click="postAnswer(question.Qid,answerText,$index) ; answerText=''">submit Answer</button>
+        		<button type="button" class="btn btn-primary" ng-click="answerText=''">Clear</button>
+       		</div>
+       		<hr>
       		</div>  
 
 	 		<button class="btn btn-primary" ng-click="prev()" ng-disabled="from==0">Previous</button>
