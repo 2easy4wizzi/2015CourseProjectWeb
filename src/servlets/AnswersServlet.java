@@ -167,6 +167,7 @@ User user = (User)(request.getSession().getAttribute("user"));
 			{ 
 				try
 				{
+					Gson gson = new Gson();
 					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_ANSWER_BY_AID_STMT);
 					String strAid = request.getParameter("aid");
 					int aid = Integer.parseInt(strAid);
@@ -183,6 +184,9 @@ User user = (User)(request.getSession().getAttribute("user"));
 answerOwner = "bla";
 					if (userA.getNickname().equals(answerOwner)){
 						out.println("cant vote to your own answer");
+						String strJson = gson.toJson("cant vote to your own answer", String.class);
+						out.println(strJson);
+						//out.println("1");
 					}
 					else 
 					{
@@ -217,7 +221,7 @@ answerOwner = "bla";
 							while (rs.next()){
 								answersAvgRating = rs.getDouble(1);
 							}
-				System.out.println(answersAvgRating);			
+				//System.out.println(answersAvgRating);			
 		
 							
 							ps = conn.prepareStatement(DBConstants.UPDATE_QRATING_BY_FORMULA_STMT);	
@@ -243,7 +247,9 @@ answerOwner = "bla";
 							conn.commit();
 						}
 						else{
-							out.println("already voted to this answer");
+							String strJson = gson.toJson("already voted to this answer", String.class);
+							out.println(strJson);
+							//out.println("2");
 						}
 					}
 					//recalc rating

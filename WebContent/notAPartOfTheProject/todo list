@@ -10,3 +10,4 @@
 #9 - use GET func for getting data
 #10- first usage dont refresh
 #11- move funcs to : doGet(select - get); doPost(create); doDelete(delete); doPUT(update)
+#12 - change toJson format servlet answer
