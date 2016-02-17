@@ -60,8 +60,8 @@ public class LeaderBoardServlet extends HttpServlet {
 System.out.println(uri);
 			PrintWriter out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
-//user = new User("gilad","123","wizzi",null,null);
-request.getSession().setAttribute("user", user);
+//user = new User("gilad","123","wizzi",null,null,0);
+			request.getSession().setAttribute("user", user);
 			if(user == null)
 			{
 				out.println("0");
@@ -77,42 +77,14 @@ request.getSession().setAttribute("user", user);
 		if(uri.equals("getUsers"))
 			{
 				Collection<User> top20users = new ArrayList<User>();
-				int count = 0;
-				int from = 0;
 				Gson gson = new Gson();
 				try
 				{
-					PreparedStatement psCount = conn.prepareStatement(DBConstants.SELECT_COUNT_USERS_STMT);
-					ResultSet rsCount = (ResultSet) psCount.executeQuery();
-					while (rsCount.next()){
-						  count = rsCount.getInt(1);
-					 }
-					
-					
-					rsCount.close();
-					psCount.close();
-					//if we wont to print how much users are registred in the system
-					/*if(count == 0)
-					{
-						boolean dontShowNextButton = true;
-						String boolJson = gson.toJson(dontShowNextButton, boolean.class);
-						String noQstr = count+ "Users found in the system";
-						String strJson = gson.toJson(noQstr, String.class);
-						String outRespone = "[" + boolJson + "," + strJson + "]";
-						out.println(outRespone);
-						out.close();
-						return;
-					}*/
-					
 					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_USERS_BY_USER_RATING_STMT);
-					
-					String strFrom = request.getParameter("top20from");
-					from = Integer.parseInt(strFrom) * 20;
-					ps.setInt(1, from);
 					ResultSet rs = (ResultSet) ps.executeQuery();
 					
 					while (rs.next()){
-						top20users.add(new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5)));
+						top20users.add(new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getDouble(6)));
 					}
 					
 					//conn.commit();
@@ -128,17 +100,8 @@ request.getSession().setAttribute("user", user);
 					conn.close();
 				}
 				String top20usersJson = gson.toJson(top20users, DBConstants.NEW_USER_COLLECTION);
-		//System.out.println("JSON: " +top20newJson);
-				
-				boolean dontShowNextButton = false;
-				if(count <= from+20 )
-				{
-					dontShowNextButton = true;
-				}
-				
-				String boolJson = gson.toJson(dontShowNextButton, boolean.class);
-				String outRespone = "[" + boolJson + "," + top20usersJson + "]";
-				out.println(outRespone);
+System.out.println(top20usersJson);
+				out.println(top20usersJson);
 				out.close();
 			}
 		}

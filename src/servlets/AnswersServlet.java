@@ -65,7 +65,7 @@ public class AnswersServlet extends HttpServlet {
 //System.out.println(uri);
 			PrintWriter out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
-user = new User("gilad","123","wizzi",null,null);
+//user = new User("gilad","123","wizzi",null,null,0);
 
 			if(user == null)
 			{
@@ -208,7 +208,7 @@ user = new User("gilad","123","wizzi",null,null);
 						answerOwner = rs.getString("OwnerNickname");
 										
 					}
-answerOwner = "bla";
+//answerOwner = "bla";
 					if (userA.getNickname().equals(answerOwner)){
 						
 						String strJson = gson.toJson("cant vote to your own answer", String.class);

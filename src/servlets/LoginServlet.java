@@ -77,7 +77,8 @@ public class LoginServlet extends HttpServlet {
 						request.getParameter("password"),
 						request.getParameter("nickname"),
 						request.getParameter("description"),
-						request.getParameter("urlPhoto")
+						request.getParameter("urlPhoto"),
+						0
 						);
 				try
 				{
@@ -139,7 +140,7 @@ public class LoginServlet extends HttpServlet {
 					}
 					else
 					{
-						User user = new User(null,null,rs.getString(3),rs.getString(4),rs.getString(5));
+						User user = new User(null,null,rs.getString(3),rs.getString(4),rs.getString(5),rs.getDouble(6));
 						request.getSession().setAttribute("user", user);
 					}
 					rs.close();

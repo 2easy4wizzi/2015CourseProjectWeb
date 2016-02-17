@@ -29,21 +29,18 @@
 <div ng-app="main">
 	<div nav-directive></div>	
 	<div class="container">   
-		<div ng-controller="leaderBoardC" ng-init="getUsers(from)">
-			  <br>
-
+		<div ng-controller="leaderBoardC" ng-init="getUsers()">
+			<br>
 	 		<div ng-repeat="user in users">
-	 			
-          <!--  <div> <a style="font-weight:bolder;font-size:125%;color:#0059b3">Question: </a> -->     
+          		<!--  <div> <a style="font-weight:bolder;font-size:125%;color:#0059b3">Question: </a> -->     
                 <div style="font-weight:bolder;">{{user.Nickname}}</div> 			
           		Description:{{user.Description}}<br>
-          		User Rating{{user.UserRating}}<br>
+          		User Rating:{{user.UserRating}}<br>
        		<hr>
-      		</div>  
-
-	 		<button class="btn btn-primary" ng-click="prev()" ng-disabled="from==0">Previous</button>
-            <button class="btn btn-primary" ng-click="next()" ng-disabled="dontShowNextButton">Next</button>
-	 		
+      		</div>   		
+<br>DEBUG: {{debuger1}}
+<br>DEBUG: {{debuger2}}
+<br>DEBUG: {{debuger3}}	
 	  	</div>
 	</div>
 </div>

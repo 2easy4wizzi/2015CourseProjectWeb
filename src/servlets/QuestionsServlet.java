@@ -65,7 +65,7 @@ public class QuestionsServlet extends HttpServlet {
 //System.out.println(uri);
 			PrintWriter out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
-user = new User("gilad","123","wizzi",null,null);
+//user = new User("gilad","123","wizzi",null,null,0);
 request.getSession().setAttribute("user", user);
 			if(user == null)
 			{
@@ -155,7 +155,7 @@ request.getSession().setAttribute("user", user);
 						questoinRating= rs.getDouble("QRating");
 						questoinVotes = rs.getInt("QVotes");
 					}
-questionOwner = "bla";
+//questionOwner = "bla";
 					if (userA.getNickname().equals(questionOwner)){
 						out.println("cant vote to your own question");
 					}

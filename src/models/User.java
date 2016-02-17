@@ -4,14 +4,14 @@ public class User
 {
 	private String Username, Password, Nickname, Description, PhotoUrl;
 	private double UserRating ;
-	public User(String username, String password, String nickname,String description, String photoUrl) 
+	public User(String username, String password, String nickname,String description, String photoUrl, double userRating) 
 	{
 		Username = username;
 		Password = password;
 		Nickname = nickname;
 		Description = description;
 		PhotoUrl = photoUrl;
-		UserRating = 0;
+		UserRating = userRating;
 	}
 
 	public String getUserName() 
