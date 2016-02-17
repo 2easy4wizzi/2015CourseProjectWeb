@@ -1,0 +1,161 @@
+package servlets;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
+
+import com.google.gson.Gson;
+
+import constants.DBConstants;
+import models.User;
+
+/**
+ * Servlet implementation class LeaderBoard
+ */
+public class LeaderBoardServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public LeaderBoardServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		 
+		try
+		{
+			String uri = request.getRequestURI();
+			uri = uri.substring(uri.indexOf("LeaderBoardServlet") + "LeaderBoardServlet".length() + 1);
+System.out.println(uri);
+			PrintWriter out = response.getWriter();
+			User user = (User)(request.getSession().getAttribute("user"));
+//user = new User("gilad","123","wizzi",null,null);
+request.getSession().setAttribute("user", user);
+			if(user == null)
+			{
+				out.println("0");
+				out.close();
+				return;
+			}
+			Context context = new InitialContext();
+			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
+			Connection conn = ds.getConnection();
+		
+		
+		
+		if(uri.equals("getUsers"))
+			{
+				Collection<User> top20users = new ArrayList<User>();
+				int count = 0;
+				int from = 0;
+				Gson gson = new Gson();
+				try
+				{
+					PreparedStatement psCount = conn.prepareStatement(DBConstants.SELECT_COUNT_USERS_STMT);
+					ResultSet rsCount = (ResultSet) psCount.executeQuery();
+					while (rsCount.next()){
+						  count = rsCount.getInt(1);
+					 }
+					
+					
+					rsCount.close();
+					psCount.close();
+					//if we wont to print how much users are registred in the system
+					/*if(count == 0)
+					{
+						boolean dontShowNextButton = true;
+						String boolJson = gson.toJson(dontShowNextButton, boolean.class);
+						String noQstr = count+ "Users found in the system";
+						String strJson = gson.toJson(noQstr, String.class);
+						String outRespone = "[" + boolJson + "," + strJson + "]";
+						out.println(outRespone);
+						out.close();
+						return;
+					}*/
+					
+					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_USERS_BY_USER_RATING_STMT);
+					
+					String strFrom = request.getParameter("top20from");
+					from = Integer.parseInt(strFrom) * 20;
+					ps.setInt(1, from);
+					ResultSet rs = (ResultSet) ps.executeQuery();
+					
+					while (rs.next()){
+						top20users.add(new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5)));
+					}
+					
+					//conn.commit();
+					rs.close();
+					ps.close();
+				}
+				catch (SQLException  e) 
+				{
+					getServletContext().log("Error while closing connection", e);
+					response.sendError(500);// internal server error
+				}
+				finally{
+					conn.close();
+				}
+				String top20usersJson = gson.toJson(top20users, DBConstants.NEW_USER_COLLECTION);
+		//System.out.println("JSON: " +top20newJson);
+				
+				boolean dontShowNextButton = false;
+				if(count <= from+20 )
+				{
+					dontShowNextButton = true;
+				}
+				
+				String boolJson = gson.toJson(dontShowNextButton, boolean.class);
+				String outRespone = "[" + boolJson + "," + top20usersJson + "]";
+				out.println(outRespone);
+				out.close();
+			}
+		}
+		catch (SQLException | NamingException e) 
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+		}
+	
+		
+		
+	}
+
+
+
+	}
+
+

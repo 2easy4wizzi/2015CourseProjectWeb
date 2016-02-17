@@ -4,6 +4,7 @@ import java.lang.reflect.Type;
 import java.util.Collection;
 import com.google.gson.reflect.TypeToken;
 import models.Question;
+import models.User;
 
 public interface DBConstants 
 {
@@ -11,6 +12,7 @@ public interface DBConstants
 	public final String DB_DATASOURCE = "java:comp/env/jdbc/webGiladDatasource";
 	public final String PROTOCOL = "jdbc:derby:"; 
 	public final Type NEW_QUESTION_COLLECTION = new TypeToken<Collection<Question>>() {}.getType();
+	public final Type NEW_USER_COLLECTION = new TypeToken<Collection<User>>() {}.getType();
 	//sql statements
 	public final String CREATE_USERS_TABLE =  "CREATE TABLE TBL_USERS("
 										    + "Username varchar(10) PRIMARY KEY,"
@@ -97,5 +99,6 @@ public interface DBConstants
 	//public final String GET_AVG_VOTES_OF_ANSWERS_BY_USER = "SELECT AVG(CAST (AVotes AS DOUBLE PRECISION)) FROM TBL_ANSWERS WHERE OwnerNickname=?";
 	public final String UPDATE_USER_RATING = "UPDATE TBL_USERS SET UserRating=(0.2*(SELECT AVG(CAST (Qrating AS DOUBLE PRECISION)) FROM TBL_QUESTIONS WHERE OwnerNickname=?)+0.8*(SELECT AVG(CAST (AVotes AS DOUBLE PRECISION)) FROM TBL_ANSWERS WHERE OwnerNickname=?)) WHERE Nickname=?";
 	public final String SELECT_OWNER_BY_QID = "SELECT OwnerNickname FROM TBL_QUESTIONS WHERE Qid=?";
-
+	public final String SELECT_COUNT_USERS_STMT = "SELECT COUNT (*) FROM TBL_USERS";
+	public final String SELECT_TOP_20_USERS_BY_USER_RATING_STMT = "SELECT * FROM TBL_USERS ORDER BY UserRating DESC OFFSET ? ROWS FETCH NEXT 20 ROWS ONLY";
 }

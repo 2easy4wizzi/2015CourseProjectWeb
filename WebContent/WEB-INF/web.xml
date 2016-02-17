@@ -61,4 +61,14 @@
     <url-pattern>/AnswersServlet/GetAnswers</url-pattern>
     <url-pattern>/AnswersServlet/addVote</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LeaderBoardServlet</display-name>
+    <servlet-name>LeaderBoardServlet</servlet-name>
+    <servlet-class>servlets.LeaderBoardServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LeaderBoardServlet</servlet-name>
+    <url-pattern>/LeaderBoardServlet/getUsers</url-pattern>
+  </servlet-mapping>
 </web-app>
