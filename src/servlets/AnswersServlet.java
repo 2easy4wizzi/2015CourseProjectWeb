@@ -89,15 +89,42 @@ public class AnswersServlet extends HttpServlet {
 					ps.setString(2, request.getParameter("answerText"));
 					ps.setString(3, user.getNickname());
 					ps.executeUpdate();
-					/*********************************UPDATE USER'S RATING****************************************/
-					//update who post answer
-					ps = conn.prepareStatement(DBConstants.UPDATE_USER_RATING);
 
+					/*********************************UPDATE USER'S RATING****************************************/
+					//Update who post answer
+					ps = conn.prepareStatement(DBConstants.GET_AVG_RATING_OF_QUESTIONS_BY_USER);
 					ps.setString(1, user.getNickname());
+					ResultSet Owner = (ResultSet) ps.executeQuery();
+					 double avgQuestions = 0;
+					 while (Owner.next()){
+					 if(Owner.getObject(1) != null)							
+						 avgQuestions = Owner.getDouble(1);	
+					 else{
+						 avgQuestions = 0;
+					 }
+					}
+				    //calculate AVG in answer table
+					ps = conn.prepareStatement(DBConstants.GET_AVG_VOTES_OF_ANSWERS_BY_USER);
+					ps.setString(1, user.getNickname());
+					Owner = (ResultSet) ps.executeQuery();
+					 double avgAnswer = 0;
+					 while (Owner.next()){
+					 if(Owner.getObject(1) != null)							
+						 avgAnswer = Owner.getDouble(1);	
+					 else{
+						 avgAnswer = 0;
+					 }
+					}
+						 double userRating = 0.2 * avgQuestions + 0.8 * avgAnswer;
+											
+					
+					ps = conn.prepareStatement(DBConstants.UPDATE_USER_RATING);
+					ps.setDouble(1, userRating);
 					ps.setString(2, user.getNickname());		
-					ps.setString(3, user.getNickname());
 					ps.executeUpdate();
 					conn.commit();
+					
+					
 					
 					
 					/*********************************************************************************************/
@@ -128,14 +155,37 @@ public class AnswersServlet extends HttpServlet {
 						ownerNickname = rsOwner.getString(1);
 					}
 					
-					//update who ask the question 
-					ps = conn.prepareStatement(DBConstants.UPDATE_USER_RATING);
+					ps = conn.prepareStatement(DBConstants.GET_AVG_RATING_OF_QUESTIONS_BY_USER);
 					ps.setString(1, ownerNickname);
+					Owner = (ResultSet) ps.executeQuery();
+					 avgQuestions = 0;
+					 while (Owner.next()){
+					 if(Owner.getObject(1) != null)							
+						 avgQuestions = Owner.getDouble(1);	
+					 else{
+						 avgQuestions = 0;
+					 }
+					}
+				    //calculate AVG in answer table
+					ps = conn.prepareStatement(DBConstants.GET_AVG_VOTES_OF_ANSWERS_BY_USER);
+					ps.setString(1, ownerNickname);
+					Owner = (ResultSet) ps.executeQuery();
+					 avgAnswer = 0;
+					 while (Owner.next()){
+					 if(Owner.getObject(1) != null)							
+						 avgAnswer = Owner.getDouble(1);	
+					 else{
+						 avgAnswer = 0;
+					 }
+					}
+						 userRating = 0.2 * avgQuestions + 0.8 * avgAnswer;
+											
+					
+					ps = conn.prepareStatement(DBConstants.UPDATE_USER_RATING);
+					ps.setDouble(1, userRating);
 					ps.setString(2, ownerNickname);		
-					ps.setString(3, ownerNickname);
 					ps.executeUpdate();
-					conn.commit();
-										
+					conn.commit();								
 					/*********************************************************************************************/
 					
 					ps.close();
@@ -264,14 +314,39 @@ public class AnswersServlet extends HttpServlet {
 							
 							/*********************************UPDATE USER'S RATING****************************************/
 							//Update the owner of the answer
-							ps = conn.prepareStatement(DBConstants.UPDATE_USER_RATING);
+							ps = conn.prepareStatement(DBConstants.GET_AVG_RATING_OF_QUESTIONS_BY_USER);	
 							ps.setString(1, answerOwner);
+							ResultSet Owner = (ResultSet) ps.executeQuery();
+							 double avgQuestions = 0;
+							 while (Owner.next()){
+							 if(Owner.getObject(1) != null)							
+								 avgQuestions = Owner.getDouble(1);	
+							 else{
+								 avgQuestions = 0;
+							 }
+							}
+						    //calculate AVG in answer table
+							ps = conn.prepareStatement(DBConstants.GET_AVG_VOTES_OF_ANSWERS_BY_USER);	
+							ps.setString(1, answerOwner);
+							Owner = (ResultSet) ps.executeQuery();
+							 double avgAnswer = 0;
+							 while (Owner.next()){
+							 if(Owner.getObject(1) != null)							
+								 avgAnswer = Owner.getDouble(1);	
+							 else{
+								 avgAnswer = 0;
+							 }
+							}
+								 double userRating = 0.2 * avgQuestions + 0.8 * avgAnswer;
+													
+							
+							ps = conn.prepareStatement(DBConstants.UPDATE_USER_RATING);
+							ps.setDouble(1, userRating);
 							ps.setString(2, answerOwner);		
-							ps.setString(3, answerOwner);
 							ps.executeUpdate();
 							conn.commit();
 							
-							
+							//UPDATE THW OWNER OF THE QUESTION							
 							//find who ask the question	that you answered				
 							ps = conn.prepareStatement(DBConstants.SELECT_OWNER_BY_QID);
 							ps.setInt(1, qid);
@@ -281,14 +356,39 @@ public class AnswersServlet extends HttpServlet {
 								ownerNickname = rsOwner.getString(1);
 							}
 							
-							//update the awner of the Question that voted on its answer
-							ps = conn.prepareStatement(DBConstants.UPDATE_USER_RATING);
+							//update the owner of the Question that voted on its answer
+							ps = conn.prepareStatement(DBConstants.GET_AVG_RATING_OF_QUESTIONS_BY_USER);
 							ps.setString(1, ownerNickname);
+							Owner = (ResultSet) ps.executeQuery();
+							 avgQuestions = 0;
+							 while (Owner.next()){
+							 if(Owner.getObject(1) != null)							
+								 avgQuestions = Owner.getDouble(1);	
+							 else{
+								 avgQuestions = 0;
+							 }
+							}
+						    //calculate AVG in answer table
+							ps = conn.prepareStatement(DBConstants.GET_AVG_RATING_OF_QUESTIONS_BY_USER);
+							ps.setString(1, ownerNickname);
+							Owner = (ResultSet) ps.executeQuery();
+							 avgAnswer = 0;
+							 while (Owner.next()){
+							 if(Owner.getObject(1) != null)							
+								 avgAnswer = Owner.getDouble(1);	
+							 else{
+								 avgAnswer = 0;
+							 }
+							}
+						    userRating = 0.2 * avgQuestions + 0.8 * avgAnswer;
+													
+							
+							ps = conn.prepareStatement(DBConstants.UPDATE_USER_RATING);
+							ps.setDouble(1, userRating);
 							ps.setString(2, ownerNickname);		
-							ps.setString(3, ownerNickname);
 							ps.executeUpdate();
 							conn.commit();
-												
+																			
 							/*********************************************************************************************/
 														
 							ps = conn.prepareStatement(DBConstants.SELECT_QUESTION_BY_QID_STMT);	

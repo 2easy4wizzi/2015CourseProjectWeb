@@ -90,19 +90,39 @@ request.getSession().setAttribute("user", user);
 					conn.commit();
 					
 					/*********************************UPDATE USER'S RATING****************************************/
+					ps = conn.prepareStatement(DBConstants.GET_AVG_RATING_OF_QUESTIONS_BY_USER);					
+					ps.setString(1, user.getNickname());
+					ResultSet Owner = (ResultSet) ps.executeQuery();
+					 double avgQuestions = 0;
+					 while (Owner.next()){
+					 if(Owner.getObject(1) != null)							
+						 avgQuestions = Owner.getDouble(1);	
+					 else{
+						 avgQuestions = 0;
+					 }
+					}
+				    //calculate AVG in answer table
+					ps = conn.prepareStatement(DBConstants.GET_AVG_VOTES_OF_ANSWERS_BY_USER);		
+					ps.setString(1, user.getNickname());
+					Owner = (ResultSet) ps.executeQuery();
+					 double avgAnswer = 0;
+					 while (Owner.next()){
+					 if(Owner.getObject(1) != null)							
+						 avgAnswer = Owner.getDouble(1);	
+					 else{
+						 avgAnswer = 0;
+					 }
+					}
+						 double userRating = 0.2 * avgQuestions + 0.8 * avgAnswer;
+											
 					
 					ps = conn.prepareStatement(DBConstants.UPDATE_USER_RATING);
-
-					ps.setString(1, user.getNickname());
+					ps.setDouble(1, userRating);
 					ps.setString(2, user.getNickname());		
-					ps.setString(3, user.getNickname());
 					ps.executeUpdate();
 					conn.commit();
-					
-					ps.close();
-					
-					
 
+					ps.close();
 
 				}
 				catch (SQLException  e) 
@@ -203,11 +223,36 @@ request.getSession().setAttribute("user", user);
 								ownerNickname = rsOwner.getString(1);
 							}
 							
+							//calculate AVG in question table
+							ps = conn.prepareStatement(DBConstants.GET_AVG_RATING_OF_QUESTIONS_BY_USER);
+							ps.setString(1, ownerNickname);
+							ResultSet Owner = (ResultSet) ps.executeQuery();
+							 double avgQuestions = 0;
+							 while (Owner.next()){
+							 if(Owner.getObject(1) != null)							
+								 avgQuestions = Owner.getDouble(1);	
+							 else{
+								 avgQuestions = 0;
+							 }
+							}
+							    //calculate AVG in answer table
+								ps = conn.prepareStatement(DBConstants.GET_AVG_VOTES_OF_ANSWERS_BY_USER);
+								ps.setString(1, ownerNickname);
+								Owner = (ResultSet) ps.executeQuery();
+								 double avgAnswer = 0;
+								 while (Owner.next()){
+								 if(Owner.getObject(1) != null)							
+									 avgAnswer = Owner.getDouble(1);	
+								 else{
+									 avgAnswer = 0;
+								 }
+								}
+								 double userRating = 0.2 * avgQuestions + 0.8 * avgAnswer;
+													
 							//update who ask the question 
 							ps = conn.prepareStatement(DBConstants.UPDATE_USER_RATING);
-							ps.setString(1, ownerNickname);
+							ps.setDouble(1, userRating);
 							ps.setString(2, ownerNickname);		
-							ps.setString(3, ownerNickname);
 							ps.executeUpdate();
 							conn.commit();
 												
