@@ -3,6 +3,8 @@ package constants;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import com.google.gson.reflect.TypeToken;
+
+import models.Answer;
 import models.Question;
 import models.User;
 
@@ -12,6 +14,8 @@ public interface DBConstants
 	public final String DB_DATASOURCE = "java:comp/env/jdbc/webGiladDatasource";
 	public final String PROTOCOL = "jdbc:derby:"; 
 	public final Type NEW_QUESTION_COLLECTION = new TypeToken<Collection<Question>>() {}.getType();
+	public final Type NEW_ANSWER_COLLECTION   = new TypeToken<Collection<Answer>>() {}.getType();	
+    public final Type NEW_TOPICS_COLLECTION   = new TypeToken<Collection<String>>() {}.getType();
 	public final Type NEW_USER_COLLECTION = new TypeToken<Collection<User>>() {}.getType();
 	//sql statements
 	public final String CREATE_USERS_TABLE =  "CREATE TABLE TBL_USERS("
@@ -101,4 +105,15 @@ public interface DBConstants
 	public final String SELECT_OWNER_BY_QID = "SELECT OwnerNickname FROM TBL_QUESTIONS WHERE Qid=?";
 	public final String SELECT_COUNT_USERS_STMT = "SELECT COUNT (*) FROM TBL_USERS";
 	public final String SELECT_TOP_20_USERS_BY_USER_RATING_STMT = "SELECT * FROM TBL_USERS ORDER BY UserRating DESC FETCH NEXT 20 ROWS ONLY";
+
+	public final String CREATE_TOPICS_TABLE =  "CREATE TABLE TBL_TOPICS("
+			+ "QId INT,"
+			+ "QTopics varchar(50),"
+			+ "FOREIGN KEY (QId) REFERENCES TBL_QUESTIONS(QId),"
+			+ "PRIMARY KEY (QId, QTopics)"
+			+ ")";
+	public final String INSERT_TOPIC_STMT = "INSERT INTO TBL_TOPICS VALUES(?,?)";
+	public final String SELECT_TOPICS_BY_QID_STMT = "SELECT * FROM TBL_TOPICS WHERE Qid=?";
+
+
 }

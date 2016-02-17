@@ -113,6 +113,8 @@ app.controller('homePageC', ['$scope', '$http','$location',
 						
 	}
 	
+	
+	
 	$scope.getAnswerButtonText = function(index)
 	{
 		var str = "answer_button-" + index;
@@ -143,7 +145,7 @@ app.controller('homePageC', ['$scope', '$http','$location',
 		
 							if(focus == "all" && $scope.how_much_to_show[index].button==true)
 							{
-								alert('plus');
+								
 								$scope.how_much_to_show[index].show++;
 							}
 							$scope.incQuestionAnswers(qid);
@@ -217,25 +219,27 @@ app.controller('homePageC', ['$scope', '$http','$location',
 	
 	
 }]);
-
-
-/*
-		$scope.setQuestionInSession = function(qid)
-		{
+app.controller('topicsC', ['$scope', '$http',
+                             function($scope, $http){
+	$scope.topics = "";
+	
+	$scope.getTopics = function (qid) {
 			$http(
 					{
 						method : 'POST',
-						url : 'http://localhost:8080/webGilad/QuestionsServlet/SetQuestionInSession',
-						params : { qid : qid},
-						headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
+						url : 'http://localhost:8080/webGilad/QuestionsServlet/GetTopics',
+						params : {qid: qid},
+						headers : { 'Content-Type' : 'application/x-www-form-urlencoded' }
 					}).success(function(response) 
-						{
-			
-						}).error(function(error) {
-							alert(response);	
-							alert('somthing happend at set q in session ');
+							{
+								$scope.topics = response;
+								
+							}).error(function(error) {
+								alert('somthing happend at get topics');
 								
 							});
+			
+			
 		}
-		
-*/
+	
+}]);

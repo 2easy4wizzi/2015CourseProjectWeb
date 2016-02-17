@@ -45,16 +45,20 @@ border : #e6f2ff;
 			  <div nav-tabs-directive></div>
 			  <br>
 		    <h1>{{question_title}}</h1>
-	 		<div ng-repeat="question in questions">
+	 		<div ng-repeat="question in questions" >
 	 			
           <!--  <div> <a style="font-weight:bolder;font-size:125%;color:#0059b3">Question: </a> -->     
                 <div style="font-weight:bolder;">{{question.QuestionText}}</div> 			
 	 			{{question.CreatedHuman}}<br>
-          		Topics:{{question.QTopics}}<br>
+	 			<div ng-controller="topicsC" ng-init="getTopics(question.Qid)">
+		 			<div ng-repeat="topic in topics">
+		 					topic {{$index+1}}-{{topic}}
+		 			</div>
+	 			</div>
           		{{question.OwnerNickname}}<br>
           		Rating:{{question.QRating}}<br>
           		<a style="font-weight:bolder;font-size:125%;color:#0059b3">{{question.Qvotes}}</a>
-	 			<!-- Qid:{{question.Qid}}<br>  -->
+	 			<br>Qid:{{question.Qid}}<br>
           		<!-- Answers:{{question.Answers}}<br>  -->
           	 	<!-- <button ng-click="addVote(question.Qid,1)">Vote up Question!</button>
           		<button ng-click="addVote(question.Qid,-1)">Vote down Question!</button><br> -->         		

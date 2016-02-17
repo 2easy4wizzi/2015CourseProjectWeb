@@ -82,12 +82,35 @@ request.getSession().setAttribute("user", user);
 			{
 				try
 				{
-					PreparedStatement ps = conn.prepareStatement(DBConstants.INSERT_QUESTION_STMT);			
+					PreparedStatement ps = conn.prepareStatement(DBConstants.INSERT_QUESTION_STMT, new String[] { "QID"});			
 					ps.setString(1, request.getParameter("questionText"));
 					ps.setString(2, request.getParameter("topics"));
 					ps.setString(3, user.getNickname());
 					ps.executeUpdate();
+					ResultSet rs = ps.getGeneratedKeys();
+					 
+					int qid = -1;
+					if (rs.next()) {
+						qid = rs.getInt(1);
+					}
+					
 					conn.commit();
+					
+					
+					/*********************************INSERT TOPICS RATING****************************************/
+					String topics = request.getParameter("topics");
+					topics = topics.substring(1, topics.length()-1);
+					String delims = "[,]+";
+					String[] tokens = topics.split(delims);
+					for (int i = 0; i < tokens.length; i++) {
+						tokens[i] = tokens[i].substring(1, tokens[i].length()-1);
+						ps = conn.prepareStatement(DBConstants.INSERT_TOPIC_STMT);	
+						ps.setInt(1, qid);
+						ps.setString(2,tokens[i]);
+						ps.executeUpdate();
+						conn.commit();
+					}
+					
 					
 					/*********************************UPDATE USER'S RATING****************************************/
 					ps = conn.prepareStatement(DBConstants.GET_AVG_RATING_OF_QUESTIONS_BY_USER);					
@@ -436,6 +459,43 @@ request.getSession().setAttribute("user", user);
 				String boolJson = gson.toJson(dontShowNextButton, boolean.class);
 				String outRespone = "[" + boolJson + "," + top20newJson + "]";
 				out.println(outRespone);
+				out.close();
+			}
+			else if(uri.equals("GetTopics"))
+			{
+				Collection<String> topics = new ArrayList<String>();
+				Gson gson = new Gson();
+				try
+				{
+					
+					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOPICS_BY_QID_STMT);
+					
+					String qidStr = request.getParameter("qid");
+					int qid = Integer.parseInt(qidStr);
+					ps.setInt(1, qid);
+					ResultSet rs =  ps.executeQuery();
+					
+					while (rs.next()){
+						topics.add(new String(rs.getString(2)));
+					}
+					
+					rs.close();
+					ps.close();
+				}
+				catch (SQLException  e) 
+				{
+					getServletContext().log("Error while closing connection", e);
+					response.sendError(500);// internal server error
+				}
+				finally{
+					conn.close();
+				}
+				String topicsJson = gson.toJson(topics, DBConstants.NEW_TOPICS_COLLECTION);
+				System.out.println("JSON: " +topicsJson);
+				out.println(topicsJson);
+				
+				
+				
 				out.close();
 			}
 		}

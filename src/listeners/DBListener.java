@@ -128,6 +128,24 @@ public class DBListener implements ServletContextListener, ServletContextAttribu
     			}
     		}
     		
+    		boolean topics_created = false;
+    		try{
+    			//create ANSWERS_USERS table
+    			Statement stmt = conn.createStatement();
+    			stmt.executeUpdate(DBConstants.CREATE_TOPICS_TABLE);
+    			//commit update
+    			conn.commit();
+    			stmt.close();
+    		}catch (SQLException e){
+    			//check if exception thrown since table was already created (so we created the database already 
+    			//in the past
+    			topics_created = tableAlreadyExists(e);
+    			if (!topics_created){
+    				throw e;//re-throw the exception so it will be caught in the
+    				//external try..catch and recorded as error in the log
+    			}
+    		}
+    		
     		
     		
     		

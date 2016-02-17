@@ -235,7 +235,7 @@ public class AnswersServlet extends HttpServlet {
 					conn.close();
 				}
 				Gson gson = new Gson();
-				String answersJson = gson.toJson(answers, DBConstants.NEW_QUESTION_COLLECTION);
+				String answersJson = gson.toJson(answers, DBConstants.NEW_ANSWER_COLLECTION);
 	//System.out.println("answers: " +answersJson);
 				out.println(answersJson);
 				out.close();

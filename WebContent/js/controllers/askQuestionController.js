@@ -21,12 +21,11 @@ app.controller('askQuestionC', ['$scope', '$http',
       			return;
   			}
       		var myJson = JSON.stringify($scope.topicsArray);
-      		alert(myJson);
       		$http(
 			{
 				method : 'POST',
 				url : 'http://localhost:8080/webGilad/QuestionsServlet/PostQuestion',
-				params : { questionText: $scope.questionText , topics: $scope.topic  },
+				params : { questionText: $scope.questionText, topics: myJson},
 				headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
 				}).success(function(response) 
 				{

@@ -47,6 +47,7 @@
     <url-pattern>/QuestionsServlet/SetQuestionInSession</url-pattern>
     <url-pattern>/QuestionsServlet/GetQuestionFromSession</url-pattern>
     <url-pattern>/QuestionsServlet/addVote</url-pattern>
+    <url-pattern>/QuestionsServlet/GetTopics</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
