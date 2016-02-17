@@ -11,6 +11,7 @@ app.controller('askQuestionC', ['$scope', '$http',
       	{
       		$scope.questionText="";  
       		$scope.topicBar="";  
+      		$scope.topicsArray = [];
       		
       	} 
       	$scope.postQuestion = function(){

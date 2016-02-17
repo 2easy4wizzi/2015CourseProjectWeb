@@ -65,7 +65,7 @@ public class QuestionsServlet extends HttpServlet {
 //System.out.println(uri);
 			PrintWriter out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
-//user = new User("gilad","123","wizzi",null,null);
+user = new User("gilad","123","wizzi",null,null);
 request.getSession().setAttribute("user", user);
 			if(user == null)
 			{
@@ -155,7 +155,7 @@ request.getSession().setAttribute("user", user);
 						questoinRating= rs.getDouble("QRating");
 						questoinVotes = rs.getInt("QVotes");
 					}
-//questionOwner = "bla";
+questionOwner = "bla";
 					if (userA.getNickname().equals(questionOwner)){
 						out.println("cant vote to your own question");
 					}
@@ -281,7 +281,12 @@ request.getSession().setAttribute("user", user);
 						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 						java.sql.Date startDate = new java.sql.Date(ts.getTime());
 						String createdHuman = df.format(startDate);
-						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),createdHuman ,tsTime,rs.getInt(8)));
+						double Qrating = rs.getDouble(5);
+						DecimalFormat dfRating = new DecimalFormat("#.##");
+						String dxRating=dfRating.format(Qrating);
+						Qrating=Double.valueOf(dxRating);
+						
+						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),Qrating,rs.getInt(6),createdHuman ,tsTime,rs.getInt(8)));
 					}
 					
 					//conn.commit();
@@ -353,7 +358,13 @@ request.getSession().setAttribute("user", user);
 						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 						java.sql.Date startDate = new java.sql.Date(ts.getTime());
 						String createdHuman = df.format(startDate);
-						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getInt(6),createdHuman ,tsTime,rs.getInt(8)));
+						double Qrating = rs.getDouble(5);
+						DecimalFormat dfRating = new DecimalFormat("#.##");
+						String dxRating=dfRating.format(Qrating);
+						Qrating=Double.valueOf(dxRating);
+						
+						
+						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),Qrating,rs.getInt(6),createdHuman ,tsTime,rs.getInt(8)));
 					}
 					
 					//conn.commit();

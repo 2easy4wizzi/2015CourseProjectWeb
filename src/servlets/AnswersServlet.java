@@ -64,8 +64,8 @@ public class AnswersServlet extends HttpServlet {
 			uri = uri.substring(uri.indexOf("AnswersServlet") + "AnswersServlet".length() + 1);
 //System.out.println(uri);
 			PrintWriter out = response.getWriter();
-User user = (User)(request.getSession().getAttribute("user"));
-           // user = new User("gilad","123","wizzi",null,null);
+			User user = (User)(request.getSession().getAttribute("user"));
+user = new User("gilad","123","wizzi",null,null);
 
 			if(user == null)
 			{
@@ -208,7 +208,7 @@ User user = (User)(request.getSession().getAttribute("user"));
 						answerOwner = rs.getString("OwnerNickname");
 										
 					}
-//answerOwner = "bla";
+answerOwner = "bla";
 					if (userA.getNickname().equals(answerOwner)){
 						
 						String strJson = gson.toJson("cant vote to your own answer", String.class);
@@ -298,11 +298,11 @@ User user = (User)(request.getSession().getAttribute("user"));
 							while (rs.next()){
 								newQRating = rs.getDouble(5);
 							}
-							System.out.println("Before cutting: " + newQRating);
+							
 							DecimalFormat df = new DecimalFormat("#.##");
 							String dx=df.format(newQRating);
 							newQRating=Double.valueOf(dx);
-							System.out.println("After cutting: " + newQRating);
+							
 							out.println(newQRating);
 							conn.commit();
 						}
