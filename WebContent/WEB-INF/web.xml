@@ -72,4 +72,15 @@
     <servlet-name>LeaderBoardServlet</servlet-name>
     <url-pattern>/LeaderBoardServlet/getUsers</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserProfileServlet</display-name>
+    <servlet-name>UserProfileServlet</servlet-name>
+    <servlet-class>servlets.UserProfileServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserProfileServlet</servlet-name>
+    <url-pattern>/UserProfileServlet</url-pattern>
+    <url-pattern>/UserProfileServlet/getUserDetails</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -59,9 +59,7 @@ border : #e6f2ff;
           		Rating:{{question.QRating}}<br>
           		<a style="font-weight:bolder;font-size:125%;color:#0059b3">{{question.Qvotes}}</a>
 	 			<br>Qid:{{question.Qid}}<br>
-          		<!-- Answers:{{question.Answers}}<br>  -->
-          	 	<!-- <button ng-click="addVote(question.Qid,1)">Vote up Question!</button>
-          		<button ng-click="addVote(question.Qid,-1)">Vote down Question!</button><br> -->         		
+       		
 	<button ng-click="addVote(question.Qid,1)" type="button" id="BtnUp" class="btn btn-success glyphicon glyphicon-thumbs-up"  data-loading-text=" ... "></button>
 	<button ng-click="addVote(question.Qid,-1)"type="button" id="BtnDown" class="btn btn-success glyphicon glyphicon-thumbs-down" data-loading-text=" ... "></button><br><br>
        		<div data-ng-if="is_all_questions">
@@ -73,19 +71,18 @@ border : #e6f2ff;
 			          		* CreatedHuman:{{answer.CreatedHuman}}<br>
 				 			* AnswerText:{{answer.AnswerText}}<br>
 			          		* OwnerNickname:{{answer.OwnerNickname}}<br>
-			          		* Avotes:{{answer.AVotes}}<br>
 	          				Aid:{{answer.Aid}}<br>
 			          		Qid:{{answer.Qid}}<br>
-			          		Createdlong:{{answer.Created}}<br>	          		      		
+			          		Createdlong:{{answer.Created}}<br>	    
+			          		<a style="font-weight:bolder;font-size:125%;color:#0059b3">{{answer.AVotes}}</a>
+     		      		
 							<button ng-click="addVote(question.Qid,answer.Aid,1)" type="button" id="BtnUp" 
 								class="btn btn-success glyphicon glyphicon-thumbs-up"  data-loading-text=" ... "></button>
 							<button ng-click="addVote(question.Qid,answer.Aid,-1)"type="button" id="BtnDown"
 							 	class="btn btn-success glyphicon glyphicon-thumbs-down" data-loading-text=" ... "></button> 
 						 	 <br> 
 						 	 <br> 							 	 
-					 	       		
-			          	<!-- <button ng-click="addVote(question.Qid,answer.Aid,1)">Vote up Answer!</button>
-			          		<button ng-click="addVote(question.Qid,answer.Aid,-1)">Vote down Answer!</button><br> -->	 		          	       		 
+					 	       		          	       		 
 	          			</div>
 	          		</div>
        		</div>

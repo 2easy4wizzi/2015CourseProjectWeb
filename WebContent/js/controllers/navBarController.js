@@ -1,13 +1,19 @@
 app.controller('navC', ['$scope', '$http','$location',                         
     function($scope, $http, $location){
-	
-	$scope.isActive = function (viewLocation) 
+	var name =  null;
+	var name2 = null;
+	$scope.isActive = function (viewLocation1) 
 	{			
-         var s = location.href;			
+        var s = location.href;
+
          var fields = s.split("/");			
-         var name = "/" + fields[4];			
-         if(viewLocation == name) { return true;}						
+         name = "/" + fields[4];
+         name2 = "/" + fields[5];
+
+         if(viewLocation1 == name) { return true;}						
 	};
+	
+	//alert("name = "+ name "name2 = " + name2 );
 	$scope.test = 0;
 	$scope.nickName = "Guest";
 	$scope.getNickname = function()

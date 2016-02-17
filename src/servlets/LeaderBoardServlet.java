@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -83,8 +84,14 @@ System.out.println(uri);
 					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_USERS_BY_USER_RATING_STMT);
 					ResultSet rs = (ResultSet) ps.executeQuery();
 					
+
+					
 					while (rs.next()){
-						top20users.add(new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getDouble(6)));
+						double Qrating = rs.getDouble(6);
+						DecimalFormat dfRating = new DecimalFormat("#.##");
+						String dxRating=dfRating.format(Qrating);
+						Qrating=Double.valueOf(dxRating);
+						top20users.add(new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),Qrating));
 					}
 					
 					//conn.commit();
@@ -100,7 +107,7 @@ System.out.println(uri);
 					conn.close();
 				}
 				String top20usersJson = gson.toJson(top20users, DBConstants.NEW_USER_COLLECTION);
-System.out.println(top20usersJson);
+//System.out.println(top20usersJson);
 				out.println(top20usersJson);
 				out.close();
 			}

@@ -491,7 +491,7 @@ request.getSession().setAttribute("user", user);
 					conn.close();
 				}
 				String topicsJson = gson.toJson(topics, DBConstants.NEW_TOPICS_COLLECTION);
-				System.out.println("JSON: " +topicsJson);
+				//System.out.println("JSON: " +topicsJson);
 				out.println(topicsJson);
 				
 				
