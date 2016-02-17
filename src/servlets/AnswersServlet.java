@@ -257,7 +257,21 @@ User user = (User)(request.getSession().getAttribute("user"));
 							ps.setInt(2, qid);
 							ps.executeUpdate();
 							
+							
+							
+							
+							
+							
 							/*********************************UPDATE USER'S RATING****************************************/
+							//Update the owner of the answer
+							ps = conn.prepareStatement(DBConstants.UPDATE_USER_RATING);
+							ps.setString(1, answerOwner);
+							ps.setString(2, answerOwner);		
+							ps.setString(3, answerOwner);
+							ps.executeUpdate();
+							conn.commit();
+							
+							
 							//find who ask the question	that you answered				
 							ps = conn.prepareStatement(DBConstants.SELECT_OWNER_BY_QID);
 							ps.setInt(1, qid);
@@ -267,7 +281,7 @@ User user = (User)(request.getSession().getAttribute("user"));
 								ownerNickname = rsOwner.getString(1);
 							}
 							
-							//update who ask the question 
+							//update the awner of the Question that voted on its answer
 							ps = conn.prepareStatement(DBConstants.UPDATE_USER_RATING);
 							ps.setString(1, ownerNickname);
 							ps.setString(2, ownerNickname);		
@@ -284,10 +298,11 @@ User user = (User)(request.getSession().getAttribute("user"));
 							while (rs.next()){
 								newQRating = rs.getDouble(5);
 							}
+							System.out.println("Before cutting: " + newQRating);
 							DecimalFormat df = new DecimalFormat("#.##");
 							String dx=df.format(newQRating);
 							newQRating=Double.valueOf(dx);
-							
+							System.out.println("After cutting: " + newQRating);
 							out.println(newQRating);
 							conn.commit();
 						}

@@ -51,7 +51,7 @@ public class GetSessionUserNameServlet extends HttpServlet {
 		{	
 			
 			if(user != null) {
-				System.out.println("in remove att:"  + user.getNickname());
+				//System.out.println("in remove att:"  + user.getNickname());
 				 request.getSession().removeAttribute("user");
 				 response.getWriter().write(user.getNickname());				 
 			   }

@@ -35,16 +35,7 @@ app.controller('askQuestionC', ['$scope', '$http',
 				});
       		}
       	$scope.getTopic = function(){
-      			$scope.error_msg = "";
-      			if($scope.topicsArray.length >= 1000)
-  				{
-      				$scope.error_msg = "do not spam the server. only 1000 topic allowed";
-      				$scope.topicBar = $scope.topicBar.substring(0,len - 1);
-      				return;
-  				}
-      			
-      			
-      		
+      			$scope.error_msg = "";     		
       			var tempTopicBar = $scope.topicBar.toLowerCase();
       			var len =  tempTopicBar.length;
       			var lastChar = tempTopicBar.substring(len-1,len );
