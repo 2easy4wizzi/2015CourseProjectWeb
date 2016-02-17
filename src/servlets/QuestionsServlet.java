@@ -100,15 +100,21 @@ request.getSession().setAttribute("user", user);
 					/*********************************INSERT TOPICS RATING****************************************/
 					String topics = request.getParameter("topics");
 					topics = topics.substring(1, topics.length()-1);
-					String delims = "[,]+";
-					String[] tokens = topics.split(delims);
-					for (int i = 0; i < tokens.length; i++) {
-						tokens[i] = tokens[i].substring(1, tokens[i].length()-1);
-						ps = conn.prepareStatement(DBConstants.INSERT_TOPIC_STMT);	
-						ps.setInt(1, qid);
-						ps.setString(2,tokens[i]);
-						ps.executeUpdate();
-						conn.commit();
+					System.out.println(topics.length());
+					
+					
+					if(topics.length() != 0)
+					{
+						String delims = "[,]+";
+						String[] tokens = topics.split(delims);
+						for (int i = 0; i < tokens.length; i++) {
+							tokens[i] = tokens[i].substring(1, tokens[i].length()-1);
+							ps = conn.prepareStatement(DBConstants.INSERT_TOPIC_STMT);	
+							ps.setInt(1, qid);
+							ps.setString(2,tokens[i]);
+							ps.executeUpdate();
+							conn.commit();
+						}
 					}
 					
 					
