@@ -100,7 +100,6 @@ request.getSession().setAttribute("user", user);
 					/*********************************INSERT TOPICS RATING****************************************/
 					String topics = request.getParameter("topics");
 					topics = topics.substring(1, topics.length()-1);
-					System.out.println(topics.length());
 					
 					
 					if(topics.length() != 0)
@@ -206,7 +205,7 @@ request.getSession().setAttribute("user", user);
 					}
 //questionOwner = "bla";
 					if (userA.getNickname().equals(questionOwner)){
-						out.println("cant vote to your own question");
+						out.println("1");
 					}
 					else 
 					{
@@ -290,7 +289,7 @@ request.getSession().setAttribute("user", user);
 														
 						}
 						else{
-							out.println("already voted to this question");
+							out.println("2");
 						}
 					}
 					//recalc rating

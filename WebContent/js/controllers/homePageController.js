@@ -182,6 +182,8 @@ app.controller('homePageC', ['$scope', '$http','$location',
 	$scope.next = function(){
 		$scope.from++;
 		(focus == "all") ?  $scope.get20questions($scope.from) : $scope.get20NewQuestions($scope.from);	}
+	
+	
 	$scope.addVote = function(qid,voteValue){
 		$http(
 				{
@@ -191,7 +193,14 @@ app.controller('homePageC', ['$scope', '$http','$location',
 					headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
 				}).success(function(response) 
 						{
-							(focus == "all") ?  $scope.get20questions($scope.from) : $scope.get20NewQuestions($scope.from);
+							if(respone == 0)//succsess
+							{
+								(focus == "all") ?  $scope.get20questions($scope.from) : $scope.get20NewQuestions($scope.from);							
+							}
+							else{
+								//1 - cant vote to your own answer
+								//2 - allready voted
+							}
 							
 						}).error(function(error) {
 							alert('somthing happend at add vote');

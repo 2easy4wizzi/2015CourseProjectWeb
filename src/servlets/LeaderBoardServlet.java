@@ -87,11 +87,11 @@ System.out.println(uri);
 
 					
 					while (rs.next()){
-						double Qrating = rs.getDouble(6);
+						double Urating = rs.getDouble(6);
 						DecimalFormat dfRating = new DecimalFormat("#.##");
-						String dxRating=dfRating.format(Qrating);
-						Qrating=Double.valueOf(dxRating);
-						top20users.add(new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),Qrating));
+						String dxRating=dfRating.format(Urating);
+						Urating=Double.valueOf(dxRating);
+						top20users.add(new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),Urating));
 					}
 					
 					//conn.commit();
