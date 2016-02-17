@@ -4,6 +4,9 @@
   <welcome-file-list>
     <welcome-file>loginAndRegister.html</welcome-file>
   </welcome-file-list>
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
   <servlet>
     <description></description>
     <display-name>LoginServlet</display-name>
