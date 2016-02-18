@@ -1,5 +1,5 @@
-app.controller('homePageC', ['$scope', '$http','$location','$interval',
-                            function($scope, $http,$location,$interval){
+app.controller('homePageC', ['$scope', '$http','$location',
+                            function($scope, $http,$location){
 
 	
 	var answerPositive = "Answer the question";
@@ -11,60 +11,49 @@ app.controller('homePageC', ['$scope', '$http','$location','$interval',
 	$scope.questions = "";
 	$scope.answers = "";
 	$scope.dontShowNextButton = false;
-	$scope.question_title = "Questions";
+	$scope.question_title = "";
 	$scope.more_answers = "show more answers";
 	$scope.is_all_questions = false;
-	$scope.questions2 = '';
-	//$scope.deb = 'e';
+	var refreshIntervalId = -1;
+	var answerBoxOpen = 0;
+	var msgUponNoQuestions = "no new Questions";
+	var msgUponQuestionsExist = "Questions";
 	
-	
-	
-	$scope.showUpdates = function(){
-		//$scope.is_all_questions = false;
-    	//focus = "new";
-    	$scope.get20NewQuestions($scope.from);
-		$scope.questions2 = '';
-	}
 	
 	
 	$scope.update = function(){
-		if(focus == 'all'){
-			return;
-		}
-		$http(
-				{
-					method : 'POST',
-					url : 'http://localhost:8080/webGilad/QuestionsServlet/Update',
-					params : {from: $scope.from},
-					headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
-				}).success(function(response) 
+		if(answerBoxOpen == 0){
+			$http(
 					{
-						var res = response;
-						
-						if (res.length != $scope.questions.length)
+						method : 'POST',
+						url : 'http://localhost:8080/webGilad/QuestionsServlet/Update',
+						params : {from: $scope.from},
+						headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
+					}).success(function(response) 
 						{
-							$scope.questions2 = res;
-							return;
-						}
-						for (var int = 0; int < res.length; int++) {
-							if($scope.questions[int].Created != res[int].Created)
+							var res = response;			
+							if (res.length != $scope.questions.length || $scope.questions[0].Created != res[0].Created)
 							{
-								$scope.questions2 = res;
+								if(res.length == 0){
+									$scope.question_title = msgUponNoQuestions;
+								}
+								else{
+									$scope.question_title = msgUponQuestionsExist;
+								}
+								$scope.questions = res;
 								return;
 							}
-						}
-						$scope.questions2 = '';
-						
+							
+										
 						}).error(function(error) {
 							alert('somthing happend at update');
 							
 						});
 		}
+	}
 	
 	
 	
-	
-	$interval($scope.update,7000);
 	
 	
 	
@@ -75,12 +64,14 @@ app.controller('homePageC', ['$scope', '$http','$location','$interval',
         var name = "/" + fields[4];
         if(name == '/homePage.html?tab=AllQuestions')
     	{
+        	clearInterval(refreshIntervalId);
         	$scope.is_all_questions = true;
         	focus = "all";
         	$scope.get20questions(from);
     	}
         else
     	{
+        	refreshIntervalId = setInterval($scope.update, 3000);
         	$scope.is_all_questions = false;
         	focus = "new";
         	$scope.get20NewQuestions(from);
@@ -100,11 +91,12 @@ app.controller('homePageC', ['$scope', '$http','$location','$interval',
 				$scope.dontShowNextButton = response[0];
 				if (response[1] == 'noQuestionsFound') //0 for no questions found
 				{	
-					$scope.question_title = "no new Questions";
+					$scope.question_title = msgUponNoQuestions;
 					$scope.questions = "";
 				} 
 				else 
 				{
+					$scope.question_title = msgUponQuestionsExist;
 					$scope.questions = response[1];	
 				}
 				}).error(function(error) {
@@ -128,11 +120,12 @@ app.controller('homePageC', ['$scope', '$http','$location','$interval',
 					$scope.dontShowNextButton = response[0];
 					if (response[1] == 'noQuestionsFound') //0 for no questions found
 					{	
-						$scope.question_title = "no new Questions";
+						$scope.question_title = msgUponNoQuestions;
 						$scope.questions = "";
 					} 
 					else 
 					{
+						$scope.question_title = msgUponQuestionsExist;
 						$scope.questions = response[1];	
 				
 					if(arrayInizialize == false)
@@ -168,18 +161,26 @@ app.controller('homePageC', ['$scope', '$http','$location','$interval',
 		var current = document.getElementById(str);
 		var inner = current.innerHTML.toString();
 		if(inner == answerNegative)
-		{current.innerHTML = answerPositive;}
+		{
+			current.innerHTML = answerPositive;
+			answerBoxOpen--;
+		}
 		else
-		{current.innerHTML = answerNegative;}
+		{
+			current.innerHTML = answerNegative;
+			answerBoxOpen++;
+		}
 		
 	}
 	
 	$scope.postAnswer = function(qid,answerText,index)
 	{
+		
 		if(answerText == null || answerText == "")
 		{  
 			return;
 		}
+		answerBoxOpen--;
 		$http(
 				{
 					method : 'POST',
@@ -188,18 +189,11 @@ app.controller('homePageC', ['$scope', '$http','$location','$interval',
 					headers : { 'Content-Type' : 'application/x-www-form-urlencoded' }
 				}).success(function(response) 
 						{
-							
-		
 							if(focus == "all" && $scope.how_much_to_show[index].button==true)
-							{
-								
+							{	
 								$scope.how_much_to_show[index].show++;
 							}
-							$scope.incQuestionAnswers(qid);
-					
-						
-					
-					
+							$scope.incQuestionAnswers(qid);	
 						}).error(function(error) {
 							alert('somthing happend at postAnswer');
 							

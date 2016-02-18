@@ -506,7 +506,7 @@ request.getSession().setAttribute("user", user);
 			else if(uri.equals("Update"))
 			{
 				Collection<Question> top20new = new ArrayList<Question>();
-				int count = 0;
+				
 				int from = 0;
 				Gson gson = new Gson();
 				try
