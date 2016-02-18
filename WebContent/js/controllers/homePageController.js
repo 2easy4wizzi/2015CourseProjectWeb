@@ -15,12 +15,14 @@ app.controller('homePageC', ['$scope', '$http','$location','$interval',
 	$scope.more_answers = "show more answers";
 	$scope.is_all_questions = false;
 	$scope.questions2 = '';
-	//$scope.deb = 'd';
+	//$scope.deb = 'e';
 	
 	
 	
 	$scope.showUpdates = function(){
-		$scope.questions=$scope.questions2;
+		//$scope.is_all_questions = false;
+    	//focus = "new";
+    	$scope.get20NewQuestions($scope.from);
 		$scope.questions2 = '';
 	}
 	
