@@ -503,6 +503,53 @@ request.getSession().setAttribute("user", user);
 				
 				out.close();
 			}
+			else if(uri.equals("Update"))
+			{
+				Collection<Question> top20new = new ArrayList<Question>();
+				int count = 0;
+				int from = 0;
+				Gson gson = new Gson();
+				try
+				{
+					
+					
+					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_NEW_QUESTIONS_BY_TIMESTAMP_STMT);
+					
+					String strFrom = request.getParameter("from");
+					from = Integer.parseInt(strFrom) * 20;
+					ps.setInt(1, from);
+					ResultSet rs = (ResultSet) ps.executeQuery();
+					
+					while (rs.next()){
+						java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(7));
+						long tsTime = ts.getTime();
+						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+						java.sql.Date startDate = new java.sql.Date(ts.getTime());
+						String createdHuman = df.format(startDate);
+						double Qrating = rs.getDouble(5);
+						DecimalFormat dfRating = new DecimalFormat("#.##");
+						String dxRating=dfRating.format(Qrating);
+						Qrating=Double.valueOf(dxRating);
+						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),Qrating,rs.getInt(6),createdHuman ,tsTime,rs.getInt(8)));
+					}
+					
+					//conn.commit();
+					rs.close();
+					ps.close();
+				}
+				catch (SQLException  e) 
+				{
+					getServletContext().log("Error while closing connection", e);
+					response.sendError(500);// internal server error
+				}
+				finally{
+					conn.close();
+				}
+				String top20newJson = gson.toJson(top20new, DBConstants.NEW_QUESTION_COLLECTION);
+				//System.out.println("JSON: " +top20newJson);
+				out.println(top20newJson);	
+				out.close();
+			}
 		}
 		catch (SQLException | NamingException e) 
 		{

@@ -1,5 +1,5 @@
-app.controller('homePageC', ['$scope', '$http','$location',
-                            function($scope, $http,$location){
+app.controller('homePageC', ['$scope', '$http','$location','$interval',
+                            function($scope, $http,$location,$interval){
 
 	
 	var answerPositive = "Answer the question";
@@ -16,8 +16,44 @@ app.controller('homePageC', ['$scope', '$http','$location',
 	$scope.is_all_questions = false;
 	
 
-
+	$scope.update = function(){
+		if(focus == 'all'){
+			return;
+		}
+		alert($scope.from);
+		$http(
+				{
+					method : 'POST',
+					url : 'http://localhost:8080/webGilad/QuestionsServlet/Update',
+					params : {from: $scope.from},
+					headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
+				}).success(function(response) 
+					{
+						var res = response;
+						alert('respone=='+response);
+						if (res.length != $scope.questions.length)
+						{
+							$scope.questions = res;
+							return;
+						}
+						for (var int = 0; int < res.length; int++) {
+							if($scope.questions[int] != res[int])
+							{
+								$scope.questions = res;
+								return;
+							}
+						}
+						
+						}).error(function(error) {
+							alert('somthing happend at update');
+							
+						});
+		}
 	
+	
+	
+	
+	$interval($scope.update,7000);
 	
 	
 	
