@@ -4,24 +4,29 @@ app.controller('userProfileC', ['$scope', '$http','$location',
 	$scope.getUserDetails = function () 
 	{			
          var s = location.href;			
-         var fields = s.split("/");			
-         var name = "/" + fields[4];			
+         var fields = s.split("/");	
+         var name = fields[4];
+         if(name == "userProfile.html")
+         {
+        	 name = "logNow";
+         }
+         else{
+        	 var name = fields[5].slice(1);       	 
+         }
 
-      
-	var x = location.hash;
-	alert(x);
 
       		$http(
 			{
 				method : 'POST',
 				url : 'http://localhost:8080/webGilad/UserProfileServlet/getUserDetails',
-				params : { userToShow : x},
+				params : { userToShow : name},
 				headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
 				}).success(function(response) 
 				{
-					alert(response);
+					$scope.user = response[0];	
+					
 				}).error(function(error) {
-					alert('somthing happend at post question');
+					alert('somthing happend at getUserDetails');
 				});
       		
 	}

@@ -55,8 +55,8 @@ public class UserProfileServlet extends HttpServlet {
 		try
 		{
 			String uri = request.getRequestURI();
-			uri = uri.substring(uri.indexOf("LeaderBoardServlet") + "LeaderBoardServlet".length() + 1);
-System.out.println(uri);
+			uri = uri.substring(uri.indexOf("UserProfileServlet") + "UserProfileServlet".length() + 1);
+//System.out.println(uri);
 			PrintWriter out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
 //user = new User("gilad","123","wizzi",null,null,0);
@@ -77,10 +77,19 @@ System.out.println(uri);
 				
 				
 				Collection<User> userToShow = new ArrayList<User>();
-				//Gson gson = new Gson();
+				Gson gson = new Gson();
 				try
 				{
-					String userForShowing = request.getParameter("userToShow");
+					String userForShowing = null;
+					String whichUser = request.getParameter("userToShow");
+					if(whichUser.equals("logNow")){
+						User userA = (User)(request.getSession().getAttribute("user"));
+						userForShowing = userA.getNickname();
+					}
+					else{
+						userForShowing = request.getParameter("userToShow");
+						
+					}
 					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_USER_BY_NICKNAME_STMT);
 					ps.setString(1, userForShowing);
 					ResultSet rs = (ResultSet) ps.executeQuery();
@@ -95,7 +104,14 @@ System.out.println(uri);
 						userToShow.add(new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),Urating));
 					}
 					
-					//conn.commit();
+					
+					
+					String userDisplaed = gson.toJson(userToShow, DBConstants.NEW_QUESTION_COLLECTION);
+
+					out.println(userDisplaed);
+
+					out.close();
+					conn.commit();
 					rs.close();
 					ps.close();
 				}
@@ -111,10 +127,7 @@ System.out.println(uri);
 				finally{
 					conn.close();
 				}
-				//String top20usersJson = gson.toJson(top20users, DBConstants.NEW_USER_COLLECTION);
-System.out.println(userToShow);
-				out.println(userToShow);
-				out.close();
+				
 			}
 		
 		
