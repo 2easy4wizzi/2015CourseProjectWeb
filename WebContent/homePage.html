@@ -43,7 +43,10 @@ border : #e6f2ff;
 	<div class="container">   
 		<div ng-controller="homePageC" ng-init="getQuestions(from);showAnswerTextArea=false;">
 			  <div nav-tabs-directive></div>
-			  <br>
+			  {{deb}}
+			<div>
+				<button ng-show="questions2!=''" ng-click="showUpdates()">click to see updates</button>
+			</div>
 		    <h1>{{question_title}}</h1>
 	 		<div ng-repeat="question in questions" >
 	 			

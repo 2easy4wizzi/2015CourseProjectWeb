@@ -19,14 +19,14 @@ app.controller('logAndRegC', ['$scope', '$http',
 		 $scope.photo = null;
 		 
  
-/*		 
+	 
  $scope.loginUsername= 'gilad';
  $scope.loginPass = '123';
  $scope.regUsername = 'gilad';
  $scope.regPass ='123';
  $scope.nickname = 'wizzi';
  
-*/ 
+ 
  
  
 	     $scope.Login=function () 

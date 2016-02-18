@@ -14,13 +14,21 @@ app.controller('homePageC', ['$scope', '$http','$location','$interval',
 	$scope.question_title = "Questions";
 	$scope.more_answers = "show more answers";
 	$scope.is_all_questions = false;
+	$scope.questions2 = '';
+	//$scope.deb = 'd';
 	
-
+	
+	
+	$scope.showUpdates = function(){
+		$scope.questions=$scope.questions2;
+		$scope.questions2 = '';
+	}
+	
+	
 	$scope.update = function(){
 		if(focus == 'all'){
 			return;
 		}
-		alert($scope.from);
 		$http(
 				{
 					method : 'POST',
@@ -30,19 +38,20 @@ app.controller('homePageC', ['$scope', '$http','$location','$interval',
 				}).success(function(response) 
 					{
 						var res = response;
-						alert('respone=='+response);
+						
 						if (res.length != $scope.questions.length)
 						{
-							$scope.questions = res;
+							$scope.questions2 = res;
 							return;
 						}
 						for (var int = 0; int < res.length; int++) {
-							if($scope.questions[int] != res[int])
+							if($scope.questions[int].Created != res[int].Created)
 							{
-								$scope.questions = res;
+								$scope.questions2 = res;
 								return;
 							}
 						}
+						$scope.questions2 = '';
 						
 						}).error(function(error) {
 							alert('somthing happend at update');
