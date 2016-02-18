@@ -24,9 +24,9 @@
 <div ng-app="main">
 	<div nav-directive></div>
 	
-	<div ng-controller="userProfileC" >
+	<div ng-controller="userProfileC" ng-init="getUserDetails()" >
 					Nickname: {{user.Nickname}}<br>
-					Photo:
+					Photo:<br>
           			Description:{{user.Description}}<br>
           			User Rating:{{user.UserRating}}<br>
                     expertise:

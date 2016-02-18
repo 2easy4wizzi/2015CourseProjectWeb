@@ -58,7 +58,7 @@ public class LeaderBoardServlet extends HttpServlet {
 		{
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("LeaderBoardServlet") + "LeaderBoardServlet".length() + 1);
-System.out.println(uri);
+//System.out.println(uri);
 			PrintWriter out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
 //user = new User("gilad","123","wizzi",null,null,0);
