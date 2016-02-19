@@ -30,12 +30,15 @@ app.controller('questionController', ['$scope', '$http','$location',
 		$scope.focus = focus;
 		if(focus == questionByTopicFocus){
 			$scope.topic = topic;
+			clearInterval(refreshIntervalId);
 			$scope.getQuestionsByTopic(topic, 0);
 		}
 		else if(focus == questionByNewlyFocus){
+			refreshIntervalId = setInterval($scope.update, 3000);
 			$scope.get20NewQuestions(0);
 		}
 		else if(focus == questionByAllFocus){
+			clearInterval(refreshIntervalId);
 			$scope.get20questions(0);
 		}
 		
