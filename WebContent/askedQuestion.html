@@ -2,7 +2,7 @@
 <html lang="en-US">
 
 <head>
-	<title>Ask Q</title>
+	<title>Ask Question</title>
 	<meta charset="UTF-8">
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
@@ -23,7 +23,6 @@
 <body >
 <div ng-app="main">
 	<div nav-directive></div>
-	
 	<div ng-controller="askQuestionC" >
 		<form novalidate name="AskQuestionForm">
 	       	<div id="page content">
@@ -32,10 +31,8 @@
 						<textarea rows="7" cols="82" placeholder="{{text_area_place_holder}}"  maxlength="300" ng-model="questionText" required></textarea><br>   
 					    enter topics(50 chars) seperated by comma:<br>
 					    <input type="text" 	 ng-change="getTopic()"  placeholder="topics..." maxlength="50" ng-model="topicBar"  />{{error_msg}}<br>
-					    <span  ng-repeat="topic in topicsArray">
-					    		
-					    	<button id="topic-{{$index}}" ng-click="deleteTopic($index)">{{topic}}</button>
-					    
+					    <span  ng-repeat="topic in topicsArray">   		
+					    	<button id="topic-{{$index}}" ng-click="deleteTopic($index)">{{topic}}</button> 
 					    </span><br>
 					    <input type="button"  value="Post Question" ng-click="postQuestion()" />
 					    <input type="button"  value="Clear" ng-click="clearQuestion()" />

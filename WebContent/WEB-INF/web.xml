@@ -50,6 +50,7 @@
     <url-pattern>/QuestionsServlet/addVote</url-pattern>
     <url-pattern>/QuestionsServlet/GetTopics</url-pattern>
     <url-pattern>/QuestionsServlet/Update</url-pattern>
+    <url-pattern>/QuestionsServlet/getQuestionsByTopic</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -84,5 +85,16 @@
     <servlet-name>UserProfileServlet</servlet-name>
     <url-pattern>/UserProfileServlet</url-pattern>
     <url-pattern>/UserProfileServlet/getUserDetails</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TopicsServlet</display-name>
+    <servlet-name>TopicsServlet</servlet-name>
+    <servlet-class>servlets.TopicsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TopicsServlet</servlet-name>
+    <url-pattern>/TopicsServlet</url-pattern>
+    <url-pattern>/TopicsServlet/calcPopularTopics</url-pattern>
   </servlet-mapping>
 </web-app>

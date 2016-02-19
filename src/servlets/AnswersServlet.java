@@ -62,17 +62,9 @@ public class AnswersServlet extends HttpServlet {
 		{
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("AnswersServlet") + "AnswersServlet".length() + 1);
-//System.out.println(uri);
+System.out.println(uri);
 			PrintWriter out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
-//user = new User("gilad","123","wizzi",null,null,0);
-
-			if(user == null)
-			{
-				out.println("0");
-				out.close();
-				return;
-			}
 			Context context = new InitialContext();
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
 			Connection conn = ds.getConnection();

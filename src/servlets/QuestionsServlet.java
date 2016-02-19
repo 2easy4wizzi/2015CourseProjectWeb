@@ -28,7 +28,7 @@ import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 
 import constants.DBConstants;
 import models.Question;
-
+import models.Topic;
 import models.User;
 
 /**
@@ -62,17 +62,9 @@ public class QuestionsServlet extends HttpServlet {
 		{
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("QuestionsServlet") + "QuestionsServlet".length() + 1);
-//System.out.println(uri);
+System.out.println(uri);
 			PrintWriter out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
-//user = new User("gilad","123","wizzi",null,null,0);
-request.getSession().setAttribute("user", user);
-			if(user == null)
-			{
-				out.println("0");
-				out.close();
-				return;
-			}
 			Context context = new InitialContext();
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
 			Connection conn = ds.getConnection();
@@ -549,6 +541,81 @@ request.getSession().setAttribute("user", user);
 				//System.out.println("JSON: " +top20newJson);
 				out.println(top20newJson);	
 				out.close();
+			}
+			else if(uri.equals("getQuestionsByTopic"))
+			{
+				Collection<Question> top20byTopic = new ArrayList<Question>();
+				int count = 0;
+				int from = 0;
+				Gson gson = new Gson();
+				try
+				{
+					String topicName = request.getParameter("topic");
+					String strFrom = request.getParameter("from");
+					from = Integer.parseInt(strFrom) * 20;
+					
+					
+					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_COUNT_QUESTIONS_BY_TOPIC_STMT);
+					ps.setString(1, topicName);
+					ResultSet rs = ps.executeQuery();
+					while (rs.next()){
+						  count = rs.getInt("totalQuestionOfTopic");
+					}
+					
+					System.out.println("count was: " + count);
+					if(count == 0){
+						String boolJson = gson.toJson(true, boolean.class);
+						String strJson = gson.toJson("noQuestionsOnTopicsFound", String.class);
+						String outRespone = "[" + boolJson + "," + strJson + "]";
+						out.println(outRespone);
+						System.out.println("final collection: " + outRespone);	
+					}
+					else{
+						ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_QUESTIONS_BY_TOPIC_STMT);
+						ps.setString(1, topicName);
+						ps.setInt(2, from);
+						rs = ps.executeQuery();
+						
+						
+						while (rs.next()){
+							java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString("Created"));
+							long tsTime = ts.getTime();
+							DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+							java.sql.Date startDate = new java.sql.Date(ts.getTime());
+							String createdHuman = df.format(startDate);
+							double Qrating = rs.getDouble("QRating");
+							DecimalFormat dfRating = new DecimalFormat("#.##");
+							String dxRating=dfRating.format(Qrating);
+							Qrating=Double.valueOf(dxRating);
+							top20byTopic.add(new Question(rs.getInt("QId"),rs.getString("QuestionText"),rs.getString("QTopics"),rs.getString("OwnerNickname"),Qrating ,rs.getInt("QVotes"),createdHuman ,tsTime,rs.getInt("Answers")));
+						}
+
+						String boolJson;
+						if(count <= from+20 ){
+							boolJson = gson.toJson(true, boolean.class);	
+						}
+						else{
+							boolJson = gson.toJson(false, boolean.class);	
+						}		
+						String top20byTopicJSON = gson.toJson(top20byTopic, DBConstants.NEW_TOPIC_COLLECTION);
+						String outRespone = "[" + boolJson + "," + top20byTopicJSON + "]";
+						
+						out.println(outRespone);							
+						
+System.out.println("final collection: " + outRespone);	
+					}					
+					rs.close();
+					ps.close();	
+				}
+				catch (SQLException  e) 
+				{
+					getServletContext().log("Error while closing connection", e);
+					response.sendError(500);// internal server error
+				}
+				finally{
+					conn.close();
+					out.close();
+				}
 			}
 		}
 		catch (SQLException | NamingException e) 

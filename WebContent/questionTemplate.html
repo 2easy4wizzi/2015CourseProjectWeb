@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>question template</title>
+<style>
+.question {
+    border-style: solid;
+    border-color: red; 
+    border-width: 5px;
+}
+.answer {
+    border-style: solid;
+    border-color: blue; 
+    border-width: 5px;
+}
+</style>
+</head>
+<body>
+<div class=question>
+	<div>Text:{{question.QuestionText}}</div> 			
+	<div>date:{{question.CreatedHuman}}</div>
+	<div ng-controller="topicsService" ng-init="getTopics(question.Qid)">
+		<div ng-repeat="topic in topics">
+			topic {{$index+1}}-{{topic}}
+		</div>
+	</div>
+	<div>Nickname:{{question.OwnerNickname}}</div>
+  	<div>Rating  :{{question.QRating}}</div>	
+	<div>QVotes  :{{question.Qvotes}}</div>
+	<div>Qid     :{{question.Qid}}</div>
+	<button ng-click="addVote(question.Qid,1)" type="button" id="BtnUp" class="btn btn-success glyphicon glyphicon-thumbs-up"  data-loading-text=" ... "></button>
+	<button ng-click="addVote(question.Qid,-1)"type="button" id="BtnDown" class="btn btn-success glyphicon glyphicon-thumbs-down" data-loading-text=" ... "></button>
+		<div data-ng-if="focus != 'questionsByNewly'">    		
+ 			<div ng-controller="answersService" ng-init="getAnswers(question.Qid);">
+   			<div><h4>there are {{question.Answers}} answers for this Question </h4></div>	 
+      			<div  ng-repeat="answer in answers|limitTo:how_much_to_show[$index].show" >  	 				
+<div class=answer>
+         		* CreatedHuman:{{answer.CreatedHuman}}<br>
+ 				* AnswerText:{{answer.AnswerText}}<br>
+         		* OwnerNickname:{{answer.OwnerNickname}}<br>
+       			Aid:{{answer.Aid}}<br>
+         		Qid:{{answer.Qid}}<br>
+         		Createdlong:{{answer.Created}}<br>	    
+         		{{answer.AVotes}}      		
+			<button ng-click="addVote(question.Qid,answer.Aid,1)" type="button" id="BtnUp" 
+				class="btn btn-success glyphicon glyphicon-thumbs-up"  data-loading-text=" ... "></button>
+			<button ng-click="addVote(question.Qid,answer.Aid,-1)"type="button" id="BtnDown"
+			 	class="btn btn-success glyphicon glyphicon-thumbs-down" data-loading-text=" ... "></button> 						 	  	       		          	       		 
+</div>
+       			</div>
+       		</div>
+      		</div> 
+      		<div ng-show="(focus != 'questionsByNewly')&&(question.Answers>1)">
+      			<button id="more_answers-{{$index}}" ng-click="presentAllAnswers(question.Answers,$index);">{{more_answers}}</button> 
+   			</div>
+			<button type="button" class="btn btn-primary"  ng-click="answerButtonPressed()">{{answer_button}}</button><br>
+       		<div data-ng-show="showAnswerTextArea">
+        		<textarea rows="7"   cols="60" placeholder="your Answer?" maxlength="300" ng-model="answerText" required></textarea><br>
+        		<button type="button" class="btn btn-primary" ng-click="postAnswer(question.Qid,answerText,$index) ; answerText=''">submit Answer</button>
+        		<button type="button" class="btn btn-primary" ng-click="answerText=''">Clear</button>
+       		</div>
+       		
+	 		
+			
+</div>
+</body>
+</html>

@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 
 import models.Answer;
 import models.Question;
+import models.Topic;
 import models.User;
 
 public interface DBConstants 
@@ -17,6 +18,14 @@ public interface DBConstants
 	public final Type NEW_ANSWER_COLLECTION   = new TypeToken<Collection<Answer>>() {}.getType();	
     public final Type NEW_TOPICS_COLLECTION   = new TypeToken<Collection<String>>() {}.getType();
 	public final Type NEW_USER_COLLECTION = new TypeToken<Collection<User>>() {}.getType();
+	public final Type NEW_TOPIC_COLLECTION = new TypeToken<Collection<Topic>>() {}.getType();
+	
+	public final String TOPICS_SERVLET_NAME = "TopicsServlet";
+	
+	
+	
+	
+	
 	//sql statements
 	public final String CREATE_USERS_TABLE =  "CREATE TABLE TBL_USERS("
 										    + "Username varchar(10) PRIMARY KEY,"
@@ -46,13 +55,15 @@ public interface DBConstants
 	public final String INSERT_QUESTION_STMT = "INSERT INTO TBL_QUESTIONS (QuestionText, QTopics, OwnerNickname, QRating, QVotes, Created) VALUES(?,?,?,DEFAULT,DEFAULT,DEFAULT)";
 	public final String SELECT_TOP_20_NEW_QUESTIONS_BY_TIMESTAMP_STMT = "SELECT * FROM TBL_QUESTIONS WHERE Answers=0 ORDER BY Created DESC OFFSET ? ROWS FETCH NEXT 20 ROWS ONLY";
 	public final String SELECT_TOP_20_QUESTIONS_BY_TIMESTAMP_STMT = "SELECT * FROM TBL_QUESTIONS ORDER BY QRating DESC OFFSET ? ROWS FETCH NEXT 20 ROWS ONLY";
+	public final String SELECT_TOP_20_QUESTIONS_BY_TOPIC_STMT = "SELECT TBL_QUESTIONS.* FROM TBL_TOPICS INNER JOIN TBL_QUESTIONS ON TBL_TOPICS.QId=TBL_QUESTIONS.QId where TBL_TOPICS.QTopics=? OFFSET ? ROWS FETCH NEXT 20 ROWS ONLY";
 	public final String SELECT_COUNT_NEW_QUESTIONS_STMT = "SELECT COUNT (*) FROM TBL_QUESTIONS WHERE Answers=0";
 	public final String SELECT_COUNT_QUESTIONS_STMT = "SELECT COUNT (*) FROM TBL_QUESTIONS";
+	public final String SELECT_COUNT_QUESTIONS_BY_TOPIC_STMT = "SELECT COUNT(TBL_QUESTIONS.QID) as totalQuestionOfTopic FROM TBL_TOPICS INNER JOIN TBL_QUESTIONS ON TBL_TOPICS.QId=TBL_QUESTIONS.QId where TBL_TOPICS.QTopics=?";
 	public final String UPDATE_QUESTION_ANSWERS_COLUMN_BY_QID_STMT = "UPDATE TBL_QUESTIONS SET Answers = Answers + 1 WHERE QId=?";
 	public final String UPDATE_QUESTION_QVOTES_AND_QRATING_COLUMNS_BY_QID_STMT = "UPDATE TBL_QUESTIONS SET QVotes = ?, QRating = ? WHERE QId=?";
 	public final String SELECT_QUESTION_BY_QID_STMT = "SELECT * FROM TBL_QUESTIONS WHERE Qid=?";
 	public final String UPDATE_QRATING_BY_FORMULA_STMT = "UPDATE TBL_QUESTIONS SET QRating = QVotes * 0.2 + ? * 0.8 WHERE QId=?";
-
+	//public final String SELECT_SUM_QRATING_BY_QIDS_STMT = "SELECT SUM (QRating) FROM TBL_QUESTIONS WHERE QId=?";
 
 
 	public final String CREATE_ANSWERS_TABLE =  "CREATE TABLE TBL_ANSWERS("
@@ -114,6 +125,12 @@ public interface DBConstants
 			+ ")";
 	public final String INSERT_TOPIC_STMT = "INSERT INTO TBL_TOPICS VALUES(?,?)";
 	public final String SELECT_TOPICS_BY_QID_STMT = "SELECT * FROM TBL_TOPICS WHERE Qid=?";
+	//public final String SELECT_DISTINCT_TOPICS_STMT = "SELECT DISTINCT QTopics FROM TBL_TOPICS";
+	//public final String SELECT_QID_LIST_BY_TOPICS_STMT = "SELECT QId FROM TBL_TOPICS WHERE QTopics=?";
+	public final String SELECT_20_MOST_POPULAR_TOPICS_STMT = "SELECT TBL_TOPICS.QTopics, sum(TBL_QUESTIONS.QRating) as Sumup FROM TBL_TOPICS INNER JOIN TBL_QUESTIONS ON TBL_TOPICS.QId=TBL_QUESTIONS.QId GROUP BY TBL_TOPICS.QTopics ORDER BY sumup desc OFFSET ? ROWS FETCH NEXT 20 ROWS ONLY";
+	public final String SELECT_COUNT_TOPICS_STMT = "SELECT COUNT (DISTINCT QTopics) FROM TBL_TOPICS";
+	
+	
 
 
 }
