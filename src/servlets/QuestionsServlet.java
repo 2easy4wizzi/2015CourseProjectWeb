@@ -180,6 +180,7 @@ System.out.println(uri);
 			{ 
 				try
 				{
+					Gson gson = new Gson();
 					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_QUESTION_BY_QID_STMT);
 					String strQid = request.getParameter("qid");
 					int qid = Integer.parseInt(strQid);
@@ -197,7 +198,8 @@ System.out.println(uri);
 					}
 //questionOwner = "bla";
 					if (userA.getNickname().equals(questionOwner)){
-						out.println("1");
+						String intJson = gson.toJson(1, int.class);
+						out.println(intJson);
 					}
 					else 
 					{
@@ -277,11 +279,13 @@ System.out.println(uri);
 							conn.commit();
 												
 							/*********************************************************************************************/
-							
+							String intJson = gson.toJson(0, int.class);
+							out.println(intJson);
 														
 						}
 						else{
-							out.println("2");
+							String intJson = gson.toJson(2, int.class);
+							out.println(intJson);
 						}
 					}
 					//recalc rating
@@ -456,43 +460,6 @@ System.out.println(uri);
 				String boolJson = gson.toJson(dontShowNextButton, boolean.class);
 				String outRespone = "[" + boolJson + "," + top20newJson + "]";
 				out.println(outRespone);
-				out.close();
-			}
-			else if(uri.equals("GetTopics"))
-			{
-				Collection<String> topics = new ArrayList<String>();
-				Gson gson = new Gson();
-				try
-				{
-					
-					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOPICS_BY_QID_STMT);
-					
-					String qidStr = request.getParameter("qid");
-					int qid = Integer.parseInt(qidStr);
-					ps.setInt(1, qid);
-					ResultSet rs =  ps.executeQuery();
-					
-					while (rs.next()){
-						topics.add(new String(rs.getString(2)));
-					}
-					
-					rs.close();
-					ps.close();
-				}
-				catch (SQLException  e) 
-				{
-					getServletContext().log("Error while closing connection", e);
-					response.sendError(500);// internal server error
-				}
-				finally{
-					conn.close();
-				}
-				String topicsJson = gson.toJson(topics, DBConstants.NEW_TOPICS_COLLECTION);
-				//System.out.println("JSON: " +topicsJson);
-				out.println(topicsJson);
-				
-				
-				
 				out.close();
 			}
 			else if(uri.equals("Update"))

@@ -262,7 +262,8 @@ app.controller('questionController', ['$scope', '$http','$location',
 					headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
 				}).success(function(response) 
 						{
-							if(respone == 0)//succsess
+							var x = response;
+							if(x == 0)//succsess
 							{
 								$scope.getQuestionByFocus($scope.focus);							
 							}
@@ -302,7 +303,7 @@ app.controller('topicsService', ['$scope', '$http',
 		$http(
 				{
 					method : 'POST',
-					url : projectUrl + QuestionServlet +'GetTopics',
+					url : projectUrl + TopicsServlet + 'GetTopics',
 					params : {qid: qid},
 					headers : { 'Content-Type' : 'application/x-www-form-urlencoded' }
 				}).success(function(response) 
@@ -323,7 +324,7 @@ app.controller('answersService', ['$scope', '$http',
        		$http(
        		{
        		method : 'POST',
-       		url : 'http://localhost:8080/webGilad/AnswersServlet/GetAnswers',
+       		url : projectUrl + AnswerServlet + 'GetAnswers',
        		params : { qid: qid },
        		headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
        		}).success(function(response) 
@@ -348,7 +349,7 @@ app.controller('answersService', ['$scope', '$http',
        		$http(
        			{
        				method : 'POST',
-       				url : 'http://localhost:8080/webGilad/AnswersServlet/addVote',
+       				url : projectUrl + AnswerServlet + 'addVote',
        				params : { qid: qid ,aid: aid ,voteValue: voteValue},
        				headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
        			}).success(function(response) 

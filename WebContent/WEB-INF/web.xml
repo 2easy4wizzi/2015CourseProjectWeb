@@ -48,7 +48,6 @@
     <url-pattern>/QuestionsServlet/GetTop20</url-pattern>
     <url-pattern>/QuestionsServlet/incQuestionAnswers</url-pattern>
     <url-pattern>/QuestionsServlet/addVote</url-pattern>
-    <url-pattern>/QuestionsServlet/GetTopics</url-pattern>
     <url-pattern>/QuestionsServlet/Update</url-pattern>
     <url-pattern>/QuestionsServlet/getQuestionsByTopic</url-pattern>
   </servlet-mapping>
@@ -96,5 +95,6 @@
     <servlet-name>TopicsServlet</servlet-name>
     <url-pattern>/TopicsServlet</url-pattern>
     <url-pattern>/TopicsServlet/calcPopularTopics</url-pattern>
+    <url-pattern>/TopicsServlet/GetTopics</url-pattern>    
   </servlet-mapping>
 </web-app>

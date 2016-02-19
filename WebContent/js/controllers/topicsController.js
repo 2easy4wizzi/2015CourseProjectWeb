@@ -18,7 +18,7 @@ app.controller('topicsC', ['$scope', '$http','$location',function($scope, $http,
 		$http(
 		{
 			method : 'POST',
-			url : 'http://localhost:8080/webGilad/TopicsServlet/calcPopularTopics',
+			url : projectUrl + TopicsServlet + 'calcPopularTopics',
 			params : {from: from},
 			headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
 		}).success(function(response){
