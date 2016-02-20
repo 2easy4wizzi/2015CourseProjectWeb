@@ -296,7 +296,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 	
 }]);
 
-app.controller('topicsService', ['$scope', '$http',
+/*app.controller('topicsService', ['$scope', '$http',
                             function($scope, $http){
 	$scope.topics = "";
 	$scope.getTopics = function (qid) {
@@ -316,7 +316,7 @@ app.controller('topicsService', ['$scope', '$http',
 						});	
 	}
 	
-}]);
+}]);*/
 app.controller('answersService', ['$scope', '$http',
                                     function($scope, $http){
   	

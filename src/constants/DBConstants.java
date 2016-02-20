@@ -19,6 +19,7 @@ public interface DBConstants
     public final Type NEW_TOPICS_COLLECTION   = new TypeToken<Collection<String>>() {}.getType();
 	public final Type NEW_USER_COLLECTION = new TypeToken<Collection<User>>() {}.getType();
 	public final Type NEW_TOPIC_COLLECTION = new TypeToken<Collection<Topic>>() {}.getType();
+    //public final Type NEW_EXPERTISE_COLLECTION   = new TypeToken<Collection<String>>() {}.getType();
 	
 	public final String TOPICS_SERVLET_NAME = "TopicsServlet";
 	
@@ -125,7 +126,7 @@ public interface DBConstants
 	public final String SELECT_20_MOST_POPULAR_TOPICS_STMT = "SELECT TBL_TOPICS.QTopics, sum(TBL_QUESTIONS.QRating) as Sumup FROM TBL_TOPICS INNER JOIN TBL_QUESTIONS ON TBL_TOPICS.QId=TBL_QUESTIONS.QId GROUP BY TBL_TOPICS.QTopics ORDER BY sumup desc OFFSET ? ROWS FETCH NEXT 20 ROWS ONLY";
 	public final String SELECT_COUNT_TOPICS_STMT = "SELECT COUNT (DISTINCT QTopics) FROM TBL_TOPICS";
 	public final String SELECT_TOP_5_TOPICS_BY_POPULARITY_STMT = "SELECT TBL_TOPICS.qtopics, sum(TBL_QUESTIONS.qvotes) as sigma FROM TBL_ANSWERS INNER JOIN TBL_QUESTIONS ON TBL_ANSWERS.QId=TBL_QUESTIONS.QId inner join TBL_TOPICS ON TBL_TOPICS.QId=TBL_QUESTIONS.QId where TBL_ANSWERS.OwnerNickname = ? group by TBL_TOPICS.qtopics order by sigma desc FETCH NEXT 5 ROWS ONLY";
-	
+	public final String SELECT_TOP_5_LAST_QUESTION_FOR_USER_STMT = "SELECT * FROM TBL_QUESTIONS WHERE OwnerNickname = ? ORDER BY Created DESC FETCH NEXT 5 ROWS ONLY";
 
 
 }

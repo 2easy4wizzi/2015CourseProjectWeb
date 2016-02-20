@@ -15,12 +15,6 @@ public class Question
 	private long Created;
 	private double QRating ;
 
-
-
-
-
-
-
 	public Question(int qid, String questionText, String ownerNickname,
 			double qrating,int qvotes ,String createdHuman,long created, int answers) 
 	{
@@ -33,10 +27,7 @@ public class Question
 		Created = created;
 		Answers = answers;
 	}
-	
 
-	
-	
 	public String getCreatedHuman() {
 		return CreatedHuman;
 	}

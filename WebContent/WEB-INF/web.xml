@@ -84,6 +84,8 @@
     <servlet-name>UserProfileServlet</servlet-name>
     <url-pattern>/UserProfileServlet</url-pattern>
     <url-pattern>/UserProfileServlet/getUserDetails</url-pattern>
+    <url-pattern>/UserProfileServlet/last5Questions</url-pattern>
+    <url-pattern>/UserProfileServlet/getExpertise</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

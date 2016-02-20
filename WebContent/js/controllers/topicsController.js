@@ -47,8 +47,24 @@ app.controller('topicsC', ['$scope', '$http','$location',function($scope, $http,
 		$scope.from++;
 		$scope.calcPopularTopics($scope.from);
 	}
-
-
+	
+	$scope.topics = "";
+	$scope.getTopics = function (qid) {
+		$http(
+				{
+					method : 'POST',
+					url : projectUrl + TopicsServlet + 'GetTopics',
+					params : {qid: qid},
+					headers : { 'Content-Type' : 'application/x-www-form-urlencoded' }
+				}).success(function(response) 
+						{
+					$scope.topics = response;
+					
+						}).error(function(error) {
+							alert('somthing happend at get topics');
+							
+						});	
+	}
 
 }]);
 

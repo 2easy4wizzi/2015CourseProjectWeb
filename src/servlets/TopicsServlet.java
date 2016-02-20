@@ -139,7 +139,6 @@ public class TopicsServlet extends HttpServlet {
 				{
 					
 					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOPICS_BY_QID_STMT);
-					
 					String qidStr = request.getParameter("qid");
 					int qid = Integer.parseInt(qidStr);
 					ps.setInt(1, qid);

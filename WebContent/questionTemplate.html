@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>question template</title>
 <style>
@@ -17,10 +18,11 @@
 </style>
 </head>
 <body>
+
 <div class=question>
 	<div>Text:{{question.QuestionText}}</div> 			
 	<div>date:{{question.CreatedHuman}}</div>
-	<div ng-controller="topicsService" ng-init="getTopics(question.Qid)">
+	<div ng-controller="topicsC" ng-init="getTopics(question.Qid)">
 		<div ng-repeat="topic in topics">
 			topic {{$index+1}}-{{topic}}
 		</div>
@@ -64,5 +66,6 @@
 	 		
 			
 </div>
+
 </body>
 </html>

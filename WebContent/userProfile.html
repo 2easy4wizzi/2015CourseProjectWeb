@@ -16,6 +16,8 @@
     <script type="text/javascript" src="js/controllers/userProfileController.js"></script>
 	<script type="text/javascript" src="js/controllers/navBarController.js"></script>
 	<script type="text/javascript" src="js/directives/navBarDirective.js"></script>
+	<script type="text/javascript" src="js/controllers/questionController.js"></script>
+	<script type="text/javascript" src="js/controllers/topicsController.js"></script>
 	<style>
 	
 	</style>
@@ -24,16 +26,52 @@
 <div ng-app="main">
 	<div nav-directive></div>
 	
-	<div ng-controller="userProfileC" ng-init="getUserDetails()" >
+	<div ng-controller="userProfileC" ng-init="getUserDetails();last5Questions();getExpertise()" >
 					{{user.Nickname}}<br>
  					<img ng-src="{{user.PhotoUrl}}" alt="This is the User Profile picture " width="105"/> <br>			
           			Description:{{user.Description}}<br>
           			User Rating:{{user.UserRating}}<br>
+          			<hr>
                     expertise:
-
+                     <table class="table table-hover">
+			    <thead>
+			      <tr ng-repeat="expertise in expertises">
+				 <th>
+				{{expertise.Topic}} popularuty: {{expertise.Popularity}}
+				 </th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			        </tbody>
+			  </table>	
+	
+					 <hr>
+					 Questions:
+					 <table class="table table-hover">
+			    <thead>
+			      <tr ng-repeat="question in questions">
+			        <th><div>Text:{{question.QuestionText}}</div> 			
+				<div>date:{{question.CreatedHuman}}</div>
+				<div>Rating  :{{question.QRating}}</div>	
+				<div>Qid     :{{question.Qid}}</div>
+				 <div ng-controller="topicsC" ng-init="getTopics(question.Qid)">
+					<div ng-repeat="topic in topics">
+						topic {{$index+1}}-{{topic}}
+					</div>
+				</div></th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			        </tbody>
+			  </table>	
+		
+		
+		
+		
+		
+		
+		
 	</div>
-
-
 	
 </div>
 </body>
