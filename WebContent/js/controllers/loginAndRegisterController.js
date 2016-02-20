@@ -106,7 +106,7 @@ app.controller('logAndRegC', ['$scope', '$http',
 		        	 		password: $scope.regPass , 
 		        	 		nickname: $scope.nickname , 
 		                    description: $scope.description ,
-		                    urlPhoto: $scope.urlPhoto , },
+		                    photo: $scope.photoUrl },
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		     })
 		     .success(function (response) 

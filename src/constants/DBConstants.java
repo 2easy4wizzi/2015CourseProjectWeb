@@ -22,10 +22,6 @@ public interface DBConstants
 	
 	public final String TOPICS_SERVLET_NAME = "TopicsServlet";
 	
-	
-	
-	
-	
 	//sql statements
 	public final String CREATE_USERS_TABLE =  "CREATE TABLE TBL_USERS("
 										    + "Username varchar(10) PRIMARY KEY,"

@@ -66,7 +66,7 @@ public class TopicsServlet extends HttpServlet {
 		{
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf(DBConstants.TOPICS_SERVLET_NAME) + DBConstants.TOPICS_SERVLET_NAME.length() + 1);
-			System.out.println(uri);
+			//System.out.println(uri);
 			PrintWriter out = response.getWriter();
 			Context context = new InitialContext();
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);

@@ -62,7 +62,7 @@ public class AnswersServlet extends HttpServlet {
 		{
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("AnswersServlet") + "AnswersServlet".length() + 1);
-System.out.println(uri);
+//System.out.println(uri);
 			PrintWriter out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
 			Context context = new InitialContext();

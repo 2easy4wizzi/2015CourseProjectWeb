@@ -25,8 +25,8 @@
 	<div nav-directive></div>
 	
 	<div ng-controller="userProfileC" ng-init="getUserDetails()" >
-					Nickname: {{user.Nickname}}<br>
-					Photo:<br>
+					{{user.Nickname}}<br>
+ 					<img ng-src="{{user.PhotoUrl}}" alt="This is the User Profile picture " width="105"/> <br>			
           			Description:{{user.Description}}<br>
           			User Rating:{{user.UserRating}}<br>
                     expertise:

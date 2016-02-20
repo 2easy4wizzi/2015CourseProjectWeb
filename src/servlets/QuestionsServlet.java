@@ -62,7 +62,7 @@ public class QuestionsServlet extends HttpServlet {
 		{
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("QuestionsServlet") + "QuestionsServlet".length() + 1);
-System.out.println(uri);
+//System.out.println(uri);
 			PrintWriter out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
 			Context context = new InitialContext();
@@ -529,13 +529,13 @@ System.out.println(uri);
 						  count = rs.getInt("totalQuestionOfTopic");
 					}
 					
-					System.out.println("count was: " + count);
+					//System.out.println("count was: " + count);
 					if(count == 0){
 						String boolJson = gson.toJson(true, boolean.class);
 						String strJson = gson.toJson("noQuestionsOnTopicsFound", String.class);
 						String outRespone = "[" + boolJson + "," + strJson + "]";
 						out.println(outRespone);
-						System.out.println("final collection: " + outRespone);	
+						//System.out.println("final collection: " + outRespone);	
 					}
 					else{
 						ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_QUESTIONS_BY_TOPIC_STMT);
@@ -569,7 +569,7 @@ System.out.println(uri);
 						
 						out.println(outRespone);							
 						
-System.out.println("final collection: " + outRespone);	
+//System.out.println("final collection: " + outRespone);	
 					}					
 					rs.close();
 					ps.close();	

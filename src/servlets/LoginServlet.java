@@ -73,11 +73,15 @@ public class LoginServlet extends HttpServlet {
 			
 			if(uri.equals("Register"))
 			{
+				String PhotoUrl = request.getParameter("photo");
+				if(PhotoUrl == null){
+					PhotoUrl = "https://en.opensuse.org/images/0/0b/Icon-user.png";
+				}
 				User user = new User(request.getParameter("username"),
 						request.getParameter("password"),
 						request.getParameter("nickname"),
 						request.getParameter("description"),
-						request.getParameter("urlPhoto"),
+						PhotoUrl,
 						0
 						);
 				try

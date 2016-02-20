@@ -29,7 +29,7 @@ app.controller('navC', ['$scope', '$http','$location',
 				} 
 				else 
 				{
-					$scope.nickName = response;
+					$scope.nickname = response;				
 				}
 			}).error(function(error) {
 				alert('somthing happend at get user name ');

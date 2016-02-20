@@ -26,13 +26,14 @@
 </head>
 
 <body>
-<div ng-app="main">
+<!-- <div ng-app="main">
 	<div nav-directive></div>	
 	<div class="container">   
 		<div ng-controller="leaderBoardC" ng-init="getUsers()">
 			<br>
 	 		<div ng-repeat="user in users">  
-                <div><a href="userProfile.html#/#{{user.Nickname}}">{{user.Nickname}}</a></div> 			
+                <div><a href="userProfile.html#/#{{user.Nickname}}">{{user.Nickname}}</a></div>
+                  <img ng-src="{{user.PhotoUrl}}" alt="This is the User Profile picture " width="100"/> <br>			
           		Description:{{user.Description}}<br>
           		User Rating:{{user.UserRating}}<br>
        		<hr>
@@ -40,6 +41,32 @@
 	  	</div>
 	</div>
 </div>
+ -->
+
+<div ng-app="main">
+	<div nav-directive></div>	
+	<div class="container">   
+		<div ng-controller="leaderBoardC" ng-init="getUsers()">
+			 <table class="table table-hover">
+    <thead>
+      <tr ng-repeat="user in users">
+        <th><a href="userProfile.html#/#{{user.Nickname}}">{{user.Nickname}}</a><br>
+        <img ng-src="{{user.PhotoUrl}}" alt="This is the User Profile picture " width="100"/> <br>		
+        Description:{{user.Description}}<br>User Rating:{{user.UserRating}}</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>		
+	  	</div>
+	</div>
+</div>
+
+
+
 
 </body>
 </html>
+
+
+
