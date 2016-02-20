@@ -76,8 +76,7 @@ public class QuestionsServlet extends HttpServlet {
 				{
 					PreparedStatement ps = conn.prepareStatement(DBConstants.INSERT_QUESTION_STMT, new String[] { "QID"});			
 					ps.setString(1, request.getParameter("questionText"));
-					ps.setString(2, request.getParameter("topics"));
-					ps.setString(3, user.getNickname());
+					ps.setString(2, user.getNickname());
 					ps.executeUpdate();
 					ResultSet rs = ps.getGeneratedKeys();
 					 
@@ -345,17 +344,17 @@ public class QuestionsServlet extends HttpServlet {
 					ResultSet rs = (ResultSet) ps.executeQuery();
 					
 					while (rs.next()){
-						java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(7));
+						java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(6));
 						long tsTime = ts.getTime();
 						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 						java.sql.Date startDate = new java.sql.Date(ts.getTime());
 						String createdHuman = df.format(startDate);
-						double Qrating = rs.getDouble(5);
+						double Qrating = rs.getDouble(4);
 						DecimalFormat dfRating = new DecimalFormat("#.##");
 						String dxRating=dfRating.format(Qrating);
 						Qrating=Double.valueOf(dxRating);
 						
-						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),Qrating,rs.getInt(6),createdHuman ,tsTime,rs.getInt(8)));
+						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),Qrating,rs.getInt(5),createdHuman ,tsTime,rs.getInt(7)));
 					}
 					
 					//conn.commit();
@@ -422,18 +421,18 @@ public class QuestionsServlet extends HttpServlet {
 					ResultSet rs = (ResultSet) ps.executeQuery();
 					
 					while (rs.next()){
-						java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(7));
+						java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(6));
 						long tsTime = ts.getTime();
 						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 						java.sql.Date startDate = new java.sql.Date(ts.getTime());
 						String createdHuman = df.format(startDate);
-						double Qrating = rs.getDouble(5);
+						double Qrating = rs.getDouble(4);
 						DecimalFormat dfRating = new DecimalFormat("#.##");
 						String dxRating=dfRating.format(Qrating);
 						Qrating=Double.valueOf(dxRating);
 						
 						
-						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),Qrating,rs.getInt(6),createdHuman ,tsTime,rs.getInt(8)));
+						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),Qrating,rs.getInt(5),createdHuman ,tsTime,rs.getInt(7)));
 					}
 					
 					//conn.commit();
@@ -480,16 +479,16 @@ public class QuestionsServlet extends HttpServlet {
 					ResultSet rs = (ResultSet) ps.executeQuery();
 					
 					while (rs.next()){
-						java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(7));
+						java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(6));
 						long tsTime = ts.getTime();
 						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 						java.sql.Date startDate = new java.sql.Date(ts.getTime());
 						String createdHuman = df.format(startDate);
-						double Qrating = rs.getDouble(5);
+						double Qrating = rs.getDouble(4);
 						DecimalFormat dfRating = new DecimalFormat("#.##");
 						String dxRating=dfRating.format(Qrating);
 						Qrating=Double.valueOf(dxRating);
-						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),Qrating,rs.getInt(6),createdHuman ,tsTime,rs.getInt(8)));
+						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),Qrating,rs.getInt(5),createdHuman ,tsTime,rs.getInt(7)));
 					}
 					
 					//conn.commit();
@@ -554,7 +553,7 @@ public class QuestionsServlet extends HttpServlet {
 							DecimalFormat dfRating = new DecimalFormat("#.##");
 							String dxRating=dfRating.format(Qrating);
 							Qrating=Double.valueOf(dxRating);
-							top20byTopic.add(new Question(rs.getInt("QId"),rs.getString("QuestionText"),rs.getString("QTopics"),rs.getString("OwnerNickname"),Qrating ,rs.getInt("QVotes"),createdHuman ,tsTime,rs.getInt("Answers")));
+							top20byTopic.add(new Question(rs.getInt("QId"),rs.getString("QuestionText"),rs.getString("OwnerNickname"),Qrating ,rs.getInt("QVotes"),createdHuman ,tsTime,rs.getInt("Answers")));
 						}
 
 						String boolJson;

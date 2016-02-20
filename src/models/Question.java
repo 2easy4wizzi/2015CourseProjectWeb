@@ -11,7 +11,7 @@ public class Question
 
 
 
-	private String QuestionText, QTopics, OwnerNickname,CreatedHuman;
+	private String QuestionText, OwnerNickname,CreatedHuman;
 	private long Created;
 	private double QRating ;
 
@@ -21,12 +21,11 @@ public class Question
 
 
 
-	public Question(int qid, String questionText, String qTopics,String ownerNickname,
+	public Question(int qid, String questionText, String ownerNickname,
 			double qrating,int qvotes ,String createdHuman,long created, int answers) 
 	{
 		Qid = qid;
 		QuestionText = questionText;
-		QTopics = qTopics;
 		OwnerNickname = ownerNickname;
 		QRating = qrating;
 		Qvotes = qvotes;
@@ -68,11 +67,6 @@ public class Question
 
 
 
-	public String getQTopics() {
-		return QTopics;
-	}
-
-
 
 
 	public String getOwnerNickname() {
@@ -98,7 +92,7 @@ public class Question
 
 	public void print() 
 	{
-		System.out.println("Qid: " +Qid +  " Qvotes: " + Qvotes + " QuestionText: " + QuestionText + " QTopics: " + QTopics + " OwnerNickname: " + OwnerNickname + " Created: " + Created + " QRating: " + QRating +" Answers: " + Answers );
+		System.out.println("Qid: " +Qid +  " Qvotes: " + Qvotes + " QuestionText: " + QuestionText + " OwnerNickname: " + OwnerNickname + " Created: " + Created + " QRating: " + QRating +" Answers: " + Answers );
 	}
 	
 	

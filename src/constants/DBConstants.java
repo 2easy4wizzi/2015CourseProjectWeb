@@ -40,7 +40,6 @@ public interface DBConstants
 	public final String CREATE_QUESTIONS_TABLE =  "CREATE TABLE TBL_QUESTIONS("
 											+ "QId INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,"
 											+ "QuestionText varchar(300) NOT NULL,"
-											+ "QTopics varchar(1000),"
 											+ "OwnerNickname varchar(20),"
 											+ "QRating double DEFAULT 0,"
 											+ "QVotes INT DEFAULT 0,"
@@ -48,7 +47,7 @@ public interface DBConstants
 											+ "Answers INT DEFAULT 0,"
 											+ "FOREIGN KEY (OwnerNickname) REFERENCES TBL_USERS(Nickname)"
 											+ ")";
-	public final String INSERT_QUESTION_STMT = "INSERT INTO TBL_QUESTIONS (QuestionText, QTopics, OwnerNickname, QRating, QVotes, Created) VALUES(?,?,?,DEFAULT,DEFAULT,DEFAULT)";
+	public final String INSERT_QUESTION_STMT = "INSERT INTO TBL_QUESTIONS (QuestionText, OwnerNickname, QRating, QVotes, Created) VALUES(?,?,DEFAULT,DEFAULT,DEFAULT)";
 	public final String SELECT_TOP_20_NEW_QUESTIONS_BY_TIMESTAMP_STMT = "SELECT * FROM TBL_QUESTIONS WHERE Answers=0 ORDER BY Created DESC OFFSET ? ROWS FETCH NEXT 20 ROWS ONLY";
 	public final String SELECT_TOP_20_QUESTIONS_BY_TIMESTAMP_STMT = "SELECT * FROM TBL_QUESTIONS ORDER BY QRating DESC OFFSET ? ROWS FETCH NEXT 20 ROWS ONLY";
 	public final String SELECT_TOP_20_QUESTIONS_BY_TOPIC_STMT = "SELECT TBL_QUESTIONS.* FROM TBL_TOPICS INNER JOIN TBL_QUESTIONS ON TBL_TOPICS.QId=TBL_QUESTIONS.QId where TBL_TOPICS.QTopics=? OFFSET ? ROWS FETCH NEXT 20 ROWS ONLY";
@@ -125,7 +124,7 @@ public interface DBConstants
 	//public final String SELECT_QID_LIST_BY_TOPICS_STMT = "SELECT QId FROM TBL_TOPICS WHERE QTopics=?";
 	public final String SELECT_20_MOST_POPULAR_TOPICS_STMT = "SELECT TBL_TOPICS.QTopics, sum(TBL_QUESTIONS.QRating) as Sumup FROM TBL_TOPICS INNER JOIN TBL_QUESTIONS ON TBL_TOPICS.QId=TBL_QUESTIONS.QId GROUP BY TBL_TOPICS.QTopics ORDER BY sumup desc OFFSET ? ROWS FETCH NEXT 20 ROWS ONLY";
 	public final String SELECT_COUNT_TOPICS_STMT = "SELECT COUNT (DISTINCT QTopics) FROM TBL_TOPICS";
-	
+	public final String SELECT_TOP_5_TOPICS_BY_POPULARITY_STMT = "SELECT TBL_TOPICS.qtopics, sum(TBL_QUESTIONS.qvotes) as sigma FROM TBL_ANSWERS INNER JOIN TBL_QUESTIONS ON TBL_ANSWERS.QId=TBL_QUESTIONS.QId inner join TBL_TOPICS ON TBL_TOPICS.QId=TBL_QUESTIONS.QId where TBL_ANSWERS.OwnerNickname = ? group by TBL_TOPICS.qtopics order by sigma desc FETCH NEXT 5 ROWS ONLY";
 	
 
 
