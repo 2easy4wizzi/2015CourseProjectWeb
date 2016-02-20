@@ -74,7 +74,7 @@ public class LoginServlet extends HttpServlet {
 			if(uri.equals("Register"))
 			{
 				String PhotoUrl = request.getParameter("photo");
-				if(PhotoUrl == null){
+				if(PhotoUrl == null || PhotoUrl=="" ){
 					PhotoUrl = "https://en.opensuse.org/images/0/0b/Icon-user.png";
 				}
 				User user = new User(request.getParameter("username"),
@@ -103,7 +103,7 @@ public class LoginServlet extends HttpServlet {
 					else
 					{	
 						PreparedStatement ps = conn.prepareStatement(DBConstants.INSERT_USER_STMT);
-						user.print();
+						//user.print();
 						ps.setString(1, user.getUserName());
 						ps.setString(2, user.getPassword());
 						ps.setString(3, user.getNickname());

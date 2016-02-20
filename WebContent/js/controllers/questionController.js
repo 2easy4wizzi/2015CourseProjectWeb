@@ -111,8 +111,8 @@ app.controller('questionController', ['$scope', '$http','$location',
 								else{//there are questions
 									
 								}
-								$scope.questions = res;
-								return;
+								$scope.get20NewQuestions($scope.from);
+								//return;
 							}										
 						}).error(function(error) {
 							alert('somthing happend at update');
