@@ -29,6 +29,7 @@ import models.Answer;
 import models.Question;
 import models.Topic;
 import models.User;
+import models.UserQuestionUnswer;
 
 /**
  * Servlet implementation class UserProfileServlet
@@ -206,9 +207,7 @@ public class UserProfileServlet extends HttpServlet {
 			
 		}else if(uri.equals("getQuestionForAnswer")){
 			try{
-				Collection<Question> last5AnsweredQuestions = new ArrayList<Question>();
-				Collection<Answer> answer = new ArrayList<Answer>(); 
-				
+				Collection<UserQuestionUnswer> last5AnsweredQuestions = new ArrayList<UserQuestionUnswer>();
 			
 				PreparedStatement psAnswer = null;
 				PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_5_LAST_UNSWERED_QUESTIONS_BY_USER_STMT);
@@ -230,32 +229,20 @@ public class UserProfileServlet extends HttpServlet {
 					psAnswer.setString(2, userForShowing);
 					ResultSet rsA = (ResultSet) psAnswer.executeQuery();
 					
-					while (rsA.next()){
-						java.sql.Timestamp tsA = java.sql.Timestamp.valueOf(rsA.getString(6));
-						long tsATime = tsA.getTime();
-						DateFormat dfA = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-						java.sql.Date startDateA = new java.sql.Date(tsA.getTime());
-						String createdHumanA = dfA.format(startDateA);
-						answer.add(new Answer(rsA.getInt(1),rsA.getInt(2),rsA.getString(3),rsA.getString(4),rsA.getInt(5),createdHumanA,tsATime));
+						while (rsA.next()){
+						last5AnsweredQuestions.add(new UserQuestionUnswer(rsA.getInt(2),rsA.getString(3),rs.getString(2),rsA.getInt(5),Qrating,createdHuman,tsTime));
 					}
-
-					last5AnsweredQuestions.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),Qrating,rs.getInt(5),createdHuman ,tsTime,rs.getInt(7)));
 					psAnswer.close();
 					rsA.close();
 				}
 				
-				String answersJson = gson.toJson(answer, DBConstants.NEW_ANSWER_COLLECTION);
-				String last5AnsweredQuestionsJson = gson.toJson(last5AnsweredQuestions, DBConstants.NEW_QUESTION_COLLECTION);
-				String outRespone = "[" + last5AnsweredQuestionsJson + "," + answersJson + "]";
-
-				out.println(outRespone);
+				String last5AnsweredQuestionsJson = gson.toJson(last5AnsweredQuestions, DBConstants.NEW_ANSWER_COLLECTION);
+				out.println(last5AnsweredQuestionsJson);
 				out.close();
 
-				rs.close();
-				
+				rs.close();				
 				ps.close();
-				
-				
+								
 			}catch (SQLException  e) 
 				{
 				getServletContext().log("Error while closing connection", e);
@@ -265,21 +252,8 @@ public class UserProfileServlet extends HttpServlet {
 				conn.close();
 			}
 			
-			
-		
-			
-			
-		}
-			
-			
-			
-			
-			
-			
-		
-		
-		
-		}
+		}		
+	}
 		catch (SQLException | NamingException e) 
 		{
 			e.printStackTrace();

@@ -8,6 +8,7 @@ import models.Answer;
 import models.Question;
 import models.Topic;
 import models.User;
+import models.UserQuestionUnswer;
 
 public interface DBConstants 
 {
@@ -19,7 +20,7 @@ public interface DBConstants
     public final Type NEW_TOPICS_COLLECTION   = new TypeToken<Collection<String>>() {}.getType();
 	public final Type NEW_USER_COLLECTION = new TypeToken<Collection<User>>() {}.getType();
 	public final Type NEW_TOPIC_COLLECTION = new TypeToken<Collection<Topic>>() {}.getType();
-    //public final Type NEW_EXPERTISE_COLLECTION   = new TypeToken<Collection<String>>() {}.getType();
+    public final Type NEW_USER_QUESTION_UNSWER_COLLECTION   = new TypeToken<Collection<UserQuestionUnswer>>() {}.getType();
 	
 	public final String TOPICS_SERVLET_NAME = "TopicsServlet";
 	

@@ -33,76 +33,62 @@
           			User Rating:{{user.UserRating}}<br>
           			<hr>
                     expertise:
-                     <table class="table table-hover">
-			    <thead>
-			      <tr ng-repeat="expertise in expertises">
-				 <th>
-				{{expertise.Topic}} popularuty: {{expertise.Popularity}}
-				 </th>
-			      </tr>
-			    </thead>
-			    <tbody>
-			        </tbody>
+               <table class="table table-hover">
+				    <thead>
+				      <tr ng-repeat="expertise in expertises">
+					 <th>
+					{{expertise.Topic}} popularuty: {{expertise.Popularity}}
+					 </th>
+				      </tr>
+				    </thead>
 			  </table>	
-	
-					 <hr>
-					 Questions:
-					 <table class="table table-hover">
+			  <hr>
+			  Questions:
+		      <table class="table table-hover">
 			    <thead>
 			      <tr ng-repeat="question in questions">
 			        <th><div>Text:{{question.QuestionText}}</div> 			
-				<div>date:{{question.CreatedHuman}}</div>
-				<div>Rating  :{{question.QRating}}</div>	
-				<div>Qid     :{{question.Qid}}</div>
-				 <div ng-controller="topicsC" ng-init="getTopics(question.Qid)">
+				    <div>date:{{question.CreatedHuman}}</div>
+				    <div>Rating  :{{question.QRating}}</div>	
+			    	<div>Qid     :{{question.Qid}}</div>
+				    <div ng-controller="topicsC" ng-init="getTopics(question.Qid)">
 					<div ng-repeat="topic in topics">
-						topic {{$index+1}}-{{topic}}
+					topic {{$index+1}}-{{topic}}
 					</div>
-				</div></th>
-			      </tr>
+				    </div></th>
+			        </tr>
 			    </thead>
-			    <tbody>
-			        </tbody>
-			  </table>	
-			  
+			  </table>				  
 			  <hr>
 			  User’s 5 last answered questions:
 			  <hr>
-			 
+			  <div ng-repeat="answerQuestion in answersQuestions">
 			   <table class="table table--striped">
-			    <thead>
-			  
-			     <tr ng-repeat="questionForAnswer in questionsForAnswer">
-			        <th><div>Text:{{questionForAnswer.QuestionText}}</div> 			
-				<div>date:{{questionForAnswer.CreatedHuman}}</div>
-				<div>Rating  :{{questionForAnswer.QRating}}</div>	
-				<div>Qid     :{{questionForAnswer.Qid}}</div>
-				 <div ng-controller="topicsC" ng-init="getTopics(questionForAnswer.Qid)">
-					<div ng-repeat="topic in topics">
+			    <thead>		  
+			     <tr>
+				     <th><div>Text:{{answerQuestion.QuestionText}}</div> 			
+				   	 <div>date:{{answerQuestion.CreatedHuman}}</div>
+					 <div>Rating  :{{answerQuestion.QRating}}</div>
+					 <div ng-controller="topicsC" ng-init="getTopics(answerQuestion.Qid)">
+					 <div ng-repeat="topic in topics">
 						topic {{$index+1}}-{{topic}}
 					</div>
-				</div>
-			<div ng-repeat= "answer in answers">
-				Answer:{{answer.AnswerText}}<br>
-        		Answer's Rating: {{answer.AVotes}}
-				</div>
-				</th>
-			      </tr>
-			      
+					</div>
+					</th>
+			      </tr>			      
 			    </thead>
 			    <tbody>
-			    <tr>
-                <td>
-
-        
-		        </td>
-		        </tr>
-			        </tbody>
+				    <tr>
+	                  <td>
+						Answer:{{answerQuestion.AnswerText}}<br>
+		        		Answer's Rating: {{answerQuestion.AVotes}}
+			          </td>
+			        </tr>
+			    </tbody>
 			  </table>
-				</div>
-
-
-	
-</div>
+			  <hr>
+			  </div> 
+		</div>
+   </div>
 </body>
 </html>
