@@ -1,5 +1,3 @@
-var app = angular.module("logAndReg", []);
-
 app.controller('logAndRegC', ['$scope', '$http',
 	function ($scope, $http) 
 	{

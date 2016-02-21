@@ -12,31 +12,14 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	
+	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript" src="js/controllers/loginAndRegisterController.js"></script> 
-
-	<style>
-	body {
-	    background-image: url("Images/BackGround.jpg");
-	    background-attachment: fixed;
-	    background-size: 100%;
-	    background-repeat: no-repeat;
-	    background-opacity: 0.4;
+	<link rel="stylesheet" type="text/css" href="css/login.css" />
 	
-	}
-	#divElement{
-	    position: absolute;
-	    top: 30%;
-	    left: 50%;
-	    margin-top: -50px;
-	    margin-left: -50px;
-	    width: 100px;
-	    height: 100px;
-	}
-	</style>
 </head>	
 <body>
 <div class="container-fluid">
-	<div ng-app="logAndReg" ng-controller="logAndRegC" >
+	<div ng-app="main" ng-controller="logAndRegC" >
 		<form novalidate name="loginForm" >
 			<div class="row">
 				<div class="col-md-2"><h3>Do it Yourself</h3></div>
@@ -51,13 +34,13 @@
 			    </div>
 			</div>
 		</form>
-			<hr/>
+			
 			<!-- page -->
 		<form novalidate name="regForm">	
 			<div id="page content">		
 				<div class="row">
 					<div class="col-md-9">
-						background picture here
+						background picture here				
 					</div>
 					<div class="col-md-3"> 
 				    	<!-- registration input and button -->
