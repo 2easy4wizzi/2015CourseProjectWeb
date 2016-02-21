@@ -64,9 +64,45 @@ app.controller('userProfileC', ['$scope', '$http','$location',
 				});
       		
 	}
+	$scope.getQuestionForAnswer = function () 
+	{			
+		$http(
+			{
+				method : 'POST',
+				url : 'http://localhost:8080/webGilad/UserProfileServlet/getQuestionForAnswer',
+				params : { userToShow : name},
+				headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
+				}).success(function(response) 
+				{	
 	
-	
-	
-	
+				$scope.questionsForAnswer = response[0];
+				$scope.answers = response[1];
+			
+				
+				
+					
+				}).error(function(error) {
+					alert('somthing happend at getQuestionForAnswer');
+				});
       		
+	}
+	/*$scope.getUsersUnswer = function (Qid) 
+	{			
+		$http(
+			{
+				method : 'POST',
+				url : 'http://localhost:8080/webGilad/UserProfileServlet/getUsersUnswer',
+				params : { userToShow : name, QuestionId : Qid},
+				headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
+				}).success(function(response) 
+				{
+					alert(response[0]);
+					$scope.answer = response[0];	
+					
+				}).error(function(error) {
+					alert('somthing happend at getUsersUnswer');
+				});
+      		
+	}
+     	*/	
 }]);

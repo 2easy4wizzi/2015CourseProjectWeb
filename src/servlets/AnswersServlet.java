@@ -416,10 +416,7 @@ public class AnswersServlet extends HttpServlet {
 				finally{
 					conn.close();
 				}
-				
-				
-				
-				
+
 				out.close();
 			}
 			
