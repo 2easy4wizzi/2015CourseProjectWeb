@@ -26,23 +26,23 @@
 				<div class="container-fluid">
 						<ul class="nav navbar-nav">
 				
-							<li class="navbar-header" ng-class="{ active: isActive('/homePage.html')}"><a class="navbar-brand" href="homePage.html">Newly Questions</a></li>							
-							<li ng-class="{ active: isActive('/allQuestions.html')}"><a href="allQuestions.html">All Questions</a></li>
-							<li ng-class="{ active: isActive('/topics.html')}"><a href="topics.html">Topics</a></li>
+							<li class="navbar-header" ng-class="{ active: isActive('/homePage.html')}"><a class="navbar-brand" href="homePage.html">Home</a></li>							
+						<!-- 	<li ng-class="{ active: isActive('/allQuestions.html')}"><a href="allQuestions.html">All Questions</a></li>
+							<li ng-class="{ active: isActive('/topics.html')}"><a href="topics.html">Topics</a></li>  -->
 							<li ng-class="{ active: isActive('/askedQuestion.html')}"><a href="askedQuestion.html">Ask Question</a></li>
 							<li ng-class="{ active: isActive('/leaderBoard.html')}"><a href="leaderBoard.html">User's leaderboard</a></li>
 							<li ng-class="{ active: isActive('/userProfile.html')}"><a href="userProfile.html">Profile</a></li>
 							
-							<!-- 
+						
 							<li class = "dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Browse question <span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Browse by: {{}}<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">Existing questions</a></li>
-								<li><a href="#">Questions by topics</a></li>
-					      		<li><a href="#">Newly Questions</a></li>					
+								<li><a href="homePage.html">Newly Questions</a></li>
+								<li><a href="allQuestions.html">Existing questions</a></li>
+								<li><a  href="topics.html">Topics</a></li>		      							
 							</ul>
 							</li>
--->
+
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
 							<li img ng-src="{{photoUrl}}" alt="This is the User Profile picture " width="50"/><a>Welcome, {{nickname}}</a></li>
