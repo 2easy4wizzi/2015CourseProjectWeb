@@ -12,11 +12,21 @@ body{
     background-opacity: 0.4;	
 }
 
+#moveToOtherForm{
+	color: black;
+}
 form{
-	text-align: center;	
+	font-family: 'Helvetica Neue';
+	font-size: 24px;
+	font-style: italic;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+	text-align: center;
 }
 
-form, #pageLogo{
+#pageLogo{
+	color: blue;
 	font-family: 'Helvetica Neue';
 	font-size: 24px;
 	font-style: italic;
