@@ -16,6 +16,7 @@ app.controller('logAndRegC', ['$scope', '$http',
 		 $scope.description = null;
 		 $scope.photoUrl = null;
 		 
+		 $scope.showLoginView = true;
  
 	 
  $scope.loginUsername= 'gilad';
