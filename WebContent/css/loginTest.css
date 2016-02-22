@@ -1,0 +1,53 @@
+html {
+    display: inherit;
+}
+body{
+	height: 100%;
+    background-image: url("../Images/BackGround.jpg");
+    background-attachment: fixed;
+    background-size: cover; 
+    background-repeat: no-repeat;	
+}
+
+#example1{
+	background-color: #777171;
+	opacity: 0.93; 
+
+	
+	
+}
+#example2{
+	background-color: #777171;
+	opacity: 0.93; 
+	height: 930px;
+}
+
+input:focus, textarea:focus{
+	color: red;
+	background-color:yellow;
+}
+
+input::-webkit-input-placeholder {
+color: blue !important;
+}
+textarea::-webkit-input-placeholder {
+color: blue !important;
+}
+
+#example1 > h1{
+	color: red;
+}
+/*
+	opacity: 0.93; //tansperanse
+	background-color: blue;
+	background-image: url("../Images/BackGround.jpg");
+	
+	font-family: 'Helvetica Neue';
+	font-size: 24px;
+	font-style: italic;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+	
+	
+*/

@@ -14,7 +14,7 @@ app.controller('logAndRegC', ['$scope', '$http',
 		 $scope.regPass = null;
 		 $scope.nickname = null;
 		 $scope.description = null;
-		 $scope.photo = null;
+		 $scope.photoUrl = null;
 		 
  
 	 
@@ -153,7 +153,7 @@ app.controller('logAndRegC', ['$scope', '$http',
 			 $scope.regPass = "";
 			 $scope.nickname = "";
 			 $scope.description = "";
-			 $scope.photo = ""; 
+			 $scope.photoUrl = ""; 
 	     }
 	     $scope.logClear=function () {
 	    	 $scope.logErr="";
