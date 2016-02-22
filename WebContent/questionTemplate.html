@@ -20,19 +20,22 @@
 <body>
 
 <div class=question>
-	<div>Text:{{question.QuestionText}}</div> 			
-	<div>date:{{question.CreatedHuman}}</div>
-	<div ng-controller="topicsC" ng-init="getTopics(question.Qid)">
-		<div ng-repeat="topic in topics">
-			topic {{$index+1}}-{{topic}}
-		</div>
+  <div class="jumbotron">
+  	
+					<div>Text:{{question.QuestionText}}</div> 			
+					<div>date:{{question.CreatedHuman}}</div>
+					<div ng-controller="topicsC" ng-init="getTopics(question.Qid)">
+						<div ng-repeat="topic in topics">
+							topic {{$index+1}}-{{topic}}
+						</div>
+					</div>
+					<div>Nickname:{{question.OwnerNickname}}</div>
+				  	<div>Rating  :{{question.QRating}}</div>	
+					<div>QVotes  :{{question.Qvotes}}</div>
+					<div>Qid     :{{question.Qid}}</div>
+					<button ng-click="addVote(question.Qid,1)" type="button" id="BtnUp" class="btn btn-success glyphicon glyphicon-thumbs-up"  data-loading-text=" ... "></button>
+					<button ng-click="addVote(question.Qid,-1)"type="button" id="BtnDown" class="btn btn-success glyphicon glyphicon-thumbs-down" data-loading-text=" ... "></button>
 	</div>
-	<div>Nickname:{{question.OwnerNickname}}</div>
-  	<div>Rating  :{{question.QRating}}</div>	
-	<div>QVotes  :{{question.Qvotes}}</div>
-	<div>Qid     :{{question.Qid}}</div>
-	<button ng-click="addVote(question.Qid,1)" type="button" id="BtnUp" class="btn btn-success glyphicon glyphicon-thumbs-up"  data-loading-text=" ... "></button>
-	<button ng-click="addVote(question.Qid,-1)"type="button" id="BtnDown" class="btn btn-success glyphicon glyphicon-thumbs-down" data-loading-text=" ... "></button>
 		<div data-ng-if="focus != 'questionsByNewly'">    		
  			<div ng-controller="answersService" ng-init="getAnswers(question.Qid);">
    			<div><h4>there are {{question.Answers}} answers for this Question </h4></div>	 
