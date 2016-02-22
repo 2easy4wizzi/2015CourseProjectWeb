@@ -28,21 +28,21 @@
 			    <form novalidate ng-show="showLoginView" name="loginForm" ng-submit="Login()">
 			    	<div>Login Page:</div>
 			    	<div class="form-group">
-			    		<input class="form-control" type="text" placeholder="User Name" maxlength="10" ng-model="loginUsername" required/><span class="text-danger">{{logUNError}} </span>
-					    <input class="form-control" type="password" placeholder="Password" maxlength="8"  ng-model="loginPass" required/><span class="text-danger">{{logPWError}}</span>
+			    		<input class="form-control" type="text" placeholder="User Name" maxlength="10" ng-model="loginUsername" required/><span novalidate ng-hide="showDangerUserName" class="glyphicon glyphicon-remove-sign" href="#" data-toggle="tooltip" data-placement="right" ng-attr-title="{{logUNError}}"></span>
+					    <input class="form-control" type="password" placeholder="Password" maxlength="8"  ng-model="loginPass" required/><span novalidate ng-hide="showDangerPassword" class="glyphicon glyphicon-remove-sign" href="#" data-toggle="tooltip" data-placement="right" ng-attr-title="{{logPWError}}"></span>
 				    </div>
 				    <span class="form-inline">
 					    <input class="form-control" type="submit" value="login"/>
 					    <input class="form-control" type="button" value="clear" ng-click="logClear()"/>
 					</span>    
-					    <a id="moveToOtherForm" href="" ng-click="showLoginView = !showLoginView">to reg</a>
+					    <a id="moveToOtherForm" href="" ng-click="showLoginView = !showLoginView">To registration</a>
 			    </form>
 			    <form novalidate ng-hide="showLoginView" name="regForm" ng-submit="Register()">
 			    <div>Registration Page:</div>
 			    <div class="form-group">
-			    	<input class="form-control" type="text" placeholder="User Name" maxlength="10" ng-model="regUsername" required   /><span class="text-danger">{{regUNError}}</span>
-				    <input class="form-control" type="password" placeholder="Password" maxlength="8" ng-model="regPass"  required   /><span class="text-danger">{{regPWError}}</span>
-				    <input class="form-control" type="text" placeholder="User nickname" maxlength="20" ng-model="nickname" required    /><span class="text-danger">{{regNNError}}</span>
+			    	<input class="form-control" type="text" placeholder="User Name" maxlength="10" ng-model="regUsername" required   /><span novalidate ng-hide="showDangerRegUN" class="glyphicon glyphicon-remove-sign" href="#" data-toggle="tooltip" data-placement="right" ng-attr-title="{{regUNError}}"></span>
+				    <input class="form-control" type="password" placeholder="Password" maxlength="8" ng-model="regPass"  required   /><span novalidate ng-hide="showDangerRegPW" class="glyphicon glyphicon-remove-sign" href="#" data-toggle="tooltip" data-placement="right"  ng-attr-title="{{regPWError}}"></span>
+				    <input class="form-control" type="text" placeholder="User nickname" maxlength="20" ng-model="nickname" required    /><span novalidate ng-hide="showDangerRegNN" class="glyphicon glyphicon-remove-sign" href="#" data-toggle="tooltip" data-placement="right" ng-attr-title="{{regNNError}}"></span>
 				    <textarea class="form-control" rows="3" cols="20" placeholder="Short description" maxlength="50" ng-model="description" ></textarea>   
 				    <input class="form-control" type="text" placeholder="Upload photo" ng-model="photoUrl"     />					    
 			    </div>

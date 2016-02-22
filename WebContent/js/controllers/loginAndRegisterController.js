@@ -17,6 +17,11 @@ app.controller('logAndRegC', ['$scope', '$http',
 		 $scope.photoUrl = null;
 		 
 		 $scope.showLoginView = true;
+		 $scope.showDangerRegNN = true;
+		 $scope.showDangerUserName = true;
+		 $scope.showDangerPassword = true;
+		 $scope.showDangerRegUN = true;
+		 $scope.showDangerRegPW = true;
  
 	 
  $scope.loginUsername= 'gilad';
@@ -33,16 +38,22 @@ app.controller('logAndRegC', ['$scope', '$http',
 	    	 $scope.logErr="";
 	    	 $scope.logUNError = "";
 	    	 $scope.logPWError = "";
+			 $scope.showDangerUserName = true;
+			 $scope.showDangerPassword = true;
 	    	 if($scope.loginUsername == null || $scope.loginPass == null || $scope.loginUsername == "" || $scope.loginPass == "")
 			 {
 				 if($scope.loginUsername == null || $scope.loginUsername == "")
 				 {
+					 $scope.showDangerUserName = false;
 					 $scope.logUNError = "must enter user name!";
 				 }
 				 if($scope.loginPass == null || $scope.loginPass == "")
 				 {
+					 $scope.showDangerPassword = false;
 					 $scope.logPWError = "must enter password!";
 				 }
+				 
+
 				 return;
 			 }	
 		     $http(
@@ -78,20 +89,27 @@ app.controller('logAndRegC', ['$scope', '$http',
 	     {
 	    	 $scope.regUNError = "";
 			 $scope.regNNError = "";
-			 $scope.regPWError="";	
+			 $scope.regPWError="";
+			 $scope.showDangerRegUN = true;
+			 $scope.showDangerRegPW = true;
+			 $scope.showDangerRegNN = true;
 			 
 			 if($scope.regUsername == null || $scope.regUsername =="" || $scope.regPass == null || $scope.regPass =="" || $scope.nickname == null || $scope.nickname =="")
 			 {
 				 if($scope.regUsername == null || $scope.regUsername == "")
 				 {
-					 $scope.regUNError = "must enter user name!";
+					$scope.showDangerRegUN = false;
+					$scope.regUNError = "must enter user name!";
+
 				 }
 				 if($scope.regPass == null || $scope.regPass == "")
 				 {
+					 $scope.showDangerRegPW = false;
 					 $scope.regPWError = "must enter password!";
 				 }
 				 if($scope.nickname == null || $scope.nickname == "")
 				 {
+					 $scope.showDangerRegNN = false;
 					 $scope.regNNError = "must enter nickname!";
 				 }
 				 return;
@@ -113,17 +131,20 @@ app.controller('logAndRegC', ['$scope', '$http',
 		    	
 		    	if (response == 2)
 	    		 {
-
+		    		 $scope.showDangerRegUN = false;
 		    		 $scope.regUNError = "User name exist";
 		    		 $scope.regUsername = "";
 	    		 }
 		    	 if (response == 3)
 	    		 {
+		    		 $scope.showDangerRegNN = false;
 		    		 $scope.regNNError = "Nick name exist";
 		    		 $scope.nickname = "";
 	    		 }
 		    	 if (response == 4)
 	    		 {
+		    		 $scope.showDangerRegUN = false;
+		    		 $scope.showDangerRegNN = false;
 		    		 $scope.regUNError = "User name exist"
 		    		 $scope.regNNError = "Nick name exist";
 		    		 $scope.regUsername = "";
@@ -139,6 +160,7 @@ app.controller('logAndRegC', ['$scope', '$http',
 	    		 {
 		    		 
 	    		 }
+		 
 		     })
 		     .error(function (error) 
 		     {
@@ -155,6 +177,8 @@ app.controller('logAndRegC', ['$scope', '$http',
 			 $scope.nickname = "";
 			 $scope.description = "";
 			 $scope.photoUrl = ""; 
+			 $scope.showDangerRegUN = true;
+			 $scope.showDangerRegNN = true;
 	     }
 	     $scope.logClear=function () {
 	    	 $scope.logErr="";
@@ -162,6 +186,9 @@ app.controller('logAndRegC', ['$scope', '$http',
 			 $scope.logPWError="";
 			 $scope.loginUsername = "";
 			 $scope.loginPass = "";
+			 $scope.showDangerUserName = true;
+			 $scope.showDangerPassword = true;
+			 
 	     }
 	     
 	 
