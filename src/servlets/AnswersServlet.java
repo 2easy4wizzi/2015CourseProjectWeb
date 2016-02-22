@@ -291,11 +291,19 @@ public class AnswersServlet extends HttpServlet {
 								answersAvgRating = rs.getDouble(1);
 							}
 				//System.out.println(answersAvgRating);			
-		
+							
+							ps = conn.prepareStatement(DBConstants.SELECT_QVOTES_BY_QID_STMT);	
+							ps.setInt(1, qid);
+							rs = ps.executeQuery();
+							int qvotes = 0;
+							while (rs.next()){
+								qvotes = rs.getInt(1);
+							}
+							double qRating = (((double)qvotes * 0.2) + (answersAvgRating * 0.8));
 							
 							ps = conn.prepareStatement(DBConstants.UPDATE_QRATING_BY_FORMULA_STMT);	
 							
-							ps.setDouble(1, answersAvgRating);
+							ps.setDouble(1, qRating);
 							ps.setInt(2, qid);
 							ps.executeUpdate();
 							
