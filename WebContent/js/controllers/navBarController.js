@@ -6,7 +6,19 @@ app.controller('navC', ['$scope', '$http','$location',
         var s = location.href;
         var fields = s.split("/");			
         var name1 = "/" + fields[4];			
-        var name2 = "/" + fields[4].slice(0, -1)
+        var name2 = "/" + fields[4].slice(0, -1);
+        var homePage = "/homePage.html";
+        var existing = "/allQuestions.html";
+        var topics = "/topics.html";
+        
+        if(name1 == homePage){
+        	$scope.browse = "Newly Questions";
+        }else if(name1 == existing){
+        	$scope.browse = "Existing Questions";	
+        }else if(name1 == topics){
+        	$scope.browse = "Topics";	
+        }
+        
         
         if(viewLocation == name1 || viewLocation == name2) { return true;}						
 	};
