@@ -24,7 +24,7 @@ app.controller('navC', ['$scope', '$http','$location',
 					}).success(function(response) {
 						
 				if (response == "") {
-					//window.location = "\loginAndRegister.html";
+					window.location = "\loginAndRegister.html";
 					//send do home page
 				} 
 				else 
