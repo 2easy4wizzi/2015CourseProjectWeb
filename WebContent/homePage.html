@@ -17,20 +17,7 @@
 <script type="text/javascript" src="js/controllers/navBarController.js"></script>
 <script type="text/javascript" src="js/directives/navBarDirective.js"></script>
 
-
-
-
-<style>
-#BtnDown{
-background : #3074AE;
-border : #e6f2ff;
-}
-#BtnUp{
-background :  #3074AE;
-border : #e6f2ff;
-}
-
-</style>
+<link rel="stylesheet" type="text/css" href="css/question.css"/>
 </head>
 
 <body>
@@ -41,8 +28,10 @@ border : #e6f2ff;
  				<div ng-repeat="question in questions" >
 					<div  data-ng-include src="'questionTemplate.html'"></div>	
 				</div>	
-				<button class="btn btn-primary" ng-click="prev()" ng-disabled="from==0">Previous</button>
-				<button class="btn btn-primary" ng-click="next()" ng-disabled="dontShowNextButton">Next</button>	
+				<div class="prevNextButton">
+					<button class="btn btn-primary" ng-click="prev()" ng-disabled="from==0">Previous</button>
+					<button class="btn btn-primary" ng-click="next()" ng-disabled="dontShowNextButton">Next</button>	
+				</div>
 			</div> 
 		</div>
 	</div>

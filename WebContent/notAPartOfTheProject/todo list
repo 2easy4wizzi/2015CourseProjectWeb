@@ -20,3 +20,5 @@
 #18- Hagay put a link to check out site
 #19- remove att check for null
 #20- Tabs names
+#21- load css of question once
+#22- replace all alert with console log
