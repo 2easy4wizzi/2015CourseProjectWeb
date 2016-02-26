@@ -44,7 +44,7 @@ public class LeaderBoardServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
@@ -52,16 +52,17 @@ public class LeaderBoardServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 
+	/**
+	 * this function is used to get 20 top user by rating from an offset given
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
 		try
 		{
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("LeaderBoardServlet") + "LeaderBoardServlet".length() + 1);
-//System.out.println(uri);
+			System.out.println("post: "+uri);
 			PrintWriter out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
-//user = new User("gilad","123","wizzi",null,null,0);
 			request.getSession().setAttribute("user", user);
 			if(user == null)
 			{
@@ -75,50 +76,45 @@ public class LeaderBoardServlet extends HttpServlet {
 		
 		
 		
-		if(uri.equals("getUsers"))
-			{
-				Collection<User> top20users = new ArrayList<User>();
-				Gson gson = new Gson();
-				try
+			if(uri.equals("getUsers"))
 				{
-					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_USERS_BY_USER_RATING_STMT);
-					ResultSet rs = (ResultSet) ps.executeQuery();
-					
-
-					
-					while (rs.next()){
-						double Urating = rs.getDouble(6);
-						DecimalFormat dfRating = new DecimalFormat("#.##");
-						String dxRating=dfRating.format(Urating);
-						Urating=Double.valueOf(dxRating);
-						top20users.add(new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),Urating));
+					Collection<User> top20users = new ArrayList<User>();
+					Gson gson = new Gson();
+					try
+					{
+						PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_USERS_BY_USER_RATING_STMT);
+						ResultSet rs = (ResultSet) ps.executeQuery();
+								
+						while (rs.next()){
+							double Urating = rs.getDouble(6);
+							DecimalFormat dfRating = new DecimalFormat("#.##");
+							String dxRating=dfRating.format(Urating);
+							Urating=Double.valueOf(dxRating);
+							top20users.add(new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),Urating));
+						}
+						rs.close();
+						ps.close();
 					}
-					
-					//conn.commit();
-					rs.close();
-					ps.close();
+					catch (SQLException  e) 
+					{
+						getServletContext().log("Error while closing connection", e);
+						response.sendError(500);// internal server error
+					}
+					finally{
+						conn.close();
+					}
+					String top20usersJson = gson.toJson(top20users, DBConstants.NEW_USER_COLLECTION);
+					out.println(top20usersJson);
+					out.close();
 				}
-				catch (SQLException  e) 
-				{
-					getServletContext().log("Error while closing connection", e);
-					response.sendError(500);// internal server error
-				}
-				finally{
-					conn.close();
-				}
-				String top20usersJson = gson.toJson(top20users, DBConstants.NEW_USER_COLLECTION);
-//System.out.println(top20usersJson);
-				out.println(top20usersJson);
-				out.close();
 			}
-		}
-		catch (SQLException | NamingException e) 
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-		}
+			catch (SQLException | NamingException e) 
+			{
+				e.printStackTrace();
+			}
+			finally
+			{
+			}
 	
 		
 		

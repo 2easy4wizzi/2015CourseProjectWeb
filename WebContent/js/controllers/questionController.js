@@ -67,7 +67,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 		
 		$http(
 				{
-					method : 'POST',
+					method : 'GET',
 					url : projectUrl + QuestionServlet +'getQuestionsByTopic',
 /*					url : 'http://localhost:8080/webGilad/QuestionsServlet/getQuestionsByTopic',
 */					params : {from: from, topic: topicPressed},
@@ -96,7 +96,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 		if(answerBoxOpen == 0){
 			$http(
 					{
-						method : 'POST',
+						method : 'GET',
 						url : projectUrl + QuestionServlet +'Update',
 						params : {from: $scope.from},
 						headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
@@ -126,7 +126,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 	{
 		$http(
 		{
-			method : 'POST',
+			method : 'GET',
 			url : projectUrl + QuestionServlet +'GetNewTop20',
 			params : { top20from: $scope.from},
 			headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
@@ -151,7 +151,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 	{	
 		$http(
 				{
-					method : 'POST',
+					method : 'GET',
 					url : projectUrl + QuestionServlet +'GetTop20',
 					params : { top20from: $scope.from},
 					headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
@@ -230,7 +230,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 	{
 		$http(
 				{
-					method : 'POST',
+					method : 'PUT',
 					url : projectUrl + QuestionServlet +'incQuestionAnswers',
 					params : { qid: qid },
 					headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
@@ -256,7 +256,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 	$scope.addVote = function(qid,voteValue){
 		$http(
 				{
-					method : 'POST',
+					method : 'PUT',
 					url : projectUrl + QuestionServlet +'addVote',
 					params : { qid: qid ,voteValue: voteValue},
 					headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
@@ -323,7 +323,7 @@ app.controller('answersService', ['$scope', '$http',
        	$scope.getAnswers = function(qid){
        		$http(
        		{
-       		method : 'POST',
+       		method : 'GET',
        		url : projectUrl + AnswerServlet + 'GetAnswers',
        		params : { qid: qid },
        		headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
@@ -348,7 +348,7 @@ app.controller('answersService', ['$scope', '$http',
        	$scope.addVote = function(qid,aid,voteValue){
        		$http(
        			{
-       				method : 'POST',
+       				method : 'PUT',
        				url : projectUrl + AnswerServlet + 'addVote',
        				params : { qid: qid ,aid: aid ,voteValue: voteValue},
        				headers : {'Content-Type' : 'application/x-www-form-urlencoded'}

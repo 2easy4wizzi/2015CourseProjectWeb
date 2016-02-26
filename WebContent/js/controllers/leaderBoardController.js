@@ -6,7 +6,7 @@ app.controller('leaderBoardC', ['$scope', '$http','$location',
 	{
 		$http(
 		{
-			method : 'POST',
+			method : 'GET',
 			url : 'http://localhost:8080/webGilad/LeaderBoardServlet/getUsers',
 			params : {},
 			headers : {'Content-Type' : 'application/x-www-form-urlencoded'}

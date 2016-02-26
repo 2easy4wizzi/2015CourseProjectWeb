@@ -17,7 +17,7 @@ app.controller('topicsC', ['$scope', '$http','$location',function($scope, $http,
 	{
 		$http(
 		{
-			method : 'POST',
+			method : 'GET',
 			url : projectUrl + TopicsServlet + 'calcPopularTopics',
 			params : {from: from},
 			headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
