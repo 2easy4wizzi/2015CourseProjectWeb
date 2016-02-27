@@ -52,7 +52,7 @@ app.controller('topicsC', ['$scope', '$http','$location',function($scope, $http,
 	$scope.getTopics = function (qid) {
 		$http(
 				{
-					method : 'POST',
+					method : 'GET',
 					url : projectUrl + TopicsServlet + 'GetTopics',
 					params : {qid: qid},
 					headers : { 'Content-Type' : 'application/x-www-form-urlencoded' }

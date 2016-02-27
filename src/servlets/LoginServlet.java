@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Enumeration;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -18,6 +17,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import constants.DBConstants;
 import models.User;
+
+/**
+ * Servlet implementation class LoginServlet.
+ * It deals with requests of login and registration
+ * @author gilad eini
+ * @author ilana veitzblit
+ */
 
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -70,7 +76,15 @@ public class LoginServlet extends HttpServlet {
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("LoginServlet") + "LoginServlet".length() + 1);
 			
-			
+			/**
+			 * this segment get user details and see if the user can register under this details
+			 * @param username the username requested by the user
+			 * @param password the password requested by the user
+			 * @param nickname the nickname requested by the user
+			 * @param description the description given by the user
+			 * @param PhotoUrl the url photo given by the user
+			 * @return if username and/or nickname already taken returns error
+			 */
 			if(uri.equals("Register"))
 			{
 				String PhotoUrl = request.getParameter("photo");
@@ -130,6 +144,12 @@ public class LoginServlet extends HttpServlet {
 					out.close();
 				}
 			}
+			/**
+			 * this segment get user name and password and checks if they exist in DB.
+			 * @param username the username given by user
+			 * @param password the password given by user
+			 * @return on failure return eeror string
+			 */
 			else if(uri.equals("Login"))
 			{
 				try

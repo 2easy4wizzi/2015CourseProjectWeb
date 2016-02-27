@@ -25,9 +25,10 @@ import com.google.gson.Gson;
 import constants.DBConstants;
 import models.Topic;
 
-
 /**
- * Servlet implementation class CalcPopularTopics
+ * Servlet implementation class CalcPopularTopics. It deals with requests if topics
+ * @author gilad eini
+ * @author ilana veitzblit
  */
 public class TopicsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -46,6 +47,9 @@ public class TopicsServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    /**
+     * doGet is used to get info from the servlet. depending on the js function that calls doGet, different info will be fetched.
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Enumeration<String> params = request.getParameterNames(); while(params.hasMoreElements()){String paramName = (String)params.nextElement();System.out.println("Attribute: "+paramName+", Value: "+request.getParameter(paramName));}
 		try
@@ -57,6 +61,11 @@ public class TopicsServlet extends HttpServlet {
 			Context context = new InitialContext();
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
 			Connection conn = ds.getConnection();
+			/**
+			 * this segment gets the top 20 MOST popular topics from an offset. in addtion, it also see if the "next button" should apear in the html.
+			 * @param from - offset to get 20 questions from it.
+			 * @return array of 20 most popular questions from an offset + boolean that notify if the next button will stay on
+			 */
 			if(uri.equals("calcPopularTopics"))
 			{
 				Collection<Topic>top20mostPopularFrom = new ArrayList<Topic>();
@@ -111,6 +120,11 @@ public class TopicsServlet extends HttpServlet {
 					out.close();
 				}
 			}
+			/**
+			 * this segment fetch all the topics of a question to be presented in the question view.
+			 * @param qid - the question id 
+			 * @return array of all topic belong to the question
+			 */
 			else if(uri.equals("GetTopics"))
 			{
 				Collection<String> topics = new ArrayList<String>();

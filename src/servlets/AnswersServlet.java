@@ -30,8 +30,13 @@ import models.Answer;
 
 import models.User;
 
+
+
 /**
- * Servlet implementation class AnswersServlet
+ * Servlet implementation class AnswersServlet.
+ * It deals with requests of answers
+ * @author gilad eini
+ * @author ilana veitzblit
  */
 public class AnswersServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

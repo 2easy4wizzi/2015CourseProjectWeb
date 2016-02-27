@@ -16,8 +16,7 @@ app.controller('userProfileC', ['$scope', '$http','$location',
 	{			
 		$http(
 			{
-				method : 'POST',
-				
+				method : 'GET',				
 				url : 'http://localhost:8080/webGilad/UserProfileServlet/getUserDetails',
 				params : { userToShow : name},
 				headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
@@ -34,7 +33,7 @@ app.controller('userProfileC', ['$scope', '$http','$location',
 	{			
 		$http(
 			{
-				method : 'POST',
+				method : 'GET',
 				url : 'http://localhost:8080/webGilad/UserProfileServlet/last5Questions',
 				params : { userToShow : name},
 				headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
@@ -51,7 +50,7 @@ app.controller('userProfileC', ['$scope', '$http','$location',
 	{			
 		$http(
 			{
-				method : 'POST',
+				method : 'GET',
 				url : 'http://localhost:8080/webGilad/UserProfileServlet/getExpertise',
 				params : { userToShow : name},
 				headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
@@ -68,7 +67,7 @@ app.controller('userProfileC', ['$scope', '$http','$location',
 	{			
 		$http(
 			{
-				method : 'POST',
+				method : 'GET',
 				url : 'http://localhost:8080/webGilad/UserProfileServlet/getQuestionForAnswer',
 				params : { userToShow : name},
 				headers : {'Content-Type' : 'application/x-www-form-urlencoded'}

@@ -11,6 +11,8 @@ import models.User;
 
 /**
  * Servlet implementation class GetSessionUserNameServlet
+ * @author gilad eini
+ * @author ilana veitzblit
  */
 public class GetSessionUserNameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

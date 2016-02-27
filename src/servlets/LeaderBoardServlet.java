@@ -1,14 +1,14 @@
 package servlets;
 
+
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -27,8 +27,11 @@ import com.google.gson.Gson;
 import constants.DBConstants;
 import models.User;
 
+
 /**
  * Servlet implementation class LeaderBoard
+ * @author gilad eini
+ * @author ilana veitzblit
  */
 public class LeaderBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -38,14 +41,12 @@ public class LeaderBoardServlet extends HttpServlet {
      */
     public LeaderBoardServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -60,16 +61,10 @@ public class LeaderBoardServlet extends HttpServlet {
 		{
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("LeaderBoardServlet") + "LeaderBoardServlet".length() + 1);
-			System.out.println("post: "+uri);
+			System.out.println("GET: "+uri);
 			PrintWriter out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
 			request.getSession().setAttribute("user", user);
-			if(user == null)
-			{
-				out.println("0");
-				out.close();
-				return;
-			}
 			Context context = new InitialContext();
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
 			Connection conn = ds.getConnection();
@@ -114,14 +109,8 @@ public class LeaderBoardServlet extends HttpServlet {
 			}
 			finally
 			{
-			}
-	
-		
-		
+			}	
 	}
-
-
-
-	}
+}
 
 

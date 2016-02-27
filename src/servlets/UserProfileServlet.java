@@ -25,14 +25,16 @@ import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import com.google.gson.Gson;
 
 import constants.DBConstants;
-import models.Answer;
 import models.Question;
 import models.Topic;
 import models.User;
 import models.UserQuestionUnswer;
 
+
 /**
  * Servlet implementation class UserProfileServlet
+ * @author gilad eini
+ * @author ilana veitzblit
  */
 public class UserProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -42,37 +44,25 @@ public class UserProfileServlet extends HttpServlet {
      */
     public UserProfileServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * this function implements get request in the user profile domain
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try
 		{
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("UserProfileServlet") + "UserProfileServlet".length() + 1);
-//System.out.println(uri);
+			System.out.println("get- " + uri);
 			PrintWriter out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
-//user = new User("gilad","123","wizzi",null,null,0);
 			request.getSession().setAttribute("user", user);
-			if(user == null)
-			{
-				out.println("0");
-				out.close();
-				return;
-			}
 			Context context = new InitialContext();
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
 			Connection conn = ds.getConnection();
@@ -84,23 +74,22 @@ public class UserProfileServlet extends HttpServlet {
 				userForShowing = userA.getNickname();
 			}
 			else{
-				userForShowing = request.getParameter("userToShow");
-				
+				userForShowing = request.getParameter("userToShow");			
 			}
-		
+			/**
+			 * this segment gets the information of a user that was clicked on
+			 * @param userToShow the nickname of the user requested
+			 * @return the user clicked details
+			 */
 			if(uri.equals("getUserDetails"))
 			{				
 				Collection<User> userToShow = new ArrayList<User>();
-
 				try
 				{
 					
 					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_USER_BY_NICKNAME_STMT);
 					ps.setString(1, userForShowing);
-					ResultSet rs = (ResultSet) ps.executeQuery();
-					
-
-					
+					ResultSet rs = (ResultSet) ps.executeQuery();			
 					while (rs.next()){
 						double Urating = rs.getDouble(6);
 						DecimalFormat dfRating = new DecimalFormat("#.##");
@@ -108,22 +97,13 @@ public class UserProfileServlet extends HttpServlet {
 						Urating=Double.valueOf(dxRating);
 						userToShow.add(new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),Urating));
 					}
-					
-					
-					
 					String userDisplaed = gson.toJson(userToShow, DBConstants.NEW_QUESTION_COLLECTION);
-
 					out.println(userDisplaed);
-
 					out.close();
 					conn.commit();
 					rs.close();
 					ps.close();
-				}
-				
-				
-				
-				
+				}	
 				catch (SQLException  e) 
 				{
 					getServletContext().log("Error while closing connection", e);
@@ -134,6 +114,11 @@ public class UserProfileServlet extends HttpServlet {
 				}
 				
 			}
+			/**
+			 * this segment gets the last 5 question that the user that was clicked posted
+			 * @param userToShow the nickname of the user requested
+			 * @return array of 5 question if there are 5
+			 */
 			else if(uri.equals("last5Questions")){
 			
 				try{
@@ -174,76 +159,34 @@ public class UserProfileServlet extends HttpServlet {
 			finally{
 				conn.close();
 			}
-			
-		}else if(uri.equals("getExpertise")){
+		}
+			/**
+			 * this segment gets the last 5 question that the user that was clicked posted
+			 * @param userToShow the nickname of the user requested
+			 * @return array of 5 question if there are 5
+			 */
+			else if(uri.equals("getExpertise")){
 			
 			try{
 				Collection<Topic> expertise = new ArrayList<Topic>();
-		PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_5_TOPICS_BY_POPULARITY_STMT);
-
-		ps.setString(1, userForShowing);
-		ResultSet rs = (ResultSet) ps.executeQuery();
-		
-		while (rs.next()){
-			expertise.add(new Topic(rs.getString("QTopics") , rs.getDouble("sigma")));
-		}
-		
+			PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_5_TOPICS_BY_POPULARITY_STMT);
+	
+			ps.setString(1, userForShowing);
+			ResultSet rs = (ResultSet) ps.executeQuery();
 			
-		String expertiseArrayJson = gson.toJson(expertise, DBConstants.NEW_TOPIC_COLLECTION);
-
-		out.println(expertiseArrayJson);
-		out.close();
-
-		rs.close();
-		ps.close();
-			}catch (SQLException  e) 
-			{
-			getServletContext().log("Error while closing connection", e);
-			response.sendError(500);// internal server error
-		}
-		finally{
-			conn.close();
-		}
+			while (rs.next()){
+				expertise.add(new Topic(rs.getString("QTopics") , rs.getDouble("sigma")));
+			}
 			
-		}else if(uri.equals("getQuestionForAnswer")){
-			try{
-				Collection<UserQuestionUnswer> last5AnsweredQuestions = new ArrayList<UserQuestionUnswer>();
-			
-				PreparedStatement psAnswer = null;
-				PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_5_LAST_UNSWERED_QUESTIONS_BY_USER_STMT);
 				
-				ps.setString(1, userForShowing);
-				ResultSet rs = (ResultSet) ps.executeQuery();
-				while (rs.next()){
-					java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(6));
-					long tsTime = ts.getTime();
-					DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-					java.sql.Date startDate = new java.sql.Date(ts.getTime());
-					String createdHuman = df.format(startDate);
-					double Qrating = rs.getDouble(4);
-					DecimalFormat dfRating = new DecimalFormat("#.##");
-					String dxRating=dfRating.format(Qrating);
-					Qrating=Double.valueOf(dxRating);
-					psAnswer = conn.prepareStatement(DBConstants.SELECT_ANSWER_BY_QID_AND_USER_STMT);
-					psAnswer.setInt(1, rs.getInt(1));
-					psAnswer.setString(2, userForShowing);
-					ResultSet rsA = (ResultSet) psAnswer.executeQuery();
-					
-						while (rsA.next()){
-						last5AnsweredQuestions.add(new UserQuestionUnswer(rsA.getInt(2),rsA.getString(3),rs.getString(2),rsA.getInt(5),Qrating,createdHuman,tsTime));
-					}
-					psAnswer.close();
-					rsA.close();
-				}
-				
-				String last5AnsweredQuestionsJson = gson.toJson(last5AnsweredQuestions, DBConstants.NEW_ANSWER_COLLECTION);
-				out.println(last5AnsweredQuestionsJson);
-				out.close();
-
-				rs.close();				
-				ps.close();
-								
-			}catch (SQLException  e) 
+			String expertiseArrayJson = gson.toJson(expertise, DBConstants.NEW_TOPIC_COLLECTION);
+	
+			out.println(expertiseArrayJson);
+			out.close();
+	
+			rs.close();
+			ps.close();
+				}catch (SQLException  e) 
 				{
 				getServletContext().log("Error while closing connection", e);
 				response.sendError(500);// internal server error
@@ -251,8 +194,61 @@ public class UserProfileServlet extends HttpServlet {
 			finally{
 				conn.close();
 			}
-			
-		}		
+				
+			}
+			/**
+			 * this segment gets the last 5 answer that the user that was clicked answered plus the question the answer belongs to.
+			 * @param userToShow the nickname of the user requested
+			 * @return array of 5 answers and their 5 questions if any exists
+			 */
+			else if(uri.equals("getQuestionForAnswer")){
+				try{
+					Collection<UserQuestionUnswer> last5AnsweredQuestions = new ArrayList<UserQuestionUnswer>();
+				
+					PreparedStatement psAnswer = null;
+					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_5_LAST_UNSWERED_QUESTIONS_BY_USER_STMT);
+					
+					ps.setString(1, userForShowing);
+					ResultSet rs = (ResultSet) ps.executeQuery();
+					while (rs.next()){
+						java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(6));
+						long tsTime = ts.getTime();
+						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+						java.sql.Date startDate = new java.sql.Date(ts.getTime());
+						String createdHuman = df.format(startDate);
+						double Qrating = rs.getDouble(4);
+						DecimalFormat dfRating = new DecimalFormat("#.##");
+						String dxRating=dfRating.format(Qrating);
+						Qrating=Double.valueOf(dxRating);
+						psAnswer = conn.prepareStatement(DBConstants.SELECT_ANSWER_BY_QID_AND_USER_STMT);
+						psAnswer.setInt(1, rs.getInt(1));
+						psAnswer.setString(2, userForShowing);
+						ResultSet rsA = (ResultSet) psAnswer.executeQuery();
+						
+							while (rsA.next()){
+							last5AnsweredQuestions.add(new UserQuestionUnswer(rsA.getInt(2),rsA.getString(3),rs.getString(2),rsA.getInt(5),Qrating,createdHuman,tsTime));
+						}
+						psAnswer.close();
+						rsA.close();
+					}
+					
+					String last5AnsweredQuestionsJson = gson.toJson(last5AnsweredQuestions, DBConstants.NEW_ANSWER_COLLECTION);
+					out.println(last5AnsweredQuestionsJson);
+					out.close();
+	
+					rs.close();				
+					ps.close();
+									
+				}catch (SQLException  e) 
+					{
+					getServletContext().log("Error while closing connection", e);
+					response.sendError(500);// internal server error
+				}
+				finally{
+					conn.close();
+				}
+				
+			}		
 	}
 		catch (SQLException | NamingException e) 
 		{

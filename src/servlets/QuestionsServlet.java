@@ -31,6 +31,8 @@ import models.User;
 
 /**
  * this servlet implement different requests related to questions. 
+ * @author gilad eini
+ * @author ilana veitzblit
  */
 public class QuestionsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -68,6 +70,7 @@ public class QuestionsServlet extends HttpServlet {
 			/**
 			 * this segment gets the top 20 new question from an offset. in addtion, it also see if the "next button" should apear in the html.
 			 * @param from - offset to get 20 questions from it.
+			 * @return array of top new 20 question plus info if the next button should be available
 			 */
 			if(uri.equals("GetNewTop20"))
 			{
@@ -134,6 +137,7 @@ public class QuestionsServlet extends HttpServlet {
 			/**
 			 * this segment gets the top 20  question from an offset. in addtion, it also see if the "next button" should apear in the html.
 			 * @param from - offset to get 20 questions from it.
+			 * @return array of top 20 question plus info if the next button should be available
 			 */
 			else if(uri.equals("GetTop20"))
 			{
@@ -216,6 +220,7 @@ public class QuestionsServlet extends HttpServlet {
 			 * this segment gets the top 20 new question from an offset.
 			 * it is used to understand if the page presenting the new questions has changed.
 			 * @param from - offset to get 20 questions from it.
+			 * @return array of top new 20 question 
 			 */
 			else if(uri.equals("Update"))
 			{
@@ -265,6 +270,7 @@ public class QuestionsServlet extends HttpServlet {
 			 * this segment gets the top 20 new question from an offset BY A TOPIC.
 			 * @param from - offset to get 20 questions from it.
 			 * @param topic - the 20 question will be brought only in this topic.
+			 * @return array of top 20 question in this topic plus info if the next button should be available
 			 */
 			else if(uri.equals("getQuestionsByTopic"))
 			{
@@ -571,6 +577,7 @@ public class QuestionsServlet extends HttpServlet {
 			 * so we update both of them as well
 			 * @param qid - the question that user vote on.
 			 * @param voteValue - +1 or -1
+			 * @return on voting violation, returns the right error message
 			 */
 			else if(uri.equals("addVote"))
 			{ 
