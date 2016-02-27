@@ -1,0 +1,42 @@
+.topicView{
+	/* 
+	margin-bottom: 5px;
+    margin-top: 5px; 
+    border: 1px solid black;
+	min-height: 230px;
+    border-radius: 25px;
+    text-align: center;  
+    padding: 10px;  
+    */
+    margin: auto;
+    width: 90%;
+    margin-left: 30%;
+    
+
+	font-family: 'Helvetica Neue';
+	font-size: 28px;
+	font-style: italic;
+}
+
+.topicsHeader{
+	color: red;
+	font-family: 'Helvetica Neue';
+	font-size: 55px;
+	font-style: italic;
+	text-align: center;
+	text-decoration: underline;	
+}
+
+.topicsSemiHeader{
+	color: red;
+	font-family: 'Helvetica Neue';
+	font-size: 30px;
+	font-style: italic;
+	text-align: center;
+	text-decoration: underline;	
+}
+
+#backToTopics{
+    margin-top: 5px;
+
+}

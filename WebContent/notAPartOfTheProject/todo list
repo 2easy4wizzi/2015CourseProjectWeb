@@ -22,3 +22,4 @@
 #20- Tabs names
 #21- load css of question once
 #22- replace all alert with console log
+#23- add ng-if to everything that could be empty

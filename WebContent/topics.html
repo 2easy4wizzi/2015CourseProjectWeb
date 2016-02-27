@@ -16,14 +16,9 @@
 <script type="text/javascript" src="js/controllers/navBarController.js"></script>
 <script type="text/javascript" src="js/directives/navBarDirective.js"></script>
 <link rel="stylesheet" type="text/css" href="css/questionView.css"/>
+<link rel="stylesheet" type="text/css" href="css/topicView.css"/>
 
-<style>
-.topics {
-    border-style: solid;
-    border-color: green; 
-    border-width: 5px;
-}
-</style>
+
 
 </head>
 <body>
@@ -32,11 +27,17 @@
 		<div class="container">   
 			<div ng-controller="topicsC" ng-init="calcPopularTopics(from)">	
 				<div ng-show="focus=='topics'">
+					<div class=topicsHeader>
+						view topics by their popularity
+					</div>
+					<div class=topicsSemiHeader>
+						you are viewing top topics from {{from*20}} till {{from*20+20}}
+					</div>
 		 			<div class=topics  ng-repeat="topic in topics">
-	
-	 					topic name:<a ng-click="browseQuestions(topic.Topic)" href="#topic={{topic.Topic}}">{{topic.Topic}}</a><br>
-	 					topic popularity:{{topic.Popularity}}
-	
+						<div class="topicView">
+	 						topic <a ng-click="browseQuestions(topic.Topic)" href="#topic={{topic.Topic}}">{{topic.Topic}}</a>
+	 						popularity {{topic.Popularity}}	
+						</div>
 		 			</div>
 					<button class="btn btn-primary" ng-click="prevTopics()" ng-disabled="from==0">Previous</button>
 			        <button class="btn btn-primary" ng-click="nextTopics()" ng-disabled="dontShowNextButton">Next</button>
@@ -50,6 +51,7 @@
 					<button class="btn btn-primary" ng-click="next()" ng-disabled="dontShowNextButton">Next</button>	
 	 				</div> 
 	 			</div>
+ 				<div><button class="btn btn-primary" id="backToTopics" ng-hide="focus=='topics'" ng-click="focus='topics'">back to Topics</button></div>	
 			</div>
 		</div>
 	</div>
