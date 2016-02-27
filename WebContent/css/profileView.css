@@ -1,0 +1,87 @@
+.nicknameHeader{
+	color: blue;
+	font-family: 'Helvetica Neue';
+	font-size: 55px;
+	font-style: italic;
+	text-align: center;
+	text-decoration: underline;	
+}
+
+.picture{
+    width: 172px ;	
+}
+
+.description, .rating{
+    /* margin-left: 105px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 1em 1.6em;
+	min-height: 230px;
+     */
+     
+    margin-bottom: 15px;
+     
+	padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 1px solid black;
+    border-radius: 25px;
+}
+
+.regularHeader{
+	color: black;
+	font-family: 'Helvetica Neue';
+	font-size: 40px;
+	font-style: italic;
+	text-decoration: underline;	
+}
+
+.table{
+    width: 50% !important;
+}
+
+.table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th{
+    border-top: black !important;
+}
+
+.miniQuestionView{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 1em 1.6em;
+    border: 1px solid black;
+	/*min-height: 230px;*/
+    border-radius: 25px;	
+}
+
+.date{
+	text-align: right;
+}
+
+#answerColored{
+	background-color: rgb(241, 235, 235);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

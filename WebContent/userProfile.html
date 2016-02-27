@@ -18,77 +18,96 @@
 	<script type="text/javascript" src="js/directives/navBarDirective.js"></script>
 	<script type="text/javascript" src="js/controllers/questionController.js"></script>
 	<script type="text/javascript" src="js/controllers/topicsController.js"></script>
-	<style>
-	
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/profileView.css"/>
 </head>	
 <body >
 <div ng-app="main">
 	<div nav-directive></div>
-	
+	<div class="container"> 
 	<div ng-controller="userProfileC" ng-init="getUserDetails();last5Questions();getExpertise();getQuestionForAnswer()" >
-					{{user.Nickname}}<br>
- 					<img ng-src="{{user.PhotoUrl}}" alt="This is the User Profile picture " width="105"/> <br>			
-          			Description:{{user.Description}}<br>
-          			User Rating:{{user.UserRating}}<br>
-          			<hr>
-                    expertise:
-               <table class="table table-hover">
-				    <thead>
-				      <tr ng-repeat="expertise in expertises">
-					 <th>
-					{{expertise.Topic}} popularuty: {{expertise.Popularity}}
-					 </th>
-				      </tr>
-				    </thead>
-			  </table>	
-			  <hr>
-			  Questions:
-		      <table class="table table-hover">
-			    <thead>
-			      <tr ng-repeat="question in questions">
-			        <th><div>Text:{{question.QuestionText}}</div> 			
-				    <div>date:{{question.CreatedHuman}}</div>
-				    <div>Rating  :{{question.QRating}}</div>	
-			    	<div>Qid     :{{question.Qid}}</div>
-				    <div ng-controller="topicsC" ng-init="getTopics(question.Qid)">
-					<div ng-repeat="topic in topics">
-					topic {{$index+1}}-{{topic}}
-					</div>
-				    </div></th>
-			        </tr>
-			    </thead>
-			  </table>				  
-			  <hr>
-			  User’s 5 last answered questions:
-			  <hr>
-			  <div ng-repeat="answerQuestion in answersQuestions">
-			   <table class="table table--striped">
-			    <thead>		  
-			     <tr>
-				     <th><div>Text:{{answerQuestion.QuestionText}}</div> 			
-				   	 <div>date:{{answerQuestion.CreatedHuman}}</div>
-					 <div>Rating  :{{answerQuestion.QRating}}</div>
-					 <div ng-controller="topicsC" ng-init="getTopics(answerQuestion.Qid)">
-					 <div ng-repeat="topic in topics">
-						topic {{$index+1}}-{{topic}}
-					</div>
-					</div>
-					</th>
-			      </tr>			      
-			    </thead>
-			    <tbody>
-				    <tr>
-	                  <td>
-						Answer:{{answerQuestion.AnswerText}}<br>
-		        		Answer's Rating: {{answerQuestion.AVotes}}
-			          </td>
-			        </tr>
-			    </tbody>
-			  </table>
-			  <hr>
-			  </div> 
+		<div class="row">
+			<div class="col-xs-12">		
+				<div class="nicknameHeader">{{user.Nickname}}'s Profile Page</div>
+			</div>
 		</div>
+		<div class="row">
+			<div class="col-xs-2"></div>		
+			<div class="col-xs-4">		
+				<img class="picture" alt="profile picture" ng-src="{{user.PhotoUrl}}">
+			</div>
+			<div class="col-xs-4">
+       			<div class="description">Description:<br>{{user.Description}}</div>
+       			<div class="rating">User Rating:<br>{{user.UserRating}}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">		
+				<div class="regularHeader"> Expertise:</div>
+                <table class="table table-hover">
+					<tr>
+				    	<th>Number</th>
+				    	<th>Topic</th>
+					    <th>Popularity</th>		
+ 					</tr>
+			        <tr ng-repeat="expertise in expertises">
+				    	<td>
+				    		{{$index+1}}
+				 		</td>
+				    	<td>
+				    		{{expertise.Topic}}
+				 		</td>
+				    	<td>
+				    		{{expertise.Popularity}}
+				 		</td> 	 	
+			    	 </tr>
+			  </table>	
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">		
+				<div class="regularHeader"><span>last 5 Questions that</span> {{user.Nickname}} asked:</div>
+               	<div ng-repeat="question in questions">
+             	   <div class="miniQuestionView">
+                		<div class="date">date:{{question.CreatedHuman}}</div>
+                		<div>Qid:{{question.Qid}}</div>
+                		<div>Rating:{{question.QRating}}</div>
+                		<div>Text:{{question.QuestionText}}</div>
+                		<div ng-controller="topicsC" ng-init="getTopics(question.Qid)">
+							topics:
+							<span ng-repeat="topic in topics">
+								{{topic}}
+							</span>
+						</div>
+	               </div>
+               	</div>
+           	</div>
+       	</div>
+       	
+       	
+		<div class="row">
+			<div class="col-xs-12">		
+				<div class="regularHeader"><span>last 5 Answers that</span> {{user.Nickname}} answered with the question:</div>
+               	<div ng-repeat="answerQuestion in answersQuestions">
+             	   <div class="miniQuestionView">
+             	   		<div>Rating:{{answerQuestion.QRating}}</div>
+           		   		<div>Text:{{answerQuestion.QuestionText}}</div>
+           		   		<div ng-controller="topicsC" ng-init="getTopics(answerQuestion.Qid)">
+					 		topics: 
+					 		<span ng-repeat="topic in topics">
+								{{topic}}
+							</span>
+						</div> 
+	               </div>
+             	   <div class="miniQuestionView" id="answerColored">
+             	   		<div class="date">date:{{answerQuestion.CreatedHuman}}</div>
+                		<div>Answer:{{answerQuestion.AnswerText}}</div>
+		        		<div>Answer's votes: {{answerQuestion.AVotes}}</div>
+	               </div>
+               	</div>
+           	</div>
+       	</div>
+	</div>
    </div>
+ </div>
 </body>
 </html>
