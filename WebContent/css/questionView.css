@@ -5,9 +5,7 @@
     margin-top: 10px;
     padding: 1em 1.6em;
     border: 1px solid black;
-    max-height: 350px;
-    max-width: 600px;
-    height: 220px;
+	min-height: 230px;
     border-radius: 25px;
      
 }
@@ -18,10 +16,10 @@
 }
 .ownerPic{
 	color: black;
-    width: 75px;
-    height: 75px;    
+    width: 87px;
+    height: 117px;
     position: absolute;
-    top: 0;
+    top: -15px;
     left: -105px;	
 }
 
@@ -42,7 +40,7 @@
     width: 40px;
     height: 87px;    
     position: absolute;
-    top: 60px;
+    top: 100px;
     left: -86px;
 }
 

@@ -14,6 +14,7 @@ public class Question
 	private String QuestionText, OwnerNickname,CreatedHuman;
 	private long Created;
 	private double QRating ;
+	private String OwnerPhoto;
 
 	public Question(int qid, String questionText, String ownerNickname,
 			double qrating,int qvotes ,String createdHuman,long created, int answers) 
@@ -26,6 +27,29 @@ public class Question
 		CreatedHuman = createdHuman;
 		Created = created;
 		Answers = answers;
+		OwnerPhoto = null;
+	}
+	
+	public String getOwnerPhoto() {
+		return OwnerPhoto;
+	}
+
+	public void setOwnerPhoto(String ownerPhoto) {
+		OwnerPhoto = ownerPhoto;
+	}
+
+	public Question(int qid, String questionText, String ownerNickname,
+			double qrating,int qvotes ,String createdHuman,long created, int answers, String ownerPhoto) 
+	{
+		Qid = qid;
+		QuestionText = questionText;
+		OwnerNickname = ownerNickname;
+		QRating = qrating;
+		Qvotes = qvotes;
+		CreatedHuman = createdHuman;
+		Created = created;
+		Answers = answers;
+		OwnerPhoto = ownerPhoto;
 	}
 
 	public String getCreatedHuman() {

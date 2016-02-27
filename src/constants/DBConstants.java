@@ -38,6 +38,7 @@ public interface DBConstants
 	public final String SELECT_USER_BY_NAME_STMT = "SELECT * FROM TBL_USERS WHERE Username=?";
 	public final String SELECT_USER_BY_NICKNAME_STMT = "SELECT * FROM TBL_USERS WHERE Nickname=?";
 	public final String SELECT_USER_BY_NAME_AND_PASSWORD_STMT = "SELECT * FROM TBL_USERS WHERE Username=? AND Password=?";
+	public final String SELECT_PHOTO_BY_NICKNAME_STMT = "SELECT PhotoUrl FROM TBL_USERS WHERE Nickname=?";
 
 	public final String CREATE_QUESTIONS_TABLE =  "CREATE TABLE TBL_QUESTIONS("
 											+ "QId INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,"

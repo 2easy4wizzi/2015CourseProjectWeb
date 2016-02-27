@@ -115,7 +115,15 @@ public class QuestionsServlet extends HttpServlet {
 							String dxRating=dfRating.format(Qrating);
 							Qrating=Double.valueOf(dxRating);
 							
-							top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),Qrating,rs.getInt(5),createdHuman ,tsTime,rs.getInt(7)));
+							PreparedStatement psPhoto = conn.prepareStatement(DBConstants.SELECT_PHOTO_BY_NICKNAME_STMT);
+							psPhoto.setString(1, rs.getString("OwnerNickname"));
+							ResultSet rsPhoto = psPhoto.executeQuery();
+							String urlOwnerPhoto = null;
+							while (rsPhoto.next()){
+								urlOwnerPhoto = rsPhoto.getString("PhotoUrl");
+							}
+							
+							top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),Qrating,rs.getInt(5),createdHuman ,tsTime,rs.getInt(7),urlOwnerPhoto));
 						}
 						boolean dontShowNextButton = false;
 						if(count <= from+20 )
@@ -188,7 +196,15 @@ public class QuestionsServlet extends HttpServlet {
 						Qrating=Double.valueOf(dxRating);
 						
 						
-						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),Qrating,rs.getInt(5),createdHuman ,tsTime,rs.getInt(7)));
+						PreparedStatement psPhoto = conn.prepareStatement(DBConstants.SELECT_PHOTO_BY_NICKNAME_STMT);
+						psPhoto.setString(1, rs.getString("OwnerNickname"));
+						ResultSet rsPhoto = psPhoto.executeQuery();
+						String urlOwnerPhoto = null;
+						while (rsPhoto.next()){
+							urlOwnerPhoto = rsPhoto.getString("PhotoUrl");
+						}
+						
+						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),Qrating,rs.getInt(5),createdHuman ,tsTime,rs.getInt(7),urlOwnerPhoto));
 					}
 					
 					//conn.commit();
@@ -318,7 +334,16 @@ public class QuestionsServlet extends HttpServlet {
 							DecimalFormat dfRating = new DecimalFormat("#.##");
 							String dxRating=dfRating.format(Qrating);
 							Qrating=Double.valueOf(dxRating);
-							top20byTopic.add(new Question(rs.getInt("QId"),rs.getString("QuestionText"),rs.getString("OwnerNickname"),Qrating ,rs.getInt("QVotes"),createdHuman ,tsTime,rs.getInt("Answers")));
+							
+							PreparedStatement psPhoto = conn.prepareStatement(DBConstants.SELECT_PHOTO_BY_NICKNAME_STMT);
+							psPhoto.setString(1, rs.getString("OwnerNickname"));
+							ResultSet rsPhoto = psPhoto.executeQuery();
+							String urlOwnerPhoto = null;
+							while (rsPhoto.next()){
+								urlOwnerPhoto = rsPhoto.getString("PhotoUrl");
+							}
+							
+							top20byTopic.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),Qrating,rs.getInt(5),createdHuman ,tsTime,rs.getInt(7),urlOwnerPhoto));
 						}
 
 						String boolJson;

@@ -9,7 +9,7 @@
 <div class="itemBlock" id="questionBlock">
   	<div class="row">
   		<div class="col-xs-4">
-  			<img class="ownerPic" id="ownerPicQ" alt="owner picture" src="">
+  			<img class="ownerPic" id="ownerPicQ" alt="owner picture" ng-src="{{question.OwnerPhoto}}">
   			<div class="owner" id="ownerQ">{{question.OwnerNickname}}</div>
   		</div>
   		<div class="col-xs-8">
@@ -67,7 +67,7 @@
 			<div class="itemBlock" id="answerBlock">
 			  	<div class="row">
 			  		<div class="col-xs-4">
-			  			<img class="ownerPic" alt="owner picture" src="">
+			  			<img class="ownerPic" alt="owner picture" ng-src="{{answer.OwnerPhoto}}">
 			  			<div class="owner">{{answer.OwnerNickname}}</div>
 		  			</div>
 			  		<div class="col-xs-8">

@@ -92,7 +92,16 @@ public class AnswersServlet extends HttpServlet {
 						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 						java.sql.Date startDate = new java.sql.Date(ts.getTime());
 						String createdHuman = df.format(startDate);
-						answers.add(new Answer(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getInt(5),createdHuman,tsTime));
+						
+						PreparedStatement psPhoto = conn.prepareStatement(DBConstants.SELECT_PHOTO_BY_NICKNAME_STMT);
+						psPhoto.setString(1, rs.getString("OwnerNickname"));
+						ResultSet rsPhoto = psPhoto.executeQuery();
+						String urlOwnerPhoto = null;
+						while (rsPhoto.next()){
+							urlOwnerPhoto = rsPhoto.getString("PhotoUrl");
+						}
+						
+						answers.add(new Answer(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getInt(5),createdHuman,tsTime,urlOwnerPhoto));
 					}
 					
 					//conn.commit();
