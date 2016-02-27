@@ -1,0 +1,88 @@
+.itemBlock{
+	/*position: relative;*/
+    margin-left: 105px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 1em 1.6em;
+    border: 1px solid black;
+    max-height: 350px;
+    max-width: 600px;
+    height: 220px;
+    border-radius: 25px;
+     
+}
+
+#answerBlock{
+	    background-color: rgb(241, 235, 235);
+
+}
+.ownerPic{
+	color: black;
+    width: 75px;
+    height: 75px;    
+    position: absolute;
+    top: 0;
+    left: -105px;	
+}
+
+.owner{
+	font-size: .9em;
+    font-style: normal;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: left;
+}
+
+.date{
+	text-align: right;
+}
+
+.votes{
+    color: black;
+    width: 40px;
+    height: 87px;    
+    position: absolute;
+    top: 60px;
+    left: -86px;
+}
+
+#voteScore{
+    text-align: center;  
+}
+
+.text{ 
+	padding-top: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 110px;
+}
+
+.addAnswer{
+	 margin-bottom: 10px;
+}
+
+.showMoreButtonAndCountAnswers{
+	 margin-bottom: 10px;
+}
+.prevNextButton{
+	position: absolute;
+	position: fixed;
+	position: relative;
+    bottom: 1%;
+    left: 45%;
+}
+
+#BtnUp, #BtnDown{
+	background :  #3074AE;	
+}
+
+
+
+
+
+
+
+
+
+
+
