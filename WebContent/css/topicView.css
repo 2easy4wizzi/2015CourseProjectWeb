@@ -33,13 +33,19 @@ p {
     font-family: 'Helvetica Neue';
     font-style: italic;
 }
+hr {
+    margin-top: 10px;
+    margin-bottom: 2px;
+    border: 0;
+    border-top: 1px solid #CABDBD !important;
+}
 
 #topicsHeader{
-    font-size: 5em;	
+    font-size: 3em;	
 }
 
 #topicsSemiHeader{
-	font-size: 1.8em;
+	font-size: 1.2em;
 }
 
 #backToTopics{
