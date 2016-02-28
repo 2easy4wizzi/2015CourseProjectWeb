@@ -160,7 +160,7 @@ public class LoginServlet extends HttpServlet {
 					ResultSet rs = (ResultSet) ps.executeQuery();
 					if (!rs.next()) 
 					{
-						out.print("user name or password are not correct");
+						out.print("details are incorrect");
 					}
 					else
 					{
