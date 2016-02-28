@@ -32,6 +32,14 @@ body{
     background-opacity: 0.4;
 }
 
+
+input{
+	max-width: 200px;
+}
+
+textarea {
+    max-width: 200px;
+}
 /* 
 html, body {
   height: 100%;
