@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -94,7 +94,13 @@ public class TopicsServlet extends HttpServlet {
 						
 						rs = ps.executeQuery();
 						while (rs.next()){
-							top20mostPopularFrom.add(new Topic(rs.getString("QTopics") , rs.getDouble("Sumup")));
+							
+							double popularity = rs.getDouble("Sumup");
+							DecimalFormat dfRating = new DecimalFormat("#.##");
+							String dxRating=dfRating.format(popularity);
+							popularity = Double.valueOf(dxRating);
+							
+							top20mostPopularFrom.add(new Topic(rs.getString("QTopics") , popularity));
 						}
 						String boolJson;
 						if(count <= from+20 ){
