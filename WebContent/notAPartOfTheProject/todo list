@@ -1,26 +1,14 @@
 
-#1 - remove password from session
-#2 - change in servlets strings to constants
-#3 - put time limit on session
-#4 - problem with the date!
-#5 - sort new question by time
-#6 - change all input that are buttons to buttons(mainly on login page)
-#7 - q not disapearing at first answer
-#8 - bounderies to next and prev buttons
-#9 - use GET func for getting data
-#10- first usage dont refresh
-#11- move funcs to : doGet(select - get); doPost(create); doDelete(delete); doPUT(update)
-#12 - change toJson format servlet answer
-#13- cahnge session time
-#14- gson
-#15- remove field topics from Questions TBL
-#16- clear button of register dont clear all fields
-#17- modal for ask question
-#18- Problems -> warnings
-#18- Hagay put a link to check out site
-#19- remove att check for null
-#20- Tabs names
-#21- load css of question once
-#22- replace all alert with console log
-#23- add ng-if to everything that could be empty
-#24- profile gets more than 5 answers
+#change project name
+#change in http funcs to consts
+#fix date format to hagay's
+#Hagay put a link to check out site -- validation
+#html titles
+#add ng-if to everything that could be empty
+#profile gets more than 5 answers
+#write in assumption - spaces not allowed
+#fix picture size
+#main error in login page
+#fix in register glif same line
+#remove home from nav and move 
+#add chupzik
