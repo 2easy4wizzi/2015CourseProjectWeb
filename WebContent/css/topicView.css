@@ -3,11 +3,15 @@
     width: 90%;
     text-align: center;
     font-family: 'Helvetica Neue';
-    font-size: 28px;
-    font-style: italic
+    font-size: 46px;
+    font-style: italic;
 }
 
-
+.cloud{
+	width: 430px;
+    margin: 0 auto;
+    text-align: center;
+}
 .headerRow{
 	text-align: center;
     font-size: 1.77777778em;
@@ -37,3 +41,24 @@ hr {
     margin-top: 5px;
 
 }
+
+
+.buttons{
+	position: fixed;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 45px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

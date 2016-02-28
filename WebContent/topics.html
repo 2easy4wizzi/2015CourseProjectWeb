@@ -36,22 +36,26 @@
 					<!-- <div class=topicsSemiHeader>
 						you are viewing top topics from {{from*20}} till {{from*20+20}}
 					</div> -->
-		 			<div class=topics  ng-repeat="topic in topics">
-						<div class="topicView">
-	 						topic <a ng-click="browseQuestions(topic.Topic)" href="#topic={{topic.Topic}}">{{topic.Topic}}</a>
-	 						popularity {{topic.Popularity}}	
-						</div>
-		 			</div>
-					<button class="btn btn-primary" ng-click="prevTopics()" ng-disabled="from==0">Previous</button>
-			        <button class="btn btn-primary" ng-click="nextTopics()" ng-disabled="dontShowNextButton">Next</button>
+					<div class="cloud">
+			 			<span class="topicView"  ng-repeat="topic in topics">
+		 						<a ng-click="browseQuestions(topic.Topic)" href="#topic={{topic.Topic}}">{{topic.Topic}}<span class="badge">{{topic.Popularity}} </span></a>
+		 							
+			 			</span>
+					</div>
+					<div class="buttons">
+						<button ng-click="prevTopics()" ng-disabled="from==0"><img alt="L" src="Images/imagesLeft.jpg"></button>
+				        <button class="btn btn-primary" ng-click="nextTopics()" ng-disabled="dontShowNextButton">Next</button>
+					</div>
 				</div>
 	 			 <div ng-if="focus=='questionsByTopics'">
 	 				<div ng-controller="questionController" ng-init="init(focus,tempTopic)">
 		 				<div ng-repeat="question in questions" >
 							<div  data-ng-include src="'questionTemplate.html'"></div>	
 	 					</div>	
-					<button class="btn btn-primary" ng-click="prev()" ng-disabled="from==0">Previous</button>
-					<button class="btn btn-primary" ng-click="next()" ng-disabled="dontShowNextButton">Next</button>	
+	 				<div class="buttons">
+						<button class="btn btn-primary" ng-click="prev()" ng-disabled="from==0">Previous</button>
+						<button class="btn btn-primary" ng-click="next()" ng-disabled="dontShowNextButton">Next</button>	
+	 				</div>
 	 				</div> 
 	 			</div>
  				<div><button class="btn btn-primary" id="backToTopics" ng-hide="focus=='topics'" ng-click="focus='topics'">back to Topics</button></div>	
