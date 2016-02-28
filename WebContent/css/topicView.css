@@ -17,37 +17,29 @@
 	font-size: 28px;
 	font-style: italic;
 }
-.title {
-    width: 45%;
-    font-size: 1.77777778em;
-    font-style: italic;
-    font-weight: normal;
-    color: #333;
-    float: left;
-    margin-left: 2%;
-    display: block;
-}
+
 p {
     margin: 0 0 10px;
     font-size: 0.22222em;
 }
 
-.topicsHeader{
-	color: red;
-	font-family: 'Helvetica Neue';
-	font-size: 55px;
-	font-style: italic;
+.headerRow{
 	text-align: center;
-	text-decoration: underline;	
+    font-size: 1.77777778em;
+    font-style: italic;
+    font-weight: normal;
+    color: #333;
+    display: block;
+    font-family: 'Helvetica Neue';
+    font-style: italic;
 }
 
-.topicsSemiHeader{
-	color: red;
-	font-family: 'Helvetica Neue';
-	font-size: 30px;
-	font-style: italic;
-	text-align: center;
-	text-decoration: underline;	
+#topicsHeader{
+    font-size: 5em;	
+}
+
+#topicsSemiHeader{
+	font-size: 1.8em;
 }
 
 #backToTopics{

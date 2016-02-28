@@ -27,13 +27,15 @@
 		<div class="container">   
 			<div ng-controller="topicsC" ng-init="calcPopularTopics(from)">	
 				<div ng-show="focus=='topics'">
-					<div class=topicsHeader>
-					<div class="title">Topics<p> by popularity<p></div>
-					<hr>
-					</div>
-					<div class=topicsSemiHeader>
+				<div class="headerRow">
+					<span id="topicsHeader">Topics</span>
+					<span id="topicsSemiHeader">    by popularity</span>
+				</div>
+					
+					
+					<!-- <div class=topicsSemiHeader>
 						you are viewing top topics from {{from*20}} till {{from*20+20}}
-					</div>
+					</div> -->
 		 			<div class=topics  ng-repeat="topic in topics">
 						<div class="topicView">
 	 						topic <a ng-click="browseQuestions(topic.Topic)" href="#topic={{topic.Topic}}">{{topic.Topic}}</a>
