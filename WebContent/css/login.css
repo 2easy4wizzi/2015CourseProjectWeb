@@ -19,14 +19,20 @@
 	
 }
 .pageHeader{
-	font-family: 'Helvetica Neue';
+    position: absolute;
     font-size: 100px;
+    font-family: 'Helvetica Neue';
     font-style: italic;
     text-align: center;
     margin-top: 89px;
-    top: 100px;
-    left: 215px;
+    margin-right: -50%;
+    margin: 0;
+    transform: translate(-50%, -50%);
     color: black;
+    padding: 1em 1.6em;
+    border-radius: 25px;
+    top: 25%;
+    left: 50%;
 }
 
 
