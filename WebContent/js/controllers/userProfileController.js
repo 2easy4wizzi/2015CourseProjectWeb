@@ -25,7 +25,7 @@ app.controller('userProfileC', ['$scope', '$http','$location',
 					$scope.user = response[0];	
 					
 				}).error(function(error) {
-					alert('somthing happend at getUserDetails');
+					console.log('somthing happend at getUserDetails');
 				});
       		
 	}
@@ -42,7 +42,7 @@ app.controller('userProfileC', ['$scope', '$http','$location',
 					$scope.questions = response;	
 					
 				}).error(function(error) {
-					alert('somthing happend at last5Questions');
+					console.log('somthing happend at last5Questions');
 				});
       		
 	}
@@ -59,7 +59,7 @@ app.controller('userProfileC', ['$scope', '$http','$location',
 					$scope.expertises = response;	
 					
 				}).error(function(error) {
-					alert('somthing happend at getUserDetails');
+					console.log('somthing happend at getUserDetails');
 				});
       		
 	}
@@ -77,7 +77,7 @@ app.controller('userProfileC', ['$scope', '$http','$location',
 				$scope.answersQuestions = response;
 				
 				}).error(function(error) {
-					alert('somthing happend at getQuestionForAnswer');
+					console.log('somthing happend at getQuestionForAnswer');
 				});
       		
 	}

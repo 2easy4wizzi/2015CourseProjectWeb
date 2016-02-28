@@ -88,7 +88,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 						}
 					}
 				}).error(function(error) {
-					alert('somthing happend at calcPopularTopics()');
+					console.log('somthing happend at calcPopularTopics()');
 				});
 	}
 	
@@ -115,7 +115,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 								//return;
 							}										
 						}).error(function(error) {
-							alert('somthing happend at update');
+							console.log('somthing happend at update');
 							
 						});
 		}
@@ -142,7 +142,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 					$scope.questions = response[1];	
 				}
 				}).error(function(error) {
-					alert('somthing happend at getNewTop20');
+					console.log('somthing happend at getNewTop20');
 					
 				});
 		}
@@ -174,7 +174,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 						}
 					}
 					}).error(function(error) {
-						alert('somthing happend at get Top20 -not NEW');
+						console.log('somthing happend at get Top20 -not NEW');
 						
 					});
 						
@@ -221,7 +221,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 							$scope.incQuestionAnswers(qid);	
 							
 						}).error(function(error) {
-							alert('somthing happend at postAnswer');
+							console.log('somthing happend at postAnswer');
 							
 						});
 	}
@@ -239,7 +239,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 							$scope.getQuestionByFocus($scope.focus);
 							
 						}).error(function(error) {
-							alert('somthing happend at inc question answers');
+							console.log('somthing happend at inc question answers');
 						});
 	}
 	
@@ -273,7 +273,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 							}
 							
 						}).error(function(error) {
-							alert('somthing happend at add vote');
+							console.log('somthing happend at add vote');
 						});
 	}
 	
@@ -311,7 +311,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 					$scope.topics = response;
 					
 						}).error(function(error) {
-							alert('somthing happend at get topics');
+							console.log('somthing happend at get topics');
 							
 						});	
 	}
@@ -340,7 +340,7 @@ app.controller('answersService', ['$scope', '$http',
        			}
        			//return response;
        		}).error(function(error) {
-       			alert('somthing happend at  get answers');
+       			console.log('somthing happend at  get answers');
        					
        				});
            		}
@@ -365,7 +365,7 @@ app.controller('answersService', ['$scope', '$http',
        							$scope.question.QRating = response;
        						}
        					}).error(function(error) {
-       						alert('somthing happend at add vote(answers)');
+       						console.log('somthing happend at add vote(answers)');
        					});
        }
        	

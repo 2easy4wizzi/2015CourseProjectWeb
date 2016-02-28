@@ -52,8 +52,6 @@ app.controller('logAndRegC', ['$scope', '$http',
 					 $scope.showDangerPassword = false;
 					 $scope.logPWError = "must enter password!";
 				 }
-				 
-
 				 return;
 			 }	
 		     $http(
@@ -81,7 +79,7 @@ app.controller('logAndRegC', ['$scope', '$http',
 		     })
 		     .error(function (error) 
 		     {
-		    	 alert('login error');
+		    	 console.log('login error');
 	             $scope.status = 'Unable to connect' + error.message;
 		     });     
 	     }
@@ -164,7 +162,7 @@ app.controller('logAndRegC', ['$scope', '$http',
 		     })
 		     .error(function (error) 
 		     {
-		    	 alert('register error');
+		    	 console.log('register error');
 	             $scope.status = 'Unable to connect' + error.message;
 		     });     
 	     }

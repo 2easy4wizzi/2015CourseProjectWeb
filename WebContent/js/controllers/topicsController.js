@@ -32,7 +32,7 @@ app.controller('topicsC', ['$scope', '$http','$location',function($scope, $http,
 				$scope.topics = res;
 			}
 		}).error(function(error) {
-			alert('somthing happend at calcPopularTopics()');
+			console.log('somthing happend at calcPopularTopics()');
 		});
 	}
 	
@@ -61,7 +61,7 @@ app.controller('topicsC', ['$scope', '$http','$location',function($scope, $http,
 					$scope.topics = response;
 					
 						}).error(function(error) {
-							alert('somthing happend at get topics');
+							console.log('somthing happend at get topics');
 							
 						});	
 	}

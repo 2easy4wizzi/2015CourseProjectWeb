@@ -44,7 +44,7 @@ app.controller('navC', ['$scope', '$http','$location',
 					$scope.nickname = response;				
 				}
 			}).error(function(error) {
-				alert('somthing happend at get user name ');
+				console.log('somthing happend at get user name ');
 			});
 		}
 		$scope.test = 1;
@@ -63,11 +63,11 @@ app.controller('navC', ['$scope', '$http','$location',
 			} 
 			else 
 			{
-				alert('goodbye '+ response);
+				console.log('goodbye '+ response);
 				//$scope.nickName = response;
 			}
 		}).error(function(error) {
-			alert('remove att somthing happend');
+			console.log('remove att somthing happend');
 		});
 	}
     

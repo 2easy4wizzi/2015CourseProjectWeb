@@ -14,7 +14,7 @@ app.controller('leaderBoardC', ['$scope', '$http','$location',
 			{
 				$scope.users = response;	
 			}).error(function(error) {
-				alert('somthing happend at get20users');
+				console.log('somthing happend at get20users');
 				
 			});
 		}	

@@ -31,7 +31,7 @@ app.controller('askQuestionC', ['$scope', '$http',
 				{
 					window.location = "\homePage.html";
 				}).error(function(error) {
-					alert('somthing happend at post question');
+					console.log('somthing happend at post question');
 				});
       		}
       	$scope.getTopic = function(){
