@@ -7,10 +7,16 @@
     position: absolute;
     margin: 0;
     background-color: rgba(204, 204, 204, 0.5);
-    top: 50%;
+    top: 54%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%); 
+    
+    padding-right: 70px;
+    padding-left: 70px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    
 }
 
 #moveToOtherForm{
@@ -29,10 +35,10 @@
     margin: 0;
     transform: translate(-50%, -50%);
     color: black;
-    padding: 1em 1.6em;
     border-radius: 25px;
-    top: 25%;
+    top: 14%;
     left: 50%;
+    width: 100%;
 }
 
 
@@ -57,8 +63,8 @@ textarea {
 .logo{
     width: 80px;
     position: absolute;
-    top: -23px;
-    left: 86px;
+    top: -24px;
+    left: 124px;
 }
 /* 
 html, body {
