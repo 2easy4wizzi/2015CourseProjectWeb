@@ -44,6 +44,14 @@ input{
 textarea {
     max-width: 200px;
 }
+
+
+.logo{
+    width: 40px;
+    position: absolute;
+    top: -19px;
+    left: 108px;
+}
 /* 
 html, body {
   height: 100%;
