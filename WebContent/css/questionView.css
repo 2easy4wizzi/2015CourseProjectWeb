@@ -110,7 +110,19 @@ body{
     border-radius: 20px;
 }
 
+.answerCount{
+	font-size: 27px;
+    font-family: 'Helvetica Neue';
+    font-style: italic;
+    text-align: center;
+    color: black;
+}
 
+.showMoreAnswers{
+    position: absolute;
+    top: 3px;
+    left: 309px;
+}
 
 
 
