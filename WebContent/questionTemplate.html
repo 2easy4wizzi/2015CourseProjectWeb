@@ -6,11 +6,15 @@
 </head>
 
 <body>
+
 <div class="itemBlock" id="questionBlock">
+
   	<div class="row">
   		<div class="col-xs-4">
   			<img class="ownerPic" id="ownerPicQ" alt="owner picture" ng-src="{{question.OwnerPhoto}}">
+  			<img class="triangle" src="Images/triangle.png" alt="triangle" >
   			<div class="owner" id="ownerQ">{{question.OwnerNickname}}</div>
+  		
   		</div>
   		<div class="col-xs-8">
   			<div class="date"><div>{{question.CreatedHuman}}</div></div>
@@ -68,7 +72,9 @@
 			  	<div class="row">
 			  		<div class="col-xs-4">
 			  			<img class="ownerPic" alt="owner picture" ng-src="{{answer.OwnerPhoto}}">
+			  			<img class="triangle" src="Images/triangle.png" alt="triangle" >
 			  			<div class="owner">{{answer.OwnerNickname}}</div>
+			  			
 		  			</div>
 			  		<div class="col-xs-8">
 			  			<div class="date"><div>{{answer.CreatedHuman}}</div></div>
