@@ -29,9 +29,9 @@
   			</div>
   			<div class="text" id="Qtext">{{question.QuestionText}}</div>
 			<div ng-controller="topicsC" ng-init="getTopics(question.Qid)">
-				<span id="topicsHeader">topics:</span> 
+				<span id="topicsHeader">{{topcis_header}}</span> 
 				<span ng-repeat="topic in topics">
-					<button>{{topic}}</button>
+					<button class="topicTag">{{topic}}</button>
 				</span>
 			</div>
   		</div>

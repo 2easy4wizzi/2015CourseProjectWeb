@@ -5,7 +5,6 @@ app.controller('topicsC', ['$scope', '$http','$location',function($scope, $http,
 	$scope.questions = "";
 	$scope.focus = "topics";
 	
-	
 	$scope.browseQuestions = function(topicPressed){
 		$scope.focus = questionByTopicFocus;
 		$scope.tempTopic = topicPressed;
@@ -27,9 +26,11 @@ app.controller('topicsC', ['$scope', '$http','$location',function($scope, $http,
 			
 			if(res == "noTopicsFound"){
 				$scope.topics = "";
+				
 			}
 			else{
 				$scope.topics = res;
+				
 			}
 		}).error(function(error) {
 			console.log('somthing happend at calcPopularTopics()');
@@ -59,7 +60,10 @@ app.controller('topicsC', ['$scope', '$http','$location',function($scope, $http,
 				}).success(function(response) 
 						{
 					$scope.topics = response;
-					
+					if($scope.topics.length == 0){
+					}
+					else{
+					}
 						}).error(function(error) {
 							console.log('somthing happend at get topics');
 							

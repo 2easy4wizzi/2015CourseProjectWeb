@@ -93,7 +93,12 @@ body{
 	background :  #3074AE;	
 }
 
-
+.topicTag{
+	color: #39739d;
+    font-size: 15px;
+    border: 1px solid #E1ECF4;
+    border-radius: 20px;
+}
 
 
 
