@@ -19,12 +19,14 @@
 	
 }
 .pageHeader{
-	color: red;
 	font-family: 'Helvetica Neue';
-	font-size: 55px;
-	font-style: italic;
-	text-align: center;
-	text-decoration: underline;
+    font-size: 100px;
+    font-style: italic;
+    text-align: center;
+    margin-top: 89px;
+    top: 100px;
+    left: 215px;
+    color: black;
 }
 
 
