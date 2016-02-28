@@ -95,7 +95,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 						DecimalFormat dfRating = new DecimalFormat("#.##");
 						String dxRating=dfRating.format(Urating);
 						Urating=Double.valueOf(dxRating);
-						userToShow.add(new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),Urating));
+						userToShow.add(new User(null,null,rs.getString(3),rs.getString(4),rs.getString(5),Urating));
 					}
 					String userDisplaed = gson.toJson(userToShow, DBConstants.NEW_QUESTION_COLLECTION);
 					out.println(userDisplaed);
