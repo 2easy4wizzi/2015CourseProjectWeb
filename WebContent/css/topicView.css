@@ -1,27 +1,13 @@
 .topicView{
-	/* 
-	margin-bottom: 5px;
-    margin-top: 5px; 
-    border: 1px solid black;
-	min-height: 230px;
-    border-radius: 25px;
-    text-align: center;  
-    padding: 10px;  
-    */
     margin: auto;
     width: 90%;
-    margin-left: 30%;
-    
-
-	font-family: 'Helvetica Neue';
-	font-size: 28px;
-	font-style: italic;
+    text-align: center;
+    font-family: 'Helvetica Neue';
+    font-size: 28px;
+    font-style: italic
 }
 
-p {
-    margin: 0 0 10px;
-    font-size: 0.22222em;
-}
+
 
 .headerRow{
 	text-align: center;
