@@ -33,8 +33,8 @@ import models.UserQuestionUnswer;
 
 /**
  * Servlet implementation class UserProfileServlet
- * @author gilad eini
- * @author ilana veitzblit
+ * @author Gilad Eini
+ * @author Ilana Veitzblit
  */
 public class UserProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -79,14 +79,14 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			/**
 			 * this segment gets the information of a user that was clicked on
 			 * @param userToShow the nickname of the user requested
-			 * @return the user clicked details
+			 * @return the user clicked details / array of 5 question if there are 5 / array of 5 answers and their 5 questions if any exists
 			 */
 			if(uri.equals("getUserDetails"))
 			{				
 				Collection<User> userToShow = new ArrayList<User>();
 				try
 				{
-					
+					//get user by nickname
 					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_USER_BY_NICKNAME_STMT);
 					ps.setString(1, userForShowing);
 					ResultSet rs = (ResultSet) ps.executeQuery();			
@@ -114,10 +114,8 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 				}
 				
 			}
-			/**
+			/*
 			 * this segment gets the last 5 question that the user that was clicked posted
-			 * @param userToShow the nickname of the user requested
-			 * @return array of 5 question if there are 5
 			 */
 			else if(uri.equals("last5Questions")){
 			
@@ -157,15 +155,14 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 				conn.close();
 			}
 		}
-			/**
+			/*
 			 * this segment gets the last 5 question that the user that was clicked posted
-			 * @param userToShow the nickname of the user requested
-			 * @return array of 5 question if there are 5
 			 */
 			else if(uri.equals("getExpertise")){
 			
 			try{
 				Collection<Topic> expertise = new ArrayList<Topic>();
+				//get expertise by nickname
 			PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_5_TOPICS_BY_POPULARITY_STMT);
 	
 			ps.setString(1, userForShowing);
@@ -193,10 +190,8 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			}
 				
 			}
-			/**
+			/*
 			 * this segment gets the last 5 answer that the user that was clicked answered plus the question the answer belongs to.
-			 * @param userToShow the nickname of the user requested
-			 * @return array of 5 answers and their 5 questions if any exists
 			 */
 			else if(uri.equals("getQuestionForAnswer")){
 				try{
@@ -214,15 +209,18 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 						ResultSet rsQ = (ResultSet) psQuestion.executeQuery();
 											
 						while (rsQ.next()){
+							//formating
 							java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rsQ.getString("Created"));
 							long tsTime = ts.getTime();
-							DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");							java.sql.Date startDate = new java.sql.Date(ts.getTime());
+							DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");							
+							java.sql.Date startDate = new java.sql.Date(ts.getTime());
 							String createdHuman = df.format(startDate);
 							double Qrating = rsQ.getDouble("QRating");
 							DecimalFormat dfRating = new DecimalFormat("#.##");
 							String dxRating=dfRating.format(Qrating);
 							Qrating=Double.valueOf(dxRating);
 							
+							//push to collections of question
 							last5AnsweredQuestions.add(new UserQuestionUnswer(rs.getInt("QId"),rs.getString("AnswerText"),rsQ.getString("QuestionText"),rs.getInt("AVotes"),Qrating,createdHuman,tsTime));
 						}
 						rsQ.close();
