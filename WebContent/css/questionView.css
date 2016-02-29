@@ -90,7 +90,7 @@ body{
     left: -85px;
 }
 
-#voteScore{
+.voteScore{
     text-align: center;  
 }
 
@@ -116,7 +116,7 @@ body{
     left: 43.5%;
 }
 
-#BtnUp, #BtnDown{
+.BtnUp, .BtnDown{
 	background :  rgba(144, 130, 115, 0.83);
 	border-color: #fcf8e3;	
 }
