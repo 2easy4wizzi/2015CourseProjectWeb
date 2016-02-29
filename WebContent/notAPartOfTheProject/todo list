@@ -1,15 +1,13 @@
 
 #change project name
 #change in http funcs to consts
-#fix date format to hagay's
+#fix date format to hagay's (looks ok)
 #Hagay put a link to check out site -- validation
 #html titles
 #add ng-if to everything that could be empty
-#profile gets more than 5 answers
+#profile gets more than 5 answers- and fix DBSchema
 #write in assumption - spaces not allowed
 #fix picture size
-#main error in login page
-#fix in register glif same line
-#remove home from nav and move 
-#add chupzik
-#login page- title, logo, background
+#document our code
+#javadoc
+#overview hagay's requirements

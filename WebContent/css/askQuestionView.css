@@ -1,0 +1,35 @@
+body {
+	text-align: center;
+	background: #e0e0e0;
+	padding-bottom: 200px;
+	background-color: #f1f1ef !important;
+}
+.headerRow{
+	text-align: center;
+    font-size: 3em;
+    font-style: italic;
+    font-weight: normal;
+    color: #333;
+    display: block;
+    font-family: 'Helvetica Neue';
+    font-style: italic;
+}
+hr {
+    margin-top: 10px;
+    margin-bottom: 2px;
+    border: 0;
+    border-top: 1px solid #CABDBD !important;
+    width: 577px;
+}
+
+.enterTopics{
+	text-align: center;
+    font-size: 1.2em;
+    font-style: italic;
+    font-weight: normal;
+    color: #333;
+    display: block;
+    font-family: 'Helvetica Neue';
+    font-style: italic;
+	
+}

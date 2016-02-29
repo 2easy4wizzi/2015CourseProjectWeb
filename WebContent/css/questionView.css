@@ -11,6 +11,26 @@
 
 
 }
+body{
+	background-color: #f1f1ef !important;
+}
+.headerRow{
+	text-align: center;
+    font-size: 3em;
+    font-style: italic;
+    font-weight: normal;
+    color: #333;
+    display: block;
+    font-family: 'Helvetica Neue';
+    font-style: italic;
+}
+hr {
+    margin-top: 10px;
+    margin-bottom: 2px;
+    border: 0;
+    border-top: 1px solid #CABDBD !important;
+	width: 692px;
+}
 
 
 .triangle{
@@ -93,10 +113,11 @@ body{
 }
 
 #BtnUp, #BtnDown{
-	background :  #8f5656;	
+	background :  rgba(144, 130, 115, 0.83);
+	border-color: #fcf8e3;	
 }
 body{
-	background-image: url("../Images/BackGround.jpg");
+
     background-attachment: fixed;
     background-size: cover; 
     background-repeat: no-repeat;
@@ -104,10 +125,14 @@ body{
 }
 
 .topicTag{
-	color: #39739d;
+	color: #F1F1EF;
     font-size: 15px;
     border: 1px solid #E1ECF4;
     border-radius: 20px;
+    border-radius: 0;
+    margin-top: 3px;
+    color: #675F56;
+    
 }
 
 

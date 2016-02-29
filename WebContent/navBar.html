@@ -26,15 +26,13 @@
 				<div class="container-fluid">
 						<ul class="nav navbar-nav">
 				
-							<li class="navbar-header" ng-class="{ active: isActive('/homePage.html')}"><a class="navbar-brand" href="homePage.html">Home</a></li>							
-						<!-- 	<li ng-class="{ active: isActive('/allQuestions.html')}"><a href="allQuestions.html">All Questions</a></li>
-							<li ng-class="{ active: isActive('/topics.html')}"><a href="topics.html">Topics</a></li>  -->
+							<li><img  class="logo" alt="logo" src="Images/diy.png" width="95px"></li>							
 							<li ng-class="{ active: isActive('/askedQuestion.html')}"><a href="askedQuestion.html">Ask Question</a></li>
 							<li ng-class="{ active: isActive('/leaderBoard.html')}"><a href="leaderBoard.html">User's leaderboard</a></li>
 							<li ng-class="{ active: isActive('/userProfile.html')}"><a href="userProfile.html">Profile</a></li>
 							
 						
-							<li class = "dropdown">
+							<li ng-class="{ active: isActive('/dropdoun')}" class = "dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Browse by: {{browse}}<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="homePage.html">Newly Questions</a></li>

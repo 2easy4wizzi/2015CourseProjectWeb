@@ -21,8 +21,14 @@
 <body>
 	<div ng-app="main">
 		<div nav-directive></div>	
-		<div class="container">   
+		<div class="container"> 
+	<div>	<div class="headerRow">
+			<span>Existing questions</span>
+		</div>
+		<hr>
+		</div>  
 			<div ng-controller="questionController" ng-init="init('questionsByAll','null')">
+
  				<div ng-repeat="question in questions" >
 					<div  data-ng-include src="'questionTemplate.html'"></div>	
 				</div>	

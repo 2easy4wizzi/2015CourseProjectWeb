@@ -3,5 +3,33 @@
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
-    background-color: #4A3125 !important;
+    background-color: rgba(144, 130, 115, 0.83) !important;
+}
+.logo {
+    vertical-align: middle;
+    margin-top: 2px;
+    width:"95px" !important;
+    margin-right: 11px;
+}
+element.style {
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+    border-right-width: 0px;
+    border-left-width: 0px;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    /* margin: auto; */
+    /* width: 90%; */
+    font-family: 'Helvetica Neue';
+    font-size: 17px;
+    /* font-style: italic; */
+    color: #33312D;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.42);
+}
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.open>a {
+    background-image: -webkit-linear-gradient(top,#080808 0,#0f0f0f 100%);
+    background-image: -o-linear-gradient(top,#080808 0,#0f0f0f 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#080808),to(#0f0f0f));
+    background-image: linear-gradient(to bottom,#6B6558 0,rgba(45, 43, 43, 0.51) 100%);
 }

@@ -13,10 +13,13 @@ app.controller('navC', ['$scope', '$http','$location',
         
         if(name1 == homePage){
         	$scope.browse = "Newly Questions";
+        	name1 = "/dropdoun"
         }else if(name1 == existing){
         	$scope.browse = "Existing Questions";	
+        	name1 = "/dropdoun"
         }else if(name1 == topics){
-        	$scope.browse = "Topics";	
+        	$scope.browse = "Topics";
+        	name1 = "/dropdoun"
         }
         
         
