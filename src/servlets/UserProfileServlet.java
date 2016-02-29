@@ -130,8 +130,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 				while (rs.next()){
 					java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(6));
 					long tsTime = ts.getTime();
-					DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-					java.sql.Date startDate = new java.sql.Date(ts.getTime());
+					DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");					java.sql.Date startDate = new java.sql.Date(ts.getTime());
 					String createdHuman = df.format(startDate);
 					double Qrating = rs.getDouble(4);
 					DecimalFormat dfRating = new DecimalFormat("#.##");
@@ -217,8 +216,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 						while (rsQ.next()){
 							java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rsQ.getString("Created"));
 							long tsTime = ts.getTime();
-							DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-							java.sql.Date startDate = new java.sql.Date(ts.getTime());
+							DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");							java.sql.Date startDate = new java.sql.Date(ts.getTime());
 							String createdHuman = df.format(startDate);
 							double Qrating = rsQ.getDouble("QRating");
 							DecimalFormat dfRating = new DecimalFormat("#.##");

@@ -89,7 +89,7 @@ public class AnswersServlet extends HttpServlet {
 					while (rs.next()){
 						java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(6));
 						long tsTime = ts.getTime();
-						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+						DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 						java.sql.Date startDate = new java.sql.Date(ts.getTime());
 						String createdHuman = df.format(startDate);
 						
