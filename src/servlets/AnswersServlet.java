@@ -35,8 +35,8 @@ import models.User;
 /**
  * Servlet implementation class AnswersServlet.
  * It deals with requests of answers
- * @author gilad eini
- * @author ilana veitzblit
+ * @author Gilad Eini
+ * @author Ilana Veitzblit
  */
 public class AnswersServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -56,8 +56,7 @@ public class AnswersServlet extends HttpServlet {
      * @return array in json of all the answers for the question.
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Enumeration<String> params = request.getParameterNames();while(params.hasMoreElements()){ String paramName = (String)params.nextElement(); System.out.println("Attribute: "+paramName+", Value: "+request.getParameter(paramName));}
-		
+	
 		Connection conn = null;
 		PrintWriter out = null;
 		PreparedStatement ps = null;
@@ -73,7 +72,7 @@ public class AnswersServlet extends HttpServlet {
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
 			 conn = ds.getConnection();
 			/**
-			 * GetAnswers get the answers for the given qid and return them
+			 * GetAnswers- get the answers for the given qid and return them
 			 */
 			if(uri.equals("GetAnswers"))
 			{
@@ -85,7 +84,7 @@ public class AnswersServlet extends HttpServlet {
 					int qid = Integer.parseInt(temp);
 					ps.setInt(1, qid);
 					 rs = (ResultSet) ps.executeQuery();
-					
+					//formating
 					while (rs.next()){
 						java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(6));
 						long tsTime = ts.getTime();
@@ -93,6 +92,7 @@ public class AnswersServlet extends HttpServlet {
 						java.sql.Date startDate = new java.sql.Date(ts.getTime());
 						String createdHuman = df.format(startDate);
 						
+					//get photo
 						PreparedStatement psPhoto = conn.prepareStatement(DBConstants.SELECT_PHOTO_BY_NICKNAME_STMT);
 						psPhoto.setString(1, rs.getString("OwnerNickname"));
 						ResultSet rsPhoto = psPhoto.executeQuery();
@@ -148,6 +148,8 @@ public class AnswersServlet extends HttpServlet {
 		    }
 		}
 	}
+	
+	
 	/**
      * doPut is used to put new info in the DB. depending on the js function that calls doPut, different info will be put in the DB.
      * this doPut used only for adding vote to an answer
@@ -157,8 +159,6 @@ public class AnswersServlet extends HttpServlet {
      * @return new Question rating
      */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//Enumeration<String> params = request.getParameterNames();while(params.hasMoreElements()){ String paramName = (String)params.nextElement(); System.out.println("Attribute: "+paramName+", Value: "+request.getParameter(paramName));}
 		
 		Connection conn = null;
 		PrintWriter out = null;
@@ -175,7 +175,7 @@ public class AnswersServlet extends HttpServlet {
 			Context context = new InitialContext();
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
 			conn = ds.getConnection();
-			/**
+			/*
 			 * in addVote case we first check that the user is not the owner of the answer and that this is his first vote on it
 			 * than sav his vote value in answer_vote tbl. and increment the total answers for this question
 			 * than recalculate question rating and user rating
@@ -185,7 +185,8 @@ public class AnswersServlet extends HttpServlet {
 				try
 				{
 					Gson gson = new Gson();
-					 ps = conn.prepareStatement(DBConstants.SELECT_ANSWER_BY_AID_STMT);
+					//Get answer by answer id
+					ps = conn.prepareStatement(DBConstants.SELECT_ANSWER_BY_AID_STMT);
 					String strAid = request.getParameter("aid");
 					int aid = Integer.parseInt(strAid);
 					ps.setInt(1, aid);
@@ -205,7 +206,6 @@ public class AnswersServlet extends HttpServlet {
 						
 						String strJson = gson.toJson("cant vote to your own answer", String.class);
 						out.println(strJson);
-						//out.println("1");
 					}
 					else 
 					{
@@ -214,6 +214,7 @@ public class AnswersServlet extends HttpServlet {
 						ps.setString(2, user.getNickname());
 						rs = (ResultSet) ps.executeQuery();				
 						if(!rs.next()){
+							
 							ps = conn.prepareStatement(DBConstants.INSERT_ANSWER_VOTE_STMT);
 							ps.setInt(1, aid);
 							String temp = request.getParameter("qid");
@@ -226,13 +227,13 @@ public class AnswersServlet extends HttpServlet {
 							ps.executeUpdate();
 							conn.commit();
 							
+							//Update answer Qvotes
 							ps = conn.prepareStatement(DBConstants.UPDATE_ANSWER_QVOTES_BY_AID_STMT);			
 							ps.setInt(1, voteVal);
 							ps.setInt(2, aid);
 							ps.executeUpdate();
 							
-							
-							
+							//get 					
 							ps = conn.prepareStatement(DBConstants.GET_AVG_RATING_OF_QUESTION_ANSWERS);
 							ps.setInt(1, qid);
 							rs = (ResultSet) ps.executeQuery();	
@@ -250,6 +251,7 @@ public class AnswersServlet extends HttpServlet {
 							}
 							double qRating = (((double)qvotes * 0.2) + (answersAvgRating * 0.8));
 							
+							/*******************************Update question raiting**************************************/
 							ps = conn.prepareStatement(DBConstants.UPDATE_QRATING_BY_FORMULA_STMT);	
 							
 							ps.setDouble(1, qRating);
@@ -284,14 +286,14 @@ public class AnswersServlet extends HttpServlet {
 							}
 								 double userRating = 0.2 * avgQuestions + 0.8 * avgAnswer;
 													
-							
+							//update user rating
 							ps = conn.prepareStatement(DBConstants.UPDATE_USER_RATING);
 							ps.setDouble(1, userRating);
 							ps.setString(2, answerOwner);		
 							ps.executeUpdate();
 							conn.commit();
 							
-							//UPDATE THW OWNER OF THE QUESTION							
+							//UPDATE THE OWNER OF THE QUESTION							
 							//find who ask the question	that you answered				
 							ps = conn.prepareStatement(DBConstants.SELECT_OWNER_BY_QID);
 							ps.setInt(1, qid);
@@ -327,7 +329,7 @@ public class AnswersServlet extends HttpServlet {
 							}
 						    userRating = 0.2 * avgQuestions + 0.8 * avgAnswer;
 													
-							
+							//update user  rating
 							ps = conn.prepareStatement(DBConstants.UPDATE_USER_RATING);
 							ps.setDouble(1, userRating);
 							ps.setString(2, ownerNickname);		
@@ -335,7 +337,8 @@ public class AnswersServlet extends HttpServlet {
 							conn.commit();
 																			
 							/*********************************************************************************************/
-														
+								
+							//get question by qid
 							ps = conn.prepareStatement(DBConstants.SELECT_QUESTION_BY_QID_STMT);	
 							ps.setInt(1, qid);
 							rs = (ResultSet) ps.executeQuery();	
@@ -343,7 +346,7 @@ public class AnswersServlet extends HttpServlet {
 							while (rs.next()){
 								newQRating = rs.getDouble(5);
 							}
-							
+							//formating
 							DecimalFormat df = new DecimalFormat("#.##");
 							String dx=df.format(newQRating);
 							newQRating=Double.valueOf(dx);
@@ -354,7 +357,6 @@ public class AnswersServlet extends HttpServlet {
 						else{
 							String strJson = gson.toJson("already voted to this answer", String.class);
 							out.println(strJson);
-							//out.println("2");
 						}
 					}
 					//recalc rating
@@ -411,8 +413,7 @@ public class AnswersServlet extends HttpServlet {
 	 *  @param qid the id of the question that the answer belongs to
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Enumeration<String> params = request.getParameterNames();while(params.hasMoreElements()){ String paramName = (String)params.nextElement(); System.out.println("Attribute: "+paramName+", Value: "+request.getParameter(paramName));}
-		
+			
 		Connection conn = null;
 		PrintWriter out = null;
 		PreparedStatement ps = null;
@@ -429,12 +430,13 @@ public class AnswersServlet extends HttpServlet {
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
 			 conn = ds.getConnection();
 			
-			
+			//when user post new answer
 			if(uri.equals("PostAnswer"))
 			{
 				try
 				{
-					 ps = conn.prepareStatement(DBConstants.INSERT_ANSWER_STMT);			
+					//Insert answer to answere table
+				    ps = conn.prepareStatement(DBConstants.INSERT_ANSWER_STMT);			
 					String questionId = request.getParameter("qid");
 					int qid = Integer.parseInt(questionId);
 					ps.setInt(1, qid);
@@ -445,8 +447,9 @@ public class AnswersServlet extends HttpServlet {
 					
 					
 					
-/************************************UPDATE question RATING*********************************************************/
+					/************UPDATE QUESTION RATING***************************/
 					
+					//get average rating of question answers
 					ps = conn.prepareStatement(DBConstants.GET_AVG_RATING_OF_QUESTION_ANSWERS);
 					ps.setInt(1, qid);
 					 rs = (ResultSet) ps.executeQuery();	
@@ -454,9 +457,10 @@ public class AnswersServlet extends HttpServlet {
 					while (rs.next()){
 						answersAvgRating = rs.getDouble(1);
 					}
-					
-					
+										
 					rs.close();
+					
+					//get Qvotes by qid
 					ps = conn.prepareStatement(DBConstants.SELECT_QVOTES_BY_QID_STMT);	
 					ps.setInt(1, qid);
 					rs = ps.executeQuery();
@@ -466,7 +470,7 @@ public class AnswersServlet extends HttpServlet {
 					}
 					double qRating = (((double)qvotes * 0.2) + (answersAvgRating * 0.8));
 					
-					
+					//Update question rating
 					ps = conn.prepareStatement(DBConstants.UPDATE_QRATING_BY_FORMULA_STMT);	
 					
 					ps.setDouble(1, qRating);
@@ -502,17 +506,14 @@ public class AnswersServlet extends HttpServlet {
 					}
 						 double userRating = 0.2 * avgQuestions + 0.8 * avgAnswer;
 											
-					
+					//Update user rating
 					ps = conn.prepareStatement(DBConstants.UPDATE_USER_RATING);
 					ps.setDouble(1, userRating);
 					ps.setString(2, user.getNickname());		
 					ps.executeUpdate();
 					conn.commit();
 					
-					
-					
-					
-					
+									
 					/*********************************UPDATE USER'S RATING****************************************/
 					//find who ask the question					
 					ps = conn.prepareStatement(DBConstants.SELECT_OWNER_BY_QID);
