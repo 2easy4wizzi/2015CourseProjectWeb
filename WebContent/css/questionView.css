@@ -90,7 +90,7 @@ body{
     left: -85px;
 }
 
-#voteScore{
+#voteScore, #voteScoreTwo{
     text-align: center;  
 }
 
@@ -99,6 +99,8 @@ body{
     padding-left: 25px;
     padding-right: 25px;
     padding-bottom: 25px;
+    font-size: 19px;
+    
 }
 
 .addAnswer{
@@ -116,7 +118,7 @@ body{
     left: 43.5%;
 }
 
-#BtnUp, #BtnDown{
+#BtnUp, #BtnDown, #BtnUpSecond, #BtnDownSecond{
 	background :  rgba(144, 130, 115, 0.83);
 	border-color: #fcf8e3;	
 } 
