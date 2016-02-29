@@ -30,8 +30,8 @@ import models.User;
 
 /**
  * Servlet implementation class LeaderBoard
- * @author gilad eini
- * @author ilana veitzblit
+ * @author Gilad Eini
+ * @author Ilana Veitzblit
  */
 public class LeaderBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -70,6 +70,7 @@ public class LeaderBoardServlet extends HttpServlet {
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
 			Connection conn = ds.getConnection();
 
+			//Get users that registered in our web site
 			if(uri.equals("getUsers"))
 				{
 			    	Collection<String> expertise = null;
@@ -77,27 +78,27 @@ public class LeaderBoardServlet extends HttpServlet {
 					Gson gson = new Gson();
 					try
 					{
-
+						//get 20 users ordered by user rating
 						PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_USERS_BY_USER_RATING_STMT);
 						ResultSet rs = (ResultSet) ps.executeQuery();
 								
 						while (rs.next()){
+							//get expertise for each user
 							PreparedStatement psE = conn.prepareStatement(DBConstants.SELECT_TOP_5_TOPICS_BY_POPULARITY_STMT);
 							
 							psE.setString(1, rs.getString("Nickname"));
-							System.out.println("######################    nickname" + rs.getString("Nickname"));
 							ResultSet rsE = (ResultSet) psE.executeQuery();
 							expertise = new ArrayList<String>();			
 							if(rsE != null){	
 							while (rsE.next()){
 								System.out.println("inside while");
-								System.out.println("######################    topics  " + rsE.getString("QTopics"));
 								expertise.add(new String(rsE.getString("QTopics")));	
 							}
 							rsE.close();
 							psE.close();
 							}
 							double Urating = rs.getDouble(6);
+							//formating
 							DecimalFormat dfRating = new DecimalFormat("#.##");
 							String dxRating=dfRating.format(Urating);
 							Urating=Double.valueOf(dxRating);
@@ -114,6 +115,7 @@ public class LeaderBoardServlet extends HttpServlet {
 					finally{
 						conn.close();
 					}
+					//return user collection
 					String top20usersJson = gson.toJson(top20users, DBConstants.NEW_USER_COLLECTION);
 					out.println(top20usersJson);
 					out.close();

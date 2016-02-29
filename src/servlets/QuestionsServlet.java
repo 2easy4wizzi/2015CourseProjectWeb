@@ -31,8 +31,8 @@ import models.User;
 
 /**
  * this servlet implement different requests related to questions. 
- * @author gilad eini
- * @author ilana veitzblit
+ * @author Gilad Eini
+ * @author Ilana Veitzblit
  */
 public class QuestionsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -46,10 +46,11 @@ public class QuestionsServlet extends HttpServlet {
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-    /**
-     * doGet is used to get info from the servlet. depending on the js function that calls doGet, different info will be fetched.
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)- doGet is used to get info from the servlet. depending on the js function that calls doGet, different info will be fetched.
+     * @param from - offset to get 20 questions from it.
+     * @param from - offset to get 20 questions from it.
+	 * @param topic - the 20 question will be brought only in this topic.
+	 * @return array of top new 20 question plus info if the next button should be available /array of top 20 question plus info if the next button should be available /array of top new 20 question / array of top 20 question in this topic plus info if the next button should be available
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -63,14 +64,11 @@ public class QuestionsServlet extends HttpServlet {
 			uri = uri.substring(uri.indexOf("QuestionsServlet") + "QuestionsServlet".length() + 1);
 			System.out.println("get- " + uri);
 			out = response.getWriter();
-			//User user = (User)(request.getSession().getAttribute("user"));
 			Context context = new InitialContext();
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
 			conn = ds.getConnection();
-			/**
+			/*
 			 * this segment gets the top 20 new question from an offset. in addtion, it also see if the "next button" should apear in the html.
-			 * @param from - offset to get 20 questions from it.
-			 * @return array of top new 20 question plus info if the next button should be available
 			 */
 			if(uri.equals("GetNewTop20"))
 			{
@@ -81,6 +79,7 @@ public class QuestionsServlet extends HttpServlet {
 				Gson gson = new Gson();
 				try
 				{
+					//get number of new questions
 					ps = conn.prepareStatement(DBConstants.SELECT_COUNT_NEW_QUESTIONS_STMT);
 					rs = ps.executeQuery();
 					while (rs.next()){
@@ -99,6 +98,7 @@ public class QuestionsServlet extends HttpServlet {
 						out.close();
 					}
 					else{
+						//get top 20 new questions by time stamp
 						ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_NEW_QUESTIONS_BY_TIMESTAMP_STMT);
 						String strFrom = request.getParameter("top20from");
 						from = Integer.parseInt(strFrom) * 20;
@@ -114,6 +114,7 @@ public class QuestionsServlet extends HttpServlet {
 							String dxRating=dfRating.format(Qrating);
 							Qrating=Double.valueOf(dxRating);
 							
+							//get photo by nickname
 							PreparedStatement psPhoto = conn.prepareStatement(DBConstants.SELECT_PHOTO_BY_NICKNAME_STMT);
 							psPhoto.setString(1, rs.getString("OwnerNickname"));
 							ResultSet rsPhoto = psPhoto.executeQuery();
@@ -121,7 +122,7 @@ public class QuestionsServlet extends HttpServlet {
 							while (rsPhoto.next()){
 								urlOwnerPhoto = rsPhoto.getString("PhotoUrl");
 							}
-							
+							//push to the collection of questions
 							top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),Qrating,rs.getInt(5),createdHuman ,tsTime,rs.getInt(7),urlOwnerPhoto));
 						}
 						boolean dontShowNextButton = false;
@@ -141,10 +142,8 @@ public class QuestionsServlet extends HttpServlet {
 					response.sendError(500);// internal server error
 				}
 			}
-			/**
+			/*
 			 * this segment gets the top 20  question from an offset. in addtion, it also see if the "next button" should apear in the html.
-			 * @param from - offset to get 20 questions from it.
-			 * @return array of top 20 question plus info if the next button should be available
 			 */
 			else if(uri.equals("GetTop20"))
 			{
@@ -154,6 +153,7 @@ public class QuestionsServlet extends HttpServlet {
 				Gson gson = new Gson();
 				try
 				{
+					//get the number of questions
 					PreparedStatement psCount = conn.prepareStatement(DBConstants.SELECT_COUNT_QUESTIONS_STMT);
 					ResultSet rsCount = (ResultSet) psCount.executeQuery();
 					while (rsCount.next()){
@@ -164,7 +164,7 @@ public class QuestionsServlet extends HttpServlet {
 					rsCount.close();
 					psCount.close();
 					
-					if(count == 0)
+					if(count == 0)//no questions found
 					{
 						boolean dontShowNextButton = true;
 						String boolJson = gson.toJson(dontShowNextButton, boolean.class);
@@ -175,7 +175,7 @@ public class QuestionsServlet extends HttpServlet {
 						out.close();
 						return;
 					}
-					
+					//get existing questions
 					 ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_QUESTIONS_BY_TIMESTAMP_STMT);
 					
 					String strFrom = request.getParameter("top20from");
@@ -184,16 +184,18 @@ public class QuestionsServlet extends HttpServlet {
 					 rs = (ResultSet) ps.executeQuery();
 					
 					while (rs.next()){
+						//formating
 						java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(6));
 						long tsTime = ts.getTime();
-						DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");						java.sql.Date startDate = new java.sql.Date(ts.getTime());
+						DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+						java.sql.Date startDate = new java.sql.Date(ts.getTime());
 						String createdHuman = df.format(startDate);
 						double Qrating = rs.getDouble(4);
 						DecimalFormat dfRating = new DecimalFormat("#.##");
 						String dxRating=dfRating.format(Qrating);
 						Qrating=Double.valueOf(dxRating);
 						
-						
+						//get photo for user
 						PreparedStatement psPhoto = conn.prepareStatement(DBConstants.SELECT_PHOTO_BY_NICKNAME_STMT);
 						psPhoto.setString(1, rs.getString("OwnerNickname"));
 						ResultSet rsPhoto = psPhoto.executeQuery();
@@ -201,11 +203,10 @@ public class QuestionsServlet extends HttpServlet {
 						while (rsPhoto.next()){
 							urlOwnerPhoto = rsPhoto.getString("PhotoUrl");
 						}
-						
+						//push to question collection
 						top20new.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),Qrating,rs.getInt(5),createdHuman ,tsTime,rs.getInt(7),urlOwnerPhoto));
 					}
-					
-					//conn.commit();
+
 					rs.close();
 					ps.close();
 				}
@@ -230,11 +231,9 @@ public class QuestionsServlet extends HttpServlet {
 				out.println(outRespone);
 				out.close();
 			}
-			/**
+			/*
 			 * this segment gets the top 20 new question from an offset.
 			 * it is used to understand if the page presenting the new questions has changed.
-			 * @param from - offset to get 20 questions from it.
-			 * @return array of top new 20 question 
 			 */
 			else if(uri.equals("Update"))
 			{
@@ -251,9 +250,11 @@ public class QuestionsServlet extends HttpServlet {
 					 rs = (ResultSet) ps.executeQuery();
 					
 					while (rs.next()){
+						//formating
 						java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(6));
 						long tsTime = ts.getTime();
-						DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");						java.sql.Date startDate = new java.sql.Date(ts.getTime());
+						DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");						
+						java.sql.Date startDate = new java.sql.Date(ts.getTime());
 						String createdHuman = df.format(startDate);
 						double Qrating = rs.getDouble(4);
 						DecimalFormat dfRating = new DecimalFormat("#.##");
@@ -275,15 +276,11 @@ public class QuestionsServlet extends HttpServlet {
 					conn.close();
 				}
 				String top20newJson = gson.toJson(top20new, DBConstants.NEW_QUESTION_COLLECTION);
-				//System.out.println("JSON: " +top20newJson);
 				out.println(top20newJson);	
 				out.close();
 			}
-			/**
+			/*
 			 * this segment gets the top 20 new question from an offset BY A TOPIC.
-			 * @param from - offset to get 20 questions from it.
-			 * @param topic - the 20 question will be brought only in this topic.
-			 * @return array of top 20 question in this topic plus info if the next button should be available
 			 */
 			else if(uri.equals("getQuestionsByTopic"))
 			{
@@ -297,7 +294,7 @@ public class QuestionsServlet extends HttpServlet {
 					String strFrom = request.getParameter("from");
 					from = Integer.parseInt(strFrom) * 20;
 					
-					
+					//get number of questions by topics
 					 ps = conn.prepareStatement(DBConstants.SELECT_COUNT_QUESTIONS_BY_TOPIC_STMT);
 					ps.setString(1, topicName);
 					 rs = ps.executeQuery();
@@ -306,15 +303,15 @@ public class QuestionsServlet extends HttpServlet {
 					}
 					ps.close();
 					rs.close();
-					//System.out.println("count was: " + count);
 					if(count == 0){
 						String boolJson = gson.toJson(true, boolean.class);
 						String strJson = gson.toJson("noQuestionsOnTopicsFound", String.class);
 						String outRespone = "[" + boolJson + "," + strJson + "]";
 						out.println(outRespone);
-						//System.out.println("final collection: " + outRespone);	
+	
 					}
 					else{
+						//get top 20 questions by topics
 						ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_QUESTIONS_BY_TOPIC_STMT);
 						ps.setString(1, topicName);
 						ps.setInt(2, from);
@@ -322,15 +319,18 @@ public class QuestionsServlet extends HttpServlet {
 						
 						
 						while (rs.next()){
+							//formating
 							java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString("Created"));
 							long tsTime = ts.getTime();
-							DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");							java.sql.Date startDate = new java.sql.Date(ts.getTime());
+							DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");							
+							java.sql.Date startDate = new java.sql.Date(ts.getTime());
 							String createdHuman = df.format(startDate);
 							double Qrating = rs.getDouble("QRating");
 							DecimalFormat dfRating = new DecimalFormat("#.##");
 							String dxRating=dfRating.format(Qrating);
 							Qrating=Double.valueOf(dxRating);
 							
+							//get photo for user
 							PreparedStatement psPhoto = conn.prepareStatement(DBConstants.SELECT_PHOTO_BY_NICKNAME_STMT);
 							psPhoto.setString(1, rs.getString("OwnerNickname"));
 							ResultSet rsPhoto = psPhoto.executeQuery();
@@ -338,7 +338,7 @@ public class QuestionsServlet extends HttpServlet {
 							while (rsPhoto.next()){
 								urlOwnerPhoto = rsPhoto.getString("PhotoUrl");
 							}
-							
+							//push to question collection
 							top20byTopic.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3),Qrating,rs.getInt(5),createdHuman ,tsTime,rs.getInt(7),urlOwnerPhoto));
 						}
 
@@ -397,6 +397,9 @@ public class QuestionsServlet extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param topics - array of topics that the user entered
+	 * @param questionText - the text of the question that the user entered
+	 * @param user.getNickname() - the nickname of the user who entered the questions. we get the details of the user from the session.
 	 */
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -404,7 +407,7 @@ public class QuestionsServlet extends HttpServlet {
 		PrintWriter out = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		//Enumeration<String> params = request.getParameterNames(); while(params.hasMoreElements()){String paramName = (String)params.nextElement();System.out.println("Attribute: "+paramName+", Value: "+request.getParameter(paramName));}
+
 		try
 		{
 			String uri = request.getRequestURI();
@@ -416,14 +419,11 @@ public class QuestionsServlet extends HttpServlet {
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
 			conn = ds.getConnection();
 			
-			/**
+			/*
 			 * this segment post a new question by the user that is logged in.
 			 * it also post the topics in another table with the QID.
 			 * whenever a user post a new question, his rating changes, so we also update his new rating
-			 * @param topics - array of topics that the user entered
-			 * @param questionText - the text of the question that the user entered
-			 * @param user.getNickname() - the nickname of the user who entered the questions. we get the details of the user from the session.
-			 */
+		   	 */
 			if(uri.equals("PostQuestion"))
 			{
 				try
@@ -498,7 +498,7 @@ public class QuestionsServlet extends HttpServlet {
 					Owner.close();
 					double userRating = 0.2 * avgQuestions + 0.8 * avgAnswer;
 											
-					
+					/******* update user rating *********/
 					ps = conn.prepareStatement(DBConstants.UPDATE_USER_RATING);
 					ps.setDouble(1, userRating);
 					ps.setString(2, user.getNickname());		
@@ -513,13 +513,7 @@ public class QuestionsServlet extends HttpServlet {
 					response.sendError(500);// internal server error
 				}		
 			}
-			
-			
-			
-			
-			
-			
-			
+		
 		}
 		catch (SQLException | NamingException e) 
 		{
@@ -553,6 +547,10 @@ public class QuestionsServlet extends HttpServlet {
 	
 	/**
      * doPut is used to put new info in the DB. depending on the js function that calls doPut, different info will be put in the DB.
+     * @param qid is given to update the question
+     * @param qid - the question that user vote on.
+	 * @param voteValue - +1 or -1
+	 * @return on voting violation, returns the right error message
      */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -570,9 +568,8 @@ public class QuestionsServlet extends HttpServlet {
 			Context context = new InitialContext();
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
 			conn = ds.getConnection();
-			/**
+			/*
 			 * this segment increment by 1 the number of answer for the given question.
-			 * @param qid is given to update the question
 			 */
 			if(uri.equals("incQuestionAnswers"))
 			{ 
@@ -591,14 +588,11 @@ public class QuestionsServlet extends HttpServlet {
 					response.sendError(500);// internal server error
 				}
 			}
-			/**
+			/*
 			 * this segment add a vote to a question.
 			 * it checks first that the user didn't vote already on this Question and that the user is not the owner of the question
 			 * 2 side effects also occur. the question rating and the user rating changes.
 			 * so we update both of them as well
-			 * @param qid - the question that user vote on.
-			 * @param voteValue - +1 or -1
-			 * @return on voting violation, returns the right error message
 			 */
 			else if(uri.equals("addVote"))
 			{ 

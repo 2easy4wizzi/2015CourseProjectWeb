@@ -21,8 +21,8 @@ import models.User;
 /**
  * Servlet implementation class LoginServlet.
  * It deals with requests of login and registration
- * @author gilad eini
- * @author ilana veitzblit
+ * @author Gilad Eini
+ * @author Ilana Veitzblit
  */
 
 public class LoginServlet extends HttpServlet {
@@ -30,7 +30,6 @@ public class LoginServlet extends HttpServlet {
 
 	public LoginServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public int isOnDBReg(String column, String var, Connection conn) throws SQLException , NamingException
@@ -41,7 +40,7 @@ public class LoginServlet extends HttpServlet {
 			{
 				ps = conn.prepareStatement(DBConstants.SELECT_USER_BY_NAME_STMT);
 			}
-			else// if (column.equals("Nickname"))
+			else
 			{
 				ps = conn.prepareStatement(DBConstants.SELECT_USER_BY_NICKNAME_STMT);
 			}
@@ -60,9 +59,18 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
-
+	/**
+	 * this segment get user details and see if the user can register under this details
+	 * @param username the user name requested by the user
+	 * @param password the password requested by the user
+	 * @param nickname the nickname requested by the user
+	 * @param description the description given by the user
+	 * @param PhotoUrl the url photo given by the user
+	 * @param username the user name given by user
+	 * @param password the password given by user
+	 * @return if user name and/or nickname already taken returns error / on failure return error string
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException 
 	{
@@ -76,15 +84,7 @@ public class LoginServlet extends HttpServlet {
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("LoginServlet") + "LoginServlet".length() + 1);
 			
-			/**
-			 * this segment get user details and see if the user can register under this details
-			 * @param username the username requested by the user
-			 * @param password the password requested by the user
-			 * @param nickname the nickname requested by the user
-			 * @param description the description given by the user
-			 * @param PhotoUrl the url photo given by the user
-			 * @return if username and/or nickname already taken returns error
-			 */
+			//Registration
 			if(uri.equals("Register"))
 			{
 				String PhotoUrl = request.getParameter("photo");
@@ -100,6 +100,7 @@ public class LoginServlet extends HttpServlet {
 						null);
 				try
 				{
+					//returns error comments for user
 					if(isOnDBReg("Username", user.getUserName(), conn)== 0)
 					{
 						if(isOnDBReg("Nickname", user.getNickname(), conn)== 0){
@@ -117,7 +118,6 @@ public class LoginServlet extends HttpServlet {
 					else
 					{	
 						PreparedStatement ps = conn.prepareStatement(DBConstants.INSERT_USER_STMT);
-						//user.print();
 						ps.setString(1, user.getUserName());
 						ps.setString(2, user.getPassword());
 						ps.setString(3, user.getNickname());
@@ -144,12 +144,11 @@ public class LoginServlet extends HttpServlet {
 					out.close();
 				}
 			}
-			/**
+			/*
 			 * this segment get user name and password and checks if they exist in DB.
-			 * @param username the username given by user
-			 * @param password the password given by user
-			 * @return on failure return eeror string
 			 */
+			
+			//login
 			else if(uri.equals("Login"))
 			{
 				try
@@ -189,9 +188,7 @@ public class LoginServlet extends HttpServlet {
 		}
 		finally
 		{
-		}
-			//response.sendRedirect("index.html");
-			//response.getWriter().append("Served at: ").append(request.getContextPath());	
+		}	
 	}
 }
 
