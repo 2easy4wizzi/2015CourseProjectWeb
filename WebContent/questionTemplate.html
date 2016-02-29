@@ -39,12 +39,10 @@
 <div data-ng-if="focus != 'questionsByNewly'"> 
 	<div ng-controller="answersService" ng-init="getAnswers(question.Qid);"> 
 		<div class="row showMoreButtonAndCountAnswers">
-			<div class="col-xs-2"></div>
-			<div class="col-xs-3">
-				<span>there are {{question.Answers}} answers</span> 
-	   		</div>	
+			<div class="col-xs-2"></div>		
 	   		<div class="col-xs-3">
-	      		<span ng-show="(question.Answers>1)">
+				<div class="answerCount">{{question.Answers}} answer<span ng-show="question.Answers!=1">s</span></div> 
+	      		<span class="showMoreAnswers" ng-show="(question.Answers>1)">
 	      			<button class="btn btn-primary" id="more_answers-{{$index}}" ng-click="presentAllAnswers(question.Answers,$index);">{{more_answers}}</button> 
 	   			</span>
 			</div>
@@ -76,7 +74,7 @@
 	</div>
 </div>
 </div>
-  	<div class="row">
+  <!-- 	<div class="row">
   		<div class="col-xs-2"></div>
   		<div class="col-xs-10 addAnswer">
   			<button type="button" class="btn btn-primary"  ng-click="answerButtonPressed()">{{answer_button}}</button><br>
@@ -86,6 +84,20 @@
         		<button type="button" class="btn btn-primary" ng-click="answerText=''">Clear</button>
        		</div>
   		</div>
-  	</div>	
+  	</div>
+  	 -->	
+			 <div class="row">
+			  		<div class="col-xs-5"></div>
+			  		<div class="col-xs-3 addAnswer">
+			  			<button type="button" class="btn btn-primary"  ng-click="answerButtonPressed()">{{answer_button}}</button><br>
+			       		<div data-ng-show="showAnswerTextArea">
+			        		<textarea rows="7"   cols="60" placeholder="your Answer?" maxlength="300" ng-model="answerText" required></textarea><br>
+			        		<button type="button" class="btn btn-primary" ng-click="postAnswer(question.Qid,answerText,$index) ; answerText=''">submit Answer</button>
+			        		<button type="button" class="btn btn-primary" ng-click="answerText=''">Clear</button>
+			       		</div>
+			  		</div>
+			  	</div>
+			  	 
+
 </body>
 </html>

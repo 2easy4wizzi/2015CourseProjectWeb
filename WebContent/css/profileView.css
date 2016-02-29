@@ -1,24 +1,41 @@
-.nicknameHeader{
-	color: blue;
-	font-family: 'Helvetica Neue';
-	font-size: 55px;
-	font-style: italic;
-	text-align: center;
-	text-decoration: underline;	
-}
+
 
 .picture{
     width: 172px ;	
 }
-
-.description, .rating{
-    /* margin-left: 105px;
-    margin-bottom: 10px;
+body{
+	background-color: #f1f1ef !important;
+}
+.miniTitle{
+	text-align: center;
+    font-size: 1em;
+    font-style: italic;
+    font-weight: normal;
+    color: #333;
+    display: block;
+    font-family: 'Helvetica Neue';
+    font-style: italic;
+	
+}
+.headerRow{
+	text-align: center;
+    font-size: 3em;
+    font-style: italic;
+    font-weight: normal;
+    color: #333;
+    display: block;
+    font-family: 'Helvetica Neue';
+    font-style: italic;
+}
+hr {
     margin-top: 10px;
-    padding: 1em 1.6em;
-	min-height: 230px;
-     */
-     
+    margin-bottom: 2px;
+    border: 0;
+    border-top: 1px solid #CABDBD !important;
+	width: 692px;
+}
+.description, .rating{
+
     margin-bottom: 15px;
      
 	padding-top: 5px;
@@ -28,19 +45,23 @@
     border: 1px solid black;
     border-radius: 25px;
 }
-
-.regularHeader{
-	color: black;
-	font-family: 'Helvetica Neue';
-	font-size: 40px;
-	font-style: italic;
-	text-decoration: underline;	
+.topicView{
+    margin: auto;
+    width: 90%;
+    text-align: center;
+    font-family: 'Helvetica Neue';
+    font-size: 30px;
+    font-style: italic;
 }
-
 .table{
     width: 50% !important;
 }
 
+.cloud{
+	width: 430px;
+    margin: 0 auto;
+    text-align: center;
+}
 .table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
@@ -48,6 +69,13 @@
 
 th{
     border-top: black !important;
+}
+#Header{
+    font-size: 47px;	
+}
+
+#miniHeader{
+	font-size: 27.3px;
 }
 
 .miniQuestionView{
@@ -67,7 +95,10 @@ th{
 	background-color: rgb(241, 235, 235);
 }
 
-
+a {
+    color: #866B58;
+    text-decoration: none;
+}
 
 
 

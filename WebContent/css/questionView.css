@@ -7,9 +7,12 @@
     border: 1px solid black;
 	min-height: 230px;
     border-radius: 25px;
-    background-color: rgba(228, 201, 174, 0.82);
-
-
+    background-color: rgba(159, 148, 135, 0.45);
+}
+.btn-primary {
+    background: rgba(144, 130, 115, 0.83)!important;
+    border-color: #fcf8e3!important;
+    margin-left: 4px;
 }
 body{
 	background-color: #f1f1ef !important;
@@ -20,9 +23,10 @@ body{
     font-style: italic;
     font-weight: normal;
     color: #333;
+    font-family: 'Helvetica Neue';   
+    margin-left: 2%;
     display: block;
-    font-family: 'Helvetica Neue';
-    font-style: italic;
+
 }
 hr {
     margin-top: 10px;
@@ -135,9 +139,39 @@ body{
     
 }
 
+.answerCount{
+	font-size: 27px;
+    font-family: 'Helvetica Neue';
+    font-style: italic;
+    text-align: center;
+    color: black;
+}
 
+.showMoreAnswers{
+    position: absolute;
+    top: 3px;
+    left: 309px;
+}
 
+.text{
+	font-style: normal;
+    font-weight: bold;   
+    font-family: "Segoe UI",Arial,sans-serif;
 
+}
+.footer {
+    min-width: 105px;
+    margin-top: 4px;
+    float: left;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    border: 0;
+    outline: 0;
+    background: transparent;
+}
 
 
 

@@ -2,6 +2,7 @@ app.controller('leaderBoardC', ['$scope', '$http','$location',
                             function($scope, $http,$location){
 	$scope.from = 0;
 	
+	
 	$scope.getUsers = function()
 	{
 		$http(

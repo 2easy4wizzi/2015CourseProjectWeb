@@ -27,7 +27,11 @@
 	<div ng-controller="userProfileC" ng-init="getUserDetails();last5Questions();getExpertise();getQuestionForAnswer()" >
 		<div class="row">
 			<div class="col-xs-12">		
-				<div class="nicknameHeader">{{user.Nickname}}'s Profile Page</div>
+					<div class="headerRow">
+					<span id="Header">{{user.Nickname}}'s </span>
+					<span id="miniHeader"> profile page</span>
+				</div>
+				<hr>
 			</div>
 		</div>
 		<div class="row">
@@ -42,30 +46,21 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-12">		
-				<div class="regularHeader"> Expertise:</div>
-                <table class="table table-hover">
-					<tr>
-				    	<th>Number</th>
-				    	<th>Topic</th>
-					    <th>Popularity</th>		
- 					</tr>
-			        <tr ng-repeat="expertise in expertises">
-				    	<td>
-				    		{{$index+1}}
-				 		</td>
-				    	<td>
-				    		{{expertise.Topic}}
-				 		</td>
-				    	<td>
-				    		{{expertise.Popularity}}
-				 		</td> 	 	
-			    	 </tr>
-			  </table>	
+				<div class="headerRow"> Expertise:</div>
+				<hr>
+			        <div ng-repeat="expertise in expertises">
+			        <div class="cloud">
+				    	<span class="topicView">
+				    	<a>{{expertise.Topic}} <span class="badge">{{expertise.Popularity}} </span></a>
+	 					</span>
+			    	 </div>
+			    	 </div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-12">		
-				<div class="regularHeader"><span>last 5 Questions that</span> {{user.Nickname}} asked:</div>
+				<div class="headerRow"><span>last 5 Questions that</span> {{user.Nickname}} asked:</div>
+				<hr>
                	<div ng-repeat="question in questions">
              	   <div class="miniQuestionView">
                 		<div class="date">date:{{question.CreatedHuman}}</div>
@@ -86,7 +81,7 @@
        	
 		<div class="row">
 			<div class="col-xs-12">		
-				<div class="regularHeader"><span>last 5 Answers that</span> {{user.Nickname}} answered with the question:</div>
+				<div class="headerRow"><span>last 5 Answers that</span> {{user.Nickname}} answered with the question:</div>
                	<div ng-repeat="answerQuestion in answersQuestions">
              	   <div class="miniQuestionView">
              	   		<div>Rating:{{answerQuestion.QRating}}</div>
