@@ -4,9 +4,8 @@ package models;
 **                     Topic model                       **
 **********************************************************/
 
+//Holding the attributes of the Topic
 public class Topic {
-	
-	
 	private String Topic;
 	private double Popularity ;
 	

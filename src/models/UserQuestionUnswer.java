@@ -3,7 +3,7 @@ package models;
 /**********************************************************
 **               User Question Answer model              **
 **********************************************************/
-
+//Holding user- question, answer attributes
 public class UserQuestionUnswer
 {
 	

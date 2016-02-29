@@ -4,6 +4,7 @@ package models;
 **                     Question model                    **
 **********************************************************/
 
+//Holding the attributes of the question
 public class Question
 {
 	

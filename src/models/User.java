@@ -4,6 +4,8 @@ package models;
 **                     User model                        **
 **********************************************************/
 
+//Holding the attributes of the user
+
 import java.util.ArrayList;
 import java.util.Collection;
 

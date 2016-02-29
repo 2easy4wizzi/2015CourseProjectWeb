@@ -4,6 +4,7 @@ package models;
 **                     Answer model                      **
 **********************************************************/
 
+//Holding the attributes of the answer
 public class Answer
 {
 	
