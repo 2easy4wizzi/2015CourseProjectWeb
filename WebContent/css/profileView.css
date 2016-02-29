@@ -15,6 +15,7 @@ body{
     display: block;
     font-family: 'Helvetica Neue';
     font-style: italic;
+    
 	
 }
 .headerRow{
@@ -83,11 +84,11 @@ th{
     margin-top: 10px;
     padding: 1em 1.6em;
     border: 1px solid black;
-	/*min-height: 230px;*/
-    border-radius: 25px;	
+    border-radius: 25px;
+    background-color: rgba(159, 148, 135, 0.45);	
 }
 
-.date{
+.CenterRight{
 	text-align: right;
 }
 
@@ -100,9 +101,22 @@ a {
     text-decoration: none;
 }
 
+.text{
+    font-style: normal;
+    font-weight: bold;
+    font-family: "Segoe UI",Arial,sans-serif;
+    font-size: 20px;
+}
 
-
-
+.topicTag {
+    color: #F1F1EF;
+    font-size: 15px;
+    border: 1px solid #E1ECF4;
+    border-radius: 20px;
+    border-radius: 0;
+    margin-top: 3px;
+    color: #675F56;
+}
 
 
 

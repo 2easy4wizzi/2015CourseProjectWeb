@@ -226,8 +226,8 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 							last5AnsweredQuestions.add(new UserQuestionUnswer(rs.getInt("QId"),rs.getString("AnswerText"),rsQ.getString("QuestionText"),rs.getInt("AVotes"),Qrating,createdHuman,tsTime));
 						}
 						rsQ.close();
+						psQuestion.close();
 					}
-					psQuestion.close();
 										
 					String last5AnsweredQuestionsJson = gson.toJson(last5AnsweredQuestions, DBConstants.NEW_ANSWER_COLLECTION);
 					out.println(last5AnsweredQuestionsJson);
