@@ -20,9 +20,9 @@
   	<div class="row">
   		<div class="col-xs-12">
   			<div class="votes">
-				<button ng-click="addVote(question.Qid,1)" type="button"  class="btn btn-success glyphicon glyphicon-thumbs-up BtnUp"  data-loading-text=" ... "></button>  			
-	  			<div class="voteScore">{{question.Qvotes}}</div>
-	  			<button ng-click="addVote(question.Qid,-1)" type="button"  class="btn btn-success glyphicon glyphicon-thumbs-down BtnDown" data-loading-text=" ... "></button>
+				<button ng-click="addVote(question.Qid,1)" type="button" id="BtnUp" class="btn btn-success glyphicon glyphicon-thumbs-up"  data-loading-text=" ... "></button>  			
+	  			<div id="voteScore">{{question.Qvotes}}</div>
+	  			<button ng-click="addVote(question.Qid,-1)"type="button"  id="BtnDown" class="btn btn-success glyphicon glyphicon-thumbs-down" data-loading-text=" ... "></button>
   			</div>
   			<div class="text" id="Qtext">{{question.QuestionText}}</div>
 			<div ng-controller="topicsC" ng-init="getTopics(question.Qid)">
@@ -60,9 +60,9 @@
 			  	<div class="row">
 			  		<div class="col-xs-12">
 			  			<div class="votes">
-							<button ng-click="addVote(question.Qid,answer.Aid,1)" type="button" class="btn btn-success glyphicon glyphicon-thumbs-up BtnUp"  data-loading-text=" ... "></button>  			
-				  			<div class="voteScore">{{answer.AVotes}}</div>
-				  			<button ng-click="addVote(question.Qid,answer.Aid,-1)" type="button" class="btn btn-success glyphicon glyphicon-thumbs-down BtnDown" data-loading-text=" ... "></button>
+							<button ng-click="addVote(question.Qid,answer.Aid,1)" type="button" id="BtnUp" class="btn btn-success glyphicon glyphicon-thumbs-up"  data-loading-text=" ... "></button>  			
+				  			<div id="voteScore">{{answer.AVotes}}</div>
+				  			<button ng-click="addVote(question.Qid,answer.Aid,-1)"type="button" id="BtnDown" class="btn btn-success glyphicon glyphicon-thumbs-down" data-loading-text=" ... "></button>
 			  			</div>
 			  			<div class="text" id="Atext">{{answer.AnswerText}}</div>
 			  		</div>

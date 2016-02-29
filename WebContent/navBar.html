@@ -21,10 +21,10 @@
   <!-- nav bar-->
 	<nav class="navbar navbar-inverse">
 		<div ng-controller="navC" ng-init=getNickname() >
-			<form novalidate name="homePageForm">
+			<form novalidat name="homePageForm">
 				<div class="container-fluid">
 					<ul class="nav navbar-nav">			
-						<li><img  class="logo" alt="logo" src="Images/diy.png" width="95"></li>							
+						<li><img  class="logo" alt="logo" src="Images/diy.png" width="95px"></li>							
 						<li ng-class="{ active: isActive('/askedQuestion.html')}"><a href="askedQuestion.html">Ask Question</a></li>
 						<li ng-class="{ active: isActive('/leaderBoard.html')}"><a href="leaderBoard.html">User's leaderboard</a></li>
 						<li ng-class="{ active: isActive('/userProfile.html')}"><a href="userProfile.html">Profile</a></li>				
@@ -38,6 +38,7 @@
 						</li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
+						<li img ng-src="{{photoUrl}}" alt="This is the User Profile picture " width="50"><a>Welcome, {{nickname}}</a></li>
 						<li><a href="loginAndRegister.html" ng-click="removeAtt()">logout</a></li>
 					</ul>		
 				</div>
