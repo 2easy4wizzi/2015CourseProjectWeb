@@ -63,7 +63,6 @@ public class QuestionsServlet extends HttpServlet {
 		try {
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("QuestionsServlet") + "QuestionsServlet".length() + 1);
-			System.out.println("get- " + uri);
 			out = response.getWriter();
 			Context context = new InitialContext();
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
@@ -414,7 +413,6 @@ public class QuestionsServlet extends HttpServlet {
 		{
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("QuestionsServlet") + "QuestionsServlet".length() + 1);
-			System.out.println("post- "+ uri);
 			out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
 			Context context = new InitialContext();
@@ -565,7 +563,6 @@ public class QuestionsServlet extends HttpServlet {
 		try {
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("QuestionsServlet") + "QuestionsServlet".length() + 1);
-			System.out.println("put- " + uri);
 			out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
 			Context context = new InitialContext();

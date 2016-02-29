@@ -67,7 +67,6 @@ public class AnswersServlet extends HttpServlet {
 		{
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("AnswersServlet") + "AnswersServlet".length() + 1);
-			System.out.println("get- " + uri);
 			out = response.getWriter();
 			Context context = new InitialContext();
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
@@ -171,7 +170,6 @@ public class AnswersServlet extends HttpServlet {
 		{
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("AnswersServlet") + "AnswersServlet".length() + 1);
-			System.out.println("put- " + uri);
 			User user = (User)(request.getSession().getAttribute("user"));
 			out = response.getWriter();
 			Context context = new InitialContext();
@@ -259,7 +257,6 @@ public class AnswersServlet extends HttpServlet {
 							ps.setDouble(1, qRating);
 							ps.setInt(2, qid);
 							ps.executeUpdate();
-							System.out.println(qRating+ " xxxxxxxx");
 				
 							/*********************************UPDATE USER'S RATING****************************************/
 							//Update the owner of the answer
@@ -426,7 +423,6 @@ public class AnswersServlet extends HttpServlet {
 		{
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("AnswersServlet") + "AnswersServlet".length() + 1);
-			System.out.println("post- " + uri);
 			out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
 			Context context = new InitialContext();

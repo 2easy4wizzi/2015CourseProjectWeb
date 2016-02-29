@@ -62,7 +62,6 @@ public class LeaderBoardServlet extends HttpServlet {
 			
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("LeaderBoardServlet") + "LeaderBoardServlet".length() + 1);
-			System.out.println("GET: "+uri);
 			PrintWriter out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
 			request.getSession().setAttribute("user", user);
@@ -91,7 +90,6 @@ public class LeaderBoardServlet extends HttpServlet {
 							expertise = new ArrayList<String>();			
 							if(rsE != null){	
 							while (rsE.next()){
-								System.out.println("inside while");
 								expertise.add(new String(rsE.getString("QTopics")));	
 							}
 							rsE.close();

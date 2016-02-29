@@ -61,7 +61,6 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		{
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("UserProfileServlet") + "UserProfileServlet".length() + 1);
-			System.out.println("get- " + uri);
 			PrintWriter out = response.getWriter();
 			User user = (User)(request.getSession().getAttribute("user"));
 			request.getSession().setAttribute("user", user);
