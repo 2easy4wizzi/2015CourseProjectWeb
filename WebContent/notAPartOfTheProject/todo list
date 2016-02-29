@@ -4,9 +4,6 @@
 #fix date format to hagay's (looks ok)
 #Hagay put a link to check out site -- validation
 #html titles
-#add ng-if to everything that could be empty
-#profile gets more than 5 answers- and fix DBSchema
-#write in assumption - spaces not allowed
 #fix picture size
 #document our code
 #javadoc
@@ -14,4 +11,4 @@
 #remove syso
 #exeption in leaderBoard
 #remove gilad in login and register
-#remove prev next buttons
+#relocate prev next buttons
