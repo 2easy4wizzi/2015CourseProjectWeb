@@ -103,7 +103,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 					}).success(function(response) 
 						{
 							var res = response;			
-							if (res.length != $scope.questions.length || $scope.questions[0].Created != res[0].Created)
+							if (res.length != $scope.questions.length || ($scope.questions.length>0 && $scope.questions[0].Created != res[0].Created))
 							{
 								if(res.length == 0){//no questions
 									

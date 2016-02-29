@@ -40,11 +40,11 @@
 				<img class="picture" alt="profile picture" ng-src="{{user.PhotoUrl}}">
 			</div>
 			<div class="col-xs-4">
-       			<div class="description">Description:<br>{{user.Description}}</div>
+       			<div ng-show="{{user.Description}}" class="description">Description:<br>{{user.Description}}</div>
        			<div class="rating">User Rating:<br>{{user.UserRating}}</div>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row" ng-show="expertises.length>0">
 			<div class="col-xs-12">		
 				<div class="headerRow"> Expertise:</div>
 				<hr>
@@ -57,7 +57,7 @@
 			    	 </div>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row" ng-show="question.length>0">
 			<div class="col-xs-12">		
 				<div class="headerRow"><span>last 5 Questions that</span> {{user.Nickname}} asked:</div>
 				<hr>
@@ -79,7 +79,7 @@
        	</div>
        	
        	
-		<div class="row">
+		<div class="row" ng-show="answerQuestion.length>0">
 			<div class="col-xs-12">		
 				<div class="headerRow"><span>last 5 Answers that</span> {{user.Nickname}} answered with the question:</div>
                	<div ng-repeat="answerQuestion in answersQuestions">
