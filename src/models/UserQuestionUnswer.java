@@ -1,5 +1,9 @@
 package models;
 
+/**********************************************************
+**               User Question Answer model              **
+**********************************************************/
+
 public class UserQuestionUnswer
 {
 	

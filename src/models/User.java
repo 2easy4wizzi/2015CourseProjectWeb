@@ -1,8 +1,12 @@
 package models;
 
+/**********************************************************
+**                     User model                        **
+**********************************************************/
 
 import java.util.ArrayList;
 import java.util.Collection;
+
 
 public class User
 {

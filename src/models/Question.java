@@ -1,5 +1,9 @@
 package models;
 
+/**********************************************************
+**                     Question model                    **
+**********************************************************/
+
 public class Question
 {
 	
@@ -7,9 +11,6 @@ public class Question
 	public void setAnswers(int answers) {
 		Answers = answers;
 	}
-
-
-
 
 	private String QuestionText, OwnerNickname,CreatedHuman;
 	private long Created;
