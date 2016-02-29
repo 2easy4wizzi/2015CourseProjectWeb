@@ -35,7 +35,7 @@
 	<div class="container">   
 		<div ng-controller="leaderBoardC" ng-init="getUsers()">
 			<div ng-repeat="user in users"> <!-- display user -->
-	     		<div class="user"><a href="userProfile.html#/#{{user.Nickname}}">{{user.Nickname}}</a></div>
+	     		<div class="user"><a id="userName" href="userProfile.html#/#{{user.Nickname}}">{{user.Nickname}}</a></div>
 				<img ng-src="{{user.PhotoUrl}}" alt="This is the User Profile picture " width="100"/> 
 				<br>		
 				<div class="text">Description:{{user.Description}}</div>

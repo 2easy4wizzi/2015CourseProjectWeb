@@ -1,20 +1,31 @@
 .topicTag{
-    font-size: 20px;
+	color: #F1F1EF;
+    font-size: 15px;
     border: 1px solid #E1ECF4;
     border-radius: 20px;
+    border-radius: 0;
     margin-top: 3px;
     color: #675F56;
 }
 
+#userName{
+	color: #401A0C;
+	
+}
 .user{
-	font-style: normal;
-    font-weight: bold;
-    font-family: "Segoe UI",Arial,sans-serif;
+
+    font-size: 1.77777778em;
+    font-style: italic;
+    font-weight: normal;
+    color: #333;
+    display: block;
+    font-family: 'Helvetica Neue';
+    font-style: italic;
     font-size: 43px;
 }
 
 .text{
-	font-size: 25px;
+	font-size: 19px;
 }
 
 body{
