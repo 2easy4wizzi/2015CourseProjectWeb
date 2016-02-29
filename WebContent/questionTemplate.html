@@ -2,18 +2,16 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>question template</title>
+	<title>Question template</title>
 </head>
 
 <body>
-
-<div class="itemBlock" id="questionBlock">
+<div class="itemBlock" id="questionBlock"> <!-- question display -->
   	<div class="row">
   		<div class="col-xs-4">
   			<img class="ownerPic" id="ownerPicQ" alt="owner picture" ng-src="{{question.OwnerPhoto}}">
   			<img class="triangle" src="Images/triangle.png" alt="triangle" >
-  			<div class="owner" id="ownerQ">{{question.OwnerNickname}}</div>
-  		
+  			<div class="owner" id="ownerQ">{{question.OwnerNickname}}</div> 		
   		</div>
   		<div class="col-xs-8">
   			<div class="date"><div>{{question.CreatedHuman}}</div></div>
@@ -29,31 +27,14 @@
   			<div class="text" id="Qtext">{{question.QuestionText}}</div>
 			<div ng-controller="topicsC" ng-init="getTopics(question.Qid)">
 				<span id="topicsHeader">{{topcis_header}}</span> 
-				<span ng-repeat="topic in topics">
-					<button class="topicTag">{{topic}}</button>
+				<span ng-repeat="topic in topics"> <!-- display topics -->
+				<button class="topicTag">{{topic}}</button>
 				</span>
 			</div>
   		</div>
   	</div>
 </div>
-<div class="debugQ">
-  	<h1>debugging purposes:</h1>
-	<div>Qid:{{question.Qid}}</div>
-	<div>Text:{{question.QuestionText}}</div>
-	<div>Nickname:{{question.OwnerNickname}}</div>
-  	<div>QRating:{{question.QRating}}</div>	
-  	<div>Qvotes:{{question.Qvotes}}</div>	
-	<div>date long:{{question.Created}}</div>
-	<div>date:{{question.CreatedHuman}}</div>
-	<div>answers:{{question.Answers}}</div>
-		<div ng-controller="topicsC" ng-init="getTopics(question.Qid)">
-			topics:
-			<span ng-repeat="topic in topics">
-				 {{$index+1}}-{{topic}}
-			</span>
-		</div>
-	</div>
-<div data-ng-if="focus != 'questionsByNewly'"> 
+<div data-ng-if="focus != 'questionsByNewly'">  
 	<div ng-controller="answersService" ng-init="getAnswers(question.Qid);"> 
 		<div class="row showMoreButtonAndCountAnswers">
 			<div class="col-xs-2"></div>		
@@ -70,8 +51,7 @@
 			  		<div class="col-xs-4">
 			  			<img class="ownerPic" alt="owner picture" ng-src="{{answer.OwnerPhoto}}">
 			  			<img class="triangle" src="Images/triangle.png" alt="triangle" >
-			  			<div class="owner">{{answer.OwnerNickname}}</div>
-			  			
+			  			<div class="owner">{{answer.OwnerNickname}}</div>			  			
 		  			</div>
 			  		<div class="col-xs-8">
 			  			<div class="date"><div>{{answer.CreatedHuman}}</div></div>
@@ -85,15 +65,15 @@
 				  			<button ng-click="addVote(question.Qid,answer.Aid,-1)"type="button" id="BtnDown" class="btn btn-success glyphicon glyphicon-thumbs-down" data-loading-text=" ... "></button>
 			  			</div>
 			  			<div class="text" id="Atext">{{answer.AnswerText}}</div>
-			  	</div>
-			</div>
+			  		</div>
+			    </div>
+		     </div>
 		</div>
 	</div>
 </div>
-</div>
-  <!-- 	<div class="row">
-  		<div class="col-xs-2"></div>
-  		<div class="col-xs-10 addAnswer">
+	<div class="row">
+  		<div class="col-xs-5"></div>
+  		<div class="col-xs-3 addAnswer">
   			<button type="button" class="btn btn-primary"  ng-click="answerButtonPressed()">{{answer_button}}</button><br>
        		<div data-ng-show="showAnswerTextArea">
         		<textarea rows="7"   cols="60" placeholder="your Answer?" maxlength="300" ng-model="answerText" required></textarea><br>
@@ -102,19 +82,5 @@
        		</div>
   		</div>
   	</div>
-  	 -->	
-			 <div class="row">
-			  		<div class="col-xs-5"></div>
-			  		<div class="col-xs-3 addAnswer">
-			  			<button type="button" class="btn btn-primary"  ng-click="answerButtonPressed()">{{answer_button}}</button><br>
-			       		<div data-ng-show="showAnswerTextArea">
-			        		<textarea rows="7"   cols="60" placeholder="your Answer?" maxlength="300" ng-model="answerText" required></textarea><br>
-			        		<button type="button" class="btn btn-primary" ng-click="postAnswer(question.Qid,answerText,$index) ; answerText=''">submit Answer</button>
-			        		<button type="button" class="btn btn-primary" ng-click="answerText=''">Clear</button>
-			       		</div>
-			  		</div>
-			  	</div>
-			  	 
-
 </body>
 </html>

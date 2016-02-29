@@ -2,7 +2,7 @@
 <html lang="en-US">
 
 <head>
-<title>Home</title>
+<title>LeaderBoard</title>
 <meta charset="UTF-8">
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <!-- Bootstrap imports -->
@@ -15,6 +15,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
+<!-- js controllers -->
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript" src="js/controllers/homePageController.js"></script>
 <script type="text/javascript" src="js/controllers/answerController.js"></script>
@@ -24,9 +25,8 @@
 <script type="text/javascript" src="js/controllers/navTabsController.js"></script>
 <script type="text/javascript" src="js/controllers/leaderBoardController.js"></script>
 
+<!-- css file -->
 <link rel="stylesheet" type="text/css" href="css/leaderBoardView.css"/>
-
-
 </head>
 
 <body>
@@ -34,7 +34,7 @@
 	<div nav-directive></div>	
 	<div class="container">   
 		<div ng-controller="leaderBoardC" ng-init="getUsers()">
-			<div ng-repeat="user in users">
+			<div ng-repeat="user in users"> <!-- display user -->
 	     		<div class="user"><a href="userProfile.html#/#{{user.Nickname}}">{{user.Nickname}}</a></div>
 				<img ng-src="{{user.PhotoUrl}}" alt="This is the User Profile picture " width="100"/> 
 				<br>		
@@ -42,8 +42,8 @@
 				<div class="text">User Rating:{{user.UserRating}}</div>	
 				<div ng-show="user.Topics.length>0">
 					<span class="headerRow text"> Expertise:</span>
-					<span ng-repeat="expertise in user.Topics" class="cloud topicView">
-	   					<button class="topicTag">{{expertise}}</button>
+					<span ng-repeat="expertise in user.Topics" class="cloud topicView"> <!-- display expertise -->
+	   				<button class="topicTag">{{expertise}}</button>
 	    			</span>
 				</div>	
     			<hr>

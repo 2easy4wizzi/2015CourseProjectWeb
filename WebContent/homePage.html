@@ -11,12 +11,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
+<!-- js controllers -->
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript" src="js/controllers/questionController.js"></script>
 <script type="text/javascript" src="js/controllers/topicsController.js"></script>
 <script type="text/javascript" src="js/controllers/navBarController.js"></script>
 <script type="text/javascript" src="js/directives/navBarDirective.js"></script>
 
+<!-- css files -->
 <link rel="stylesheet" type="text/css" href="css/questionView.css"/>
 </head>
 
@@ -25,16 +27,14 @@
 		<div nav-directive></div>	
 		<div class="container">   
 			<div ng-controller="questionController" ng-init="init('questionsByNewly','null')">
-			<div> 
-</div>
-<div> 
-	<div class="headerRow">
-		<span>Newly questions</span>
-	</div>
-	<hr>
-</div>
- 				<div ng-repeat="question in questions" >
-					<div  data-ng-include src="'questionTemplate.html'"></div>	
+				<div> 
+					<div class="headerRow">
+						<span>Newly questions</span>
+					</div>
+					<hr>
+				</div>
+ 				<div ng-repeat="question in questions" > <!-- question template -->
+					<div data-ng-include src="'questionTemplate.html'"></div>	
 				</div>	
 				<div class="prevNextButton">
 					<button class="btn btn-primary" ng-click="prev()" ng-disabled="from==0">Previous</button>
@@ -43,9 +43,9 @@
 			</div> 
 		</div>
 	</div>
-	<div  class="footer">
-	<span>DIY | </span>
-<span> Copyright © 2016 Do It Yourself</span>
-</div>
+	<div class="footer">
+		<span>DIY | </span>
+		<span> Copyright © 2016 Do It Yourself</span>
+	</div>
 </body>
 </html>

@@ -10,6 +10,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
+<!-- js controllers -->
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript" src="js/controllers/questionController.js"></script>
 <script type="text/javascript" src="js/controllers/navBarController.js"></script>
@@ -21,23 +22,23 @@
 <body>
 	<div ng-app="main">
 		<div nav-directive></div>	
-		<div class="container"> 
-	<div>	<div class="headerRow">
-			<span>Existing questions</span>
-		</div>
-		<hr>
-		</div>  
-			<div ng-controller="questionController" ng-init="init('questionsByAll','null')">
-
- 				<div ng-repeat="question in questions" >
-					<div  data-ng-include src="'questionTemplate.html'"></div>	
-				</div>	
-				<div class="prevNextButton">
-					<button class="btn btn-primary" ng-click="prev()" ng-disabled="from==0">Previous</button>
-					<button class="btn btn-primary" ng-click="next()" ng-disabled="dontShowNextButton">Next</button>	
-				</div>
-			</div> 
-		</div>
-	</div>
+			<div class="container"> 
+				<div>	
+					<div class="headerRow">
+						<span>Existing questions</span>
+					</div>
+					<hr>
+				</div>  
+				<div ng-controller="questionController" ng-init="init('questionsByAll','null')">	
+	 				<div ng-repeat="question in questions" >
+						<div  data-ng-include src="'questionTemplate.html'"></div>	<!-- question template -->
+					</div>	
+					<div class="prevNextButton">
+						<button class="btn btn-primary" ng-click="prev()" ng-disabled="from==0">Previous</button>
+						<button class="btn btn-primary" ng-click="next()" ng-disabled="dontShowNextButton">Next</button>	
+					</div>
+				</div> 
+			</div>
+     </div>
 </body>
 </html>

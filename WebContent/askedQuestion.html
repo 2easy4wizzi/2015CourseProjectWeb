@@ -12,6 +12,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		
+	<!-- js controllers -->
 	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript" src="js/controllers/askQuestionController.js"></script>
 	<script type="text/javascript" src="js/controllers/navBarController.js"></script>
@@ -21,33 +22,28 @@
 <body >
 <div ng-app="main">
 	<div nav-directive></div>
-	<div ng-controller="askQuestionC" >
-		<form novalidate name="AskQuestionForm">
-	       	<div id="page content">
-				<div class="row">
-					<div class="col-lg-12">
-					<div class="headerRow">
-					<span>Ask question</span>
-				</div>
-				<hr>
-				
-						<textarea rows="7" cols="82" placeholder="{{text_area_place_holder}}"  maxlength="300" ng-model="questionText" required></textarea><br>   
-					  <span class="enterTopics"> Enter topics separated by a comma:</span>
-					    <input type="text" 	 ng-change="getTopic()"  placeholder="topics..." maxlength="50" ng-model="topicBar"  />{{error_msg}}<br>
-					    <span  ng-repeat="topic in topicsArray">   		
-					    	<button id="topic-{{$index}}" ng-click="deleteTopic($index)">{{topic}}</button> 
-					    </span><br>
-					    <input type="button"  value="Post Question" ng-click="postQuestion()" />
-					    <input type="button"  value="Clear" ng-click="clearQuestion()" />
+		<div ng-controller="askQuestionC" >
+			<form novalidate name="AskQuestionForm">
+		       	<div id="page content">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="headerRow">
+								<span>Ask question</span>
+							</div>
+							<hr>				
+							<textarea rows="7" cols="82" placeholder="{{text_area_place_holder}}"  maxlength="300" ng-model="questionText" required></textarea><br>   
+							<span class="enterTopics"> Enter topics separated by a comma:</span>
+							<input type="text" ng-change="getTopic()"  placeholder="topics..." maxlength="50" ng-model="topicBar"  />{{error_msg}}<br>
+							<span ng-repeat="topic in topicsArray"> <!-- display topics -->  		
+							   <button id="topic-{{$index}}" ng-click="deleteTopic($index)">{{topic}}</button> 
+							</span><br>
+							<input type="button"  value="Post Question" ng-click="postQuestion()" />
+							<input type="button"  value="Clear" ng-click="clearQuestion()" />
+						</div>
 					</div>
 				</div>
-			</div>
-		</form>
-
-	</div>
-
-
-	
+		    </form>
+	    </div>
 </div>
 </body>
 </html>

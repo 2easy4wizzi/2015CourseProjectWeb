@@ -1,16 +1,14 @@
 
 #change project name
-#change in http funcs to consts
-#fix date format to hagay's (looks ok)
+
 #Hagay put a link to check out site -- validation
 #html titles
-#fix picture size
+
 #document our code
-#javadoc
+#genarate java doc
 #overview hagay's requirements
 #remove syso
-#exeption in leaderBoard
+
 #remove gilad in login and register
 #relocate prev next buttons
 #remove notAPartOfTheProject 
-#display expertise in leaderBoard
