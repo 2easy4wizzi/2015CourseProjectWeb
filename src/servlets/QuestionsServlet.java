@@ -51,6 +51,7 @@ public class QuestionsServlet extends HttpServlet {
      * @param from - offset to get 20 questions from it.
 	 * @param topic - the 20 question will be brought only in this topic.
 	 * @return array of top new 20 question plus info if the next button should be available /array of top 20 question plus info if the next button should be available /array of top new 20 question / array of top 20 question in this topic plus info if the next button should be available
+     * @throws SQLException
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -400,6 +401,7 @@ public class QuestionsServlet extends HttpServlet {
 	 * @param topics - array of topics that the user entered
 	 * @param questionText - the text of the question that the user entered
 	 * @param user.getNickname() - the nickname of the user who entered the questions. we get the details of the user from the session.
+	 * @throws SQLException
 	 */
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -551,6 +553,7 @@ public class QuestionsServlet extends HttpServlet {
      * @param qid - the question that user vote on.
 	 * @param voteValue - +1 or -1
 	 * @return on voting violation, returns the right error message
+	 * @throws SQLException
      */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

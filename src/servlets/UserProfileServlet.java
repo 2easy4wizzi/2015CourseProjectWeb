@@ -51,7 +51,9 @@ public class UserProfileServlet extends HttpServlet {
 	/**
 	 * this function implements get request in the user profile domain
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 * 
+	 * @param userToShow the nickname of the user requested
+	 * @return the user clicked details / array of 5 question if there are 5 / array of 5 answers and their 5 questions if any exists		
+	 * @throws SQLException
 	 */
 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -76,11 +78,9 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			else{
 				userForShowing = request.getParameter("userToShow");			
 			}
-			/**
+			/*
 			 * this segment gets the information of a user that was clicked on
-			 * @param userToShow the nickname of the user requested
-			 * @return the user clicked details / array of 5 question if there are 5 / array of 5 answers and their 5 questions if any exists
-			 */
+	     	 */
 			if(uri.equals("getUserDetails"))
 			{				
 				Collection<User> userToShow = new ArrayList<User>();
@@ -128,7 +128,8 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 				while (rs.next()){
 					java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(6));
 					long tsTime = ts.getTime();
-					DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");					java.sql.Date startDate = new java.sql.Date(ts.getTime());
+					DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");					
+					java.sql.Date startDate = new java.sql.Date(ts.getTime());
 					String createdHuman = df.format(startDate);
 					double Qrating = rs.getDouble(4);
 					DecimalFormat dfRating = new DecimalFormat("#.##");

@@ -70,6 +70,7 @@ public class LoginServlet extends HttpServlet {
 	 * @param username the user name given by user
 	 * @param password the password given by user
 	 * @return if user name and/or nickname already taken returns error / on failure return error string
+	 * @throws SQLException
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException 

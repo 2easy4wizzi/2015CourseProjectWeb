@@ -54,6 +54,7 @@ public class AnswersServlet extends HttpServlet {
      * this doGet used only for getting answers for a given question
      * @param qid the qid of the question that we need to get the answers for
      * @return array in json of all the answers for the question.
+     * @throws SQLException
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
@@ -157,6 +158,7 @@ public class AnswersServlet extends HttpServlet {
      * @param aid the aid of the answer that was voted on
      * @param voteValue the voteValue of vote. +1 or -1
      * @return new Question rating
+     * @throws SQLException
      */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -411,6 +413,7 @@ public class AnswersServlet extends HttpServlet {
 	 * doPost is used for posting a new answer and updating the question and the user's rating
 	 *  @param answerText the text of the answer
 	 *  @param qid the id of the question that the answer belongs to
+	 *  @throws SQLException
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			

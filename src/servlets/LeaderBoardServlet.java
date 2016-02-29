@@ -52,9 +52,9 @@ public class LeaderBoardServlet extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	/**
 	 * this function is used to get 20 top user by rating from an offset given
+	 * @return users that registered in the system
+	 * @throws SQLException
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
 		try

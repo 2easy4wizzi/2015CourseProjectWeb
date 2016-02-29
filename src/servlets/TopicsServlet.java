@@ -49,6 +49,7 @@ public class TopicsServlet extends HttpServlet {
      * @param from - offset to get 20 questions from it.
      * @param qid - the question id 
 	 * @return array of 20 most popular questions from an offset + boolean that notify if the next button will stay on / array of all topic belong to the question
+     * @throws SQLException
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
