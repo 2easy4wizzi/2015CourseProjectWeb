@@ -8,7 +8,7 @@ app.controller('leaderBoardC', ['$scope', '$http','$location',
 		$http(
 		{
 			method : 'GET',
-			url : 'http://localhost:8080/webGilad/LeaderBoardServlet/getUsers',
+			url : projectUrl + LeaderBoardServlet+ 'getUsers',
 			params : {},
 			headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
 		}).success(function(response) 

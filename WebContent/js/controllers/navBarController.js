@@ -34,7 +34,7 @@ app.controller('navC', ['$scope', '$http','$location',
 			$http(
 					{
 						method : 'POST',
-						url : 'http://localhost:8080/webGilad/GetSessionUserNameServlet/GetNickName',
+						url : projectUrl + GetSessionUserNameServlet + 'GetNickName',
 						headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
 					}).success(function(response) {
 						
@@ -56,7 +56,7 @@ app.controller('navC', ['$scope', '$http','$location',
 		$http(
 				{
 					method : 'POST',
-					url : 'http://localhost:8080/webGilad/GetSessionUserNameServlet/RemoveAtt',
+					url : projectUrl + GetSessionUserNameServlet + 'RemoveAtt',
 					headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
 				}).success(function(response) {
 					

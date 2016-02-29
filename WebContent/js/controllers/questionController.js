@@ -69,8 +69,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 				{
 					method : 'GET',
 					url : projectUrl + QuestionServlet +'getQuestionsByTopic',
-/*					url : 'http://localhost:8080/webGilad/QuestionsServlet/getQuestionsByTopic',
-*/					params : {from: from, topic: topicPressed},
+					params : {from: from, topic: topicPressed},
 					headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 				}).success(function(response){
 					var res = response[1];
@@ -296,27 +295,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 	
 }]);
 
-/*app.controller('topicsService', ['$scope', '$http',
-                            function($scope, $http){
-	$scope.topics = "";
-	$scope.getTopics = function (qid) {
-		$http(
-				{
-					method : 'POST',
-					url : projectUrl + TopicsServlet + 'GetTopics',
-					params : {qid: qid},
-					headers : { 'Content-Type' : 'application/x-www-form-urlencoded' }
-				}).success(function(response) 
-						{
-					$scope.topics = response;
-					
-						}).error(function(error) {
-							console.log('somthing happend at get topics');
-							
-						});	
-	}
-	
-}]);*/
+
 app.controller('answersService', ['$scope', '$http',
                                     function($scope, $http){
   	

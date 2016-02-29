@@ -57,7 +57,7 @@ app.controller('logAndRegC', ['$scope', '$http',
 		     $http(
 			 {
 		         method: 'POST',
-		         url: 'http://localhost:8080/webGilad/LoginServlet/Login',
+		         url: projectUrl+LoginServlet+'Login',
 		         params: { username: $scope.loginUsername
 		        	 	 , password: $scope.loginPass },
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -116,7 +116,7 @@ app.controller('logAndRegC', ['$scope', '$http',
 		     $http(
 			 {
 		         method: 'POST',
-		         url: 'http://localhost:8080/webGilad/LoginServlet/Register',
+		         url: projectUrl+LoginServlet+'Register',
 		         params: { username: $scope.regUsername ,
 		        	 		password: $scope.regPass , 
 		        	 		nickname: $scope.nickname , 

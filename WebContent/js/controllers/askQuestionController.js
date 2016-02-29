@@ -24,7 +24,7 @@ app.controller('askQuestionC', ['$scope', '$http',
       		$http(
 			{
 				method : 'POST',
-				url : 'http://localhost:8080/webGilad/QuestionsServlet/PostQuestion',
+				url : projectUrl+ QuestionServlet+ 'PostQuestion',
 				params : { questionText: $scope.questionText, topics: myJson},
 				headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
 				}).success(function(response) 
