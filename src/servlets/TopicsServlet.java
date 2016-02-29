@@ -27,8 +27,8 @@ import models.Topic;
 
 /**
  * Servlet implementation class CalcPopularTopics. It deals with requests if topics
- * @author gilad eini
- * @author ilana veitzblit
+ * @author Gilad Eini
+ * @author Ilana Veitzblit
  */
 public class TopicsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -40,18 +40,18 @@ public class TopicsServlet extends HttpServlet {
         super();
         
     }
-
-
-
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     /**
      * doGet is used to get info from the servlet. depending on the js function that calls doGet, different info will be fetched.
+     * @param from - offset to get 20 questions from it.
+     * @param qid - the question id 
+	 * @return array of 20 most popular questions from an offset + boolean that notify if the next button will stay on / array of all topic belong to the question
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Enumeration<String> params = request.getParameterNames(); while(params.hasMoreElements()){String paramName = (String)params.nextElement();System.out.println("Attribute: "+paramName+", Value: "+request.getParameter(paramName));}
+		
 		try
 		{
 			String uri = request.getRequestURI();
@@ -61,10 +61,8 @@ public class TopicsServlet extends HttpServlet {
 			Context context = new InitialContext();
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
 			Connection conn = ds.getConnection();
-			/**
+			/*
 			 * this segment gets the top 20 MOST popular topics from an offset. in addtion, it also see if the "next button" should apear in the html.
-			 * @param from - offset to get 20 questions from it.
-			 * @return array of 20 most popular questions from an offset + boolean that notify if the next button will stay on
 			 */
 			if(uri.equals("calcPopularTopics"))
 			{
@@ -74,7 +72,7 @@ public class TopicsServlet extends HttpServlet {
 				int from = 0;
 				Gson gson = new Gson();
 				try
-				{					
+				{	//get number of topics				
 					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_COUNT_TOPICS_STMT);
 					ResultSet rs = ps.executeQuery();
 					while (rs.next()){
@@ -87,6 +85,7 @@ public class TopicsServlet extends HttpServlet {
 						out.println(outRespone);
 					}
 					else{
+						//get 20 most popular topics
 						ps = conn.prepareStatement(DBConstants.SELECT_20_MOST_POPULAR_TOPICS_STMT);
 						String strFrom = request.getParameter("from");
 						from = Integer.parseInt(strFrom) * 20;
@@ -94,7 +93,7 @@ public class TopicsServlet extends HttpServlet {
 						
 						rs = ps.executeQuery();
 						while (rs.next()){
-							
+							//formating
 							double popularity = rs.getDouble("Sumup");
 							DecimalFormat dfRating = new DecimalFormat("#.##");
 							String dxRating=dfRating.format(popularity);
@@ -126,10 +125,8 @@ public class TopicsServlet extends HttpServlet {
 					out.close();
 				}
 			}
-			/**
+			/*
 			 * this segment fetch all the topics of a question to be presented in the question view.
-			 * @param qid - the question id 
-			 * @return array of all topic belong to the question
 			 */
 			else if(uri.equals("GetTopics"))
 			{
@@ -160,7 +157,6 @@ public class TopicsServlet extends HttpServlet {
 					conn.close();
 				}
 				String topicsJson = gson.toJson(topics, DBConstants.NEW_TOPICS_COLLECTION);
-				//System.out.println("JSON: " +topicsJson);
 				out.println(topicsJson);
 				out.close();
 			}	
