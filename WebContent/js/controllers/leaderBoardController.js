@@ -3,7 +3,7 @@ app.controller('leaderBoardC', ['$scope', '$http','$location',
 	$scope.from = 0;
 	
 	
-	$scope.getUsers = function()
+	$scope.getUsers = function()/*brings 20 top user*/
 	{
 		$http(
 		{

@@ -1,6 +1,7 @@
 app.controller('logAndRegC', ['$scope', '$http',
 	function ($scope, $http) 
 	{
+		/*ctor- mainly error msg and 8 input fields*/
 		 $scope.logErr="";
 		 $scope.logUNError="";
 		 $scope.logPWError="";
@@ -15,7 +16,8 @@ app.controller('logAndRegC', ['$scope', '$http',
 		 $scope.nickname = null;
 		 $scope.description = null;
 		 $scope.photoUrl = null;
-		 
+
+		 /*booleans to show/hide tooltips*/
 		 $scope.showLoginView = true;
 		 $scope.showDangerRegNN = true;
 		 $scope.showDangerUserName = true;
@@ -35,7 +37,7 @@ app.controller('logAndRegC', ['$scope', '$http',
 			 $scope.showDangerUserName = true;
 			 $scope.showDangerPassword = true;
 	    	 if($scope.loginUsername == null || $scope.loginPass == null || $scope.loginUsername == "" || $scope.loginPass == "")
-			 {
+			 {/*input check*/
 				 if($scope.loginUsername == null || $scope.loginUsername == "")
 				 {
 					 $scope.showDangerUserName = false;
@@ -60,7 +62,7 @@ app.controller('logAndRegC', ['$scope', '$http',
 		     {
 		    	
 		    	 $scope.logErr = response;
-		    	 if ($scope.logErr == "")
+		    	 if ($scope.logErr == "") /*upon success forward to new questions page*/
 	    		 {
 		    		 window.location = "\homePage.html";
 		    		 //send do home page
@@ -87,7 +89,7 @@ app.controller('logAndRegC', ['$scope', '$http',
 			 $scope.showDangerRegNN = true;
 			 
 			 if($scope.regUsername == null || $scope.regUsername =="" || $scope.regPass == null || $scope.regPass =="" || $scope.nickname == null || $scope.nickname =="")
-			 {
+			 {/*input check*/
 				 if($scope.regUsername == null || $scope.regUsername == "")
 				 {
 					$scope.showDangerRegUN = false;
@@ -121,7 +123,7 @@ app.controller('logAndRegC', ['$scope', '$http',
 		     .success(function (response) 
 		     {
 		    	
-		    	if (response == 2)
+		    	if (response == 2)/*check errors*/
 	    		 {
 		    		 $scope.showDangerRegUN = false;
 		    		 $scope.regUNError = "User name exist";
@@ -143,7 +145,7 @@ app.controller('logAndRegC', ['$scope', '$http',
 		    		 $scope.nickname = "";
 	    		 }
 		    	 
-		    	 if (response == "")
+		    	 if (response == "")/*success goto new question*/
 	    		 {
 		    		 window.location = "\homePage.html";
 		    		 //send do home page
@@ -160,6 +162,7 @@ app.controller('logAndRegC', ['$scope', '$http',
 	             $scope.status = 'Unable to connect' + error.message;
 		     });     
 	     }
+	     /*clear fields functions*/
 	     $scope.regClear=function () {
 	    	 $scope.regUNError = "";
 			 $scope.regNNError = "";

@@ -1,18 +1,20 @@
 app.controller('topicsC', ['$scope', '$http','$location',function($scope, $http,$location){
+	/*topics ctor*/
+	
 	$scope.from = 0;
 	$scope.dontShowNextButton = false;
 	$scope.topics = "";
 	$scope.questions = "";
 	$scope.focus = "topics";
 	
-	$scope.browseQuestions = function(topicPressed){
+	$scope.browseQuestions = function(topicPressed){/*on topic clicked*/
 		$scope.focus = questionByTopicFocus;
 		$scope.tempTopic = topicPressed;
 
 	}
 	
 	
-	$scope.calcPopularTopics = function(from)
+	$scope.calcPopularTopics = function(from)/*get top 20 topics by popularity*/
 	{
 		$http(
 		{
@@ -38,7 +40,7 @@ app.controller('topicsC', ['$scope', '$http','$location',function($scope, $http,
 	}
 	
 	
-	$scope.prevTopics = function(){
+	$scope.prevTopics = function(){/*next and prev buttons*/
 		$scope.from--;
 		$scope.calcPopularTopics($scope.from);
 		
@@ -50,7 +52,7 @@ app.controller('topicsC', ['$scope', '$http','$location',function($scope, $http,
 	}
 	
 	$scope.topics = "";
-	$scope.getTopics = function (qid) {
+	$scope.getTopics = function (qid) {/*get all topics for a question*/
 		$http(
 				{
 					method : 'GET',

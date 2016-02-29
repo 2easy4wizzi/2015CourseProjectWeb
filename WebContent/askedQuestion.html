@@ -32,7 +32,7 @@
 							</div>
 							<hr>				
 							<textarea rows="7" cols="82" placeholder="{{text_area_place_holder}}"  maxlength="300" ng-model="questionText" required></textarea><br>   
-							<span class="enterTopics"> Enter topics separated by a comma:</span>
+							<span class="enterTopics"> Enter topics separated by a comma:(you can remove a topic by clicking on it)</span>
 							<input type="text" ng-change="getTopic()"  placeholder="topics..." maxlength="50" ng-model="topicBar"  />{{error_msg}}<br>
 							<span ng-repeat="topic in topicsArray"> <!-- display topics -->  		
 							   <button id="topic-{{$index}}" ng-click="deleteTopic($index)">{{topic}}</button> 

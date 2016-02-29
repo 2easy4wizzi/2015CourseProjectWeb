@@ -2,7 +2,7 @@ app.controller('navC', ['$scope', '$http','$location',
     function($scope, $http, $location){
 
 	$scope.isActive = function (viewLocation) 
-	{			
+	{			/*hightlight the currect tab*/
         var s = location.href;
         var fields = s.split("/");			
         var name1 = "/" + fields[4];			
@@ -28,7 +28,7 @@ app.controller('navC', ['$scope', '$http','$location',
 
 	$scope.test = 0;
 	$scope.nickName = "Guest";
-	$scope.getNickname = function()
+	$scope.getNickname = function()/*getting the user nickname that is logged in to put in the nav bar*/
 	{
 		  if ($scope.test == 0) {
 			$http(
@@ -38,7 +38,7 @@ app.controller('navC', ['$scope', '$http','$location',
 						headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
 					}).success(function(response) {
 						
-				if (response == "") {
+				if (response == "") {/*if no user is logged in - goto login page*/
 					window.location = "\loginAndRegister.html";
 					//send do home page
 				} 
@@ -50,9 +50,9 @@ app.controller('navC', ['$scope', '$http','$location',
 				console.log('somthing happend at get user name ');
 			});
 		}
-		$scope.test = 1;
+		$scope.test = 1;/*do it just once*/
 	}
-	$scope.removeAtt = function(){
+	$scope.removeAtt = function(){/*click on logout will go to login page*/
 		$http(
 				{
 					method : 'POST',

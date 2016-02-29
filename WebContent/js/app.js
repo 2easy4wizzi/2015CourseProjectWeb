@@ -16,3 +16,4 @@ var questionByTopicFocus = "questionsByTopics";
 var questionByNewlyFocus = "questionsByNewly";
 var questionByAllFocus = "questionsByAll";
 
+/*global names*/

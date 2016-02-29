@@ -1,10 +1,10 @@
 app.controller('userProfileC', ['$scope', '$http','$location',  
       function($scope, $http,$location){
-	
+	/*ctor*/
 	 var s = location.href;			
      var fields = s.split("/");	
      var name = fields[4];
-     if(name == "userProfile.html")
+     if(name == "userProfile.html")/*understand which user was clicked by uri*/
      {
     	 name = "logNow";
      }
@@ -12,7 +12,7 @@ app.controller('userProfileC', ['$scope', '$http','$location',
     	 var name = fields[5].slice(1);       	 
      }
 	
-	$scope.getUserDetails = function () 
+	$scope.getUserDetails = function () /*get user clicked details*/
 	{			
 		$http(
 			{
@@ -29,7 +29,7 @@ app.controller('userProfileC', ['$scope', '$http','$location',
 				});
       		
 	}
-	$scope.last5Questions = function () 
+	$scope.last5Questions = function () /*get the user's last 5 questions*/
 	{			
 		$http(
 			{
@@ -46,7 +46,7 @@ app.controller('userProfileC', ['$scope', '$http','$location',
 				});
       		
 	}
-	$scope.getExpertise = function () 
+	$scope.getExpertise = function () /*get user's expertise*/
 	{			
 		$http(
 			{
@@ -63,7 +63,7 @@ app.controller('userProfileC', ['$scope', '$http','$location',
 				});
       		
 	}
-	$scope.getQuestionForAnswer = function () 
+	$scope.getQuestionForAnswer = function () /*get 5 last answers with their questions*/
 	{			
 		$http(
 			{

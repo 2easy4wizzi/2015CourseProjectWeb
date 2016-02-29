@@ -2,39 +2,39 @@ app.controller('questionController', ['$scope', '$http','$location',
                             function($scope, $http,$location){
 	var getQuestionByTopic = 'getQuestionsByTopic';
 
-	var arrayInizialize = false;
+	var arrayInizialize = false;/*used to initialize once*/
 	
-
+	/*button text change on click*/
 	var answerPositive = "Answer the question";
 	var answerNegative = "Collapse Answer";
 	$scope.answer_button = answerPositive;
 	$scope.more_answers = "show more answers";
 	
 	
-	
+	/*from is offset*/
 	$scope.from = 0;
 	$scope.questions = "";
 	$scope.answers = "";
 	$scope.dontShowNextButton = false;
 	
-	var refreshIntervalId = -1;
-	var answerBoxOpen = 0;
+	var refreshIntervalId = -1;/*used for update function - working every 3 seconds on newly questions view*/
+	var answerBoxOpen = 0;/*will cancel the update if 1 or more answers boxes are open*/
 
-	$scope.showAnswerTextArea = false;
+	$scope.showAnswerTextArea = false;/*the leave answer area is shown upon click*/
 	
 	var is_initialized = false;
 	
 	
-	
+	/*3 pages start with this function. each sends a different focus*/
 	$scope.init = function(focus, topic){	
 		$scope.focus = focus;
-		if(focus == questionByTopicFocus){
+		if(focus == questionByTopicFocus){/*topic page also sends a topic's name*/
 			$scope.topic = topic;
 			clearInterval(refreshIntervalId);
 			$scope.getQuestionsByTopic(topic, 0);
 		}
 		else if(focus == questionByNewlyFocus){
-			refreshIntervalId = setInterval($scope.update, 3000);
+			refreshIntervalId = setInterval($scope.update, 3000);/*update function starts*/
 			$scope.get20NewQuestions(0);
 		}
 		else if(focus == questionByAllFocus){
@@ -42,7 +42,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 			$scope.get20questions(0);
 		}
 		
-		if(focus != questionByNewlyFocus){ 
+		if(focus != questionByNewlyFocus){ /*initialize an array for "show more" button*/
 			$scope.how_much_to_show = [];
 			for (var i=0;i<$scope.questions.length;i++) 
 			{$scope.how_much_to_show.push({show:1 ,button:false});}
@@ -51,7 +51,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 	}
 	
 	
-	$scope.getQuestionByFocus= function(focus){
+	$scope.getQuestionByFocus= function(focus){/*after changes we call this function with the right focus*/
 		if(focus == questionByTopicFocus){
 			$scope.getQuestionsByTopic($scope.topic, $scope.from);
 		}
@@ -63,7 +63,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 		}
 	}
 	
-	$scope.getQuestionsByTopic= function(topicPressed, from){
+	$scope.getQuestionsByTopic= function(topicPressed, from){/*get top 20 by topic*/
 		
 		$http(
 				{
@@ -73,7 +73,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 					headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 				}).success(function(response){
 					var res = response[1];
-					$scope.dontShowNextButton = response[0];	
+					$scope.dontShowNextButton = response[0];	/*enable or disable next button*/
 					if(res == "noQuestionsOnTopicsFound"){
 						$scope.questions = "";
 					}
@@ -91,7 +91,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 				});
 	}
 	
-	$scope.update = function(){
+	$scope.update = function(){/*update function, runs every 3 seconds in Newly focus*/
 		if(answerBoxOpen == 0){
 			$http(
 					{
@@ -110,7 +110,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 								else{//there are questions
 									
 								}
-								$scope.get20NewQuestions($scope.from);
+								$scope.get20NewQuestions($scope.from); /*if there was a change reload questions*/
 								//return;
 							}										
 						}).error(function(error) {
@@ -121,7 +121,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 	}
 	
 	
-	$scope.get20NewQuestions = function(from)
+	$scope.get20NewQuestions = function(from)/*get top new 20 Questions with an offset*/
 	{
 		$http(
 		{
@@ -131,7 +131,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 			headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
 		}).success(function(response) 
 			{
-				$scope.dontShowNextButton = response[0];
+				$scope.dontShowNextButton = response[0];/*enable of disable next button*/
 				if (response[1] == 'noQuestionsFound') //0 for no questions found
 				{	
 					$scope.questions = "";
@@ -146,7 +146,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 				});
 		}
 
-	$scope.get20questions = function(from)
+	$scope.get20questions = function(from)/*get top 20 regular questions by rating*/
 	{	
 		$http(
 				{
@@ -157,7 +157,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 				}).success(function(response) 
 					{
 		
-					$scope.dontShowNextButton = response[0];
+					$scope.dontShowNextButton = response[0];/*enable or disable next button*/
 					if (response[1] == 'noQuestionsFound') //0 for no questions found
 					{	
 						$scope.questions = "";
@@ -181,7 +181,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 	
 	
 	
-	$scope.answerButtonPressed = function()
+	$scope.answerButtonPressed = function()/*leave and answer button pressed-> change the text and open the answer area*/
 	{
 		this.showAnswerTextArea = !this.showAnswerTextArea;
 		if(this.answer_button == answerNegative)
@@ -197,7 +197,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 		
 	}
 	
-	$scope.postAnswer = function(qid,answerText,index)
+	$scope.postAnswer = function(qid,answerText,index)/*post answer clicked*/
 	{
 		
 		if(answerText == null || answerText == "")
@@ -225,7 +225,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 						});
 	}
 	
-	$scope.incQuestionAnswers = function(qid)
+	$scope.incQuestionAnswers = function(qid)/*increment the number of answers to a question*/
 	{
 		$http(
 				{
@@ -242,7 +242,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 						});
 	}
 	
-	$scope.prev = function(){
+	$scope.prev = function(){/*next and prev buttons move the offset*/
 		$scope.from--;
 		$scope.getQuestionByFocus($scope.focus);
 	}
@@ -252,7 +252,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 	}
 	
 	
-	$scope.addVote = function(qid,voteValue){
+	$scope.addVote = function(qid,voteValue){/*like or dislike a question*/
 		$http(
 				{
 					method : 'PUT',
@@ -276,7 +276,7 @@ app.controller('questionController', ['$scope', '$http','$location',
 						});
 	}
 	
-	$scope.presentAllAnswers = function(answers,index){	
+	$scope.presentAllAnswers = function(answers,index){	/*show more answers button*/
 		if($scope.how_much_to_show[index].button == true)
 		{
 			this.more_answers = "show more answers";
@@ -295,11 +295,11 @@ app.controller('questionController', ['$scope', '$http','$location',
 	
 }]);
 
-
+/*answer controller*/
 app.controller('answersService', ['$scope', '$http',
                                     function($scope, $http){
   	
-       	$scope.getAnswers = function(qid){
+       	$scope.getAnswers = function(qid){/*get all answers to a question*/
        		$http(
        		{
        		method : 'GET',
@@ -324,7 +324,7 @@ app.controller('answersService', ['$scope', '$http',
        				});
            		}
 
-       	$scope.addVote = function(qid,aid,voteValue){
+       	$scope.addVote = function(qid,aid,voteValue){/*like or dislike an answer*/
        		$http(
        			{
        				method : 'PUT',
