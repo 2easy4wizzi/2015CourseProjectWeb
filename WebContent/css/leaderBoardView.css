@@ -1,0 +1,22 @@
+.topicTag{
+    font-size: 20px;
+    border: 1px solid #E1ECF4;
+    border-radius: 20px;
+    margin-top: 3px;
+    color: #675F56;
+}
+
+.user{
+	font-style: normal;
+    font-weight: bold;
+    font-family: "Segoe UI",Arial,sans-serif;
+    font-size: 43px;
+}
+
+.text{
+	font-size: 25px;
+}
+
+body{
+	background-color: #f1f1ef !important;
+}

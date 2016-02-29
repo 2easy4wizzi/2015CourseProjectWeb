@@ -23,55 +23,31 @@
 <script type="text/javascript" src="js/directives/navTabsDirective.js"></script>
 <script type="text/javascript" src="js/controllers/navTabsController.js"></script>
 <script type="text/javascript" src="js/controllers/leaderBoardController.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/leaderBoardView.css"/>
+
+
 </head>
 
 <body>
-<!-- <div ng-app="main">
-	<div nav-directive></div>	
-	<div class="container">   
-		<div ng-controller="leaderBoardC" ng-init="getUsers()">
-			<br>
-	 		<div ng-repeat="user in users">  
-                <div><a href="userProfile.html#/#{{user.Nickname}}">{{user.Nickname}}</a></div>
-                  <img ng-src="{{user.PhotoUrl}}" alt="This is the User Profile picture " width="100"/> <br>			
-          		Description:{{user.Description}}<br>
-          		User Rating:{{user.UserRating}}<br>
-       		<hr>
-      		</div>   			
-	  	</div>
-	</div>
-</div>
- -->
-
 <div ng-app="main">
 	<div nav-directive></div>	
 	<div class="container">   
 		<div ng-controller="leaderBoardC" ng-init="getUsers()">
-			 <table class="table table-hover">
-    <thead>
-      <tr ng-repeat="user in users">
-        <th><a href="userProfile.html#/#{{user.Nickname}}">{{user.Nickname}}</a><br>
-        <img ng-src="{{user.PhotoUrl}}" alt="This is the User Profile picture " width="100"/> <br>		
-        Description:{{user.Description}}<br>User Rating:{{user.UserRating}}		
-				<div class="headerRow"> Expertise:</div>
-				
-			        <div ng-repeat="expertise in user.Topics">
-			        <div class="cloud">
-				    	<span class="topicView">
-				    	<a>{{expertise}}</a>
-	 					</span>
-			    	 </div>
-			    	 </div>
-			    	 <hr>
-			    	 </th>
-
-        
-      </tr>
-    </thead>
-    <tbody>
-    
-    </tbody>
-  </table>		
+			<div ng-repeat="user in users">
+	     		<div class="user"><a href="userProfile.html#/#{{user.Nickname}}">{{user.Nickname}}</a></div>
+				<img ng-src="{{user.PhotoUrl}}" alt="This is the User Profile picture " width="100"/> 
+				<br>		
+				<div class="text">Description:{{user.Description}}</div>
+				<div class="text">User Rating:{{user.UserRating}}</div>	
+				<div ng-show="user.Topics.length>0">
+					<span class="headerRow text"> Expertise:</span>
+					<span ng-repeat="expertise in user.Topics" class="cloud topicView">
+	   					<button class="topicTag">{{expertise}}</button>
+	    			</span>
+				</div>	
+    			<hr>
+   			</div>
 	  	</div>
 	</div>
 </div>
