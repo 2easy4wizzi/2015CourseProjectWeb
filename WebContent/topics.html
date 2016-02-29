@@ -10,52 +10,53 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
+<!-- js controllers -->
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript" src="js/controllers/topicsController.js"></script>
 <script type="text/javascript" src="js/controllers/questionController.js"></script>
 <script type="text/javascript" src="js/controllers/navBarController.js"></script>
 <script type="text/javascript" src="js/directives/navBarDirective.js"></script>
+
+<!-- css files -->
 <link rel="stylesheet" type="text/css" href="css/questionView.css"/>
 <link rel="stylesheet" type="text/css" href="css/topicView.css"/>
 
-
-
 </head>
 <body>
-	<div ng-app="main">
-		<div nav-directive></div>	
-		<div class="container">   
-			<div ng-controller="topicsC" ng-init="calcPopularTopics(from)">	
-				<div ng-show="focus=='topics'">
+<div ng-app="main">
+	<div nav-directive></div>	
+	<div class="container">   
+		<div ng-controller="topicsC" ng-init="calcPopularTopics(from)">	
+			<div ng-show="focus=='topics'">
 				<div class="headerRow">
 					<span id="topicsHeader">Topics</span>
 					<span id="topicsSemiHeader"> by popularity</span>
 				</div>
-					<hr>
-					<div class="buttons">
-						<button class="btn btn-primary" ng-click="prevTopics()" ng-disabled="from==0">Prev</button>
-				        <button class="btn btn-primary" ng-click="nextTopics()" ng-disabled="dontShowNextButton">Next</button>
-					</div>
-					<div class="cloud">
-			 			<span class="topicView"  ng-repeat="topic in topics">
-		 						<a ng-click="browseQuestions(topic.Topic)" href="#topic={{topic.Topic}}">{{topic.Topic}}<span class="badge">{{topic.Popularity}} </span></a>					
-			 			</span>
-					</div>
+				<hr>
+				<div class="buttons">
+					<button class="btn btn-primary" ng-click="prevTopics()" ng-disabled="from==0">Prev</button>
+			        <button class="btn btn-primary" ng-click="nextTopics()" ng-disabled="dontShowNextButton">Next</button>
 				</div>
-	 			 <div ng-if="focus=='questionsByTopics'">
-	 				<div ng-controller="questionController" ng-init="init(focus,tempTopic)">
-		 				<div ng-repeat="question in questions" >
-							<div  data-ng-include src="'questionTemplate.html'"></div>	
-	 					</div>	
-	 				<div class="buttons">
-						<button class="btn btn-primary" ng-click="prev()" ng-disabled="from==0">Previous</button>
-						<button class="btn btn-primary" ng-click="next()" ng-disabled="dontShowNextButton">Next</button>	
-	 				</div>
-	 				</div> 
-	 			</div>
- 				<div class="buttons"><button class="btn btn-primary" id="backToTopics" ng-hide="focus=='topics'" ng-click="focus='topics'">back to Topics</button></div>	
+				<div class="cloud">
+		 			<span class="topicView"  ng-repeat="topic in topics">
+	 			    <a ng-click="browseQuestions(topic.Topic)" href="#topic={{topic.Topic}}">{{topic.Topic}}<span class="badge">{{topic.Popularity}} </span></a>					
+		 			</span>
+				</div>
 			</div>
+ 			 <div ng-if="focus=='questionsByTopics'">
+ 				<div ng-controller="questionController" ng-init="init(focus,tempTopic)"> 
+	 				<div ng-repeat="question in questions" >
+						<div data-ng-include src="'questionTemplate.html'"></div>	
+ 					</div>	
+ 				<div class="buttons">
+					<button class="btn btn-primary" ng-click="prev()" ng-disabled="from==0">Previous</button>
+					<button class="btn btn-primary" ng-click="next()" ng-disabled="dontShowNextButton">Next</button>	
+ 				</div>
+ 				</div> 
+ 			</div>
+			<div class="buttons"><button class="btn btn-primary" id="backToTopics" ng-hide="focus=='topics'" ng-click="focus='topics'">back to Topics</button></div>	
 		</div>
 	</div>
+</div>
 </body>
 </html>
