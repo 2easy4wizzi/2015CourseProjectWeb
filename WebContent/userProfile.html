@@ -57,7 +57,7 @@
 			    	 </div>
 			</div>
 		</div>
-		<div class="row" ng-show="question.length>0">
+		<div class="row" ng-show="questions.length>0">
 			<div class="col-xs-12">		
 				<div class="headerRow"><span>last 5 Questions that</span> {{user.Nickname}} asked:</div>
 				<hr>
@@ -79,7 +79,7 @@
        	</div>
        	
        	
-		<div class="row" ng-show="answerQuestion.length>0">
+		<div class="row" ng-show="answersQuestions.length>0">
 			<div class="col-xs-12">		
 				<div class="headerRow"><span>last 5 Answers that</span> {{user.Nickname}} answered with the question:</div>
                	<div ng-repeat="answerQuestion in answersQuestions">

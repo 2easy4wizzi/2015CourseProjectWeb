@@ -123,8 +123,6 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			
 				try{
 				Collection<Question> last5Questions = new ArrayList<Question>();
-
-
 					
 				PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_5_LAST_QUESTION_FOR_USER_STMT);
 				ps.setString(1, userForShowing);
@@ -205,33 +203,34 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 				try{
 					Collection<UserQuestionUnswer> last5AnsweredQuestions = new ArrayList<UserQuestionUnswer>();
 				
-					PreparedStatement psAnswer = null;
-					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_5_LAST_UNSWERED_QUESTIONS_BY_USER_STMT);
+					PreparedStatement psQuestion = null;
+					PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_5_LAST_ANSWERS_FOR_USER_STMT);
 					
 					ps.setString(1, userForShowing);
 					ResultSet rs = (ResultSet) ps.executeQuery();
 					while (rs.next()){
-						java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rs.getString(6));
-						long tsTime = ts.getTime();
-						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-						java.sql.Date startDate = new java.sql.Date(ts.getTime());
-						String createdHuman = df.format(startDate);
-						double Qrating = rs.getDouble(4);
-						DecimalFormat dfRating = new DecimalFormat("#.##");
-						String dxRating=dfRating.format(Qrating);
-						Qrating=Double.valueOf(dxRating);
-						psAnswer = conn.prepareStatement(DBConstants.SELECT_ANSWER_BY_QID_AND_USER_STMT);
-						psAnswer.setInt(1, rs.getInt(1));
-						psAnswer.setString(2, userForShowing);
-						ResultSet rsA = (ResultSet) psAnswer.executeQuery();
 						
-							while (rsA.next()){
-							last5AnsweredQuestions.add(new UserQuestionUnswer(rsA.getInt(2),rsA.getString(3),rs.getString(2),rsA.getInt(5),Qrating,createdHuman,tsTime));
+						psQuestion = conn.prepareStatement(DBConstants.SELECT_QUESTION_BY_QID_STMT);
+						psQuestion.setInt(1, rs.getInt("QId"));
+						ResultSet rsQ = (ResultSet) psQuestion.executeQuery();
+											
+						while (rsQ.next()){
+							java.sql.Timestamp ts = java.sql.Timestamp.valueOf(rsQ.getString("Created"));
+							long tsTime = ts.getTime();
+							DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+							java.sql.Date startDate = new java.sql.Date(ts.getTime());
+							String createdHuman = df.format(startDate);
+							double Qrating = rsQ.getDouble("QRating");
+							DecimalFormat dfRating = new DecimalFormat("#.##");
+							String dxRating=dfRating.format(Qrating);
+							Qrating=Double.valueOf(dxRating);
+							
+							last5AnsweredQuestions.add(new UserQuestionUnswer(rs.getInt("QId"),rs.getString("AnswerText"),rsQ.getString("QuestionText"),rs.getInt("AVotes"),Qrating,createdHuman,tsTime));
 						}
-						psAnswer.close();
-						rsA.close();
+						rsQ.close();
 					}
-					
+					psQuestion.close();
+										
 					String last5AnsweredQuestionsJson = gson.toJson(last5AnsweredQuestions, DBConstants.NEW_ANSWER_COLLECTION);
 					out.println(last5AnsweredQuestionsJson);
 					out.close();
