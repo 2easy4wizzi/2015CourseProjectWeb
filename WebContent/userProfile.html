@@ -84,6 +84,7 @@
 				<div class="headerRow"><span>last 5 Answers that</span> {{user.Nickname}} answered with the question:</div>
                	<div ng-repeat="answerQuestion in answersQuestions">
              	   <div class="miniQuestionView">
+             	   		<div class="date">date:{{answerQuestion.CreatedHuman}}</div>
              	   		<div>Rating:{{answerQuestion.QRating}}</div>
            		   		<div>Text:{{answerQuestion.QuestionText}}</div>
            		   		<div ng-controller="topicsC" ng-init="getTopics(answerQuestion.Qid)">
@@ -94,7 +95,6 @@
 						</div> 
 	               </div>
              	   <div class="miniQuestionView" id="answerColored">
-             	   		<div class="date">date:{{answerQuestion.CreatedHuman}}</div>
                 		<div>Answer:{{answerQuestion.AnswerText}}</div>
 		        		<div>Answer's votes: {{answerQuestion.AVotes}}</div>
 	               </div>
