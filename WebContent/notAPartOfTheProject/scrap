@@ -1,4 +1,0 @@
-
-
-SELECT SUM (QRating) FROM "USERNAME"."TBL_QUESTIONS" where qid=1 or qid=2;
-
