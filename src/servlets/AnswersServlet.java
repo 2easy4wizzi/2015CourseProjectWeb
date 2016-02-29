@@ -255,7 +255,7 @@ public class AnswersServlet extends HttpServlet {
 							ps.setDouble(1, qRating);
 							ps.setInt(2, qid);
 							ps.executeUpdate();
-							
+							System.out.println(qRating+ " xxxxxxxx");
 				
 							/*********************************UPDATE USER'S RATING****************************************/
 							//Update the owner of the answer
@@ -314,7 +314,7 @@ public class AnswersServlet extends HttpServlet {
 							 }
 							}
 						    //calculate AVG in answer table
-							ps = conn.prepareStatement(DBConstants.GET_AVG_RATING_OF_QUESTIONS_BY_USER);
+							ps = conn.prepareStatement(DBConstants.GET_AVG_RATING_OF_ANSWERS_BY_USER);
 							ps.setString(1, ownerNickname);
 							Owner = (ResultSet) ps.executeQuery();
 							 avgAnswer = 0;
@@ -442,6 +442,39 @@ public class AnswersServlet extends HttpServlet {
 					ps.setString(3, user.getNickname());
 					ps.executeUpdate();
 					ps.close();
+					
+					
+					
+/************************************UPDATE question RATING*********************************************************/
+					
+					ps = conn.prepareStatement(DBConstants.GET_AVG_RATING_OF_QUESTION_ANSWERS);
+					ps.setInt(1, qid);
+					 rs = (ResultSet) ps.executeQuery();	
+					double answersAvgRating = 0;
+					while (rs.next()){
+						answersAvgRating = rs.getDouble(1);
+					}
+					
+					
+					rs.close();
+					ps = conn.prepareStatement(DBConstants.SELECT_QVOTES_BY_QID_STMT);	
+					ps.setInt(1, qid);
+					rs = ps.executeQuery();
+					int qvotes = 0;
+					while (rs.next()){
+						qvotes = rs.getInt(1);
+					}
+					double qRating = (((double)qvotes * 0.2) + (answersAvgRating * 0.8));
+					
+					
+					ps = conn.prepareStatement(DBConstants.UPDATE_QRATING_BY_FORMULA_STMT);	
+					
+					ps.setDouble(1, qRating);
+					ps.setInt(2, qid);
+					ps.executeUpdate();
+					conn.commit();
+					
+					
 					/*********************************UPDATE USER'S RATING****************************************/
 					//Update who post answer
 					ps = conn.prepareStatement(DBConstants.GET_AVG_RATING_OF_QUESTIONS_BY_USER);
@@ -479,23 +512,6 @@ public class AnswersServlet extends HttpServlet {
 					
 					
 					
-					/************************************UPDATE question RATING*********************************************************/
-					
-					ps = conn.prepareStatement(DBConstants.GET_AVG_RATING_OF_QUESTION_ANSWERS);
-					ps.setInt(1, qid);
-					 rs = (ResultSet) ps.executeQuery();	
-					double answersAvgRating = 0;
-					while (rs.next()){
-						answersAvgRating = rs.getDouble(1);
-					}
-					
-					
-					ps = conn.prepareStatement(DBConstants.UPDATE_QRATING_BY_FORMULA_STMT);	
-					
-					ps.setDouble(1, answersAvgRating);
-					ps.setInt(2, qid);
-					ps.executeUpdate();
-					conn.commit();
 					
 					/*********************************UPDATE USER'S RATING****************************************/
 					//find who ask the question					

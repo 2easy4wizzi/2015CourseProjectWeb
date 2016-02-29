@@ -115,6 +115,7 @@ public interface DBConstants
 	public final String SELECT_COUNT_USERS_STMT = "SELECT COUNT (*) FROM TBL_USERS";
 	public final String SELECT_TOP_20_USERS_BY_USER_RATING_STMT = "SELECT * FROM TBL_USERS ORDER BY UserRating DESC FETCH NEXT 20 ROWS ONLY";
 	public final String GET_AVG_RATING_OF_QUESTIONS_BY_USER = "SELECT AVG (Qrating) FROM TBL_QUESTIONS WHERE OwnerNickname=?";
+	public final String GET_AVG_RATING_OF_ANSWERS_BY_USER = "SELECT AVG (AVotes) FROM TBL_ANSWERS WHERE OwnerNickname=?";
 	
 	
 	
