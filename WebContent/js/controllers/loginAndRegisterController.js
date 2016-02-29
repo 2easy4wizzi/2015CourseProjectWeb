@@ -24,12 +24,6 @@ app.controller('logAndRegC', ['$scope', '$http',
 		 $scope.showDangerRegPW = true;
  
 	 
- $scope.loginUsername= 'gilad';
- $scope.loginPass = '123';
- $scope.regUsername = 'gilad';
- $scope.regPass ='123';
- $scope.nickname = 'wizzi';
- 
  
  
  
