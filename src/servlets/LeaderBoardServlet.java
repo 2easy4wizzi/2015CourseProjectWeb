@@ -25,7 +25,6 @@ import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import com.google.gson.Gson;
 
 import constants.DBConstants;
-import models.Topic;
 import models.User;
 
 
