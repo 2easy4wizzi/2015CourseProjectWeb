@@ -96,8 +96,8 @@ public class LoginServlet extends HttpServlet {
 						request.getParameter("nickname"),
 						request.getParameter("description"),
 						PhotoUrl,
-						0
-						);
+						0,
+						null);
 				try
 				{
 					if(isOnDBReg("Username", user.getUserName(), conn)== 0)
@@ -164,7 +164,7 @@ public class LoginServlet extends HttpServlet {
 					}
 					else
 					{
-						User user = new User(null,null,rs.getString(3),rs.getString(4),rs.getString(5),rs.getDouble(6));
+						User user = new User(null,null,rs.getString(3),rs.getString(4),rs.getString(5),rs.getDouble(6),null);
 						request.getSession().setAttribute("user", user);
 					}
 					rs.close();

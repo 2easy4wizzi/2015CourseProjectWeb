@@ -25,6 +25,7 @@ import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import com.google.gson.Gson;
 
 import constants.DBConstants;
+import models.Topic;
 import models.User;
 
 
@@ -59,6 +60,7 @@ public class LeaderBoardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
 		try
 		{
+			
 			String uri = request.getRequestURI();
 			uri = uri.substring(uri.indexOf("LeaderBoardServlet") + "LeaderBoardServlet".length() + 1);
 			System.out.println("GET: "+uri);
@@ -68,24 +70,39 @@ public class LeaderBoardServlet extends HttpServlet {
 			Context context = new InitialContext();
 			BasicDataSource ds = (BasicDataSource) context.lookup(DBConstants.DB_DATASOURCE);
 			Connection conn = ds.getConnection();
-		
-		
-		
+
 			if(uri.equals("getUsers"))
 				{
+			    	Collection<String> expertise = null;
 					Collection<User> top20users = new ArrayList<User>();
 					Gson gson = new Gson();
 					try
 					{
+
 						PreparedStatement ps = conn.prepareStatement(DBConstants.SELECT_TOP_20_USERS_BY_USER_RATING_STMT);
 						ResultSet rs = (ResultSet) ps.executeQuery();
 								
 						while (rs.next()){
+							PreparedStatement psE = conn.prepareStatement(DBConstants.SELECT_TOP_5_TOPICS_BY_POPULARITY_STMT);
+							
+							psE.setString(1, rs.getString("Nickname"));
+							System.out.println("######################    nickname" + rs.getString("Nickname"));
+							ResultSet rsE = (ResultSet) psE.executeQuery();
+							expertise = new ArrayList<String>();			
+							if(rsE != null){	
+							while (rsE.next()){
+								System.out.println("inside while");
+								System.out.println("######################    topics  " + rsE.getString("QTopics"));
+								expertise.add(new String(rsE.getString("QTopics")));	
+							}
+							rsE.close();
+							psE.close();
+							}
 							double Urating = rs.getDouble(6);
 							DecimalFormat dfRating = new DecimalFormat("#.##");
 							String dxRating=dfRating.format(Urating);
 							Urating=Double.valueOf(dxRating);
-							top20users.add(new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),Urating));
+							top20users.add(new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),Urating,expertise));
 						}
 						rs.close();
 						ps.close();

@@ -52,10 +52,24 @@
       <tr ng-repeat="user in users">
         <th><a href="userProfile.html#/#{{user.Nickname}}">{{user.Nickname}}</a><br>
         <img ng-src="{{user.PhotoUrl}}" alt="This is the User Profile picture " width="100"/> <br>		
-        Description:{{user.Description}}<br>User Rating:{{user.UserRating}}</th>
+        Description:{{user.Description}}<br>User Rating:{{user.UserRating}}		
+				<div class="headerRow"> Expertise:</div>
+				
+			        <div ng-repeat="expertise in user.Topics">
+			        <div class="cloud">
+				    	<span class="topicView">
+				    	<a>{{expertise}}</a>
+	 					</span>
+			    	 </div>
+			    	 </div>
+			    	 <hr>
+			    	 </th>
+
+        
       </tr>
     </thead>
     <tbody>
+    
     </tbody>
   </table>		
 	  	</div>

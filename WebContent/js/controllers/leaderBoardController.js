@@ -19,6 +19,7 @@ app.controller('leaderBoardC', ['$scope', '$http','$location',
 				
 			});
 		}	
+	
 }]);
 
 
